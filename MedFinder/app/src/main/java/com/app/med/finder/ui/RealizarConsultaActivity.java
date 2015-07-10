@@ -18,8 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
-
-import com.app.med.finder.conexion.InsertarPreguntaHTTP;
+import com.app.med.finder.conexion.http;
 import com.app.med.finder.dao.clsEspecialidadDAO;
 import com.app.med.finder.dao.clsPacienteDAO;
 import com.app.med.finder.dao.clsPreguntaPacienteDAO;
@@ -29,7 +28,6 @@ import com.app.med.finder.entidades.clsPreguntaPaciente;
 import com.app.med.finder.utilidades.Funciones;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 /**
  *
@@ -110,16 +108,7 @@ public class RealizarConsultaActivity extends Activity {
                     if(bp!=null)
                     entidad.setByte_imagen(Funciones.getByte(bp));
                     
-                    String cadena="0";
-                    InsertarPreguntaHTTP http = new InsertarPreguntaHTTP();
-                    http.execute(entidad);
-                    try {
-                        cadena=http.get();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                    }
+                    String cadena= http.insertarPreguntaPacuente(entidad);
                      if(!cadena.trim().equals("0"))
                      {
                         entidad.setInt_id_pregunta_paciente(Integer.parseInt(cadena));

@@ -41,8 +41,8 @@ public class MenuActivity extends Activity
         }
         else
         {
-           // Intent svc = new Intent(this, clsServicio.class);
-           // startService(svc);
+            Intent svc = new Intent(this, clsServicio.class);
+            startService(svc);
         }
     }
     

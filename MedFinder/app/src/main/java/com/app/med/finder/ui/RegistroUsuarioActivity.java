@@ -17,14 +17,11 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-
-import com.app.med.finder.conexion.InsertUsuarioHTTP;
+import com.app.med.finder.conexion.http;
 import com.app.med.finder.entidades.clsPaciente;
 import com.app.med.finder.entidades.clsUsuario;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-
 import com.app.med.finder.utilidades.Funciones;
 
 /**
@@ -184,20 +181,7 @@ public class RegistroUsuarioActivity extends Activity {
                                                                         entidad.setObjUsuario(usuario);
 
 
-                                                                        String data="0";
-                                                                        InsertUsuarioHTTP http = new InsertUsuarioHTTP();
-                                                                        http.execute(entidad);
-                                                                        try {
-                                                                            data=http.get();
-                                                                        } catch (InterruptedException e) {
-                                                                            e.printStackTrace();
-                                                                        } catch (ExecutionException e) {
-                                                                            e.printStackTrace();
-                                                                        }
-
-
-
-
+                                                                        String data= http.insertarUsuario(entidad);
                                                                          if(!data.trim().equals("0"))
                                                                          {
 

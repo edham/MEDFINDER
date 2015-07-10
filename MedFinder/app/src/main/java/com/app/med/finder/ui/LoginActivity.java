@@ -17,19 +17,7 @@ import android.widget.Toast;
 
 import com.app.med.finder.conexion.LoginHTTP;
 import com.app.med.finder.dao.*;
-import com.app.med.finder.entidades.clsCasosSalud;
-import com.app.med.finder.entidades.clsCitaPaciente;
-import com.app.med.finder.entidades.clsClinica;
-import com.app.med.finder.entidades.clsClinicaEspecialidad;
-import com.app.med.finder.entidades.clsClinicaSeguro;
-import com.app.med.finder.entidades.clsDoctor;
-import com.app.med.finder.entidades.clsEspecialidad;
-import com.app.med.finder.entidades.clsPaciente;
-import com.app.med.finder.entidades.clsPreguntaPaciente;
-import com.app.med.finder.entidades.clsRespuestaCasosSalud;
-import com.app.med.finder.entidades.clsRespuestaPreguntaPaciente;
-import com.app.med.finder.entidades.clsSeguro;
-import com.app.med.finder.entidades.clsUsuario;
+import com.app.med.finder.entidades.*;
 
 import java.util.concurrent.ExecutionException;
 
@@ -65,22 +53,23 @@ public class LoginActivity extends Activity
     public void btnIngresar(View v)
     {
 
-        LoginHTTP http = new LoginHTTP();
-        http.execute(txtUsuario.getText().toString(), txtPassword.getText().toString());
+        LoginHTTP login = new LoginHTTP();
+        login.execute(txtUsuario.getText().toString(), txtPassword.getText().toString());
+
         try {
-            final String cadena=http.get();
+            final String cadena = login.get();
 
         if(!cadena.trim().equals("0"))
           {
 	     pd = new ProgressDialog(this);
             pd.setTitle("Cargando Datos");
-            pd.setMessage("Espere un momento");
-            pd.show();
+            pd.setMessage("Espere un momento");     
+            pd.show();        
 
-                new Thread() {
-                    public void run() {
-
-			  String [] datos = cadena.split("\\<+parametro+>");
+                new Thread() { 
+                    public void run() { 
+			  
+			  String [] datos = cadena.split("\\<+parametro+>");   
 			   clsUsuario objUsuario=new clsUsuario();
 			   objUsuario.setInt_id_usuario(Integer.parseInt(datos[0].trim()));
 			   objUsuario.setStr_nombres(datos[1].trim());
@@ -90,10 +79,10 @@ public class LoginActivity extends Activity
 			   objUsuario.setStr_dni(datos[5].trim());
 			   objUsuario.setBol_sexo(Boolean.parseBoolean(datos[6].trim()));
 			   objUsuario.setStr_direccion(datos[7].trim());
-			   objUsuario.setStr_telefono(datos[8].trim());
-			   objUsuario.setInt_id_persona(Integer.parseInt(datos[9].trim()));
+			   objUsuario.setStr_telefono(datos[8].trim());      
+			   objUsuario.setInt_id_persona(Integer.parseInt(datos[9].trim()));          
 			   if(!datos[10].trim().equals("0"))
-				objUsuario.setByte_foto(Base64.decode(datos[10].trim(), Base64.NO_WRAP | Base64.URL_SAFE));
+				objUsuario.setByte_foto(Base64.decode(datos[10].trim(),Base64.NO_WRAP|Base64.URL_SAFE));           
 			   objUsuario.setStr_usuario(txtUsuario.getText().toString());
 			   objUsuario.setStr_clave(txtPassword.getText().toString());
 
@@ -112,7 +101,7 @@ public class LoginActivity extends Activity
 				 for(int i=0;i<entidad.length;i++)
 				     clsEspecialidadDAO.Agregar(LoginActivity.this,new clsEspecialidad(entidad[i]));
 			    }
-	      //
+	      //            
 			    if(!datos[13].trim().equals("0"))
 			    {
 				 String [] entidad = datos[13].trim().split("\\<+entidad+>");
@@ -133,14 +122,14 @@ public class LoginActivity extends Activity
 				 for(int i=0;i<entidad.length;i++)
 				    clsClinicaEspecialidadDAO.Agregar(LoginActivity.this, new clsClinicaEspecialidad(entidad[i]));
 			    }
-	      //
+	      //            
 			    if(!datos[16].trim().equals("0"))
 			    {
 				 String [] entidad = datos[16].trim().split("\\<+entidad+>");
 				 for(int i=0;i<entidad.length;i++)
 				     clsSeguroDAO.Agregar(LoginActivity.this,new clsSeguro(entidad[i]) );
 			    }
-	      //
+	      //            
 			    if(!datos[17].trim().equals("0"))
 			    {
 				 String [] entidad = datos[17].trim().split("\\<+entidad+>");
@@ -168,14 +157,14 @@ public class LoginActivity extends Activity
 				 for(int i=0;i<entidad.length;i++)
 				     clsRespuestaCasosSaludDAO.Agregar(LoginActivity.this,new clsRespuestaCasosSalud(entidad[i]));
 			    }
-
+                             
                             if(!datos[21].trim().equals("0"))
 			    {
 				 String [] entidad = datos[21].trim().split("\\<+entidad+>");
 				 for(int i=0;i<entidad.length;i++)
 				     clsRespuestaCasosSaludDAO.Favorito(LoginActivity.this,Integer.parseInt(entidad[i].trim()),true);
 			    }
-
+                            
                              if(!datos[22].trim().equals("0"))
 			    {
 				 String [] entidad = datos[22].trim().split("\\<+entidad+>");
@@ -194,24 +183,23 @@ public class LoginActivity extends Activity
 				 for(int i=0;i<entidad.length;i++)
 				     clsRespuestaPreguntaPacienteDAO.Agregar(LoginActivity.this,new clsRespuestaPreguntaPaciente(entidad[i]));
 			    }
-
-
-
-                          handler.sendEmptyMessage(0);
-                    }
-               }.start();
+                    
+			  
+			  
+                          handler.sendEmptyMessage(0);                
+                    } 
+               }.start(); 
            
 
-          }
-	 else
-	    Toast.makeText(this,"Error de Credenciales.", Toast.LENGTH_SHORT).show();
+              }
+         else
+            Toast.makeText(this,"Error de Credenciales.", Toast.LENGTH_SHORT).show();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-
-
+       
     }
     
     

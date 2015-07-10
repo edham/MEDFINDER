@@ -20,8 +20,7 @@ import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.app.med.finder.conexion.PuntajeRespuestaPreguntaPacienteHTTP;
+import com.app.med.finder.conexion.http;
 import com.app.med.finder.dao.clsDoctorDAO;
 import com.app.med.finder.dao.clsPreguntaPacienteDAO;
 import com.app.med.finder.dao.clsRespuestaPreguntaPacienteDAO;
@@ -29,7 +28,6 @@ import com.app.med.finder.entidades.clsDoctor;
 import com.app.med.finder.entidades.clsRespuestaPreguntaPaciente;
 import com.app.med.finder.utilidades.Funciones;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 /**
  *
@@ -212,16 +210,7 @@ public class RespuestasConsultasActivity extends Activity {
     
     public void setCalificar(int puntaje,clsRespuestaPreguntaPaciente entidad)
     {
-           String cadena= "0";
-        PuntajeRespuestaPreguntaPacienteHTTP http = new PuntajeRespuestaPreguntaPacienteHTTP();
-        http.execute(entidad.getInt_id_respuesta_pregunta_paciente(), puntaje);
-        try {
-           cadena=http.get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
+           String cadena= http.puntajeRespuestaPreguntaPaciente(entidad.getInt_id_respuesta_pregunta_paciente(), puntaje);
             if(!cadena.trim().equals("0"))
             {
                 entidad.setInt_puntaje(puntaje);

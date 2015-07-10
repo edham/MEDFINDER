@@ -20,8 +20,7 @@ import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.app.med.finder.conexion.InsertarVotoRespuestaCasosSaludHTTP;
+import com.app.med.finder.conexion.http;
 import com.app.med.finder.dao.clsCasosSaludDAO;
 import com.app.med.finder.dao.clsDoctorDAO;
 import com.app.med.finder.dao.clsPreguntaPacienteDAO;
@@ -31,7 +30,6 @@ import com.app.med.finder.entidades.clsDoctor;
 import com.app.med.finder.entidades.clsRespuestaCasosSalud;
 import com.app.med.finder.utilidades.Funciones;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 /**
  *
@@ -216,16 +214,7 @@ public class RespuestasCasosSaludActivity extends Activity {
     
     public void setCalificar(int puntaje,int id)
     {
-        String cadena= "0";
-        InsertarVotoRespuestaCasosSaludHTTP http = new InsertarVotoRespuestaCasosSaludHTTP();
-        http.execute(clsUsuarioDAO.Buscar(this).getInt_id_usuario(), id, puntaje);
-        try {
-            cadena=http.get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
+           String cadena= http.insertarVotoRespuestaCasosSalud(clsUsuarioDAO.Buscar(this).getInt_id_usuario(), id, puntaje);
             if(!cadena.trim().equals("0"))
             {
                 clsRespuestaCasosSaludDAO.Favorito(this, id, true);

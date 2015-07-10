@@ -8,6 +8,8 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
+
+import com.app.med.finder.conexion.ListarRespuestaPreguntaPacienteHTTP;
 import com.app.med.finder.dao.clsCasosSaludDAO;
 import com.app.med.finder.dao.clsCitaPacienteDAO;
 import com.app.med.finder.dao.clsClinicaDAO;
@@ -41,6 +43,7 @@ import com.app.med.finder.ui.RespuestasConsultasActivity;
 import com.app.med.finder.utilidades.Funciones;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ExecutionException;
 
 public class clsServicio extends Service {
 
@@ -84,9 +87,19 @@ public class clsServicio extends Service {
                                     clsPreguntaPaciente objPreguntaPaciente =clsPreguntaPacienteDAO.BuscarXEstado(context);
                                     if(objPreguntaPaciente!=null)
                                     {
-                                        
-                                        String respuesta="";//http.ListarRespuestaPreguntaPaciente(objPreguntaPaciente.getInt_id_pregunta_paciente(),clsRespuestaPreguntaPacienteDAO.getMaxId(context,objPreguntaPaciente.getInt_id_pregunta_paciente()));
-                                         if(!respuesta.trim().equals("0"))
+
+                                        ListarRespuestaPreguntaPacienteHTTP listar = new ListarRespuestaPreguntaPacienteHTTP();
+                                        listar.execute(objPreguntaPaciente.getInt_id_pregunta_paciente(), clsRespuestaPreguntaPacienteDAO.getMaxId(context, objPreguntaPaciente.getInt_id_pregunta_paciente()));
+                                        String respuesta= "0";
+                                        try {
+                                            respuesta = listar.get();
+                                        } catch (InterruptedException e) {
+                                            e.printStackTrace();
+                                        } catch (ExecutionException e) {
+                                            e.printStackTrace();
+                                        }
+
+                                        if(!respuesta.trim().equals("0"))
                                         {
                                              String [] entidad = respuesta.trim().split("\\<+entidad+>");
                                              for(int i=0;i<entidad.length;i++)
@@ -95,7 +108,7 @@ public class clsServicio extends Service {
                                             
                                         }
                                         
-                                        String datos="";//http.verificaPreguntaPaciente(objPreguntaPaciente.getInt_id_pregunta_paciente());
+                                        String datos="0";///listar.verificaPreguntaPaciente(objPreguntaPaciente.getInt_id_pregunta_paciente());
                                         if(datos.trim().equals("0"))
                                         {
                                             objPreguntaPaciente.setInt_estado(1);
@@ -107,7 +120,7 @@ public class clsServicio extends Service {
                                         {
                                             if(Funciones.minutos(objPreguntaPaciente.getDat_inicio())>5)
                                             {
-                                                ///////////////////http.cancelaPreguntaPaciente(objPreguntaPaciente.getInt_id_pregunta_paciente());
+                                               // listar.cancelaPreguntaPaciente(objPreguntaPaciente.getInt_id_pregunta_paciente());
                                                 objPreguntaPaciente.setInt_estado(2);
                                                 clsPreguntaPacienteDAO.Actualizar(context,objPreguntaPaciente);
                                                 Notificacion("Consulta Cerrada por Tiempo",objPreguntaPaciente.getStr_asunto(),1,objPreguntaPaciente.getInt_id_pregunta_paciente());
@@ -120,7 +133,7 @@ public class clsServicio extends Service {
                                     clsCitaPaciente objCitaPaciente =clsCitaPacienteDAO.BuscarXEstado(context);
                                     if(objCitaPaciente!=null)
                                     {
-                                        String cita="";//http.buscarCitaPaciente(objCitaPaciente.getInt_id_cita_paciente());
+                                        String cita="0";///http.buscarCitaPaciente(objCitaPaciente.getInt_id_cita_paciente());
                                         if(!cita.trim().equals("0"))
                                         {
                                             objCitaPaciente=new clsCitaPaciente(cita.trim());
@@ -141,7 +154,7 @@ public class clsServicio extends Service {
                                     
                                     if(contador%3==0)
                                     {
-                                         String casos="";//http.actualizarData(objUsuario.getInt_id_usuario());
+                                         String casos="0";///http.actualizarData(objUsuario.getInt_id_usuario());
                                         if(!casos.trim().equals("0"))
                                         {
                                                 String [] datos = casos.split("\\<+parametro+>");   

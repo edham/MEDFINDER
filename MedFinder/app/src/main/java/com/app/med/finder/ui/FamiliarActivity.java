@@ -18,9 +18,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.app.med.finder.conexion.ActualizarPacienteHTTP;
-import com.app.med.finder.conexion.InsertPacienteHTTP;
+import com.app.med.finder.conexion.http;
 import com.app.med.finder.dao.clsPacienteDAO;
 import com.app.med.finder.dao.clsPreguntaPacienteDAO;
 import com.app.med.finder.dao.clsUsuarioDAO;
@@ -30,7 +28,6 @@ import com.app.med.finder.utilidades.Funciones;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 /**
  *
@@ -187,16 +184,7 @@ public class FamiliarActivity extends Activity {
 
                                             if(idPaciente>0)
                                             {
-                                                 String id="0";
-                                                ActualizarPacienteHTTP http = new ActualizarPacienteHTTP();
-                                                http.execute(entidad);
-                                                try {
-                                                    id=http.get();
-                                                } catch (InterruptedException e) {
-                                                    e.printStackTrace();
-                                                } catch (ExecutionException e) {
-                                                    e.printStackTrace();
-                                                }
+                                                 String id= http.actualizarPaciente(entidad);
                                                 if(!id.trim().equals("0"))
                                                 {
                                                   clsPacienteDAO.Actualizar(this, entidad);
@@ -210,23 +198,14 @@ public class FamiliarActivity extends Activity {
                                             else
                                             {         
                                                 entidad.setObjUsuario(clsUsuarioDAO.Buscar(this));
-                                                String id= "0";
-                                                InsertPacienteHTTP http = new InsertPacienteHTTP();
-                                                http.execute(entidad);
-                                                try {
-                                                    id=http.get();
-                                                } catch (InterruptedException e) {
-                                                    e.printStackTrace();
-                                                } catch (ExecutionException e) {
-                                                    e.printStackTrace();
-                                                }
+                                                String id= http.insertarPaciente(entidad);
                                                 if(!id.trim().equals("0"))
                                                 {
                                                       String [] ids = id.split("\\<+parametro+>");   
                                                       entidad.setInt_id_paciente(Integer.parseInt(ids[0].trim()));
                                                       entidad.setInt_id_persona(Integer.parseInt(ids[1].trim()));
                                                       
-                                                  clsPacienteDAO.Agregar(this, entidad);
+                                                   clsPacienteDAO.Agregar(this, entidad);
                                                   Toast.makeText(this,"El Familiar se Registro Correctamente", Toast.LENGTH_SHORT).show();
                                                   Intent i=new Intent(this,MisFamiliaresActivity.class);
                                                   startActivity(i);
@@ -234,6 +213,7 @@ public class FamiliarActivity extends Activity {
                                                 else
                                                     Toast.makeText(this,"Error al Insertar intentelo mas tarde", Toast.LENGTH_SHORT).show();   
                                             }
+                                    
                                      }
                                     else
                                     Toast.makeText(this,"Ingrese estatura en centimetros.", Toast.LENGTH_SHORT).show();

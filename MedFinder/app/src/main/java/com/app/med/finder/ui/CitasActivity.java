@@ -20,8 +20,7 @@ import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.app.med.finder.conexion.CancelarCitaPacienteHTTP;
+import com.app.med.finder.conexion.http;
 import com.app.med.finder.dao.clsCitaPacienteDAO;
 import com.app.med.finder.dao.clsDoctorDAO;
 import com.app.med.finder.dao.clsEspecialidadDAO;
@@ -32,7 +31,6 @@ import com.app.med.finder.utilidades.Funciones;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 /**
  */
@@ -203,16 +201,7 @@ public class CitasActivity extends Activity {
                 alert.setTitle("CANCELAR CITA");
                 alert.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int whichButton) {  
-		            String cadena="0";
-                    CancelarCitaPacienteHTTP http = new CancelarCitaPacienteHTTP();
-                    http.execute(IdCita);
-                    try {
-                        cadena=http.get();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                    }
+		     String cadena= http.cancelarCitaPaciente(IdCita);
                     if(!cadena.trim().equals("0"))
                     {
                         clsCitaPacienteDAO.BorrarXId(CitasActivity.this, IdCita);

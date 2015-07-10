@@ -23,9 +23,7 @@ import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.app.med.finder.conexion.InsertCitaPacienteHTTP;
-import com.app.med.finder.conexion.InsertarFavoritoHTTP;
+import com.app.med.finder.conexion.http;
 import com.app.med.finder.dao.clsCitaPacienteDAO;
 import com.app.med.finder.dao.clsDoctorDAO;
 import com.app.med.finder.dao.clsEspecialidadDAO;
@@ -36,7 +34,6 @@ import com.app.med.finder.entidades.clsDoctor;
 import com.app.med.finder.entidades.clsPaciente;
 import com.app.med.finder.utilidades.Funciones;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 /**
  *
@@ -122,15 +119,7 @@ public class InfDoctorTabActivity extends Activity {
 			   btn_Favorito.setBackgroundResource(R.drawable.favorito_off);
 			   clsDoctorDAO.Favorito(InfDoctorTabActivity.this, Id, false);
                            objDoctor.setBol_favorito(false);
-                            InsertarFavoritoHTTP http = new InsertarFavoritoHTTP();
-                            http.execute(clsUsuarioDAO.Buscar(InfDoctorTabActivity.this).getInt_id_usuario(),Id,false);
-                            try {
-                               http.get();
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            } catch (ExecutionException e) {
-                                e.printStackTrace();
-                            }
+                           http.insertarFavorito(clsUsuarioDAO.Buscar(InfDoctorTabActivity.this).getInt_id_usuario(),Id,false);
                            
 			}
 		      else
@@ -138,15 +127,7 @@ public class InfDoctorTabActivity extends Activity {
 			    btn_Favorito.setBackgroundResource(R.drawable.favorito_on);
 			    clsDoctorDAO.Favorito(InfDoctorTabActivity.this, Id, true);
                             objDoctor.setBol_favorito(true);
-                            InsertarFavoritoHTTP http = new InsertarFavoritoHTTP();
-                            http.execute(clsUsuarioDAO.Buscar(InfDoctorTabActivity.this).getInt_id_usuario(),Id,true);
-                            try {
-                                http.get();
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            } catch (ExecutionException e) {
-                                e.printStackTrace();
-                            }
+                            http.insertarFavorito(clsUsuarioDAO.Buscar(InfDoctorTabActivity.this).getInt_id_usuario(),Id,true);
 			}
                     
                 }});
@@ -193,19 +174,9 @@ public class InfDoctorTabActivity extends Activity {
                                         entidad.setObjPaciente(objPaciente);
                                         entidad.setObjDoctor(objDoctor);
                                         entidad.setStr_detalle(txtDetalle.getText().toString());    
-
-
-                                        String id= "0";
-
-                                        InsertCitaPacienteHTTP http = new InsertCitaPacienteHTTP();
-                                        http.execute(entidad);
-                                        try {
-                                            id=http.get();
-                                        } catch (InterruptedException e) {
-                                            e.printStackTrace();
-                                        } catch (ExecutionException e) {
-                                            e.printStackTrace();
-                                        }
+                                        
+                                        
+                                        String id= http.insertarCitaPaciente(entidad);
                                                 if(!id.trim().equals("0"))
                                                 {
                                                   entidad.setInt_id_cita_paciente(Integer.parseInt(id));
