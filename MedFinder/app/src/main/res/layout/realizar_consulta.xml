@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@color/col2">
+    
+    
+<LinearLayout 
+android:layout_width="fill_parent"
+android:layout_height="60dp"
+android:background="@drawable/titulo"
+android:gravity="center"
+android:layout_marginLeft="5dp"
+android:layout_marginRight="5dp"
+android:layout_marginTop="5dp"
+android:layout_weight="1">
+   <TextView
+android:id="@+id/lblTitulo"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="CONSULTA"
+android:textStyle="bold"
+android:gravity="center"
+android:textAppearance="?android:attr/textAppearanceLarge"
+android:textColor="@color/cabecera_titulo" />
+
+</LinearLayout>
+
+
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="fill_parent"
+android:layout_weight="5"
+android:layout_height="wrap_content" >
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:descendantFocusability="beforeDescendants"
+    android:background="@color/col2"
+    android:focusableInTouchMode="true" >
+
+
+
+
+
+    
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical" 
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginTop="10dp"
+    android:background="@drawable/contenido"
+    android:orientation="vertical" >
+
+
+
+<LinearLayout 
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:gravity="center_vertical" 
+android:layout_marginLeft="1dp"
+android:layout_marginRight="1dp"
+android:layout_marginTop="5dp"
+android:background="@drawable/col2"
+android:orientation="vertical">
+   <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Paciente"
+        android:textStyle="bold"
+        android:gravity="left"
+        android:textSize="18dp"
+        android:textColor="@color/col1_texto" />
+  <Spinner
+         android:id="@+id/ComboPaciente"
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content" />
+
+</LinearLayout>
+
+
+<LinearLayout 
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:gravity="center_vertical" 
+android:layout_marginLeft="1dp"
+android:layout_marginRight="1dp"
+android:layout_marginTop="5dp"
+android:background="@drawable/col2"
+android:orientation="vertical">
+   <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Especialidad"
+        android:textStyle="bold"
+        android:gravity="left"
+        android:textSize="18dp"
+        android:textColor="@color/col1_texto" />
+   <Spinner
+         android:id="@+id/ComboEspecialidad"
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content" />
+
+</LinearLayout>
+
+<LinearLayout 
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:gravity="center_vertical" 
+android:layout_marginLeft="1dp"
+android:layout_marginRight="1dp"
+android:layout_marginTop="5dp"
+android:background="@drawable/col2"
+android:orientation="vertical">
+   <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Asunto:"
+        android:textStyle="bold"
+        android:gravity="left"
+        android:textSize="18dp"
+        android:textColor="@color/col1_texto" />
+
+<EditText
+        android:id="@+id/txtAsunto"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="top|left"
+        android:hint="agregar un asunto aqui"
+        android:layout_marginTop="5dp"
+        android:inputType="textMultiLine"
+        android:lines="2"
+        android:maxWidth="300sp"
+        android:minWidth="10.0dip"
+        android:scrollHorizontally="false" />
+</LinearLayout>
+
+
+<LinearLayout 
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:gravity="center_vertical" 
+android:layout_marginLeft="1dp"
+android:layout_marginRight="1dp"
+android:layout_marginTop="5dp"
+android:background="@drawable/col2"
+android:orientation="vertical">
+   <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Sintomas:"
+        android:textStyle="bold"
+        android:gravity="left"
+        android:textSize="18dp"
+        android:textColor="@color/col1_texto" />
+
+<EditText
+        android:id="@+id/txtSintomas"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="top|left"
+        android:hint="agregar los sintomas aqui"
+        android:layout_marginTop="5dp"
+        android:inputType="textMultiLine"
+        android:lines="4"
+        android:maxWidth="300sp"
+        android:minWidth="10.0dip"
+        android:scrollHorizontally="false" />
+</LinearLayout>
+
+<LinearLayout 
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:gravity="center" 
+android:layout_marginLeft="1dp"
+android:layout_marginRight="1dp"
+android:layout_marginTop="5dp"
+android:background="@drawable/col2"
+android:orientation="vertical">
+ 
+<LinearLayout 
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:gravity="center" 
+android:orientation="horizontal">
+
+    <LinearLayout 
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" 
+    android:gravity="center"
+    android:layout_marginRight="2dp" 
+    android:layout_weight="1"
+    android:orientation="vertical">
+
+        <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Tomar Foto:"
+        android:textStyle="bold"
+        android:gravity="left"
+        android:textSize="18dp"
+        android:textColor="@color/col1_texto" />
+
+    </LinearLayout>
+
+    <LinearLayout 
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" 
+    android:gravity="center"
+    android:layout_marginLeft="2dp" 
+    android:layout_weight="3"
+    android:orientation="vertical">
+      
+     <Button
+        android:onClick="btnTomarFoto"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/foto"
+        android:textStyle="bold"
+        />
+
+    </LinearLayout>
+    
+</LinearLayout>
+
+     <LinearLayout 
+    android:layout_width="260dp"
+    android:layout_height="180dp" 
+    android:gravity="center"
+    android:layout_marginTop="2dp" 
+    android:layout_marginBottom="2dp" 
+    android:background="@drawable/contenido"
+    android:orientation="vertical">
+      
+       <ImageView
+        android:id="@+id/image"
+        android:layout_width="250dp"
+        android:layout_height="170dp"
+        android:layout_marginTop="2dp" 
+        android:layout_marginBottom="2dp"  />
+
+    </LinearLayout>
+  
+    
+</LinearLayout>
+
+
+
+</LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<LinearLayout 
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:gravity="center" 
+android:layout_marginLeft="5dp"
+android:layout_marginRight="5dp"
+android:layout_marginTop="10dp"
+android:orientation="horizontal">
+
+    <LinearLayout 
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" 
+    android:gravity="center"
+    android:layout_marginRight="2dp" 
+    android:layout_weight="1"
+    android:orientation="vertical">
+         <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"                                         
+        android:text="Cancelar"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        android:background="@drawable/boton1"
+        android:textColor="@color/boton_texto"
+        android:onClick="btnCancelar"/>	
+
+    </LinearLayout>
+
+    <LinearLayout 
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" 
+    android:gravity="center"
+    android:layout_marginLeft="2dp" 
+    android:layout_weight="1"
+    android:orientation="vertical">
+        <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"                                         
+        android:text="Aceptar"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        android:background="@drawable/boton2"
+        android:textColor="@color/boton_texto"
+        android:onClick="btnAceptar"/>	
+
+    </LinearLayout>
+</LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+</LinearLayout>
+</ScrollView>
+
+ <LinearLayout 
+android:layout_width="fill_parent"
+android:layout_height="60dp"
+android:layout_marginTop="5dp"
+android:layout_weight="1">
+    
+    
+    <LinearLayout 
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" 
+    android:gravity="center"
+    android:layout_weight="0.6"
+    android:orientation="vertical">
+        <Button
+        android:onClick="btnHome"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/home"
+        />
+
+    </LinearLayout>
+    <LinearLayout 
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" 
+    android:gravity="center"
+    android:layout_weight="0.4"
+    android:orientation="vertical">
+        <Button
+        android:onClick="btnCosnulta"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/boton"
+        android:textStyle="bold"
+        android:text="Consultas"
+        android:textSize="16dp"
+        android:textColor="@color/boton_texto"
+        />
+
+    </LinearLayout>
+    <LinearLayout 
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" 
+    android:gravity="center"
+    android:layout_weight="0.4"
+    android:orientation="vertical">
+        <Button
+        android:onClick="btnRespuestas"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/boton"
+        android:textStyle="bold"
+        android:text="Respuestas"
+        android:textSize="16dp"
+        android:textColor="@color/boton_texto"
+        />
+
+    </LinearLayout>
+    
+  
+
+</LinearLayout>
+
+              
+                    
+</LinearLayout>
+
+
+
+
+
+
+
+
+
+
+

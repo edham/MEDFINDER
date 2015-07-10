@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@color/col2">
+    
+    
+<LinearLayout 
+android:layout_width="fill_parent"
+android:layout_height="60dp"
+android:background="@drawable/titulo"
+android:gravity="center"
+android:layout_marginLeft="5dp"
+android:layout_marginRight="5dp"
+android:layout_marginTop="5dp"
+android:layout_weight="1">
+   <TextView
+android:id="@+id/lblTitulo"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="MENU PRINCIPAL"
+android:textStyle="bold"
+android:gravity="center"
+android:textAppearance="?android:attr/textAppearanceLarge"
+android:textColor="@color/cabecera_titulo" />
+
+</LinearLayout>
+
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent" 
+android:layout_weight="5"
+android:layout_marginLeft="5dp"
+android:layout_marginRight="5dp"
+android:layout_marginTop="5dp"
+android:background="@drawable/contenido">
+        <LinearLayout
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">        
+          
+            
+            
+            
+                <LinearLayout 
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center" 
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                    <LinearLayout 
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" 
+                    android:gravity="center"
+                    android:layout_marginRight="5dp" 
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                        <Button
+                        android:layout_width="120dp"
+                        android:layout_height="100dp"
+                        android:background="@drawable/consulta"    
+                        android:onClick="btnCosnultas"/>	
+                           <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:text="CONSULTAS"
+                            android:textStyle="bold"
+                            android:textSize="14dp"
+                            android:gravity="center"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textColor="@color/cabecera_titulo" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout 
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" 
+                    android:gravity="center"
+                    android:layout_marginLeft="5dp" 
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                        <Button
+                        android:layout_width="120dp"
+                        android:layout_height="100dp"    
+                        android:background="@drawable/casos"
+                        android:textColor="@color/col2"
+                        android:onClick="btnCasos"/>	
+                         <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:text="CASOS DE SALUD"
+                            android:textStyle="bold"
+                            android:textSize="14dp"
+                            android:gravity="center"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textColor="@color/cabecera_titulo" />
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+                
+                <LinearLayout 
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center" 
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                    <LinearLayout 
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" 
+                    android:gravity="center"
+                    android:layout_marginRight="5dp" 
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                        <Button
+                        android:layout_width="120dp"
+                        android:layout_height="100dp"
+                        android:background="@drawable/favoritos"    
+                        android:onClick="btnFavoritos"/>	
+                           <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:text="FAVORITOS"
+                            android:textStyle="bold"
+                            android:textSize="14dp"
+                            android:gravity="center"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textColor="@color/cabecera_titulo" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout 
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" 
+                    android:gravity="center"
+                    android:layout_marginLeft="5dp" 
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                        <Button
+                        android:layout_width="120dp"
+                        android:layout_height="100dp"    
+                        android:background="@drawable/informacion"
+                        android:textColor="@color/col2"
+                        android:onClick="btnInformacion"/>	
+                         <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:text="INFORMACION ESPECIALIDADES"
+                            android:textStyle="bold"
+                            android:textSize="14dp"
+                            android:gravity="center"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textColor="@color/cabecera_titulo" />
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+                
+                <LinearLayout 
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center" 
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                    <LinearLayout 
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" 
+                    android:gravity="center"
+                    android:layout_marginRight="5dp" 
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                        <Button
+                        android:layout_width="120dp"
+                        android:layout_height="100dp"
+                        android:background="@drawable/busqueda"    
+                        android:onClick="btnBusqueda"/>	
+                           <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:text="BUSQUEDA"
+                            android:textStyle="bold"
+                            android:textSize="14dp"
+                            android:gravity="center"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textColor="@color/cabecera_titulo" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout 
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" 
+                    android:gravity="center"
+                    android:layout_marginLeft="5dp" 
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                        <Button
+                        android:layout_width="120dp"
+                        android:layout_height="100dp"    
+                        android:background="@drawable/citas"
+                        android:textColor="@color/col2"
+                        android:onClick="btnCitas"/>	
+                         <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:text="CITAS"
+                            android:textStyle="bold"
+                            android:textSize="14dp"
+                            android:gravity="center"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textColor="@color/cabecera_titulo" />
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+                
+                <LinearLayout 
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center" 
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                    <LinearLayout 
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" 
+                    android:gravity="center"
+                    android:layout_marginRight="5dp" 
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                       <Button
+                        android:layout_width="120dp"
+                        android:layout_height="100dp"    
+                        android:background="@drawable/familia"
+                        android:textColor="@color/col2"
+                        android:onClick="btnFamilia"/>	
+                         <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:text="MIS FAMILIARES"
+                            android:textStyle="bold"
+                            android:textSize="14dp"
+                            android:gravity="center"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textColor="@color/cabecera_titulo" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout 
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" 
+                    android:gravity="center"
+                    android:layout_marginLeft="5dp" 
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                        <Button
+                        android:layout_width="120dp"
+                        android:layout_height="100dp"    
+                        android:background="@drawable/clinicas"
+                        android:textColor="@color/col2"
+                        android:onClick="btnClinicas"/>	
+                         <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:text="CLINICAS CERCANAS"
+                            android:textStyle="bold"
+                            android:textSize="14dp"
+                            android:gravity="center"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textColor="@color/cabecera_titulo" />
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+               
+              
+            
+            
+        </LinearLayout>   
+</ScrollView>
+
+
+<LinearLayout 
+android:layout_width="fill_parent"
+android:layout_height="60dp"
+android:layout_marginTop="5dp"
+android:layout_weight="1">
+    
+    
+    <LinearLayout 
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" 
+    android:gravity="center"
+    android:layout_weight="0.6"
+    android:orientation="vertical">
+        <Button
+        android:onClick="btnHome"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/home"
+        />
+
+    </LinearLayout>
+    <LinearLayout 
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" 
+    android:gravity="center"
+    android:layout_weight="0.4"
+    android:orientation="vertical">
+        <Button
+        android:onClick="btnCosnulta"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/boton"
+        android:textStyle="bold"
+        android:text="Consultas"
+        android:textSize="16dp"
+        android:textColor="@color/boton_texto"
+        />
+
+    </LinearLayout>
+    <LinearLayout 
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" 
+    android:gravity="center"
+    android:layout_weight="0.4"
+    android:orientation="vertical">
+        <Button
+        android:onClick="btnRespuestas"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/boton"
+        android:textStyle="bold"
+        android:text="Respuestas"
+        android:textSize="16dp"
+        android:textColor="@color/boton_texto"
+        />
+
+    </LinearLayout>
+    
+  
+
+</LinearLayout>
+
+            
+                    
+</LinearLayout>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="fondo">#A40404</color>
+    <color name="cabecera">#FFFFFFFF</color>
+     <color name="contorno">#A40404</color>
+     
+    <color name="cabecera_titulo">#A40404</color>
+   <color name="contenido">#FFFFFFFF</color>
+   
+   <color name="contenido_texto">#000000</color>
+   
+   <color name="boton_inicio">#780202</color>
+   <color name="boton_fin">#000000</color>   
+    <color name="boton_texto">#FFFFFFFF</color>
+    <color name="boton_contorno">#f1f1f1</color>
+    
+     <color name="col1">#A40404</color>
+     <color name="col1_texto">#FFFFFFFF</color>
+     
+      <color name="col2">#212223</color>
+      <color name="col2_texto">#FFFFFFFF</color>
+</resources>
