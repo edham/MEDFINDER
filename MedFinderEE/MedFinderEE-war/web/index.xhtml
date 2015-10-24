@@ -5,14 +5,14 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>MANTENEDOR DE ESPECIALIDAD</title>
         <link rel="stylesheet" href="#{resource['css:style.css']}" />
     </h:head>
     <h:body>
     <h:form id="form">
     <p:growl id="msgs" showDetail="true" />
     
-        <p:panel header="Select a Location" style="vertical-align: top">
+        <p:panel header="MANTENEDOR DE ESPECIALIDAD" style="vertical-align: top">
             <h:panelGrid columns="2">
                 <p:panel id="nuevo" header="#{managedBeanEspecialidad.nuevoTitulo}" style="margin-bottom:10px;">
                     
@@ -33,7 +33,7 @@
                            <p:commandButton value="LIMPIAR" update=":form :form:msgs"  actionListener="#{managedBeanEspecialidad.limpiar()}"/>  
                 </p:panel>
                 <p:dataTable  id="lista" var="item" value="#{managedBeanEspecialidad.listaobjEspecialidad}" rows="10" scrollable="true" scrollHeight="180"
-                              paginator="true" rowStyleClass="#{item.especialidadEstado eq 0 ? 'colored' : null}" rowIndexVar="rowIndex"
+                              paginator="true" rowStyleClass="#{item.especialidadEstado eq 0 ? 'colored' : null}" rowIndexVar="rowIndex" 
                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                          rowsPerPageTemplate="5,10,15">
 
@@ -43,7 +43,7 @@
                                     LISTA DE ESPECIALIDAD
                                 </f:facet>
                                  <p:column headerText="N°" style="width:15px; text-align: center">
-                                     #{rowIndex + 1}
+                                       <h:outputText value="#{rowIndex + 1}" />
                                 </p:column>
                                <p:column headerText="NOMBRE" style="width:150px; text-align: center">
                                     <h:outputText value="#{item.especialidadNombre}" />
