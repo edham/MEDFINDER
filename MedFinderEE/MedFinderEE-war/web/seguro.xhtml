@@ -18,7 +18,7 @@
                     
                     <h:panelGrid style="vertical-align: top" columns="2">
                         <h:outputText value="NOMBRE"/>
-                        <h:inputText  value="#{managedBeanSeguro.objSeguro.seguroNombre}" />
+                        <h:inputText  value="#{managedBeanSeguro.objSeguro.nombre}" />
                         
                         
                         <h:outputText value="IMAGEN"/>
@@ -32,7 +32,7 @@
                        
                         
                         <h:outputText value="ESTADO"/>
-                        <p:selectOneRadio  value="#{managedBeanSeguro.objSeguro.seguroEstado}">
+                        <p:selectOneRadio  value="#{managedBeanSeguro.objSeguro.estado}">
                                                         <f:selectItem itemLabel="ACTIVO" itemValue="1" />
                                                         <f:selectItem itemLabel="DESACTIVO" itemValue="0" />
                         </p:selectOneRadio>
@@ -43,7 +43,7 @@
                            <p:commandButton value="LIMPIAR" update=":form :form:msgs"  actionListener="#{managedBeanSeguro.limpiar()}"/>  
                 </p:panel>
                 <p:dataTable  id="lista" var="item" value="#{managedBeanSeguro.listaobjSeguro}" rows="10" scrollable="true" scrollHeight="180"
-                              paginator="true" rowStyleClass="#{item.seguroEstado eq 0 ? 'colored' : null}" rowIndexVar="rowIndex" 
+                              paginator="true" rowStyleClass="#{item.estado eq 0 ? 'colored' : null}" rowIndexVar="rowIndex" 
                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                          rowsPerPageTemplate="5,10,15">
 
@@ -56,11 +56,11 @@
                                        <h:outputText value="#{rowIndex + 1}" />
                                 </p:column>
                                <p:column headerText="NOMBRE" style="width:150px; text-align: center">
-                                   <h:outputText value="#{item.seguroNombre}" />
+                                   <h:outputText value="#{item.nombre}" />
                                 </p:column>
                              
                                <p:column headerText="ESTADO" style="width:95px; text-align: center">
-                                   <h:outputText value="#{item.seguroEstado eq 1 ?'ACTIVO':'DESACTIVO'}" />
+                                   <h:outputText value="#{item.estado eq 1 ?'ACTIVO':'DESACTIVO'}" />
                                    
                                 </p:column>
                                  <p:column style="width:80px;text-align: center">
