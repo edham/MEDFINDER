@@ -114,19 +114,19 @@ public class Doctor implements Serializable {
     @Column(name = "Doctor_FechaUltimoIngreso")
     @Temporal(TemporalType.TIMESTAMP)
     private Date doctorFechaUltimoIngreso;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "doctorId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "doctor", fetch = FetchType.LAZY)
     private List<RespuestaPreguntaPaciente> respuestaPreguntaPacienteList;
     @JoinColumn(name = "Persona_Id", referencedColumnName = "Persona_Id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Persona personaId;
+    private Persona persona;
     @JoinColumn(name = "Especialidad_Id", referencedColumnName = "Especialidad_Id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Especialidad especialidadId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "doctorId", fetch = FetchType.LAZY)
+    private Especialidad especialidad;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "doctor", fetch = FetchType.LAZY)
     private List<CitaPaciente> citaPacienteList;
-    @OneToMany(mappedBy = "doctorId", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY)
     private List<Favoritos> favoritosList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "doctorId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "doctor", fetch = FetchType.LAZY)
     private List<RespuestaCasoSalud> respuestaCasoSaludList;
 
     public Doctor() {
@@ -265,20 +265,20 @@ public class Doctor implements Serializable {
         this.respuestaPreguntaPacienteList = respuestaPreguntaPacienteList;
     }
 
-    public Persona getPersonaId() {
-        return personaId;
+    public Persona getPersona() {
+        return persona;
     }
 
-    public void setPersonaId(Persona personaId) {
-        this.personaId = personaId;
+    public void setPersona(Persona persona) {
+        this.persona = persona;
     }
 
-    public Especialidad getEspecialidadId() {
-        return especialidadId;
+    public Especialidad getEspecialidad() {
+        return especialidad;
     }
 
-    public void setEspecialidadId(Especialidad especialidadId) {
-        this.especialidadId = especialidadId;
+    public void setEspecialidad(Especialidad especialidad) {
+        this.especialidad = especialidad;
     }
 
     @XmlTransient

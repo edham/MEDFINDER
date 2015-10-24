@@ -73,7 +73,7 @@ public class CasosSalud implements Serializable {
     @NotNull
     @Column(name = "Casos_Salud_Estado")
     private short casosSaludEstado;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "casosSaludId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "casosSalud", fetch = FetchType.LAZY)
     private List<RespuestaCasoSalud> respuestaCasoSaludList;
 
     public CasosSalud() {

@@ -117,9 +117,9 @@ public class Clinica implements Serializable {
     @NotNull
     @Column(name = "Clinica_Estado")
     private short clinicaEstado;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "clinicaId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "clinica", fetch = FetchType.LAZY)
     private List<DetalleClinicaSeguro> detalleClinicaSeguroList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "clinicaId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "clinica", fetch = FetchType.LAZY)
     private List<DetalleClinicaEspecialidad> detalleClinicaEspecialidadList;
 
     public Clinica() {

@@ -45,10 +45,10 @@ public class CasoSaludPuntaje implements Serializable {
     private short casoSsaludPuntajeTotal;
     @JoinColumn(name = "Respuesta_Caso_Salud_Id", referencedColumnName = "Respuesta_Caso_Salud_Id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private RespuestaCasoSalud respuestaCasoSaludId;
+    private RespuestaCasoSalud respuestaCasoSalud;
     @JoinColumn(name = "Usuario_Id", referencedColumnName = "Usuario_Id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Usuario usuarioId;
+    private Usuario usuario;
 
     public CasoSaludPuntaje() {
     }
@@ -78,20 +78,20 @@ public class CasoSaludPuntaje implements Serializable {
         this.casoSsaludPuntajeTotal = casoSsaludPuntajeTotal;
     }
 
-    public RespuestaCasoSalud getRespuestaCasoSaludId() {
-        return respuestaCasoSaludId;
+    public RespuestaCasoSalud getRespuestaCasoSalud() {
+        return respuestaCasoSalud;
     }
 
-    public void setRespuestaCasoSaludId(RespuestaCasoSalud respuestaCasoSaludId) {
-        this.respuestaCasoSaludId = respuestaCasoSaludId;
+    public void setRespuestaCasoSalud(RespuestaCasoSalud respuestaCasoSalud) {
+        this.respuestaCasoSalud = respuestaCasoSalud;
     }
 
-    public Usuario getUsuarioId() {
-        return usuarioId;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setUsuarioId(Usuario usuarioId) {
-        this.usuarioId = usuarioId;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     @Override

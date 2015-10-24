@@ -77,14 +77,14 @@ public class PreguntaPaciente implements Serializable {
     @Column(name = "Pregunta_Paciente_FechaFin")
     @Temporal(TemporalType.TIMESTAMP)
     private Date preguntaPacienteFechaFin;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "preguntaPacienteId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "preguntaPaciente", fetch = FetchType.LAZY)
     private List<RespuestaPreguntaPaciente> respuestaPreguntaPacienteList;
     @JoinColumn(name = "Especialidad_Id", referencedColumnName = "Especialidad_Id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Especialidad especialidadId;
+    private Especialidad especialidad;
     @JoinColumn(name = "Paciente_Id", referencedColumnName = "Paciente_Id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Paciente pacienteId;
+    private Paciente paciente;
 
     public PreguntaPaciente() {
     }
@@ -166,20 +166,20 @@ public class PreguntaPaciente implements Serializable {
         this.respuestaPreguntaPacienteList = respuestaPreguntaPacienteList;
     }
 
-    public Especialidad getEspecialidadId() {
-        return especialidadId;
+    public Especialidad getEspecialidad() {
+        return especialidad;
     }
 
-    public void setEspecialidadId(Especialidad especialidadId) {
-        this.especialidadId = especialidadId;
+    public void setEspecialidad(Especialidad especialidad) {
+        this.especialidad = especialidad;
     }
 
-    public Paciente getPacienteId() {
-        return pacienteId;
+    public Paciente getPaciente() {
+        return paciente;
     }
 
-    public void setPacienteId(Paciente pacienteId) {
-        this.pacienteId = pacienteId;
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
     }
 
     @Override

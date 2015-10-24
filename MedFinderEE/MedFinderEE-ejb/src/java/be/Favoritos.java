@@ -39,10 +39,10 @@ public class Favoritos implements Serializable {
     private Integer favoritosId;
     @JoinColumn(name = "Doctor_Id", referencedColumnName = "Doctor_Id")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Doctor doctorId;
+    private Doctor doctor;
     @JoinColumn(name = "Usuario_Id", referencedColumnName = "Usuario_Id")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Usuario usuarioId;
+    private Usuario usuario;
 
     public Favoritos() {
     }
@@ -59,20 +59,20 @@ public class Favoritos implements Serializable {
         this.favoritosId = favoritosId;
     }
 
-    public Doctor getDoctorId() {
-        return doctorId;
+    public Doctor getDoctor() {
+        return doctor;
     }
 
-    public void setDoctorId(Doctor doctorId) {
-        this.doctorId = doctorId;
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
     }
 
-    public Usuario getUsuarioId() {
-        return usuarioId;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setUsuarioId(Usuario usuarioId) {
-        this.usuarioId = usuarioId;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     @Override

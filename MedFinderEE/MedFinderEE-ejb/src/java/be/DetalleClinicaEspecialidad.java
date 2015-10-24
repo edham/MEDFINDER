@@ -73,10 +73,10 @@ public class DetalleClinicaEspecialidad implements Serializable {
     private Date detalleClinicaEspecialidadFecha;
     @JoinColumn(name = "Clinica_Id", referencedColumnName = "Clinica_Id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Clinica clinicaId;
+    private Clinica clinica;
     @JoinColumn(name = "Especialidad_Id", referencedColumnName = "Especialidad_Id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Especialidad especialidadId;
+    private Especialidad especialidad;
 
     public DetalleClinicaEspecialidad() {
     }
@@ -142,20 +142,20 @@ public class DetalleClinicaEspecialidad implements Serializable {
         this.detalleClinicaEspecialidadFecha = detalleClinicaEspecialidadFecha;
     }
 
-    public Clinica getClinicaId() {
-        return clinicaId;
+    public Clinica getClinica() {
+        return clinica;
     }
 
-    public void setClinicaId(Clinica clinicaId) {
-        this.clinicaId = clinicaId;
+    public void setClinica(Clinica clinica) {
+        this.clinica = clinica;
     }
 
-    public Especialidad getEspecialidadId() {
-        return especialidadId;
+    public Especialidad getEspecialidad() {
+        return especialidad;
     }
 
-    public void setEspecialidadId(Especialidad especialidadId) {
-        this.especialidadId = especialidadId;
+    public void setEspecialidad(Especialidad especialidad) {
+        this.especialidad = especialidad;
     }
 
     @Override

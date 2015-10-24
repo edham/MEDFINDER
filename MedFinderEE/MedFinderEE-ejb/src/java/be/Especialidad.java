@@ -22,7 +22,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -48,30 +47,22 @@ public class Especialidad implements Serializable {
     @Basic(optional = false)
     @Column(name = "Especialidad_Id")
     private Integer especialidadId;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
+    @Size(max = 45)
     @Column(name = "Especialidad_Nombre")
     private String especialidadNombre;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 256)
+    @Size(max = 256)
     @Column(name = "Especialidad_Descripcion")
     private String especialidadDescripcion;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "Especialidad_Estado")
-    private short especialidadEstado;
-    @Basic(optional = false)
-    @NotNull
+    private Short especialidadEstado;
     @Column(name = "Especialidad_Fecha")
     @Temporal(TemporalType.TIMESTAMP)
     private Date especialidadFecha;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "especialidadId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "especialidad", fetch = FetchType.LAZY)
     private List<DetalleClinicaEspecialidad> detalleClinicaEspecialidadList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "especialidadId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "especialidad", fetch = FetchType.LAZY)
     private List<PreguntaPaciente> preguntaPacienteList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "especialidadId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "especialidad", fetch = FetchType.LAZY)
     private List<Doctor> doctorList;
 
     public Especialidad() {
@@ -79,14 +70,6 @@ public class Especialidad implements Serializable {
 
     public Especialidad(Integer especialidadId) {
         this.especialidadId = especialidadId;
-    }
-
-    public Especialidad(Integer especialidadId, String especialidadNombre, String especialidadDescripcion, short especialidadEstado, Date especialidadFecha) {
-        this.especialidadId = especialidadId;
-        this.especialidadNombre = especialidadNombre;
-        this.especialidadDescripcion = especialidadDescripcion;
-        this.especialidadEstado = especialidadEstado;
-        this.especialidadFecha = especialidadFecha;
     }
 
     public Integer getEspecialidadId() {
@@ -113,11 +96,11 @@ public class Especialidad implements Serializable {
         this.especialidadDescripcion = especialidadDescripcion;
     }
 
-    public short getEspecialidadEstado() {
+    public Short getEspecialidadEstado() {
         return especialidadEstado;
     }
 
-    public void setEspecialidadEstado(short especialidadEstado) {
+    public void setEspecialidadEstado(Short especialidadEstado) {
         this.especialidadEstado = especialidadEstado;
     }
 

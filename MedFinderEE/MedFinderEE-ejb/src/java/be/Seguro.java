@@ -65,7 +65,7 @@ public class Seguro implements Serializable {
     @NotNull
     @Column(name = "Seguro_Estado")
     private short seguroEstado;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "seguroId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "seguro", fetch = FetchType.LAZY)
     private List<DetalleClinicaSeguro> detalleClinicaSeguroList;
 
     public Seguro() {

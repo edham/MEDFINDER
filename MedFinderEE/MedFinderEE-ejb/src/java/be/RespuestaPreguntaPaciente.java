@@ -66,10 +66,10 @@ public class RespuestaPreguntaPaciente implements Serializable {
     private short respuestaPreguntaPacienteEstado;
     @JoinColumn(name = "Doctor_Id", referencedColumnName = "Doctor_Id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Doctor doctorId;
+    private Doctor doctor;
     @JoinColumn(name = "Pregunta_Paciente_Id", referencedColumnName = "Pregunta_Paciente_Id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private PreguntaPaciente preguntaPacienteId;
+    private PreguntaPaciente preguntaPaciente;
 
     public RespuestaPreguntaPaciente() {
     }
@@ -126,20 +126,20 @@ public class RespuestaPreguntaPaciente implements Serializable {
         this.respuestaPreguntaPacienteEstado = respuestaPreguntaPacienteEstado;
     }
 
-    public Doctor getDoctorId() {
-        return doctorId;
+    public Doctor getDoctor() {
+        return doctor;
     }
 
-    public void setDoctorId(Doctor doctorId) {
-        this.doctorId = doctorId;
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
     }
 
-    public PreguntaPaciente getPreguntaPacienteId() {
-        return preguntaPacienteId;
+    public PreguntaPaciente getPreguntaPaciente() {
+        return preguntaPaciente;
     }
 
-    public void setPreguntaPacienteId(PreguntaPaciente preguntaPacienteId) {
-        this.preguntaPacienteId = preguntaPacienteId;
+    public void setPreguntaPaciente(PreguntaPaciente preguntaPaciente) {
+        this.preguntaPaciente = preguntaPaciente;
     }
 
     @Override

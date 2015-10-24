@@ -106,16 +106,16 @@ public class Paciente implements Serializable {
     @Column(name = "Paciente_FechaRegistro")
     @Temporal(TemporalType.TIMESTAMP)
     private Date pacienteFechaRegistro;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pacienteId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "paciente", fetch = FetchType.LAZY)
     private List<PreguntaPaciente> preguntaPacienteList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pacienteId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "paciente", fetch = FetchType.LAZY)
     private List<CitaPaciente> citaPacienteList;
     @JoinColumn(name = "Persona_Id", referencedColumnName = "Persona_Id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Persona personaId;
+    private Persona persona;
     @JoinColumn(name = "Usuario_Id", referencedColumnName = "Usuario_Id")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Usuario usuarioId;
+    private Usuario usuario;
 
     public Paciente() {
     }
@@ -262,20 +262,20 @@ public class Paciente implements Serializable {
         this.citaPacienteList = citaPacienteList;
     }
 
-    public Persona getPersonaId() {
-        return personaId;
+    public Persona getPersona() {
+        return persona;
     }
 
-    public void setPersonaId(Persona personaId) {
-        this.personaId = personaId;
+    public void setPersona(Persona persona) {
+        this.persona = persona;
     }
 
-    public Usuario getUsuarioId() {
-        return usuarioId;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setUsuarioId(Usuario usuarioId) {
-        this.usuarioId = usuarioId;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     @Override

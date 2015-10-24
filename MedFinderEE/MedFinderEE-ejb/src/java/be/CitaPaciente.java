@@ -65,10 +65,10 @@ public class CitaPaciente implements Serializable {
     private short citaPacienteEstado;
     @JoinColumn(name = "Doctor_Id", referencedColumnName = "Doctor_Id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Doctor doctorId;
+    private Doctor doctor;
     @JoinColumn(name = "Paciente_Id", referencedColumnName = "Paciente_Id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Paciente pacienteId;
+    private Paciente paciente;
 
     public CitaPaciente() {
     }
@@ -124,20 +124,20 @@ public class CitaPaciente implements Serializable {
         this.citaPacienteEstado = citaPacienteEstado;
     }
 
-    public Doctor getDoctorId() {
-        return doctorId;
+    public Doctor getDoctor() {
+        return doctor;
     }
 
-    public void setDoctorId(Doctor doctorId) {
-        this.doctorId = doctorId;
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
     }
 
-    public Paciente getPacienteId() {
-        return pacienteId;
+    public Paciente getPaciente() {
+        return paciente;
     }
 
-    public void setPacienteId(Paciente pacienteId) {
-        this.pacienteId = pacienteId;
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
     }
 
     @Override

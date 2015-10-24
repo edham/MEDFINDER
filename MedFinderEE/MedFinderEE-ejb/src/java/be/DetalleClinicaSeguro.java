@@ -54,10 +54,10 @@ public class DetalleClinicaSeguro implements Serializable {
     private short detalleClinicaSeguroEstado;
     @JoinColumn(name = "Clinica_Id", referencedColumnName = "Clinica_Id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Clinica clinicaId;
+    private Clinica clinica;
     @JoinColumn(name = "Seguro_Id", referencedColumnName = "Seguro_Id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Seguro seguroId;
+    private Seguro seguro;
 
     public DetalleClinicaSeguro() {
     }
@@ -96,20 +96,20 @@ public class DetalleClinicaSeguro implements Serializable {
         this.detalleClinicaSeguroEstado = detalleClinicaSeguroEstado;
     }
 
-    public Clinica getClinicaId() {
-        return clinicaId;
+    public Clinica getClinica() {
+        return clinica;
     }
 
-    public void setClinicaId(Clinica clinicaId) {
-        this.clinicaId = clinicaId;
+    public void setClinica(Clinica clinica) {
+        this.clinica = clinica;
     }
 
-    public Seguro getSeguroId() {
-        return seguroId;
+    public Seguro getSeguro() {
+        return seguro;
     }
 
-    public void setSeguroId(Seguro seguroId) {
-        this.seguroId = seguroId;
+    public void setSeguro(Seguro seguro) {
+        this.seguro = seguro;
     }
 
     @Override

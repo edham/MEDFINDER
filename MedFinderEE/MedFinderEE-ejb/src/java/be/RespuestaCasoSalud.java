@@ -70,11 +70,11 @@ public class RespuestaCasoSalud implements Serializable {
     private short respuestaCasoSaludEstado;
     @JoinColumn(name = "Casos_Salud_Id", referencedColumnName = "Casos_Salud_Id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private CasosSalud casosSaludId;
+    private CasosSalud casosSalud;
     @JoinColumn(name = "Doctor_Id", referencedColumnName = "Doctor_Id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Doctor doctorId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "respuestaCasoSaludId", fetch = FetchType.LAZY)
+    private Doctor doctor;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "respuestaCasoSalud", fetch = FetchType.LAZY)
     private List<CasoSaludPuntaje> casoSaludPuntajeList;
 
     public RespuestaCasoSalud() {
@@ -132,20 +132,20 @@ public class RespuestaCasoSalud implements Serializable {
         this.respuestaCasoSaludEstado = respuestaCasoSaludEstado;
     }
 
-    public CasosSalud getCasosSaludId() {
-        return casosSaludId;
+    public CasosSalud getCasosSalud() {
+        return casosSalud;
     }
 
-    public void setCasosSaludId(CasosSalud casosSaludId) {
-        this.casosSaludId = casosSaludId;
+    public void setCasosSalud(CasosSalud casosSalud) {
+        this.casosSalud = casosSalud;
     }
 
-    public Doctor getDoctorId() {
-        return doctorId;
+    public Doctor getDoctor() {
+        return doctor;
     }
 
-    public void setDoctorId(Doctor doctorId) {
-        this.doctorId = doctorId;
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
     }
 
     @XmlTransient

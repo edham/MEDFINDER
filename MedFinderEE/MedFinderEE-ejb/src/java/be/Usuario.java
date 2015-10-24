@@ -75,14 +75,14 @@ public class Usuario implements Serializable {
     @Column(name = "usuario_FechaUltimoAcceso")
     @Temporal(TemporalType.TIMESTAMP)
     private Date usuarioFechaUltimoAcceso;
-    @OneToMany(mappedBy = "usuarioId", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
     private List<Paciente> pacienteList;
-    @OneToMany(mappedBy = "usuarioId", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
     private List<Favoritos> favoritosList;
     @JoinColumn(name = "Persona_Id", referencedColumnName = "Persona_Id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Persona personaId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioId", fetch = FetchType.LAZY)
+    private Persona persona;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario", fetch = FetchType.LAZY)
     private List<CasoSaludPuntaje> casoSaludPuntajeList;
 
     public Usuario() {
@@ -167,12 +167,12 @@ public class Usuario implements Serializable {
         this.favoritosList = favoritosList;
     }
 
-    public Persona getPersonaId() {
-        return personaId;
+    public Persona getPersona() {
+        return persona;
     }
 
-    public void setPersonaId(Persona personaId) {
-        this.personaId = personaId;
+    public void setPersona(Persona persona) {
+        this.persona = persona;
     }
 
     @XmlTransient
