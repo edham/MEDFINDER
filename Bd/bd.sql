@@ -26,9 +26,9 @@ DROP TABLE IF EXISTS `caso_salud_puntaje`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `caso_salud_puntaje` (
   `Caso_Salud_Puntaje_Id` int(11) NOT NULL AUTO_INCREMENT,
-  `Respuesta_Caso_Salud_Id` int(11) NOT NULL,
-  `Usuario_Id` int(11) NOT NULL,
-  `Caso_Ssalud_Puntaje_Total` tinyint(4) NOT NULL,
+  `Respuesta_Caso_Salud_Id` int(11) DEFAULT NULL,
+  `Usuario_Id` int(11) DEFAULT NULL,
+  `Caso_Salud_Puntaje_Total` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`Caso_Salud_Puntaje_Id`),
   KEY `fk_caso_salud_puntaje_respuesta_caso_salud1_idx` (`Respuesta_Caso_Salud_Id`),
   KEY `fk_caso_salud_puntaje_usuario1_idx` (`Usuario_Id`),
@@ -56,11 +56,11 @@ DROP TABLE IF EXISTS `casos_salud`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `casos_salud` (
   `Casos_Salud_Id` int(11) NOT NULL AUTO_INCREMENT,
-  `Casos_Salud_Tema` varchar(45) NOT NULL,
-  `Casos_Salud_FechaInicio` datetime NOT NULL,
-  `Casos_Salud_FechaFin` datetime NOT NULL,
-  `Casos_Salud_Fecha` datetime NOT NULL,
-  `Casos_Salud_Estado` tinyint(4) NOT NULL,
+  `Casos_Salud_Tema` varchar(45) DEFAULT NULL,
+  `Casos_Salud_FechaInicio` datetime DEFAULT NULL,
+  `Casos_Salud_FechaFin` datetime DEFAULT NULL,
+  `Casos_Salud_Fecha` datetime DEFAULT NULL,
+  `Casos_Salud_Estado` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`Casos_Salud_Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -84,12 +84,12 @@ DROP TABLE IF EXISTS `cita_paciente`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `cita_paciente` (
   `Cita_Paciente_Id` int(11) NOT NULL AUTO_INCREMENT,
-  `Paciente_Id` int(11) NOT NULL,
-  `Doctor_Id` int(11) NOT NULL,
-  `Cita_Paciente_Detalle` varchar(200) NOT NULL,
-  `Cita_Paciente_Creacion` datetime NOT NULL,
+  `Paciente_Id` int(11) DEFAULT NULL,
+  `Doctor_Id` int(11) DEFAULT NULL,
+  `Cita_Paciente_Detalle` varchar(200) DEFAULT NULL,
+  `Cita_Paciente_Creacion` datetime DEFAULT NULL,
   `Cita_Paciente_Atencion` datetime DEFAULT NULL,
-  `Cita_Paciente_Estado` tinyint(4) NOT NULL,
+  `Cita_Paciente_Estado` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`Cita_Paciente_Id`),
   KEY `fk_cita_paciente_paciente1_idx` (`Paciente_Id`),
   KEY `fk_cita_paciente_doctor1_idx` (`Doctor_Id`),
@@ -117,19 +117,19 @@ DROP TABLE IF EXISTS `clinica`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `clinica` (
   `Clinica_Id` int(11) NOT NULL AUTO_INCREMENT,
-  `Clinica_Nombre` varchar(45) NOT NULL,
-  `Clinica_Slogan` varchar(100) NOT NULL,
-  `Clinica_Direccion` varchar(100) NOT NULL,
-  `Clinica_Descripcion` varchar(200) NOT NULL,
-  `Clinica_Horario_Inicio` time NOT NULL,
-  `Clinica_Horario_Fin` time NOT NULL,
-  `Clinica_Detalle_Atencion` varchar(45) NOT NULL,
+  `Clinica_Nombre` varchar(45) DEFAULT NULL,
+  `Clinica_Slogan` varchar(100) DEFAULT NULL,
+  `Clinica_Direccion` varchar(100) DEFAULT NULL,
+  `Clinica_Descripcion` varchar(200) DEFAULT NULL,
+  `Clinica_Horario_Inicio` time DEFAULT NULL,
+  `Clinica_Horario_Fin` time DEFAULT NULL,
+  `Clinica_Detalle_Atencion` varchar(45) DEFAULT NULL,
   `Clinica_Logo` blob,
-  `Clinica_Telefono` varchar(20) NOT NULL,
-  `Clinica_Longitud` double NOT NULL,
-  `Clinica_Latitud` double NOT NULL,
-  `Clinica_FechaRegistro` datetime NOT NULL,
-  `Clinica_Estado` tinyint(4) NOT NULL,
+  `Clinica_Telefono` varchar(20) DEFAULT NULL,
+  `Clinica_Longitud` double DEFAULT NULL,
+  `Clinica_Latitud` double DEFAULT NULL,
+  `Clinica_FechaRegistro` datetime DEFAULT NULL,
+  `Clinica_Estado` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`Clinica_Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -153,13 +153,13 @@ DROP TABLE IF EXISTS `detalle_clinica_especialidad`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `detalle_clinica_especialidad` (
   `Detalle_Clinica_Especialidad_Id` int(11) NOT NULL AUTO_INCREMENT,
-  `Clinica_Id` int(11) NOT NULL,
-  `Especialidad_Id` int(11) NOT NULL,
-  `Detalle_Clinica_Especialidad_HorarioInicio` time NOT NULL,
-  `Detalle_Clinica_Especialidad_HorarioFin` time NOT NULL,
-  `Detalle_Clinica_Especialidad_Detalle_Horario` varchar(45) NOT NULL,
-  `Detalle_Clinica_Especialidad_Estado` tinyint(4) NOT NULL,
-  `Detalle_Clinica_Especialidad_Fecha` datetime NOT NULL,
+  `Clinica_Id` int(11) DEFAULT NULL,
+  `Especialidad_Id` int(11) DEFAULT NULL,
+  `Detalle_Clinica_Especialidad_HorarioInicio` time DEFAULT NULL,
+  `Detalle_Clinica_Especialidad_HorarioFin` time DEFAULT NULL,
+  `Detalle_Clinica_Especialidad_Detalle_Horario` varchar(45) DEFAULT NULL,
+  `Detalle_Clinica_Especialidad_Estado` tinyint(4) DEFAULT NULL,
+  `Detalle_Clinica_Especialidad_Fecha` datetime DEFAULT NULL,
   PRIMARY KEY (`Detalle_Clinica_Especialidad_Id`),
   KEY `fk_Detalle_Clinica_Clinica1_idx` (`Clinica_Id`),
   KEY `fk_Detalle_Clinica_Especialidad1_idx` (`Especialidad_Id`),
@@ -187,10 +187,10 @@ DROP TABLE IF EXISTS `detalle_clinica_seguro`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `detalle_clinica_seguro` (
   `Detalle_Clinica_Seguro_Id` int(11) NOT NULL AUTO_INCREMENT,
-  `Clinica_Id` int(11) NOT NULL,
-  `Seguro_Id` int(11) NOT NULL,
-  `Detalle_Clinica_Seguro_Fecha` datetime NOT NULL,
-  `Detalle_Clinica_Seguro_Estado` tinyint(4) NOT NULL,
+  `Clinica_Id` int(11) DEFAULT NULL,
+  `Seguro_Id` int(11) DEFAULT NULL,
+  `Detalle_Clinica_Seguro_Fecha` datetime DEFAULT NULL,
+  `Detalle_Clinica_Seguro_Estado` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`Detalle_Clinica_Seguro_Id`),
   KEY `fk_detalle_clinica_seguro_clinica1_idx` (`Clinica_Id`),
   KEY `fk_detalle_clinica_seguro_seguro1_idx` (`Seguro_Id`),
@@ -218,20 +218,20 @@ DROP TABLE IF EXISTS `doctor`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `doctor` (
   `Doctor_Id` int(11) NOT NULL AUTO_INCREMENT,
-  `Doctor_Usuario` varchar(45) NOT NULL,
-  `Doctor_Clave` varchar(45) NOT NULL,
-  `Doctor_FechaRegistro` datetime NOT NULL,
-  `Doctor_CodigoColegiatura` varchar(45) NOT NULL,
-  `Doctor_Direccion` varchar(100) NOT NULL,
-  `Doctor_Telefono` varchar(9) NOT NULL,
-  `Doctor_Direccion_Detalle` varchar(100) NOT NULL,
-  `Doctor_Longitud` double NOT NULL,
-  `Doctor_Latitud` double NOT NULL,
-  `Doctor_Puntaje` int(11) NOT NULL,
-  `Doctor_Estado` tinyint(4) NOT NULL,
-  `Doctor_FechaUltimoIngreso` datetime NOT NULL,
-  `Especialidad_Id` int(11) NOT NULL,
-  `Persona_Id` int(11) NOT NULL,
+  `Doctor_Usuario` varchar(45) DEFAULT NULL,
+  `Doctor_Clave` varchar(45) DEFAULT NULL,
+  `Doctor_FechaRegistro` datetime DEFAULT NULL,
+  `Doctor_CodigoColegiatura` varchar(45) DEFAULT NULL,
+  `Doctor_Direccion` varchar(100) DEFAULT NULL,
+  `Doctor_Telefono` varchar(9) DEFAULT NULL,
+  `Doctor_Direccion_Detalle` varchar(100) DEFAULT NULL,
+  `Doctor_Longitud` double DEFAULT NULL,
+  `Doctor_Latitud` double DEFAULT NULL,
+  `Doctor_Puntaje` int(11) DEFAULT NULL,
+  `Doctor_Estado` tinyint(4) DEFAULT NULL,
+  `Doctor_FechaUltimoIngreso` datetime DEFAULT NULL,
+  `Especialidad_Id` int(11) DEFAULT NULL,
+  `Persona_Id` int(11) DEFAULT NULL,
   PRIMARY KEY (`Doctor_Id`),
   KEY `fk_doctor_especialidad1_idx` (`Especialidad_Id`),
   KEY `fk_doctor_Persona1_idx` (`Persona_Id`),
@@ -259,12 +259,12 @@ DROP TABLE IF EXISTS `especialidad`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `especialidad` (
   `Especialidad_Id` int(11) NOT NULL AUTO_INCREMENT,
-  `Especialidad_Nombre` varchar(45) NOT NULL,
-  `Especialidad_Descripcion` varchar(256) NOT NULL,
-  `Especialidad_Estado` tinyint(4) NOT NULL,
-  `Especialidad_Fecha` datetime NOT NULL,
+  `Especialidad_Nombre` varchar(45) DEFAULT NULL,
+  `Especialidad_Descripcion` varchar(256) DEFAULT NULL,
+  `Especialidad_Estado` tinyint(4) DEFAULT NULL,
+  `Especialidad_Fecha` datetime DEFAULT NULL,
   PRIMARY KEY (`Especialidad_Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -273,7 +273,7 @@ CREATE TABLE `especialidad` (
 
 LOCK TABLES `especialidad` WRITE;
 /*!40000 ALTER TABLE `especialidad` DISABLE KEYS */;
-INSERT INTO `especialidad` VALUES (1,'Cardiología','Encargada de las enfermedades del corazón y del aparato circulatorio',0,'2014-05-22 09:36:02'),(2,'Dermatología','Encargada del estructura y función de la piel.',0,'2014-05-22 09:36:02'),(3,'Neurología','Encargada de los trastornos del sistema nervioso.',0,'2014-05-22 09:36:02'),(4,'Obstetricia','Encargada del embarazo y el parto.',0,'2014-05-22 09:36:02'),(5,'Ginecología','Encargada de la especialidad médica y quirúrgica que trata las enfermedades del sistema reproductor femenino.',1,'2014-05-22 09:36:02'),(6,'Odontología','Encargada del diagnóstico, tratamiento y prevención de las enfermedades del aparato estomatognático.',1,'2014-05-22 09:36:02'),(7,'Oftalmología','Encargada de las enfermedades y cirugía del ojo',0,'2014-05-22 09:36:02'),(8,'Pediatría','Encargada de las enfermedades de los niños.',1,'2014-05-22 09:36:02'),(9,'Podología','Encargada del diagnostico y el tratamiento de las enfermedades que afectan al pie.',1,'2014-05-22 09:36:02'),(10,'Traumatología','Encargada de las lesiones del aparato locomotor.',0,'2014-05-22 09:36:02'),(11,'Urología','Encargada del diagnostico y el tratamiento de las patologías que afectan al aparato urinario de ambos sexos.',0,'2014-05-22 09:36:02'),(12,'Cirugía','Encargada de las operaciones del tracto hígado, la mama así como las hernias de la pared abdominal y otras partes del cuerpo.',1,'2014-05-22 09:36:02'),(13,'Hematología','Es la especialidad médica que se dedica al tratamiento de los pacientes con enfermedades hematológicas.',1,'2014-05-22 09:36:02'),(14,'Neumologia','Es la especialidad médica encargada del estudio de las enfermedades del aparato respiratorio.',0,'2014-05-22 09:36:02'),(15,'Reumatología','Es la especialidad médica que abarca todas las enfermedades del aparato locomotor.',1,'2014-05-22 09:36:02'),(16,'Proctología','Es la parte de la medicina encargada del estudio y tratamiento de las enfermedades de la región anal.',0,'2014-05-22 09:36:02'),(17,'Otorrinolaringología','Es la especialidad medica que se encarga de la prevención, diagnostico y tratamiento, tanto medico como quirúrgico, de las enfermedades de: el oído, las vías aéreo-digestivas superiores',1,'2014-05-22 09:36:02'),(18,'Alergologia','Es la especialidad médica que comprende el conocimiento, diagnóstico y tratamiento de la patología producida por mecanismos inmunológicos',1,'2014-05-22 09:36:02'),(19,'Geriatría','Es la especialidad médica que se ocupa de los aspectos preventivos, curativos y de la rehabilitación de las enfermedades del adulto en senectud.',0,'2014-05-22 09:36:02'),(20,'Enfermedades Infecciosas','Se encarga del estudio de las enfermedades infecciosas que son la manifestación clínica consecuente a una infección provocada por un microorganismo como bacterias, hongos, virus, protozoos, etc.',1,'2014-05-22 09:36:02');
+INSERT INTO `especialidad` VALUES (1,'Cardiología','Encargada de las enfermedades del corazón y del aparato circulatorio',0,'2014-05-22 09:36:02'),(2,'Dermatología','Encargada del estructura y función de la piel.',1,'2014-05-22 09:36:02'),(3,'Neurología','Encargada de los trastornos del sistema nervioso.',1,'2014-05-22 09:36:02'),(4,'Obstetricia','Encargada del embarazo y el parto.',1,'2014-05-22 09:36:02'),(5,'Ginecología','Encargada de la especialidad médica y quirúrgica que trata las enfermedades del sistema reproductor femenino.',1,'2014-05-22 09:36:02'),(6,'Odontología','Encargada del diagnóstico, tratamiento y prevención de las enfermedades del aparato estomatognático.',1,'2014-05-22 09:36:02'),(7,'Oftalmología','Encargada de las enfermedades y cirugía del ojo',1,'2014-05-22 09:36:02'),(8,'Pediatría','Encargada de las enfermedades de los niños.',1,'2014-05-22 09:36:02'),(9,'Podología','Encargada del diagnostico y el tratamiento de las enfermedades que afectan al pie.',1,'2014-05-22 09:36:02'),(10,'Traumatología','Encargada de las lesiones del aparato locomotor.',1,'2014-05-22 09:36:02'),(11,'Urología','Encargada del diagnostico y el tratamiento de las patologías que afectan al aparato urinario de ambos sexos.',1,'2014-05-22 09:36:02'),(12,'Cirugía','Encargada de las operaciones del tracto hígado, la mama así como las hernias de la pared abdominal y otras partes del cuerpo.',1,'2014-05-22 09:36:02'),(13,'Hematología','Es la especialidad médica que se dedica al tratamiento de los pacientes con enfermedades hematológicas.',1,'2014-05-22 09:36:02'),(14,'Neumologia','Es la especialidad médica encargada del estudio de las enfermedades del aparato respiratorio.',1,'2014-05-22 09:36:02'),(15,'Reumatología','Es la especialidad médica que abarca todas las enfermedades del aparato locomotor.',1,'2014-05-22 09:36:02'),(16,'Proctología','Es la parte de la medicina encargada del estudio y tratamiento de las enfermedades de la región anal.',1,'2014-05-22 09:36:02'),(17,'Otorrinolaringología','Es la especialidad medica que se encarga de la prevención, diagnostico y tratamiento, tanto medico como quirúrgico, de las enfermedades de: el oído, las vías aéreo-digestivas superiores',1,'2014-05-22 09:36:02'),(18,'Alergologia','Es la especialidad médica que comprende el conocimiento, diagnóstico y tratamiento de la patología producida por mecanismos inmunológicos',1,'2014-05-22 09:36:02'),(19,'Geriatría','Es la especialidad médica que se ocupa de los aspectos preventivos, curativos y de la rehabilitación de las enfermedades del adulto en senectud.',1,'2014-05-22 09:36:02'),(20,'Enfermedades Infecciosas','Se encarga del estudio de las enfermedades infecciosas que son la manifestación clínica consecuente a una infección provocada por un microorganismo como bacterias, hongos, virus, protozoos, etc.',1,'2014-05-22 09:36:02');
 /*!40000 ALTER TABLE `especialidad` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -315,20 +315,20 @@ DROP TABLE IF EXISTS `paciente`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `paciente` (
   `Paciente_Id` int(11) NOT NULL AUTO_INCREMENT,
-  `Paciente_Estatura` int(11) NOT NULL,
-  `Paciente_Tipo` tinyint(4) NOT NULL,
-  `Paciente_Cardiovascular` bit(1) NOT NULL,
-  `Paciente_Musculares` bit(1) NOT NULL,
-  `Paciente_Digestivos` bit(1) NOT NULL,
-  `Paciente_Alergicos` bit(1) NOT NULL,
-  `Paciente_Alcohol` bit(1) NOT NULL,
-  `Paciente_Tabaquismo` bit(1) NOT NULL,
-  `Paciente_Drogas` bit(1) NOT NULL,
-  `Paciente_Psicologicos` bit(1) NOT NULL,
-  `Paciente_Estado` tinyint(4) NOT NULL,
-  `Paciente_FechaRegistro` datetime NOT NULL,
+  `Paciente_Estatura` int(11) DEFAULT NULL,
+  `Paciente_Tipo` tinyint(4) DEFAULT NULL,
+  `Paciente_Cardiovascular` bit(1) DEFAULT NULL,
+  `Paciente_Musculares` bit(1) DEFAULT NULL,
+  `Paciente_Digestivos` bit(1) DEFAULT NULL,
+  `Paciente_Alergicos` bit(1) DEFAULT NULL,
+  `Paciente_Alcohol` bit(1) DEFAULT NULL,
+  `Paciente_Tabaquismo` bit(1) DEFAULT NULL,
+  `Paciente_Drogas` bit(1) DEFAULT NULL,
+  `Paciente_Psicologicos` bit(1) DEFAULT NULL,
+  `Paciente_Estado` tinyint(4) DEFAULT NULL,
+  `Paciente_FechaRegistro` datetime DEFAULT NULL,
   `Usuario_Id` int(11) DEFAULT NULL,
-  `Persona_Id` int(11) NOT NULL,
+  `Persona_Id` int(11) DEFAULT NULL,
   PRIMARY KEY (`Paciente_Id`),
   KEY `fk_paciente_usuario1_idx` (`Usuario_Id`),
   KEY `fk_paciente_Persona1_idx` (`Persona_Id`),
@@ -356,20 +356,19 @@ DROP TABLE IF EXISTS `persona`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `persona` (
   `Persona_Id` int(11) NOT NULL AUTO_INCREMENT,
-  `Persona_Nombre` varchar(45) NOT NULL,
-  `Persona_ApellidoPaterno` varchar(45) NOT NULL,
-  `Persona_ApellidoMaterno` varchar(45) NOT NULL,
-  `Persona_DNI` varchar(8) NOT NULL,
+  `Persona_Nombre` varchar(45) DEFAULT NULL,
+  `Persona_ApellidoPaterno` varchar(45) DEFAULT NULL,
+  `Persona_ApellidoMaterno` varchar(45) DEFAULT NULL,
+  `Persona_DNI` varchar(8) DEFAULT NULL,
   `Persona_Foto` blob,
-  `Persona_FechaRegistro` datetime NOT NULL,
-  `Persona_Sexo` bit(1) NOT NULL,
-  `Persona_FechaNacimiento` date NOT NULL,
+  `Persona_FechaRegistro` datetime DEFAULT NULL,
+  `Persona_Sexo` bit(1) DEFAULT NULL,
+  `Persona_FechaNacimiento` date DEFAULT NULL,
   `Persona_Telefono` varchar(9) DEFAULT NULL,
   `Persona_Direccion` varchar(100) DEFAULT NULL,
   `Persona_Email` varchar(45) DEFAULT NULL,
-  `Persona_Estado` tinyint(4) NOT NULL,
-  PRIMARY KEY (`Persona_Id`),
-  UNIQUE KEY `Persona_DNI_UNIQUE` (`Persona_DNI`)
+  `Persona_Estado` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`Persona_Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -392,14 +391,14 @@ DROP TABLE IF EXISTS `pregunta_paciente`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pregunta_paciente` (
   `Pregunta_Paciente_Id` int(11) NOT NULL AUTO_INCREMENT,
-  `Paciente_Id` int(11) NOT NULL,
-  `Especialidad_Id` int(11) NOT NULL,
+  `Paciente_Id` int(11) DEFAULT NULL,
+  `Especialidad_Id` int(11) DEFAULT NULL,
   `Pregunta_Paciente_Asunto` varchar(45) DEFAULT NULL,
-  `Pregunta_Paciente_Detalle` varchar(200) NOT NULL,
+  `Pregunta_Paciente_Detalle` varchar(200) DEFAULT NULL,
   `Pregunta_Paciente_Imagen` blob,
-  `Pregunta_Paciente_Estado` tinyint(4) NOT NULL,
-  `Pregunta_Paciente_FechaInicio` datetime NOT NULL,
-  `Pregunta_Paciente_FechaFin` datetime NOT NULL,
+  `Pregunta_Paciente_Estado` tinyint(4) DEFAULT NULL,
+  `Pregunta_Paciente_FechaInicio` datetime DEFAULT NULL,
+  `Pregunta_Paciente_FechaFin` datetime DEFAULT NULL,
   PRIMARY KEY (`Pregunta_Paciente_Id`),
   KEY `fk_Pregunta_Paciente_Paciente1_idx` (`Paciente_Id`),
   KEY `fk_Pregunta_Paciente_Especialidad1_idx` (`Especialidad_Id`),
@@ -427,12 +426,12 @@ DROP TABLE IF EXISTS `respuesta_caso_salud`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `respuesta_caso_salud` (
   `Respuesta_Caso_Salud_Id` int(11) NOT NULL AUTO_INCREMENT,
-  `Doctor_Id` int(11) NOT NULL,
-  `Casos_Salud_Id` int(11) NOT NULL,
-  `Respuesta_Caso_Salud_Descripcion` varchar(255) NOT NULL,
-  `Respuesta_Caso_Salud_Puntaje_Total` int(11) NOT NULL,
-  `Respuesta_Caso_Salud_Fecha` datetime NOT NULL,
-  `Respuesta_Caso_Salud_Estado` tinyint(4) NOT NULL,
+  `Doctor_Id` int(11) DEFAULT NULL,
+  `Casos_Salud_Id` int(11) DEFAULT NULL,
+  `Respuesta_Caso_Salud_Descripcion` varchar(255) DEFAULT NULL,
+  `Respuesta_Caso_Salud_Puntaje_Total` int(11) DEFAULT NULL,
+  `Respuesta_Caso_Salud_Fecha` datetime DEFAULT NULL,
+  `Respuesta_Caso_Salud_Estado` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`Respuesta_Caso_Salud_Id`),
   KEY `fk_Respuesta_Caso_Salud_Doctor1_idx` (`Doctor_Id`),
   KEY `fk_Respuesta_Caso_Salud_Casos_Salud1_idx` (`Casos_Salud_Id`),
@@ -460,12 +459,12 @@ DROP TABLE IF EXISTS `respuesta_pregunta_paciente`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `respuesta_pregunta_paciente` (
   `Respuesta_Pregunta_Paciente_Id` int(11) NOT NULL AUTO_INCREMENT,
-  `Pregunta_Paciente_Id` int(11) NOT NULL,
-  `Doctor_Id` int(11) NOT NULL,
-  `Respuesta_Pregunta_Paciente_Detalle` varchar(200) NOT NULL,
-  `Respuesta_Pregunta_Paciente_Puntaje` tinyint(4) NOT NULL,
-  `Respuesta_Pregunta_Paciente_Fecha` datetime NOT NULL,
-  `Respuesta_Pregunta_Paciente_Estado` tinyint(4) NOT NULL,
+  `Pregunta_Paciente_Id` int(11) DEFAULT NULL,
+  `Doctor_Id` int(11) DEFAULT NULL,
+  `Respuesta_Pregunta_Paciente_Detalle` varchar(200) DEFAULT NULL,
+  `Respuesta_Pregunta_Paciente_Puntaje` tinyint(4) DEFAULT NULL,
+  `Respuesta_Pregunta_Paciente_Fecha` datetime DEFAULT NULL,
+  `Respuesta_Pregunta_Paciente_Estado` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`Respuesta_Pregunta_Paciente_Id`),
   KEY `fk_Respuesta_Pregunta_Paciente_Pregunta_Paciente1_idx` (`Pregunta_Paciente_Id`),
   KEY `fk_Respuesta_Pregunta_Paciente_Doctor1_idx` (`Doctor_Id`),
@@ -515,10 +514,10 @@ DROP TABLE IF EXISTS `seguro`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `seguro` (
   `Seguro_Id` int(11) NOT NULL AUTO_INCREMENT,
-  `Seguro_Nombre` varchar(45) NOT NULL,
+  `Seguro_Nombre` varchar(45) DEFAULT NULL,
   `Seguro_Logo` blob,
-  `Seguro_Fecha` datetime NOT NULL,
-  `Seguro_Estado` tinyint(4) NOT NULL,
+  `Seguro_Fecha` datetime DEFAULT NULL,
+  `Seguro_Estado` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`Seguro_Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -542,15 +541,14 @@ DROP TABLE IF EXISTS `usuario`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `usuario` (
   `Usuario_Id` int(11) NOT NULL AUTO_INCREMENT,
-  `Usuario_Nick` varchar(45) NOT NULL,
-  `Usuario_Clave` varchar(45) NOT NULL,
-  `Usuario_Estado` int(11) NOT NULL,
-  `Usuario_FechaRegistro` datetime NOT NULL,
-  `usuario_FechaUltimoAcceso` datetime NOT NULL,
-  `Persona_Id` int(11) NOT NULL,
+  `Usuario_Nick` varchar(45) DEFAULT NULL,
+  `Usuario_Clave` varchar(45) DEFAULT NULL,
+  `Usuario_Estado` int(11) DEFAULT NULL,
+  `Usuario_FechaRegistro` datetime DEFAULT NULL,
+  `usuario_FechaUltimoAcceso` datetime DEFAULT NULL,
+  `Persona_Id` int(11) DEFAULT NULL,
   PRIMARY KEY (`Usuario_Id`),
-  KEY `fk_usuario_Persona1_idx` (`Persona_Id`),
-  CONSTRAINT `fk_usuario_Persona1` FOREIGN KEY (`Persona_Id`) REFERENCES `persona` (`Persona_Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_usuario_Persona1_idx` (`Persona_Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -573,4 +571,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-10-16 21:17:01
+-- Dump completed on 2015-10-24  5:07:50
