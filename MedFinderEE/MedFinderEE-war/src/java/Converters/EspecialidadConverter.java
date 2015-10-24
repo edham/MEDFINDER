@@ -57,10 +57,10 @@ public class EspecialidadConverter implements Converter{
         if (component == null) {
             throw new NullPointerException("component");
         }
-        if (value == null || ((Especialidad) value).getEspecialidadId()== null) {
+        if (value == null || ((Especialidad) value).getPKId()== null) {
             return "";
         }
 
-        return ((Especialidad) value).getEspecialidadId().toString();
+        return ((Especialidad) value).getPKId().toString();
     }
 }

@@ -45,7 +45,7 @@ public class ManagedBeanSeguro implements Serializable {
        
         limpiar();
         objSeguroVacio=new Seguro();       
-        objSeguroVacio.setSeguroNombre("SELECCIONE UNA OPCIÓN");
+        objSeguroVacio.setNombre("SELECCIONE UNA OPCIÓN");
         objSeguroItems = new LinkedList<SelectItem>();
         listaobjSeguro = new LinkedList<Seguro>();
     }
@@ -54,7 +54,7 @@ public class ManagedBeanSeguro implements Serializable {
         nuevo=true;
         nuevoTitulo="AGREGAR NUEVO";
         objSeguro=new Seguro();
-        objSeguro.setSeguroEstado((short)1);
+        objSeguro.setEstado((short)1);
         objSeguroSelecionado=new Seguro();
         imagen=null;
     }
@@ -102,9 +102,9 @@ public class ManagedBeanSeguro implements Serializable {
         objSeguroItems = new LinkedList<SelectItem>();
         try
         {
-            listaobjSeguro=seguroFacade.Seguro_lista();         
+            listaobjSeguro=seguroFacade.lista_activos();         
             for(Seguro p:listaobjSeguro){
-                objSeguroItems.add(new SelectItem(p, p.getSeguroNombre()));
+                objSeguroItems.add(new SelectItem(p, p.getNombre()));
             }
         }
         catch (Exception e) {
@@ -138,37 +138,42 @@ public class ManagedBeanSeguro implements Serializable {
     
      public void crear()
     {
-        System.out.println("inicial: "+objSeguro.getSeguroId());
-        if(nuevo)
+        try
         {
-         System.out.println(""+objSeguro.getSeguroId());
-            objSeguro.setSeguroFecha(new Date());
-            seguroFacade.create(objSeguro);
-             System.out.println(""+objSeguro.getSeguroId());
+            if(nuevo)
+            {
+                objSeguro.setFechaRegistro(new Date());
+                objSeguro.setFechaModificacion(new Date());
+                seguroFacade.create(objSeguro);
+                 System.out.println(""+objSeguro.getPKId());
+            }
+            else
+            {
+                objSeguro.setFechaModificacion(new Date());
+                seguroFacade.edit(objSeguro);
+            }
+            limpiar();
         }
-        else
-        {
-            System.out.println("edito: "+objSeguro.getSeguroId());
-            seguroFacade.edit(objSeguro);
+         catch (Exception e) {
         }
-        limpiar();
+       
     }
      public void actualizar(Seguro obejto)
     {
         limpiar();
         imagen=null;
-        this.nuevoTitulo="EDITAR ID : "+obejto.getSeguroId();        
+        this.nuevoTitulo="EDITAR ID : "+obejto.getPKId();        
         objSeguro=obejto;
         nuevo=false;
-        InputStream is = new ByteArrayInputStream(objSeguro.getSeguroLogo());
+        InputStream is = new ByteArrayInputStream(objSeguro.getLogo());
         imagen = new DefaultStreamedContent(is);
     
     }
      public void subirImagen(FileUploadEvent event) {
          
        byte[] file = event.getFile().getContents();
-       objSeguro.setSeguroLogo(Utilidades.Redimensionar(file, 80,80));
-        InputStream is = new ByteArrayInputStream(objSeguro.getSeguroLogo());
+       objSeguro.setLogo(Utilidades.Redimensionar(file, 80,80));
+        InputStream is = new ByteArrayInputStream(objSeguro.getLogo());
         imagen = new DefaultStreamedContent(is);
            
     }

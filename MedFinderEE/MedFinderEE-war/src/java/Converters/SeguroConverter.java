@@ -57,10 +57,10 @@ public class SeguroConverter implements Converter{
         if (component == null) {
             throw new NullPointerException("component");
         }
-        if (value == null || ((Seguro) value).getSeguroId()== null) {
+        if (value == null || ((Seguro) value).getPKId()== null) {
             return "";
         }
 
-        return ((Seguro) value).getSeguroId().toString();
+        return ((Seguro) value).getPKId().toString();
     }
 }

@@ -37,7 +37,7 @@ public class ManagedBeanEspecialidad implements Serializable {
        
         limpiar();
         objEspecialidadVacio=new Especialidad();       
-        objEspecialidadVacio.setEspecialidadNombre("SELECCIONE UNA OPCIÓN");
+        objEspecialidadVacio.setNombre("SELECCIONE UNA OPCIÓN");
         objEspecialidadItems = new LinkedList<SelectItem>();
         listaobjEspecialidad = new LinkedList<Especialidad>();
     }
@@ -46,7 +46,7 @@ public class ManagedBeanEspecialidad implements Serializable {
         nuevo=true;
         nuevoTitulo="AGREGAR NUEVO";
         objEspecialidad=new Especialidad();
-        objEspecialidad.setEspecialidadEstado((short)1);
+        objEspecialidad.setEstado((short)1);
         objEspecialidadSelecionado=new Especialidad();
     }
     public Especialidad getObjEspecialidadSelecionado() {
@@ -93,9 +93,9 @@ public class ManagedBeanEspecialidad implements Serializable {
         objEspecialidadItems = new LinkedList<SelectItem>();
         try
         {
-            listaobjEspecialidad=especialidadFacade.Especialidad_lista();         
+            listaobjEspecialidad=especialidadFacade.lista_activos();         
             for(Especialidad p:listaobjEspecialidad){
-                objEspecialidadItems.add(new SelectItem(p, p.getEspecialidadNombre()));
+                objEspecialidadItems.add(new SelectItem(p, p.getNombre()));
             }
         }
         catch (Exception e) {
@@ -121,24 +121,28 @@ public class ManagedBeanEspecialidad implements Serializable {
     
      public void crear()
     {
-        System.out.println("inicial: "+objEspecialidad.getEspecialidadId());
-        if(nuevo)
+        try
         {
-         System.out.println(""+objEspecialidad.getEspecialidadId());
-            objEspecialidad.setEspecialidadFecha(new Date());
-            especialidadFacade.create(objEspecialidad);
-             System.out.println(""+objEspecialidad.getEspecialidadId());
+            if(nuevo)
+            {
+             System.out.println(""+objEspecialidad.getPKId());
+                objEspecialidad.setFechaRegistro(new Date());
+                objEspecialidad.setFechaModificacion(new Date());
+                especialidadFacade.create(objEspecialidad);
+            }
+            else
+            {
+                objEspecialidad.setFechaModificacion(new Date());
+                especialidadFacade.edit(objEspecialidad);
+            }
+            limpiar();
         }
-        else
-        {
-            System.out.println("edito: "+objEspecialidad.getEspecialidadId());
-            especialidadFacade.edit(objEspecialidad);
+         catch (Exception e) {
         }
         limpiar();
     }
      public void actualizar(Especialidad obejto)
     {
-        this.nuevoTitulo="EDITAR ID : "+obejto.getEspecialidadId();
         objEspecialidad=obejto;
         nuevo=false;
     
