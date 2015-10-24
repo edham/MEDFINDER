@@ -27,6 +27,8 @@ public interface ClinicaFacadeLocal {
     List<Clinica> findAll();
 
     List<Clinica> findRange(int[] range);
+    
+    List<Clinica> lista_activos();
 
     int count();
     
