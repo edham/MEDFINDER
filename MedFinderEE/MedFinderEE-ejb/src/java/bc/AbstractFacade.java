@@ -5,8 +5,7 @@
  */
 package bc;
 
-import be.Especialidad;
-import be.Especialidad_;
+import be.*;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -81,5 +80,21 @@ public abstract class AbstractFacade<T> {
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         return q.getResultList();
     }  
-    
+     public List<T> Seguro_lista() {
+
+        // agregar aqui
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery<Seguro> cq = getEntityManager().getCriteriaBuilder().createQuery(Seguro.class);
+        Root<Seguro> registro = cq.from(Seguro.class);
+
+        // agregar aqui
+        cq.orderBy(cb.asc(registro.get("especialidadNombre")));
+        cq.where(
+                cb.and(
+                        cb.equal(registro.get(Seguro_.seguroEstado), 1)
+                ));
+
+        javax.persistence.Query q = getEntityManager().createQuery(cq);
+        return q.getResultList();
+    }  
 }
