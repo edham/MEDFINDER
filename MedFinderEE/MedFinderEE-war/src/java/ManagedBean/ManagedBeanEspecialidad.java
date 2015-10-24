@@ -24,7 +24,7 @@ import javax.faces.model.SelectItem;
 @SessionScoped
 public class ManagedBeanEspecialidad implements Serializable {
     @EJB
-    private EspecialidadFacadeLocal instalacionFacade;
+    private EspecialidadFacadeLocal especialidadFacade;
     
     private List<Especialidad> listaobjEspecialidad;
     private List<SelectItem> objEspecialidadItems;
@@ -78,7 +78,7 @@ public class ManagedBeanEspecialidad implements Serializable {
         listaobjEspecialidad = new LinkedList<Especialidad>();
         try
         {
-            listaobjEspecialidad=instalacionFacade.findAll();       
+            listaobjEspecialidad=especialidadFacade.findAll();       
         }
         catch (Exception e) {
         }
@@ -93,7 +93,7 @@ public class ManagedBeanEspecialidad implements Serializable {
         objEspecialidadItems = new LinkedList<SelectItem>();
         try
         {
-            listaobjEspecialidad=instalacionFacade.Especialidad_lista();         
+            listaobjEspecialidad=especialidadFacade.Especialidad_lista();         
             for(Especialidad p:listaobjEspecialidad){
                 objEspecialidadItems.add(new SelectItem(p, p.getEspecialidadNombre()));
             }
@@ -126,13 +126,13 @@ public class ManagedBeanEspecialidad implements Serializable {
         {
          System.out.println(""+objEspecialidad.getEspecialidadId());
             objEspecialidad.setEspecialidadFecha(new Date());
-            instalacionFacade.create(objEspecialidad);
+            especialidadFacade.create(objEspecialidad);
              System.out.println(""+objEspecialidad.getEspecialidadId());
         }
         else
         {
             System.out.println("edito: "+objEspecialidad.getEspecialidadId());
-            instalacionFacade.edit(objEspecialidad);
+            especialidadFacade.edit(objEspecialidad);
         }
         limpiar();
     }
@@ -145,7 +145,7 @@ public class ManagedBeanEspecialidad implements Serializable {
     }
      
       public Especialidad traerObjeto(String id) {
-        Especialidad objBuscar = instalacionFacade.find(Integer.parseInt(id));
+        Especialidad objBuscar = especialidadFacade.find(Integer.parseInt(id));
         return objBuscar;
     }
 }
