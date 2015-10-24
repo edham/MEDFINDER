@@ -6,28 +6,63 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Facelet Title</title>
+        <link rel="stylesheet" href="#{resource['css:style.css']}" />
     </h:head>
     <h:body>
     <h:form id="form">
     <p:growl id="msgs" showDetail="true" />
- <p:dock position="bottom">
-    <p:menuitem value="Home" icon="/resources/demo/images/dock/home.png" url="#"/>
-    <p:menuitem value="Music" icon="/resources/demo/images/dock/music.png" url="#"/>
-    <!-- more menuitems -->
-</p:dock>
-    <p:panel header="Select a Location" style="margin-bottom:10px;">
-        <h:panelGrid columns="2" cellpadding="5">
-            <p:selectOneMenu filter="true" filterMatchMode="contains" value="#{managedBeanEspecialidad.objSeleccionado}" converter="especialidadConverter">
-                <f:selectItems   value="#{managedBeanEspecialidad.objetoItems}"/>
-                <p:ajax  update=":form:text"/>
-        </p:selectOneMenu>
-             <h:inputText id="text" value="#{managedBeanEspecialidad.objEspecialidad.especialidadNombre}" />   
-        </h:panelGrid>
- 
-        <p:separator />
+    
+        <p:panel header="Select a Location" style="vertical-align: top">
+            <h:panelGrid columns="2">
+                <p:panel id="nuevo" header="#{managedBeanEspecialidad.nuevoTitulo}" style="margin-bottom:10px;">
+                    
+                    <h:panelGrid style="vertical-align: top" columns="2">
+                        <h:outputText value="NOMBRE"/>
+                        <h:inputText  value="#{managedBeanEspecialidad.objEspecialidad.especialidadNombre}"/>
+                        <h:outputText value="DESCRIPION"/>
+                        <h:inputTextarea rows="6" value="#{managedBeanEspecialidad.objEspecialidad.especialidadDescripcion}"/>
+                        <h:outputText value="ESTADO"/>
+                        <p:selectOneRadio  value="#{managedBeanEspecialidad.objEspecialidad.especialidadEstado}">
+                                                        <f:selectItem itemLabel="ACTIVO" itemValue="1" />
+                                                        <f:selectItem itemLabel="DESACTIVO" itemValue="0" />
+                        </p:selectOneRadio>
+                    
+                    </h:panelGrid>
+                      <p:separator />
+                           <p:commandButton value="ACEPTAR" update=":form :form:msgs"  actionListener="#{managedBeanEspecialidad.crear()}"/>
+                           <p:commandButton value="LIMPIAR" update=":form :form:msgs"  actionListener="#{managedBeanEspecialidad.limpiar()}"/>  
+                </p:panel>
+                <p:dataTable  id="lista" var="item" value="#{managedBeanEspecialidad.listaobjEspecialidad}" rows="10" scrollable="true" scrollHeight="180"
+                              paginator="true" rowStyleClass="#{item.especialidadEstado eq 0 ? 'colored' : null}" rowIndexVar="rowIndex"
+                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         rowsPerPageTemplate="5,10,15">
+
+
+                                 <f:facet name="header">
+                                     
+                                    LISTA DE ESPECIALIDAD
+                                </f:facet>
+                                 <p:column headerText="N°" style="width:15px; text-align: center">
+                                     #{rowIndex + 1}
+                                </p:column>
+                               <p:column headerText="NOMBRE" style="width:150px; text-align: center">
+                                    <h:outputText value="#{item.especialidadNombre}" />
+                                </p:column>
+                               <p:column headerText="DESCRIPCIÓN">
+                                   <h:outputText value="#{item.especialidadDescripcion}" />
+                                </p:column>
+                               <p:column headerText="ESTADO" style="width:95px; text-align: center">
+                                   <h:outputText value="#{item.especialidadEstado eq 1 ?'ACTIVO':'DESACTIVO'}" />
+                                   
+                                </p:column>
+                                 <p:column style="width:80px;text-align: center">
+                                   <p:commandButton update=":form :form:msgs" value="Editar" actionListener="#{managedBeanEspecialidad.actualizar(item)}"/>  
+                                </p:column>
+
+                </p:dataTable>
+            </h:panelGrid>
+        </p:panel>
        
-    <p:commandButton value="GRABAR" update=":form :form:msgs"  actionListener="#{managedBeanEspecialidad.update()}"/>
-    </p:panel>
 </h:form>
 
     </h:body>
