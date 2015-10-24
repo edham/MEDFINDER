@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -23,7 +22,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -56,40 +54,26 @@ public class Persona implements Serializable {
     @Basic(optional = false)
     @Column(name = "Persona_Id")
     private Integer personaId;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
+    @Size(max = 45)
     @Column(name = "Persona_Nombre")
     private String personaNombre;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
+    @Size(max = 45)
     @Column(name = "Persona_ApellidoPaterno")
     private String personaApellidoPaterno;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
+    @Size(max = 45)
     @Column(name = "Persona_ApellidoMaterno")
     private String personaApellidoMaterno;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 8)
+    @Size(max = 8)
     @Column(name = "Persona_DNI")
     private String personaDNI;
     @Lob
     @Column(name = "Persona_Foto")
     private byte[] personaFoto;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "Persona_FechaRegistro")
     @Temporal(TemporalType.TIMESTAMP)
     private Date personaFechaRegistro;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "Persona_Sexo")
-    private boolean personaSexo;
-    @Basic(optional = false)
-    @NotNull
+    private Boolean personaSexo;
     @Column(name = "Persona_FechaNacimiento")
     @Temporal(TemporalType.DATE)
     private Date personaFechaNacimiento;
@@ -102,34 +86,18 @@ public class Persona implements Serializable {
     @Size(max = 45)
     @Column(name = "Persona_Email")
     private String personaEmail;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "Persona_Estado")
-    private short personaEstado;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "persona", fetch = FetchType.LAZY)
+    private Short personaEstado;
+    @OneToMany(mappedBy = "persona", fetch = FetchType.LAZY)
     private List<Doctor> doctorList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "persona", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "persona", fetch = FetchType.LAZY)
     private List<Paciente> pacienteList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "persona", fetch = FetchType.LAZY)
-    private List<Usuario> usuarioList;
 
     public Persona() {
     }
 
     public Persona(Integer personaId) {
         this.personaId = personaId;
-    }
-
-    public Persona(Integer personaId, String personaNombre, String personaApellidoPaterno, String personaApellidoMaterno, String personaDNI, Date personaFechaRegistro, boolean personaSexo, Date personaFechaNacimiento, short personaEstado) {
-        this.personaId = personaId;
-        this.personaNombre = personaNombre;
-        this.personaApellidoPaterno = personaApellidoPaterno;
-        this.personaApellidoMaterno = personaApellidoMaterno;
-        this.personaDNI = personaDNI;
-        this.personaFechaRegistro = personaFechaRegistro;
-        this.personaSexo = personaSexo;
-        this.personaFechaNacimiento = personaFechaNacimiento;
-        this.personaEstado = personaEstado;
     }
 
     public Integer getPersonaId() {
@@ -188,11 +156,11 @@ public class Persona implements Serializable {
         this.personaFechaRegistro = personaFechaRegistro;
     }
 
-    public boolean getPersonaSexo() {
+    public Boolean getPersonaSexo() {
         return personaSexo;
     }
 
-    public void setPersonaSexo(boolean personaSexo) {
+    public void setPersonaSexo(Boolean personaSexo) {
         this.personaSexo = personaSexo;
     }
 
@@ -228,11 +196,11 @@ public class Persona implements Serializable {
         this.personaEmail = personaEmail;
     }
 
-    public short getPersonaEstado() {
+    public Short getPersonaEstado() {
         return personaEstado;
     }
 
-    public void setPersonaEstado(short personaEstado) {
+    public void setPersonaEstado(Short personaEstado) {
         this.personaEstado = personaEstado;
     }
 
@@ -252,15 +220,6 @@ public class Persona implements Serializable {
 
     public void setPacienteList(List<Paciente> pacienteList) {
         this.pacienteList = pacienteList;
-    }
-
-    @XmlTransient
-    public List<Usuario> getUsuarioList() {
-        return usuarioList;
-    }
-
-    public void setUsuarioList(List<Usuario> usuarioList) {
-        this.usuarioList = usuarioList;
     }
 
     @Override

@@ -18,7 +18,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -31,7 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "CasoSaludPuntaje.findAll", query = "SELECT c FROM CasoSaludPuntaje c"),
     @NamedQuery(name = "CasoSaludPuntaje.findByCasoSaludPuntajeId", query = "SELECT c FROM CasoSaludPuntaje c WHERE c.casoSaludPuntajeId = :casoSaludPuntajeId"),
-    @NamedQuery(name = "CasoSaludPuntaje.findByCasoSsaludPuntajeTotal", query = "SELECT c FROM CasoSaludPuntaje c WHERE c.casoSsaludPuntajeTotal = :casoSsaludPuntajeTotal")})
+    @NamedQuery(name = "CasoSaludPuntaje.findByCasoSaludPuntajeTotal", query = "SELECT c FROM CasoSaludPuntaje c WHERE c.casoSaludPuntajeTotal = :casoSaludPuntajeTotal")})
 public class CasoSaludPuntaje implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -39,15 +38,13 @@ public class CasoSaludPuntaje implements Serializable {
     @Basic(optional = false)
     @Column(name = "Caso_Salud_Puntaje_Id")
     private Integer casoSaludPuntajeId;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "Caso_Ssalud_Puntaje_Total")
-    private short casoSsaludPuntajeTotal;
+    @Column(name = "Caso_Salud_Puntaje_Total")
+    private Short casoSaludPuntajeTotal;
     @JoinColumn(name = "Respuesta_Caso_Salud_Id", referencedColumnName = "Respuesta_Caso_Salud_Id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private RespuestaCasoSalud respuestaCasoSalud;
     @JoinColumn(name = "Usuario_Id", referencedColumnName = "Usuario_Id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Usuario usuario;
 
     public CasoSaludPuntaje() {
@@ -55,11 +52,6 @@ public class CasoSaludPuntaje implements Serializable {
 
     public CasoSaludPuntaje(Integer casoSaludPuntajeId) {
         this.casoSaludPuntajeId = casoSaludPuntajeId;
-    }
-
-    public CasoSaludPuntaje(Integer casoSaludPuntajeId, short casoSsaludPuntajeTotal) {
-        this.casoSaludPuntajeId = casoSaludPuntajeId;
-        this.casoSsaludPuntajeTotal = casoSsaludPuntajeTotal;
     }
 
     public Integer getCasoSaludPuntajeId() {
@@ -70,12 +62,12 @@ public class CasoSaludPuntaje implements Serializable {
         this.casoSaludPuntajeId = casoSaludPuntajeId;
     }
 
-    public short getCasoSsaludPuntajeTotal() {
-        return casoSsaludPuntajeTotal;
+    public Short getCasoSaludPuntajeTotal() {
+        return casoSaludPuntajeTotal;
     }
 
-    public void setCasoSsaludPuntajeTotal(short casoSsaludPuntajeTotal) {
-        this.casoSsaludPuntajeTotal = casoSsaludPuntajeTotal;
+    public void setCasoSaludPuntajeTotal(Short casoSaludPuntajeTotal) {
+        this.casoSaludPuntajeTotal = casoSaludPuntajeTotal;
     }
 
     public RespuestaCasoSalud getRespuestaCasoSalud() {

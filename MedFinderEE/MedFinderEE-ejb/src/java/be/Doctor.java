@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,7 +23,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -58,75 +56,52 @@ public class Doctor implements Serializable {
     @Basic(optional = false)
     @Column(name = "Doctor_Id")
     private Integer doctorId;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
+    @Size(max = 45)
     @Column(name = "Doctor_Usuario")
     private String doctorUsuario;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
+    @Size(max = 45)
     @Column(name = "Doctor_Clave")
     private String doctorClave;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "Doctor_FechaRegistro")
     @Temporal(TemporalType.TIMESTAMP)
     private Date doctorFechaRegistro;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
+    @Size(max = 45)
     @Column(name = "Doctor_CodigoColegiatura")
     private String doctorCodigoColegiatura;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
+    @Size(max = 100)
     @Column(name = "Doctor_Direccion")
     private String doctorDireccion;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 9)
+    @Size(max = 9)
     @Column(name = "Doctor_Telefono")
     private String doctorTelefono;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
+    @Size(max = 100)
     @Column(name = "Doctor_Direccion_Detalle")
     private String doctorDireccionDetalle;
-    @Basic(optional = false)
-    @NotNull
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "Doctor_Longitud")
-    private double doctorLongitud;
-    @Basic(optional = false)
-    @NotNull
+    private Double doctorLongitud;
     @Column(name = "Doctor_Latitud")
-    private double doctorLatitud;
-    @Basic(optional = false)
-    @NotNull
+    private Double doctorLatitud;
     @Column(name = "Doctor_Puntaje")
-    private int doctorPuntaje;
-    @Basic(optional = false)
-    @NotNull
+    private Integer doctorPuntaje;
     @Column(name = "Doctor_Estado")
-    private short doctorEstado;
-    @Basic(optional = false)
-    @NotNull
+    private Short doctorEstado;
     @Column(name = "Doctor_FechaUltimoIngreso")
     @Temporal(TemporalType.TIMESTAMP)
     private Date doctorFechaUltimoIngreso;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "doctor", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY)
     private List<RespuestaPreguntaPaciente> respuestaPreguntaPacienteList;
     @JoinColumn(name = "Persona_Id", referencedColumnName = "Persona_Id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Persona persona;
     @JoinColumn(name = "Especialidad_Id", referencedColumnName = "Especialidad_Id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Especialidad especialidad;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "doctor", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY)
     private List<CitaPaciente> citaPacienteList;
     @OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY)
     private List<Favoritos> favoritosList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "doctor", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY)
     private List<RespuestaCasoSalud> respuestaCasoSaludList;
 
     public Doctor() {
@@ -134,22 +109,6 @@ public class Doctor implements Serializable {
 
     public Doctor(Integer doctorId) {
         this.doctorId = doctorId;
-    }
-
-    public Doctor(Integer doctorId, String doctorUsuario, String doctorClave, Date doctorFechaRegistro, String doctorCodigoColegiatura, String doctorDireccion, String doctorTelefono, String doctorDireccionDetalle, double doctorLongitud, double doctorLatitud, int doctorPuntaje, short doctorEstado, Date doctorFechaUltimoIngreso) {
-        this.doctorId = doctorId;
-        this.doctorUsuario = doctorUsuario;
-        this.doctorClave = doctorClave;
-        this.doctorFechaRegistro = doctorFechaRegistro;
-        this.doctorCodigoColegiatura = doctorCodigoColegiatura;
-        this.doctorDireccion = doctorDireccion;
-        this.doctorTelefono = doctorTelefono;
-        this.doctorDireccionDetalle = doctorDireccionDetalle;
-        this.doctorLongitud = doctorLongitud;
-        this.doctorLatitud = doctorLatitud;
-        this.doctorPuntaje = doctorPuntaje;
-        this.doctorEstado = doctorEstado;
-        this.doctorFechaUltimoIngreso = doctorFechaUltimoIngreso;
     }
 
     public Integer getDoctorId() {
@@ -216,35 +175,35 @@ public class Doctor implements Serializable {
         this.doctorDireccionDetalle = doctorDireccionDetalle;
     }
 
-    public double getDoctorLongitud() {
+    public Double getDoctorLongitud() {
         return doctorLongitud;
     }
 
-    public void setDoctorLongitud(double doctorLongitud) {
+    public void setDoctorLongitud(Double doctorLongitud) {
         this.doctorLongitud = doctorLongitud;
     }
 
-    public double getDoctorLatitud() {
+    public Double getDoctorLatitud() {
         return doctorLatitud;
     }
 
-    public void setDoctorLatitud(double doctorLatitud) {
+    public void setDoctorLatitud(Double doctorLatitud) {
         this.doctorLatitud = doctorLatitud;
     }
 
-    public int getDoctorPuntaje() {
+    public Integer getDoctorPuntaje() {
         return doctorPuntaje;
     }
 
-    public void setDoctorPuntaje(int doctorPuntaje) {
+    public void setDoctorPuntaje(Integer doctorPuntaje) {
         this.doctorPuntaje = doctorPuntaje;
     }
 
-    public short getDoctorEstado() {
+    public Short getDoctorEstado() {
         return doctorEstado;
     }
 
-    public void setDoctorEstado(short doctorEstado) {
+    public void setDoctorEstado(Short doctorEstado) {
         this.doctorEstado = doctorEstado;
     }
 

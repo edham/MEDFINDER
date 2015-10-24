@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -22,7 +21,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -49,31 +47,21 @@ public class CasosSalud implements Serializable {
     @Basic(optional = false)
     @Column(name = "Casos_Salud_Id")
     private Integer casosSaludId;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
+    @Size(max = 45)
     @Column(name = "Casos_Salud_Tema")
     private String casosSaludTema;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "Casos_Salud_FechaInicio")
     @Temporal(TemporalType.TIMESTAMP)
     private Date casosSaludFechaInicio;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "Casos_Salud_FechaFin")
     @Temporal(TemporalType.TIMESTAMP)
     private Date casosSaludFechaFin;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "Casos_Salud_Fecha")
     @Temporal(TemporalType.TIMESTAMP)
     private Date casosSaludFecha;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "Casos_Salud_Estado")
-    private short casosSaludEstado;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "casosSalud", fetch = FetchType.LAZY)
+    private Short casosSaludEstado;
+    @OneToMany(mappedBy = "casosSalud", fetch = FetchType.LAZY)
     private List<RespuestaCasoSalud> respuestaCasoSaludList;
 
     public CasosSalud() {
@@ -81,15 +69,6 @@ public class CasosSalud implements Serializable {
 
     public CasosSalud(Integer casosSaludId) {
         this.casosSaludId = casosSaludId;
-    }
-
-    public CasosSalud(Integer casosSaludId, String casosSaludTema, Date casosSaludFechaInicio, Date casosSaludFechaFin, Date casosSaludFecha, short casosSaludEstado) {
-        this.casosSaludId = casosSaludId;
-        this.casosSaludTema = casosSaludTema;
-        this.casosSaludFechaInicio = casosSaludFechaInicio;
-        this.casosSaludFechaFin = casosSaludFechaFin;
-        this.casosSaludFecha = casosSaludFecha;
-        this.casosSaludEstado = casosSaludEstado;
     }
 
     public Integer getCasosSaludId() {
@@ -132,11 +111,11 @@ public class CasosSalud implements Serializable {
         this.casosSaludFecha = casosSaludFecha;
     }
 
-    public short getCasosSaludEstado() {
+    public Short getCasosSaludEstado() {
         return casosSaludEstado;
     }
 
-    public void setCasosSaludEstado(short casosSaludEstado) {
+    public void setCasosSaludEstado(Short casosSaludEstado) {
         this.casosSaludEstado = casosSaludEstado;
     }
 

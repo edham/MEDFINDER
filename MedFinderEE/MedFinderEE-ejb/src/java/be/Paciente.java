@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,7 +23,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -57,61 +55,37 @@ public class Paciente implements Serializable {
     @Basic(optional = false)
     @Column(name = "Paciente_Id")
     private Integer pacienteId;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "Paciente_Estatura")
-    private int pacienteEstatura;
-    @Basic(optional = false)
-    @NotNull
+    private Integer pacienteEstatura;
     @Column(name = "Paciente_Tipo")
-    private short pacienteTipo;
-    @Basic(optional = false)
-    @NotNull
+    private Short pacienteTipo;
     @Column(name = "Paciente_Cardiovascular")
-    private boolean pacienteCardiovascular;
-    @Basic(optional = false)
-    @NotNull
+    private Boolean pacienteCardiovascular;
     @Column(name = "Paciente_Musculares")
-    private boolean pacienteMusculares;
-    @Basic(optional = false)
-    @NotNull
+    private Boolean pacienteMusculares;
     @Column(name = "Paciente_Digestivos")
-    private boolean pacienteDigestivos;
-    @Basic(optional = false)
-    @NotNull
+    private Boolean pacienteDigestivos;
     @Column(name = "Paciente_Alergicos")
-    private boolean pacienteAlergicos;
-    @Basic(optional = false)
-    @NotNull
+    private Boolean pacienteAlergicos;
     @Column(name = "Paciente_Alcohol")
-    private boolean pacienteAlcohol;
-    @Basic(optional = false)
-    @NotNull
+    private Boolean pacienteAlcohol;
     @Column(name = "Paciente_Tabaquismo")
-    private boolean pacienteTabaquismo;
-    @Basic(optional = false)
-    @NotNull
+    private Boolean pacienteTabaquismo;
     @Column(name = "Paciente_Drogas")
-    private boolean pacienteDrogas;
-    @Basic(optional = false)
-    @NotNull
+    private Boolean pacienteDrogas;
     @Column(name = "Paciente_Psicologicos")
-    private boolean pacientePsicologicos;
-    @Basic(optional = false)
-    @NotNull
+    private Boolean pacientePsicologicos;
     @Column(name = "Paciente_Estado")
-    private short pacienteEstado;
-    @Basic(optional = false)
-    @NotNull
+    private Short pacienteEstado;
     @Column(name = "Paciente_FechaRegistro")
     @Temporal(TemporalType.TIMESTAMP)
     private Date pacienteFechaRegistro;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "paciente", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "paciente", fetch = FetchType.LAZY)
     private List<PreguntaPaciente> preguntaPacienteList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "paciente", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "paciente", fetch = FetchType.LAZY)
     private List<CitaPaciente> citaPacienteList;
     @JoinColumn(name = "Persona_Id", referencedColumnName = "Persona_Id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Persona persona;
     @JoinColumn(name = "Usuario_Id", referencedColumnName = "Usuario_Id")
     @ManyToOne(fetch = FetchType.LAZY)
@@ -124,22 +98,6 @@ public class Paciente implements Serializable {
         this.pacienteId = pacienteId;
     }
 
-    public Paciente(Integer pacienteId, int pacienteEstatura, short pacienteTipo, boolean pacienteCardiovascular, boolean pacienteMusculares, boolean pacienteDigestivos, boolean pacienteAlergicos, boolean pacienteAlcohol, boolean pacienteTabaquismo, boolean pacienteDrogas, boolean pacientePsicologicos, short pacienteEstado, Date pacienteFechaRegistro) {
-        this.pacienteId = pacienteId;
-        this.pacienteEstatura = pacienteEstatura;
-        this.pacienteTipo = pacienteTipo;
-        this.pacienteCardiovascular = pacienteCardiovascular;
-        this.pacienteMusculares = pacienteMusculares;
-        this.pacienteDigestivos = pacienteDigestivos;
-        this.pacienteAlergicos = pacienteAlergicos;
-        this.pacienteAlcohol = pacienteAlcohol;
-        this.pacienteTabaquismo = pacienteTabaquismo;
-        this.pacienteDrogas = pacienteDrogas;
-        this.pacientePsicologicos = pacientePsicologicos;
-        this.pacienteEstado = pacienteEstado;
-        this.pacienteFechaRegistro = pacienteFechaRegistro;
-    }
-
     public Integer getPacienteId() {
         return pacienteId;
     }
@@ -148,91 +106,91 @@ public class Paciente implements Serializable {
         this.pacienteId = pacienteId;
     }
 
-    public int getPacienteEstatura() {
+    public Integer getPacienteEstatura() {
         return pacienteEstatura;
     }
 
-    public void setPacienteEstatura(int pacienteEstatura) {
+    public void setPacienteEstatura(Integer pacienteEstatura) {
         this.pacienteEstatura = pacienteEstatura;
     }
 
-    public short getPacienteTipo() {
+    public Short getPacienteTipo() {
         return pacienteTipo;
     }
 
-    public void setPacienteTipo(short pacienteTipo) {
+    public void setPacienteTipo(Short pacienteTipo) {
         this.pacienteTipo = pacienteTipo;
     }
 
-    public boolean getPacienteCardiovascular() {
+    public Boolean getPacienteCardiovascular() {
         return pacienteCardiovascular;
     }
 
-    public void setPacienteCardiovascular(boolean pacienteCardiovascular) {
+    public void setPacienteCardiovascular(Boolean pacienteCardiovascular) {
         this.pacienteCardiovascular = pacienteCardiovascular;
     }
 
-    public boolean getPacienteMusculares() {
+    public Boolean getPacienteMusculares() {
         return pacienteMusculares;
     }
 
-    public void setPacienteMusculares(boolean pacienteMusculares) {
+    public void setPacienteMusculares(Boolean pacienteMusculares) {
         this.pacienteMusculares = pacienteMusculares;
     }
 
-    public boolean getPacienteDigestivos() {
+    public Boolean getPacienteDigestivos() {
         return pacienteDigestivos;
     }
 
-    public void setPacienteDigestivos(boolean pacienteDigestivos) {
+    public void setPacienteDigestivos(Boolean pacienteDigestivos) {
         this.pacienteDigestivos = pacienteDigestivos;
     }
 
-    public boolean getPacienteAlergicos() {
+    public Boolean getPacienteAlergicos() {
         return pacienteAlergicos;
     }
 
-    public void setPacienteAlergicos(boolean pacienteAlergicos) {
+    public void setPacienteAlergicos(Boolean pacienteAlergicos) {
         this.pacienteAlergicos = pacienteAlergicos;
     }
 
-    public boolean getPacienteAlcohol() {
+    public Boolean getPacienteAlcohol() {
         return pacienteAlcohol;
     }
 
-    public void setPacienteAlcohol(boolean pacienteAlcohol) {
+    public void setPacienteAlcohol(Boolean pacienteAlcohol) {
         this.pacienteAlcohol = pacienteAlcohol;
     }
 
-    public boolean getPacienteTabaquismo() {
+    public Boolean getPacienteTabaquismo() {
         return pacienteTabaquismo;
     }
 
-    public void setPacienteTabaquismo(boolean pacienteTabaquismo) {
+    public void setPacienteTabaquismo(Boolean pacienteTabaquismo) {
         this.pacienteTabaquismo = pacienteTabaquismo;
     }
 
-    public boolean getPacienteDrogas() {
+    public Boolean getPacienteDrogas() {
         return pacienteDrogas;
     }
 
-    public void setPacienteDrogas(boolean pacienteDrogas) {
+    public void setPacienteDrogas(Boolean pacienteDrogas) {
         this.pacienteDrogas = pacienteDrogas;
     }
 
-    public boolean getPacientePsicologicos() {
+    public Boolean getPacientePsicologicos() {
         return pacientePsicologicos;
     }
 
-    public void setPacientePsicologicos(boolean pacientePsicologicos) {
+    public void setPacientePsicologicos(Boolean pacientePsicologicos) {
         this.pacientePsicologicos = pacientePsicologicos;
     }
 
-    public short getPacienteEstado() {
+    public Short getPacienteEstado() {
         return pacienteEstado;
     }
 
-    public void setPacienteEstado(short pacienteEstado) {
+    public void setPacienteEstado(Short pacienteEstado) {
         this.pacienteEstado = pacienteEstado;
     }
 

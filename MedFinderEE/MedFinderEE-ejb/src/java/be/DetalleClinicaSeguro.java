@@ -21,7 +21,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -43,20 +42,16 @@ public class DetalleClinicaSeguro implements Serializable {
     @Basic(optional = false)
     @Column(name = "Detalle_Clinica_Seguro_Id")
     private Integer detalleClinicaSeguroId;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "Detalle_Clinica_Seguro_Fecha")
     @Temporal(TemporalType.TIMESTAMP)
     private Date detalleClinicaSeguroFecha;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "Detalle_Clinica_Seguro_Estado")
-    private short detalleClinicaSeguroEstado;
+    private Short detalleClinicaSeguroEstado;
     @JoinColumn(name = "Clinica_Id", referencedColumnName = "Clinica_Id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Clinica clinica;
     @JoinColumn(name = "Seguro_Id", referencedColumnName = "Seguro_Id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Seguro seguro;
 
     public DetalleClinicaSeguro() {
@@ -64,12 +59,6 @@ public class DetalleClinicaSeguro implements Serializable {
 
     public DetalleClinicaSeguro(Integer detalleClinicaSeguroId) {
         this.detalleClinicaSeguroId = detalleClinicaSeguroId;
-    }
-
-    public DetalleClinicaSeguro(Integer detalleClinicaSeguroId, Date detalleClinicaSeguroFecha, short detalleClinicaSeguroEstado) {
-        this.detalleClinicaSeguroId = detalleClinicaSeguroId;
-        this.detalleClinicaSeguroFecha = detalleClinicaSeguroFecha;
-        this.detalleClinicaSeguroEstado = detalleClinicaSeguroEstado;
     }
 
     public Integer getDetalleClinicaSeguroId() {
@@ -88,11 +77,11 @@ public class DetalleClinicaSeguro implements Serializable {
         this.detalleClinicaSeguroFecha = detalleClinicaSeguroFecha;
     }
 
-    public short getDetalleClinicaSeguroEstado() {
+    public Short getDetalleClinicaSeguroEstado() {
         return detalleClinicaSeguroEstado;
     }
 
-    public void setDetalleClinicaSeguroEstado(short detalleClinicaSeguroEstado) {
+    public void setDetalleClinicaSeguroEstado(Short detalleClinicaSeguroEstado) {
         this.detalleClinicaSeguroEstado = detalleClinicaSeguroEstado;
     }
 

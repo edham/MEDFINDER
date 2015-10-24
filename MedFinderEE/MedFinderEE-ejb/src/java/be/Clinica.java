@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -23,7 +22,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -57,69 +55,46 @@ public class Clinica implements Serializable {
     @Basic(optional = false)
     @Column(name = "Clinica_Id")
     private Integer clinicaId;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
+    @Size(max = 45)
     @Column(name = "Clinica_Nombre")
     private String clinicaNombre;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
+    @Size(max = 100)
     @Column(name = "Clinica_Slogan")
     private String clinicaSlogan;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
+    @Size(max = 100)
     @Column(name = "Clinica_Direccion")
     private String clinicaDireccion;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 200)
+    @Size(max = 200)
     @Column(name = "Clinica_Descripcion")
     private String clinicaDescripcion;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "Clinica_Horario_Inicio")
     @Temporal(TemporalType.TIME)
     private Date clinicaHorarioInicio;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "Clinica_Horario_Fin")
     @Temporal(TemporalType.TIME)
     private Date clinicaHorarioFin;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
+    @Size(max = 45)
     @Column(name = "Clinica_Detalle_Atencion")
     private String clinicaDetalleAtencion;
     @Lob
     @Column(name = "Clinica_Logo")
     private byte[] clinicaLogo;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
+    @Size(max = 20)
     @Column(name = "Clinica_Telefono")
     private String clinicaTelefono;
-    @Basic(optional = false)
-    @NotNull
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "Clinica_Longitud")
-    private double clinicaLongitud;
-    @Basic(optional = false)
-    @NotNull
+    private Double clinicaLongitud;
     @Column(name = "Clinica_Latitud")
-    private double clinicaLatitud;
-    @Basic(optional = false)
-    @NotNull
+    private Double clinicaLatitud;
     @Column(name = "Clinica_FechaRegistro")
     @Temporal(TemporalType.TIMESTAMP)
     private Date clinicaFechaRegistro;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "Clinica_Estado")
-    private short clinicaEstado;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "clinica", fetch = FetchType.LAZY)
+    private Short clinicaEstado;
+    @OneToMany(mappedBy = "clinica", fetch = FetchType.LAZY)
     private List<DetalleClinicaSeguro> detalleClinicaSeguroList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "clinica", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "clinica", fetch = FetchType.LAZY)
     private List<DetalleClinicaEspecialidad> detalleClinicaEspecialidadList;
 
     public Clinica() {
@@ -127,22 +102,6 @@ public class Clinica implements Serializable {
 
     public Clinica(Integer clinicaId) {
         this.clinicaId = clinicaId;
-    }
-
-    public Clinica(Integer clinicaId, String clinicaNombre, String clinicaSlogan, String clinicaDireccion, String clinicaDescripcion, Date clinicaHorarioInicio, Date clinicaHorarioFin, String clinicaDetalleAtencion, String clinicaTelefono, double clinicaLongitud, double clinicaLatitud, Date clinicaFechaRegistro, short clinicaEstado) {
-        this.clinicaId = clinicaId;
-        this.clinicaNombre = clinicaNombre;
-        this.clinicaSlogan = clinicaSlogan;
-        this.clinicaDireccion = clinicaDireccion;
-        this.clinicaDescripcion = clinicaDescripcion;
-        this.clinicaHorarioInicio = clinicaHorarioInicio;
-        this.clinicaHorarioFin = clinicaHorarioFin;
-        this.clinicaDetalleAtencion = clinicaDetalleAtencion;
-        this.clinicaTelefono = clinicaTelefono;
-        this.clinicaLongitud = clinicaLongitud;
-        this.clinicaLatitud = clinicaLatitud;
-        this.clinicaFechaRegistro = clinicaFechaRegistro;
-        this.clinicaEstado = clinicaEstado;
     }
 
     public Integer getClinicaId() {
@@ -225,19 +184,19 @@ public class Clinica implements Serializable {
         this.clinicaTelefono = clinicaTelefono;
     }
 
-    public double getClinicaLongitud() {
+    public Double getClinicaLongitud() {
         return clinicaLongitud;
     }
 
-    public void setClinicaLongitud(double clinicaLongitud) {
+    public void setClinicaLongitud(Double clinicaLongitud) {
         this.clinicaLongitud = clinicaLongitud;
     }
 
-    public double getClinicaLatitud() {
+    public Double getClinicaLatitud() {
         return clinicaLatitud;
     }
 
-    public void setClinicaLatitud(double clinicaLatitud) {
+    public void setClinicaLatitud(Double clinicaLatitud) {
         this.clinicaLatitud = clinicaLatitud;
     }
 
@@ -249,11 +208,11 @@ public class Clinica implements Serializable {
         this.clinicaFechaRegistro = clinicaFechaRegistro;
     }
 
-    public short getClinicaEstado() {
+    public Short getClinicaEstado() {
         return clinicaEstado;
     }
 
-    public void setClinicaEstado(short clinicaEstado) {
+    public void setClinicaEstado(Short clinicaEstado) {
         this.clinicaEstado = clinicaEstado;
     }
 

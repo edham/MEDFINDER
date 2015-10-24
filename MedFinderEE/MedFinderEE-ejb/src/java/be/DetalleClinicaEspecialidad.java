@@ -21,7 +21,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -47,35 +46,25 @@ public class DetalleClinicaEspecialidad implements Serializable {
     @Basic(optional = false)
     @Column(name = "Detalle_Clinica_Especialidad_Id")
     private Integer detalleClinicaEspecialidadId;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "Detalle_Clinica_Especialidad_HorarioInicio")
     @Temporal(TemporalType.TIME)
     private Date detalleClinicaEspecialidadHorarioInicio;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "Detalle_Clinica_Especialidad_HorarioFin")
     @Temporal(TemporalType.TIME)
     private Date detalleClinicaEspecialidadHorarioFin;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
+    @Size(max = 45)
     @Column(name = "Detalle_Clinica_Especialidad_Detalle_Horario")
     private String detalleClinicaEspecialidadDetalleHorario;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "Detalle_Clinica_Especialidad_Estado")
-    private short detalleClinicaEspecialidadEstado;
-    @Basic(optional = false)
-    @NotNull
+    private Short detalleClinicaEspecialidadEstado;
     @Column(name = "Detalle_Clinica_Especialidad_Fecha")
     @Temporal(TemporalType.TIMESTAMP)
     private Date detalleClinicaEspecialidadFecha;
     @JoinColumn(name = "Clinica_Id", referencedColumnName = "Clinica_Id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Clinica clinica;
     @JoinColumn(name = "Especialidad_Id", referencedColumnName = "Especialidad_Id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Especialidad especialidad;
 
     public DetalleClinicaEspecialidad() {
@@ -83,15 +72,6 @@ public class DetalleClinicaEspecialidad implements Serializable {
 
     public DetalleClinicaEspecialidad(Integer detalleClinicaEspecialidadId) {
         this.detalleClinicaEspecialidadId = detalleClinicaEspecialidadId;
-    }
-
-    public DetalleClinicaEspecialidad(Integer detalleClinicaEspecialidadId, Date detalleClinicaEspecialidadHorarioInicio, Date detalleClinicaEspecialidadHorarioFin, String detalleClinicaEspecialidadDetalleHorario, short detalleClinicaEspecialidadEstado, Date detalleClinicaEspecialidadFecha) {
-        this.detalleClinicaEspecialidadId = detalleClinicaEspecialidadId;
-        this.detalleClinicaEspecialidadHorarioInicio = detalleClinicaEspecialidadHorarioInicio;
-        this.detalleClinicaEspecialidadHorarioFin = detalleClinicaEspecialidadHorarioFin;
-        this.detalleClinicaEspecialidadDetalleHorario = detalleClinicaEspecialidadDetalleHorario;
-        this.detalleClinicaEspecialidadEstado = detalleClinicaEspecialidadEstado;
-        this.detalleClinicaEspecialidadFecha = detalleClinicaEspecialidadFecha;
     }
 
     public Integer getDetalleClinicaEspecialidadId() {
@@ -126,11 +106,11 @@ public class DetalleClinicaEspecialidad implements Serializable {
         this.detalleClinicaEspecialidadDetalleHorario = detalleClinicaEspecialidadDetalleHorario;
     }
 
-    public short getDetalleClinicaEspecialidadEstado() {
+    public Short getDetalleClinicaEspecialidadEstado() {
         return detalleClinicaEspecialidadEstado;
     }
 
-    public void setDetalleClinicaEspecialidadEstado(short detalleClinicaEspecialidadEstado) {
+    public void setDetalleClinicaEspecialidadEstado(Short detalleClinicaEspecialidadEstado) {
         this.detalleClinicaEspecialidadEstado = detalleClinicaEspecialidadEstado;
     }
 

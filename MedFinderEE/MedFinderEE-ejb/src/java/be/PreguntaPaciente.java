@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -25,7 +24,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -55,35 +53,27 @@ public class PreguntaPaciente implements Serializable {
     @Size(max = 45)
     @Column(name = "Pregunta_Paciente_Asunto")
     private String preguntaPacienteAsunto;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 200)
+    @Size(max = 200)
     @Column(name = "Pregunta_Paciente_Detalle")
     private String preguntaPacienteDetalle;
     @Lob
     @Column(name = "Pregunta_Paciente_Imagen")
     private byte[] preguntaPacienteImagen;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "Pregunta_Paciente_Estado")
-    private short preguntaPacienteEstado;
-    @Basic(optional = false)
-    @NotNull
+    private Short preguntaPacienteEstado;
     @Column(name = "Pregunta_Paciente_FechaInicio")
     @Temporal(TemporalType.TIMESTAMP)
     private Date preguntaPacienteFechaInicio;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "Pregunta_Paciente_FechaFin")
     @Temporal(TemporalType.TIMESTAMP)
     private Date preguntaPacienteFechaFin;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "preguntaPaciente", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "preguntaPaciente", fetch = FetchType.LAZY)
     private List<RespuestaPreguntaPaciente> respuestaPreguntaPacienteList;
     @JoinColumn(name = "Especialidad_Id", referencedColumnName = "Especialidad_Id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Especialidad especialidad;
     @JoinColumn(name = "Paciente_Id", referencedColumnName = "Paciente_Id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Paciente paciente;
 
     public PreguntaPaciente() {
@@ -91,14 +81,6 @@ public class PreguntaPaciente implements Serializable {
 
     public PreguntaPaciente(Integer preguntaPacienteId) {
         this.preguntaPacienteId = preguntaPacienteId;
-    }
-
-    public PreguntaPaciente(Integer preguntaPacienteId, String preguntaPacienteDetalle, short preguntaPacienteEstado, Date preguntaPacienteFechaInicio, Date preguntaPacienteFechaFin) {
-        this.preguntaPacienteId = preguntaPacienteId;
-        this.preguntaPacienteDetalle = preguntaPacienteDetalle;
-        this.preguntaPacienteEstado = preguntaPacienteEstado;
-        this.preguntaPacienteFechaInicio = preguntaPacienteFechaInicio;
-        this.preguntaPacienteFechaFin = preguntaPacienteFechaFin;
     }
 
     public Integer getPreguntaPacienteId() {
@@ -133,11 +115,11 @@ public class PreguntaPaciente implements Serializable {
         this.preguntaPacienteImagen = preguntaPacienteImagen;
     }
 
-    public short getPreguntaPacienteEstado() {
+    public Short getPreguntaPacienteEstado() {
         return preguntaPacienteEstado;
     }
 
-    public void setPreguntaPacienteEstado(short preguntaPacienteEstado) {
+    public void setPreguntaPacienteEstado(Short preguntaPacienteEstado) {
         this.preguntaPacienteEstado = preguntaPacienteEstado;
     }
 

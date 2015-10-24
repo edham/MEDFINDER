@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -23,7 +22,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -48,24 +46,18 @@ public class Seguro implements Serializable {
     @Basic(optional = false)
     @Column(name = "Seguro_Id")
     private Integer seguroId;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
+    @Size(max = 45)
     @Column(name = "Seguro_Nombre")
     private String seguroNombre;
     @Lob
     @Column(name = "Seguro_Logo")
     private byte[] seguroLogo;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "Seguro_Fecha")
     @Temporal(TemporalType.TIMESTAMP)
     private Date seguroFecha;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "Seguro_Estado")
-    private short seguroEstado;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "seguro", fetch = FetchType.LAZY)
+    private Short seguroEstado;
+    @OneToMany(mappedBy = "seguro", fetch = FetchType.LAZY)
     private List<DetalleClinicaSeguro> detalleClinicaSeguroList;
 
     public Seguro() {
@@ -73,13 +65,6 @@ public class Seguro implements Serializable {
 
     public Seguro(Integer seguroId) {
         this.seguroId = seguroId;
-    }
-
-    public Seguro(Integer seguroId, String seguroNombre, Date seguroFecha, short seguroEstado) {
-        this.seguroId = seguroId;
-        this.seguroNombre = seguroNombre;
-        this.seguroFecha = seguroFecha;
-        this.seguroEstado = seguroEstado;
     }
 
     public Integer getSeguroId() {
@@ -114,11 +99,11 @@ public class Seguro implements Serializable {
         this.seguroFecha = seguroFecha;
     }
 
-    public short getSeguroEstado() {
+    public Short getSeguroEstado() {
         return seguroEstado;
     }
 
-    public void setSeguroEstado(short seguroEstado) {
+    public void setSeguroEstado(Short seguroEstado) {
         this.seguroEstado = seguroEstado;
     }
 

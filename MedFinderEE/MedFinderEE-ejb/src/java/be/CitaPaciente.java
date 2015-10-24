@@ -21,7 +21,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -46,28 +45,22 @@ public class CitaPaciente implements Serializable {
     @Basic(optional = false)
     @Column(name = "Cita_Paciente_Id")
     private Integer citaPacienteId;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 200)
+    @Size(max = 200)
     @Column(name = "Cita_Paciente_Detalle")
     private String citaPacienteDetalle;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "Cita_Paciente_Creacion")
     @Temporal(TemporalType.TIMESTAMP)
     private Date citaPacienteCreacion;
     @Column(name = "Cita_Paciente_Atencion")
     @Temporal(TemporalType.TIMESTAMP)
     private Date citaPacienteAtencion;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "Cita_Paciente_Estado")
-    private short citaPacienteEstado;
+    private Short citaPacienteEstado;
     @JoinColumn(name = "Doctor_Id", referencedColumnName = "Doctor_Id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Doctor doctor;
     @JoinColumn(name = "Paciente_Id", referencedColumnName = "Paciente_Id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Paciente paciente;
 
     public CitaPaciente() {
@@ -75,13 +68,6 @@ public class CitaPaciente implements Serializable {
 
     public CitaPaciente(Integer citaPacienteId) {
         this.citaPacienteId = citaPacienteId;
-    }
-
-    public CitaPaciente(Integer citaPacienteId, String citaPacienteDetalle, Date citaPacienteCreacion, short citaPacienteEstado) {
-        this.citaPacienteId = citaPacienteId;
-        this.citaPacienteDetalle = citaPacienteDetalle;
-        this.citaPacienteCreacion = citaPacienteCreacion;
-        this.citaPacienteEstado = citaPacienteEstado;
     }
 
     public Integer getCitaPacienteId() {
@@ -116,11 +102,11 @@ public class CitaPaciente implements Serializable {
         this.citaPacienteAtencion = citaPacienteAtencion;
     }
 
-    public short getCitaPacienteEstado() {
+    public Short getCitaPacienteEstado() {
         return citaPacienteEstado;
     }
 
-    public void setCitaPacienteEstado(short citaPacienteEstado) {
+    public void setCitaPacienteEstado(Short citaPacienteEstado) {
         this.citaPacienteEstado = citaPacienteEstado;
     }
 

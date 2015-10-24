@@ -9,22 +9,18 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -43,7 +39,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Usuario.findByUsuarioClave", query = "SELECT u FROM Usuario u WHERE u.usuarioClave = :usuarioClave"),
     @NamedQuery(name = "Usuario.findByUsuarioEstado", query = "SELECT u FROM Usuario u WHERE u.usuarioEstado = :usuarioEstado"),
     @NamedQuery(name = "Usuario.findByUsuarioFechaRegistro", query = "SELECT u FROM Usuario u WHERE u.usuarioFechaRegistro = :usuarioFechaRegistro"),
-    @NamedQuery(name = "Usuario.findByUsuarioFechaUltimoAcceso", query = "SELECT u FROM Usuario u WHERE u.usuarioFechaUltimoAcceso = :usuarioFechaUltimoAcceso")})
+    @NamedQuery(name = "Usuario.findByUsuarioFechaUltimoAcceso", query = "SELECT u FROM Usuario u WHERE u.usuarioFechaUltimoAcceso = :usuarioFechaUltimoAcceso"),
+    @NamedQuery(name = "Usuario.findByPersonaId", query = "SELECT u FROM Usuario u WHERE u.personaId = :personaId")})
 public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -51,38 +48,27 @@ public class Usuario implements Serializable {
     @Basic(optional = false)
     @Column(name = "Usuario_Id")
     private Integer usuarioId;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
+    @Size(max = 45)
     @Column(name = "Usuario_Nick")
     private String usuarioNick;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
+    @Size(max = 45)
     @Column(name = "Usuario_Clave")
     private String usuarioClave;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "Usuario_Estado")
-    private int usuarioEstado;
-    @Basic(optional = false)
-    @NotNull
+    private Integer usuarioEstado;
     @Column(name = "Usuario_FechaRegistro")
     @Temporal(TemporalType.TIMESTAMP)
     private Date usuarioFechaRegistro;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "usuario_FechaUltimoAcceso")
     @Temporal(TemporalType.TIMESTAMP)
     private Date usuarioFechaUltimoAcceso;
+    @Column(name = "Persona_Id")
+    private Integer personaId;
     @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
     private List<Paciente> pacienteList;
     @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
     private List<Favoritos> favoritosList;
-    @JoinColumn(name = "Persona_Id", referencedColumnName = "Persona_Id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Persona persona;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
     private List<CasoSaludPuntaje> casoSaludPuntajeList;
 
     public Usuario() {
@@ -90,15 +76,6 @@ public class Usuario implements Serializable {
 
     public Usuario(Integer usuarioId) {
         this.usuarioId = usuarioId;
-    }
-
-    public Usuario(Integer usuarioId, String usuarioNick, String usuarioClave, int usuarioEstado, Date usuarioFechaRegistro, Date usuarioFechaUltimoAcceso) {
-        this.usuarioId = usuarioId;
-        this.usuarioNick = usuarioNick;
-        this.usuarioClave = usuarioClave;
-        this.usuarioEstado = usuarioEstado;
-        this.usuarioFechaRegistro = usuarioFechaRegistro;
-        this.usuarioFechaUltimoAcceso = usuarioFechaUltimoAcceso;
     }
 
     public Integer getUsuarioId() {
@@ -125,11 +102,11 @@ public class Usuario implements Serializable {
         this.usuarioClave = usuarioClave;
     }
 
-    public int getUsuarioEstado() {
+    public Integer getUsuarioEstado() {
         return usuarioEstado;
     }
 
-    public void setUsuarioEstado(int usuarioEstado) {
+    public void setUsuarioEstado(Integer usuarioEstado) {
         this.usuarioEstado = usuarioEstado;
     }
 
@@ -149,6 +126,14 @@ public class Usuario implements Serializable {
         this.usuarioFechaUltimoAcceso = usuarioFechaUltimoAcceso;
     }
 
+    public Integer getPersonaId() {
+        return personaId;
+    }
+
+    public void setPersonaId(Integer personaId) {
+        this.personaId = personaId;
+    }
+
     @XmlTransient
     public List<Paciente> getPacienteList() {
         return pacienteList;
@@ -165,14 +150,6 @@ public class Usuario implements Serializable {
 
     public void setFavoritosList(List<Favoritos> favoritosList) {
         this.favoritosList = favoritosList;
-    }
-
-    public Persona getPersona() {
-        return persona;
-    }
-
-    public void setPersona(Persona persona) {
-        this.persona = persona;
     }
 
     @XmlTransient

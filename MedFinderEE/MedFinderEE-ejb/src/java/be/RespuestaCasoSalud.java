@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,7 +23,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -50,31 +48,23 @@ public class RespuestaCasoSalud implements Serializable {
     @Basic(optional = false)
     @Column(name = "Respuesta_Caso_Salud_Id")
     private Integer respuestaCasoSaludId;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
+    @Size(max = 255)
     @Column(name = "Respuesta_Caso_Salud_Descripcion")
     private String respuestaCasoSaludDescripcion;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "Respuesta_Caso_Salud_Puntaje_Total")
-    private int respuestaCasoSaludPuntajeTotal;
-    @Basic(optional = false)
-    @NotNull
+    private Integer respuestaCasoSaludPuntajeTotal;
     @Column(name = "Respuesta_Caso_Salud_Fecha")
     @Temporal(TemporalType.TIMESTAMP)
     private Date respuestaCasoSaludFecha;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "Respuesta_Caso_Salud_Estado")
-    private short respuestaCasoSaludEstado;
+    private Short respuestaCasoSaludEstado;
     @JoinColumn(name = "Casos_Salud_Id", referencedColumnName = "Casos_Salud_Id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private CasosSalud casosSalud;
     @JoinColumn(name = "Doctor_Id", referencedColumnName = "Doctor_Id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Doctor doctor;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "respuestaCasoSalud", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "respuestaCasoSalud", fetch = FetchType.LAZY)
     private List<CasoSaludPuntaje> casoSaludPuntajeList;
 
     public RespuestaCasoSalud() {
@@ -82,14 +72,6 @@ public class RespuestaCasoSalud implements Serializable {
 
     public RespuestaCasoSalud(Integer respuestaCasoSaludId) {
         this.respuestaCasoSaludId = respuestaCasoSaludId;
-    }
-
-    public RespuestaCasoSalud(Integer respuestaCasoSaludId, String respuestaCasoSaludDescripcion, int respuestaCasoSaludPuntajeTotal, Date respuestaCasoSaludFecha, short respuestaCasoSaludEstado) {
-        this.respuestaCasoSaludId = respuestaCasoSaludId;
-        this.respuestaCasoSaludDescripcion = respuestaCasoSaludDescripcion;
-        this.respuestaCasoSaludPuntajeTotal = respuestaCasoSaludPuntajeTotal;
-        this.respuestaCasoSaludFecha = respuestaCasoSaludFecha;
-        this.respuestaCasoSaludEstado = respuestaCasoSaludEstado;
     }
 
     public Integer getRespuestaCasoSaludId() {
@@ -108,11 +90,11 @@ public class RespuestaCasoSalud implements Serializable {
         this.respuestaCasoSaludDescripcion = respuestaCasoSaludDescripcion;
     }
 
-    public int getRespuestaCasoSaludPuntajeTotal() {
+    public Integer getRespuestaCasoSaludPuntajeTotal() {
         return respuestaCasoSaludPuntajeTotal;
     }
 
-    public void setRespuestaCasoSaludPuntajeTotal(int respuestaCasoSaludPuntajeTotal) {
+    public void setRespuestaCasoSaludPuntajeTotal(Integer respuestaCasoSaludPuntajeTotal) {
         this.respuestaCasoSaludPuntajeTotal = respuestaCasoSaludPuntajeTotal;
     }
 
@@ -124,11 +106,11 @@ public class RespuestaCasoSalud implements Serializable {
         this.respuestaCasoSaludFecha = respuestaCasoSaludFecha;
     }
 
-    public short getRespuestaCasoSaludEstado() {
+    public Short getRespuestaCasoSaludEstado() {
         return respuestaCasoSaludEstado;
     }
 
-    public void setRespuestaCasoSaludEstado(short respuestaCasoSaludEstado) {
+    public void setRespuestaCasoSaludEstado(Short respuestaCasoSaludEstado) {
         this.respuestaCasoSaludEstado = respuestaCasoSaludEstado;
     }
 

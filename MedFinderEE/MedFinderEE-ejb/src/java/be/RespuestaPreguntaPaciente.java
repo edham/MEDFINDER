@@ -21,7 +21,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -46,29 +45,21 @@ public class RespuestaPreguntaPaciente implements Serializable {
     @Basic(optional = false)
     @Column(name = "Respuesta_Pregunta_Paciente_Id")
     private Integer respuestaPreguntaPacienteId;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 200)
+    @Size(max = 200)
     @Column(name = "Respuesta_Pregunta_Paciente_Detalle")
     private String respuestaPreguntaPacienteDetalle;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "Respuesta_Pregunta_Paciente_Puntaje")
-    private short respuestaPreguntaPacientePuntaje;
-    @Basic(optional = false)
-    @NotNull
+    private Short respuestaPreguntaPacientePuntaje;
     @Column(name = "Respuesta_Pregunta_Paciente_Fecha")
     @Temporal(TemporalType.TIMESTAMP)
     private Date respuestaPreguntaPacienteFecha;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "Respuesta_Pregunta_Paciente_Estado")
-    private short respuestaPreguntaPacienteEstado;
+    private Short respuestaPreguntaPacienteEstado;
     @JoinColumn(name = "Doctor_Id", referencedColumnName = "Doctor_Id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Doctor doctor;
     @JoinColumn(name = "Pregunta_Paciente_Id", referencedColumnName = "Pregunta_Paciente_Id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private PreguntaPaciente preguntaPaciente;
 
     public RespuestaPreguntaPaciente() {
@@ -76,14 +67,6 @@ public class RespuestaPreguntaPaciente implements Serializable {
 
     public RespuestaPreguntaPaciente(Integer respuestaPreguntaPacienteId) {
         this.respuestaPreguntaPacienteId = respuestaPreguntaPacienteId;
-    }
-
-    public RespuestaPreguntaPaciente(Integer respuestaPreguntaPacienteId, String respuestaPreguntaPacienteDetalle, short respuestaPreguntaPacientePuntaje, Date respuestaPreguntaPacienteFecha, short respuestaPreguntaPacienteEstado) {
-        this.respuestaPreguntaPacienteId = respuestaPreguntaPacienteId;
-        this.respuestaPreguntaPacienteDetalle = respuestaPreguntaPacienteDetalle;
-        this.respuestaPreguntaPacientePuntaje = respuestaPreguntaPacientePuntaje;
-        this.respuestaPreguntaPacienteFecha = respuestaPreguntaPacienteFecha;
-        this.respuestaPreguntaPacienteEstado = respuestaPreguntaPacienteEstado;
     }
 
     public Integer getRespuestaPreguntaPacienteId() {
@@ -102,11 +85,11 @@ public class RespuestaPreguntaPaciente implements Serializable {
         this.respuestaPreguntaPacienteDetalle = respuestaPreguntaPacienteDetalle;
     }
 
-    public short getRespuestaPreguntaPacientePuntaje() {
+    public Short getRespuestaPreguntaPacientePuntaje() {
         return respuestaPreguntaPacientePuntaje;
     }
 
-    public void setRespuestaPreguntaPacientePuntaje(short respuestaPreguntaPacientePuntaje) {
+    public void setRespuestaPreguntaPacientePuntaje(Short respuestaPreguntaPacientePuntaje) {
         this.respuestaPreguntaPacientePuntaje = respuestaPreguntaPacientePuntaje;
     }
 
@@ -118,11 +101,11 @@ public class RespuestaPreguntaPaciente implements Serializable {
         this.respuestaPreguntaPacienteFecha = respuestaPreguntaPacienteFecha;
     }
 
-    public short getRespuestaPreguntaPacienteEstado() {
+    public Short getRespuestaPreguntaPacienteEstado() {
         return respuestaPreguntaPacienteEstado;
     }
 
-    public void setRespuestaPreguntaPacienteEstado(short respuestaPreguntaPacienteEstado) {
+    public void setRespuestaPreguntaPacienteEstado(Short respuestaPreguntaPacienteEstado) {
         this.respuestaPreguntaPacienteEstado = respuestaPreguntaPacienteEstado;
     }
 

@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -58,11 +57,11 @@ public class Especialidad implements Serializable {
     @Column(name = "Especialidad_Fecha")
     @Temporal(TemporalType.TIMESTAMP)
     private Date especialidadFecha;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "especialidad", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "especialidad", fetch = FetchType.LAZY)
     private List<DetalleClinicaEspecialidad> detalleClinicaEspecialidadList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "especialidad", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "especialidad", fetch = FetchType.LAZY)
     private List<PreguntaPaciente> preguntaPacienteList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "especialidad", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "especialidad", fetch = FetchType.LAZY)
     private List<Doctor> doctorList;
 
     public Especialidad() {
