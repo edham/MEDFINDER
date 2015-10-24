@@ -5,10 +5,10 @@
  */
 package bc;
 
-import be.*;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 /**
@@ -64,7 +64,7 @@ public abstract class AbstractFacade<T> {
     }
     public List<T> lista_activos() {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
-        javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
+        CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
         Root<Class<T>> registro = cq.from(entityClass);
         cq.orderBy(cb.asc(registro.get("nombre")));
         cq.where(

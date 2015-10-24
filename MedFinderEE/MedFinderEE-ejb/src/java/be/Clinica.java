@@ -80,8 +80,8 @@ public class Clinica implements Serializable {
     @Column(name = "DetalleAtencion")
     private String detalleAtencion;
     @Lob
-    @Column(name = "Clinica_Logo")
-    private byte[] clinicaLogo;
+    @Column(name = "Logo")
+    private byte[] logo;
     @Size(max = 20)
     @Column(name = "Telefono")
     private String telefono;
@@ -177,12 +177,12 @@ public class Clinica implements Serializable {
         this.detalleAtencion = detalleAtencion;
     }
 
-    public byte[] getClinicaLogo() {
-        return clinicaLogo;
+    public byte[] getLogo() {
+        return logo;
     }
 
-    public void setClinicaLogo(byte[] clinicaLogo) {
-        this.clinicaLogo = clinicaLogo;
+    public void setLogo(byte[] logo) {
+        this.logo = logo;
     }
 
     public String getTelefono() {
