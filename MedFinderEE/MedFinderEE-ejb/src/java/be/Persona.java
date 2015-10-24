@@ -15,7 +15,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -35,173 +37,210 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Persona.findAll", query = "SELECT p FROM Persona p"),
-    @NamedQuery(name = "Persona.findByPersonaId", query = "SELECT p FROM Persona p WHERE p.personaId = :personaId"),
-    @NamedQuery(name = "Persona.findByPersonaNombre", query = "SELECT p FROM Persona p WHERE p.personaNombre = :personaNombre"),
-    @NamedQuery(name = "Persona.findByPersonaApellidoPaterno", query = "SELECT p FROM Persona p WHERE p.personaApellidoPaterno = :personaApellidoPaterno"),
-    @NamedQuery(name = "Persona.findByPersonaApellidoMaterno", query = "SELECT p FROM Persona p WHERE p.personaApellidoMaterno = :personaApellidoMaterno"),
-    @NamedQuery(name = "Persona.findByPersonaDNI", query = "SELECT p FROM Persona p WHERE p.personaDNI = :personaDNI"),
-    @NamedQuery(name = "Persona.findByPersonaFechaRegistro", query = "SELECT p FROM Persona p WHERE p.personaFechaRegistro = :personaFechaRegistro"),
-    @NamedQuery(name = "Persona.findByPersonaSexo", query = "SELECT p FROM Persona p WHERE p.personaSexo = :personaSexo"),
-    @NamedQuery(name = "Persona.findByPersonaFechaNacimiento", query = "SELECT p FROM Persona p WHERE p.personaFechaNacimiento = :personaFechaNacimiento"),
-    @NamedQuery(name = "Persona.findByPersonaTelefono", query = "SELECT p FROM Persona p WHERE p.personaTelefono = :personaTelefono"),
-    @NamedQuery(name = "Persona.findByPersonaDireccion", query = "SELECT p FROM Persona p WHERE p.personaDireccion = :personaDireccion"),
-    @NamedQuery(name = "Persona.findByPersonaEmail", query = "SELECT p FROM Persona p WHERE p.personaEmail = :personaEmail"),
-    @NamedQuery(name = "Persona.findByPersonaEstado", query = "SELECT p FROM Persona p WHERE p.personaEstado = :personaEstado")})
+    @NamedQuery(name = "Persona.findByPKId", query = "SELECT p FROM Persona p WHERE p.pKId = :pKId"),
+    @NamedQuery(name = "Persona.findByNombre", query = "SELECT p FROM Persona p WHERE p.nombre = :nombre"),
+    @NamedQuery(name = "Persona.findByApellidoPaterno", query = "SELECT p FROM Persona p WHERE p.apellidoPaterno = :apellidoPaterno"),
+    @NamedQuery(name = "Persona.findByApellidoMaterno", query = "SELECT p FROM Persona p WHERE p.apellidoMaterno = :apellidoMaterno"),
+    @NamedQuery(name = "Persona.findByDni", query = "SELECT p FROM Persona p WHERE p.dni = :dni"),
+    @NamedQuery(name = "Persona.findBySexo", query = "SELECT p FROM Persona p WHERE p.sexo = :sexo"),
+    @NamedQuery(name = "Persona.findByFechaNacimiento", query = "SELECT p FROM Persona p WHERE p.fechaNacimiento = :fechaNacimiento"),
+    @NamedQuery(name = "Persona.findByTelefono", query = "SELECT p FROM Persona p WHERE p.telefono = :telefono"),
+    @NamedQuery(name = "Persona.findByDireccion", query = "SELECT p FROM Persona p WHERE p.direccion = :direccion"),
+    @NamedQuery(name = "Persona.findByEmail", query = "SELECT p FROM Persona p WHERE p.email = :email"),
+    @NamedQuery(name = "Persona.findByFechaRegistro", query = "SELECT p FROM Persona p WHERE p.fechaRegistro = :fechaRegistro"),
+    @NamedQuery(name = "Persona.findByFechaModificacion", query = "SELECT p FROM Persona p WHERE p.fechaModificacion = :fechaModificacion"),
+    @NamedQuery(name = "Persona.findByEstado", query = "SELECT p FROM Persona p WHERE p.estado = :estado")})
 public class Persona implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "Persona_Id")
-    private Integer personaId;
+    @Column(name = "PK_Id")
+    private Integer pKId;
     @Size(max = 45)
-    @Column(name = "Persona_Nombre")
-    private String personaNombre;
+    @Column(name = "Nombre")
+    private String nombre;
     @Size(max = 45)
-    @Column(name = "Persona_ApellidoPaterno")
-    private String personaApellidoPaterno;
+    @Column(name = "ApellidoPaterno")
+    private String apellidoPaterno;
     @Size(max = 45)
-    @Column(name = "Persona_ApellidoMaterno")
-    private String personaApellidoMaterno;
+    @Column(name = "ApellidoMaterno")
+    private String apellidoMaterno;
     @Size(max = 8)
-    @Column(name = "Persona_DNI")
-    private String personaDNI;
+    @Column(name = "DNI")
+    private String dni;
     @Lob
-    @Column(name = "Persona_Foto")
-    private byte[] personaFoto;
-    @Column(name = "Persona_FechaRegistro")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date personaFechaRegistro;
-    @Column(name = "Persona_Sexo")
-    private Boolean personaSexo;
-    @Column(name = "Persona_FechaNacimiento")
+    @Column(name = "Foto")
+    private byte[] foto;
+    @Column(name = "Sexo")
+    private Boolean sexo;
+    @Column(name = "FechaNacimiento")
     @Temporal(TemporalType.DATE)
-    private Date personaFechaNacimiento;
+    private Date fechaNacimiento;
     @Size(max = 9)
-    @Column(name = "Persona_Telefono")
-    private String personaTelefono;
+    @Column(name = "Telefono")
+    private String telefono;
     @Size(max = 100)
-    @Column(name = "Persona_Direccion")
-    private String personaDireccion;
+    @Column(name = "Direccion")
+    private String direccion;
+    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Size(max = 45)
-    @Column(name = "Persona_Email")
-    private String personaEmail;
-    @Column(name = "Persona_Estado")
-    private Short personaEstado;
+    @Column(name = "Email")
+    private String email;
+    @Column(name = "FechaRegistro")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaRegistro;
+    @Column(name = "FechaModificacion")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaModificacion;
+    @Column(name = "Estado")
+    private Short estado;
+    @OneToMany(mappedBy = "persona", fetch = FetchType.LAZY)
+    private List<Administrador> administradorList;
+    @JoinColumn(name = "FK_Distrito", referencedColumnName = "PK_Id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Distrito distrito;
     @OneToMany(mappedBy = "persona", fetch = FetchType.LAZY)
     private List<Doctor> doctorList;
     @OneToMany(mappedBy = "persona", fetch = FetchType.LAZY)
     private List<Paciente> pacienteList;
+    @OneToMany(mappedBy = "persona", fetch = FetchType.LAZY)
+    private List<Usuario> usuarioList;
 
     public Persona() {
     }
 
-    public Persona(Integer personaId) {
-        this.personaId = personaId;
+    public Persona(Integer pKId) {
+        this.pKId = pKId;
     }
 
-    public Integer getPersonaId() {
-        return personaId;
+    public Integer getPKId() {
+        return pKId;
     }
 
-    public void setPersonaId(Integer personaId) {
-        this.personaId = personaId;
+    public void setPKId(Integer pKId) {
+        this.pKId = pKId;
     }
 
-    public String getPersonaNombre() {
-        return personaNombre;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setPersonaNombre(String personaNombre) {
-        this.personaNombre = personaNombre;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public String getPersonaApellidoPaterno() {
-        return personaApellidoPaterno;
+    public String getApellidoPaterno() {
+        return apellidoPaterno;
     }
 
-    public void setPersonaApellidoPaterno(String personaApellidoPaterno) {
-        this.personaApellidoPaterno = personaApellidoPaterno;
+    public void setApellidoPaterno(String apellidoPaterno) {
+        this.apellidoPaterno = apellidoPaterno;
     }
 
-    public String getPersonaApellidoMaterno() {
-        return personaApellidoMaterno;
+    public String getApellidoMaterno() {
+        return apellidoMaterno;
     }
 
-    public void setPersonaApellidoMaterno(String personaApellidoMaterno) {
-        this.personaApellidoMaterno = personaApellidoMaterno;
+    public void setApellidoMaterno(String apellidoMaterno) {
+        this.apellidoMaterno = apellidoMaterno;
     }
 
-    public String getPersonaDNI() {
-        return personaDNI;
+    public String getDni() {
+        return dni;
     }
 
-    public void setPersonaDNI(String personaDNI) {
-        this.personaDNI = personaDNI;
+    public void setDni(String dni) {
+        this.dni = dni;
     }
 
-    public byte[] getPersonaFoto() {
-        return personaFoto;
+    public byte[] getFoto() {
+        return foto;
     }
 
-    public void setPersonaFoto(byte[] personaFoto) {
-        this.personaFoto = personaFoto;
+    public void setFoto(byte[] foto) {
+        this.foto = foto;
     }
 
-    public Date getPersonaFechaRegistro() {
-        return personaFechaRegistro;
+    public Boolean getSexo() {
+        return sexo;
     }
 
-    public void setPersonaFechaRegistro(Date personaFechaRegistro) {
-        this.personaFechaRegistro = personaFechaRegistro;
+    public void setSexo(Boolean sexo) {
+        this.sexo = sexo;
     }
 
-    public Boolean getPersonaSexo() {
-        return personaSexo;
+    public Date getFechaNacimiento() {
+        return fechaNacimiento;
     }
 
-    public void setPersonaSexo(Boolean personaSexo) {
-        this.personaSexo = personaSexo;
+    public void setFechaNacimiento(Date fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
     }
 
-    public Date getPersonaFechaNacimiento() {
-        return personaFechaNacimiento;
+    public String getTelefono() {
+        return telefono;
     }
 
-    public void setPersonaFechaNacimiento(Date personaFechaNacimiento) {
-        this.personaFechaNacimiento = personaFechaNacimiento;
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 
-    public String getPersonaTelefono() {
-        return personaTelefono;
+    public String getDireccion() {
+        return direccion;
     }
 
-    public void setPersonaTelefono(String personaTelefono) {
-        this.personaTelefono = personaTelefono;
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
     }
 
-    public String getPersonaDireccion() {
-        return personaDireccion;
+    public String getEmail() {
+        return email;
     }
 
-    public void setPersonaDireccion(String personaDireccion) {
-        this.personaDireccion = personaDireccion;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getPersonaEmail() {
-        return personaEmail;
+    public Date getFechaRegistro() {
+        return fechaRegistro;
     }
 
-    public void setPersonaEmail(String personaEmail) {
-        this.personaEmail = personaEmail;
+    public void setFechaRegistro(Date fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
     }
 
-    public Short getPersonaEstado() {
-        return personaEstado;
+    public Date getFechaModificacion() {
+        return fechaModificacion;
     }
 
-    public void setPersonaEstado(Short personaEstado) {
-        this.personaEstado = personaEstado;
+    public void setFechaModificacion(Date fechaModificacion) {
+        this.fechaModificacion = fechaModificacion;
+    }
+
+    public Short getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Short estado) {
+        this.estado = estado;
+    }
+
+    @XmlTransient
+    public List<Administrador> getAdministradorList() {
+        return administradorList;
+    }
+
+    public void setAdministradorList(List<Administrador> administradorList) {
+        this.administradorList = administradorList;
+    }
+
+    public Distrito getDistrito() {
+        return distrito;
+    }
+
+    public void setDistrito(Distrito distrito) {
+        this.distrito = distrito;
     }
 
     @XmlTransient
@@ -222,10 +261,19 @@ public class Persona implements Serializable {
         this.pacienteList = pacienteList;
     }
 
+    @XmlTransient
+    public List<Usuario> getUsuarioList() {
+        return usuarioList;
+    }
+
+    public void setUsuarioList(List<Usuario> usuarioList) {
+        this.usuarioList = usuarioList;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (personaId != null ? personaId.hashCode() : 0);
+        hash += (pKId != null ? pKId.hashCode() : 0);
         return hash;
     }
 
@@ -236,7 +284,7 @@ public class Persona implements Serializable {
             return false;
         }
         Persona other = (Persona) object;
-        if ((this.personaId == null && other.personaId != null) || (this.personaId != null && !this.personaId.equals(other.personaId))) {
+        if ((this.pKId == null && other.pKId != null) || (this.pKId != null && !this.pKId.equals(other.pKId))) {
             return false;
         }
         return true;
@@ -244,7 +292,7 @@ public class Persona implements Serializable {
 
     @Override
     public String toString() {
-        return "be.Persona[ personaId=" + personaId + " ]";
+        return "be.Persona[ pKId=" + pKId + " ]";
     }
     
 }

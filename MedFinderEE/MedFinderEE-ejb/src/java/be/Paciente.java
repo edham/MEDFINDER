@@ -35,171 +35,183 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Paciente.findAll", query = "SELECT p FROM Paciente p"),
-    @NamedQuery(name = "Paciente.findByPacienteId", query = "SELECT p FROM Paciente p WHERE p.pacienteId = :pacienteId"),
-    @NamedQuery(name = "Paciente.findByPacienteEstatura", query = "SELECT p FROM Paciente p WHERE p.pacienteEstatura = :pacienteEstatura"),
-    @NamedQuery(name = "Paciente.findByPacienteTipo", query = "SELECT p FROM Paciente p WHERE p.pacienteTipo = :pacienteTipo"),
-    @NamedQuery(name = "Paciente.findByPacienteCardiovascular", query = "SELECT p FROM Paciente p WHERE p.pacienteCardiovascular = :pacienteCardiovascular"),
-    @NamedQuery(name = "Paciente.findByPacienteMusculares", query = "SELECT p FROM Paciente p WHERE p.pacienteMusculares = :pacienteMusculares"),
-    @NamedQuery(name = "Paciente.findByPacienteDigestivos", query = "SELECT p FROM Paciente p WHERE p.pacienteDigestivos = :pacienteDigestivos"),
-    @NamedQuery(name = "Paciente.findByPacienteAlergicos", query = "SELECT p FROM Paciente p WHERE p.pacienteAlergicos = :pacienteAlergicos"),
-    @NamedQuery(name = "Paciente.findByPacienteAlcohol", query = "SELECT p FROM Paciente p WHERE p.pacienteAlcohol = :pacienteAlcohol"),
-    @NamedQuery(name = "Paciente.findByPacienteTabaquismo", query = "SELECT p FROM Paciente p WHERE p.pacienteTabaquismo = :pacienteTabaquismo"),
-    @NamedQuery(name = "Paciente.findByPacienteDrogas", query = "SELECT p FROM Paciente p WHERE p.pacienteDrogas = :pacienteDrogas"),
-    @NamedQuery(name = "Paciente.findByPacientePsicologicos", query = "SELECT p FROM Paciente p WHERE p.pacientePsicologicos = :pacientePsicologicos"),
-    @NamedQuery(name = "Paciente.findByPacienteEstado", query = "SELECT p FROM Paciente p WHERE p.pacienteEstado = :pacienteEstado"),
-    @NamedQuery(name = "Paciente.findByPacienteFechaRegistro", query = "SELECT p FROM Paciente p WHERE p.pacienteFechaRegistro = :pacienteFechaRegistro")})
+    @NamedQuery(name = "Paciente.findByPKId", query = "SELECT p FROM Paciente p WHERE p.pKId = :pKId"),
+    @NamedQuery(name = "Paciente.findByEstatura", query = "SELECT p FROM Paciente p WHERE p.estatura = :estatura"),
+    @NamedQuery(name = "Paciente.findByTipo", query = "SELECT p FROM Paciente p WHERE p.tipo = :tipo"),
+    @NamedQuery(name = "Paciente.findByCardiovascular", query = "SELECT p FROM Paciente p WHERE p.cardiovascular = :cardiovascular"),
+    @NamedQuery(name = "Paciente.findByMusculares", query = "SELECT p FROM Paciente p WHERE p.musculares = :musculares"),
+    @NamedQuery(name = "Paciente.findByDigestivos", query = "SELECT p FROM Paciente p WHERE p.digestivos = :digestivos"),
+    @NamedQuery(name = "Paciente.findByAlergicos", query = "SELECT p FROM Paciente p WHERE p.alergicos = :alergicos"),
+    @NamedQuery(name = "Paciente.findByAlcohol", query = "SELECT p FROM Paciente p WHERE p.alcohol = :alcohol"),
+    @NamedQuery(name = "Paciente.findByTabaquismo", query = "SELECT p FROM Paciente p WHERE p.tabaquismo = :tabaquismo"),
+    @NamedQuery(name = "Paciente.findByDrogas", query = "SELECT p FROM Paciente p WHERE p.drogas = :drogas"),
+    @NamedQuery(name = "Paciente.findByPsicologicos", query = "SELECT p FROM Paciente p WHERE p.psicologicos = :psicologicos"),
+    @NamedQuery(name = "Paciente.findByFechaRegistro", query = "SELECT p FROM Paciente p WHERE p.fechaRegistro = :fechaRegistro"),
+    @NamedQuery(name = "Paciente.findByFechaModificacion", query = "SELECT p FROM Paciente p WHERE p.fechaModificacion = :fechaModificacion"),
+    @NamedQuery(name = "Paciente.findByEstado", query = "SELECT p FROM Paciente p WHERE p.estado = :estado")})
 public class Paciente implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "Paciente_Id")
-    private Integer pacienteId;
-    @Column(name = "Paciente_Estatura")
-    private Integer pacienteEstatura;
-    @Column(name = "Paciente_Tipo")
-    private Short pacienteTipo;
-    @Column(name = "Paciente_Cardiovascular")
-    private Boolean pacienteCardiovascular;
-    @Column(name = "Paciente_Musculares")
-    private Boolean pacienteMusculares;
-    @Column(name = "Paciente_Digestivos")
-    private Boolean pacienteDigestivos;
-    @Column(name = "Paciente_Alergicos")
-    private Boolean pacienteAlergicos;
-    @Column(name = "Paciente_Alcohol")
-    private Boolean pacienteAlcohol;
-    @Column(name = "Paciente_Tabaquismo")
-    private Boolean pacienteTabaquismo;
-    @Column(name = "Paciente_Drogas")
-    private Boolean pacienteDrogas;
-    @Column(name = "Paciente_Psicologicos")
-    private Boolean pacientePsicologicos;
-    @Column(name = "Paciente_Estado")
-    private Short pacienteEstado;
-    @Column(name = "Paciente_FechaRegistro")
+    @Column(name = "PK_Id")
+    private Integer pKId;
+    @Column(name = "Estatura")
+    private Integer estatura;
+    @Column(name = "Tipo")
+    private Short tipo;
+    @Column(name = "Cardiovascular")
+    private Boolean cardiovascular;
+    @Column(name = "Musculares")
+    private Boolean musculares;
+    @Column(name = "Digestivos")
+    private Boolean digestivos;
+    @Column(name = "Alergicos")
+    private Boolean alergicos;
+    @Column(name = "Alcohol")
+    private Boolean alcohol;
+    @Column(name = "Tabaquismo")
+    private Boolean tabaquismo;
+    @Column(name = "Drogas")
+    private Boolean drogas;
+    @Column(name = "Psicologicos")
+    private Boolean psicologicos;
+    @Column(name = "FechaRegistro")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date pacienteFechaRegistro;
+    private Date fechaRegistro;
+    @Column(name = "FechaModificacion")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaModificacion;
+    @Column(name = "Estado")
+    private Short estado;
     @OneToMany(mappedBy = "paciente", fetch = FetchType.LAZY)
     private List<PreguntaPaciente> preguntaPacienteList;
     @OneToMany(mappedBy = "paciente", fetch = FetchType.LAZY)
     private List<CitaPaciente> citaPacienteList;
-    @JoinColumn(name = "Persona_Id", referencedColumnName = "Persona_Id")
+    @JoinColumn(name = "FK_Persona", referencedColumnName = "PK_Id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Persona persona;
-    @JoinColumn(name = "Usuario_Id", referencedColumnName = "Usuario_Id")
+    @JoinColumn(name = "FK_Usuario", referencedColumnName = "PK_Id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Usuario usuario;
 
     public Paciente() {
     }
 
-    public Paciente(Integer pacienteId) {
-        this.pacienteId = pacienteId;
+    public Paciente(Integer pKId) {
+        this.pKId = pKId;
     }
 
-    public Integer getPacienteId() {
-        return pacienteId;
+    public Integer getPKId() {
+        return pKId;
     }
 
-    public void setPacienteId(Integer pacienteId) {
-        this.pacienteId = pacienteId;
+    public void setPKId(Integer pKId) {
+        this.pKId = pKId;
     }
 
-    public Integer getPacienteEstatura() {
-        return pacienteEstatura;
+    public Integer getEstatura() {
+        return estatura;
     }
 
-    public void setPacienteEstatura(Integer pacienteEstatura) {
-        this.pacienteEstatura = pacienteEstatura;
+    public void setEstatura(Integer estatura) {
+        this.estatura = estatura;
     }
 
-    public Short getPacienteTipo() {
-        return pacienteTipo;
+    public Short getTipo() {
+        return tipo;
     }
 
-    public void setPacienteTipo(Short pacienteTipo) {
-        this.pacienteTipo = pacienteTipo;
+    public void setTipo(Short tipo) {
+        this.tipo = tipo;
     }
 
-    public Boolean getPacienteCardiovascular() {
-        return pacienteCardiovascular;
+    public Boolean getCardiovascular() {
+        return cardiovascular;
     }
 
-    public void setPacienteCardiovascular(Boolean pacienteCardiovascular) {
-        this.pacienteCardiovascular = pacienteCardiovascular;
+    public void setCardiovascular(Boolean cardiovascular) {
+        this.cardiovascular = cardiovascular;
     }
 
-    public Boolean getPacienteMusculares() {
-        return pacienteMusculares;
+    public Boolean getMusculares() {
+        return musculares;
     }
 
-    public void setPacienteMusculares(Boolean pacienteMusculares) {
-        this.pacienteMusculares = pacienteMusculares;
+    public void setMusculares(Boolean musculares) {
+        this.musculares = musculares;
     }
 
-    public Boolean getPacienteDigestivos() {
-        return pacienteDigestivos;
+    public Boolean getDigestivos() {
+        return digestivos;
     }
 
-    public void setPacienteDigestivos(Boolean pacienteDigestivos) {
-        this.pacienteDigestivos = pacienteDigestivos;
+    public void setDigestivos(Boolean digestivos) {
+        this.digestivos = digestivos;
     }
 
-    public Boolean getPacienteAlergicos() {
-        return pacienteAlergicos;
+    public Boolean getAlergicos() {
+        return alergicos;
     }
 
-    public void setPacienteAlergicos(Boolean pacienteAlergicos) {
-        this.pacienteAlergicos = pacienteAlergicos;
+    public void setAlergicos(Boolean alergicos) {
+        this.alergicos = alergicos;
     }
 
-    public Boolean getPacienteAlcohol() {
-        return pacienteAlcohol;
+    public Boolean getAlcohol() {
+        return alcohol;
     }
 
-    public void setPacienteAlcohol(Boolean pacienteAlcohol) {
-        this.pacienteAlcohol = pacienteAlcohol;
+    public void setAlcohol(Boolean alcohol) {
+        this.alcohol = alcohol;
     }
 
-    public Boolean getPacienteTabaquismo() {
-        return pacienteTabaquismo;
+    public Boolean getTabaquismo() {
+        return tabaquismo;
     }
 
-    public void setPacienteTabaquismo(Boolean pacienteTabaquismo) {
-        this.pacienteTabaquismo = pacienteTabaquismo;
+    public void setTabaquismo(Boolean tabaquismo) {
+        this.tabaquismo = tabaquismo;
     }
 
-    public Boolean getPacienteDrogas() {
-        return pacienteDrogas;
+    public Boolean getDrogas() {
+        return drogas;
     }
 
-    public void setPacienteDrogas(Boolean pacienteDrogas) {
-        this.pacienteDrogas = pacienteDrogas;
+    public void setDrogas(Boolean drogas) {
+        this.drogas = drogas;
     }
 
-    public Boolean getPacientePsicologicos() {
-        return pacientePsicologicos;
+    public Boolean getPsicologicos() {
+        return psicologicos;
     }
 
-    public void setPacientePsicologicos(Boolean pacientePsicologicos) {
-        this.pacientePsicologicos = pacientePsicologicos;
+    public void setPsicologicos(Boolean psicologicos) {
+        this.psicologicos = psicologicos;
     }
 
-    public Short getPacienteEstado() {
-        return pacienteEstado;
+    public Date getFechaRegistro() {
+        return fechaRegistro;
     }
 
-    public void setPacienteEstado(Short pacienteEstado) {
-        this.pacienteEstado = pacienteEstado;
+    public void setFechaRegistro(Date fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
     }
 
-    public Date getPacienteFechaRegistro() {
-        return pacienteFechaRegistro;
+    public Date getFechaModificacion() {
+        return fechaModificacion;
     }
 
-    public void setPacienteFechaRegistro(Date pacienteFechaRegistro) {
-        this.pacienteFechaRegistro = pacienteFechaRegistro;
+    public void setFechaModificacion(Date fechaModificacion) {
+        this.fechaModificacion = fechaModificacion;
+    }
+
+    public Short getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Short estado) {
+        this.estado = estado;
     }
 
     @XmlTransient
@@ -239,7 +251,7 @@ public class Paciente implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (pacienteId != null ? pacienteId.hashCode() : 0);
+        hash += (pKId != null ? pKId.hashCode() : 0);
         return hash;
     }
 
@@ -250,7 +262,7 @@ public class Paciente implements Serializable {
             return false;
         }
         Paciente other = (Paciente) object;
-        if ((this.pacienteId == null && other.pacienteId != null) || (this.pacienteId != null && !this.pacienteId.equals(other.pacienteId))) {
+        if ((this.pKId == null && other.pKId != null) || (this.pKId != null && !this.pKId.equals(other.pKId))) {
             return false;
         }
         return true;
@@ -258,7 +270,7 @@ public class Paciente implements Serializable {
 
     @Override
     public String toString() {
-        return "be.Paciente[ pacienteId=" + pacienteId + " ]";
+        return "be.Paciente[ pKId=" + pKId + " ]";
     }
     
 }

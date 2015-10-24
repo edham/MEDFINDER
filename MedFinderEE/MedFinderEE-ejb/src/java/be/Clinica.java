@@ -15,7 +15,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -35,137 +37,144 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Clinica.findAll", query = "SELECT c FROM Clinica c"),
-    @NamedQuery(name = "Clinica.findByClinicaId", query = "SELECT c FROM Clinica c WHERE c.clinicaId = :clinicaId"),
-    @NamedQuery(name = "Clinica.findByClinicaNombre", query = "SELECT c FROM Clinica c WHERE c.clinicaNombre = :clinicaNombre"),
-    @NamedQuery(name = "Clinica.findByClinicaSlogan", query = "SELECT c FROM Clinica c WHERE c.clinicaSlogan = :clinicaSlogan"),
-    @NamedQuery(name = "Clinica.findByClinicaDireccion", query = "SELECT c FROM Clinica c WHERE c.clinicaDireccion = :clinicaDireccion"),
-    @NamedQuery(name = "Clinica.findByClinicaDescripcion", query = "SELECT c FROM Clinica c WHERE c.clinicaDescripcion = :clinicaDescripcion"),
-    @NamedQuery(name = "Clinica.findByClinicaHorarioInicio", query = "SELECT c FROM Clinica c WHERE c.clinicaHorarioInicio = :clinicaHorarioInicio"),
-    @NamedQuery(name = "Clinica.findByClinicaHorarioFin", query = "SELECT c FROM Clinica c WHERE c.clinicaHorarioFin = :clinicaHorarioFin"),
-    @NamedQuery(name = "Clinica.findByClinicaDetalleAtencion", query = "SELECT c FROM Clinica c WHERE c.clinicaDetalleAtencion = :clinicaDetalleAtencion"),
-    @NamedQuery(name = "Clinica.findByClinicaTelefono", query = "SELECT c FROM Clinica c WHERE c.clinicaTelefono = :clinicaTelefono"),
-    @NamedQuery(name = "Clinica.findByClinicaLongitud", query = "SELECT c FROM Clinica c WHERE c.clinicaLongitud = :clinicaLongitud"),
-    @NamedQuery(name = "Clinica.findByClinicaLatitud", query = "SELECT c FROM Clinica c WHERE c.clinicaLatitud = :clinicaLatitud"),
-    @NamedQuery(name = "Clinica.findByClinicaFechaRegistro", query = "SELECT c FROM Clinica c WHERE c.clinicaFechaRegistro = :clinicaFechaRegistro"),
-    @NamedQuery(name = "Clinica.findByClinicaEstado", query = "SELECT c FROM Clinica c WHERE c.clinicaEstado = :clinicaEstado")})
+    @NamedQuery(name = "Clinica.findByPKId", query = "SELECT c FROM Clinica c WHERE c.pKId = :pKId"),
+    @NamedQuery(name = "Clinica.findByNombre", query = "SELECT c FROM Clinica c WHERE c.nombre = :nombre"),
+    @NamedQuery(name = "Clinica.findBySlogan", query = "SELECT c FROM Clinica c WHERE c.slogan = :slogan"),
+    @NamedQuery(name = "Clinica.findByDireccion", query = "SELECT c FROM Clinica c WHERE c.direccion = :direccion"),
+    @NamedQuery(name = "Clinica.findByDescripcion", query = "SELECT c FROM Clinica c WHERE c.descripcion = :descripcion"),
+    @NamedQuery(name = "Clinica.findByHorarioInicio", query = "SELECT c FROM Clinica c WHERE c.horarioInicio = :horarioInicio"),
+    @NamedQuery(name = "Clinica.findByHorarioFin", query = "SELECT c FROM Clinica c WHERE c.horarioFin = :horarioFin"),
+    @NamedQuery(name = "Clinica.findByDetalleAtencion", query = "SELECT c FROM Clinica c WHERE c.detalleAtencion = :detalleAtencion"),
+    @NamedQuery(name = "Clinica.findByTelefono", query = "SELECT c FROM Clinica c WHERE c.telefono = :telefono"),
+    @NamedQuery(name = "Clinica.findByLongitud", query = "SELECT c FROM Clinica c WHERE c.longitud = :longitud"),
+    @NamedQuery(name = "Clinica.findByLatitud", query = "SELECT c FROM Clinica c WHERE c.latitud = :latitud"),
+    @NamedQuery(name = "Clinica.findByFechaRegistro", query = "SELECT c FROM Clinica c WHERE c.fechaRegistro = :fechaRegistro"),
+    @NamedQuery(name = "Clinica.findByFechaModificacion", query = "SELECT c FROM Clinica c WHERE c.fechaModificacion = :fechaModificacion"),
+    @NamedQuery(name = "Clinica.findByEstado", query = "SELECT c FROM Clinica c WHERE c.estado = :estado")})
 public class Clinica implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "Clinica_Id")
-    private Integer clinicaId;
+    @Column(name = "PK_Id")
+    private Integer pKId;
     @Size(max = 45)
-    @Column(name = "Clinica_Nombre")
-    private String clinicaNombre;
+    @Column(name = "Nombre")
+    private String nombre;
     @Size(max = 100)
-    @Column(name = "Clinica_Slogan")
-    private String clinicaSlogan;
+    @Column(name = "Slogan")
+    private String slogan;
     @Size(max = 100)
-    @Column(name = "Clinica_Direccion")
-    private String clinicaDireccion;
+    @Column(name = "Direccion")
+    private String direccion;
     @Size(max = 200)
-    @Column(name = "Clinica_Descripcion")
-    private String clinicaDescripcion;
-    @Column(name = "Clinica_Horario_Inicio")
+    @Column(name = "Descripcion")
+    private String descripcion;
+    @Column(name = "HorarioInicio")
     @Temporal(TemporalType.TIME)
-    private Date clinicaHorarioInicio;
-    @Column(name = "Clinica_Horario_Fin")
+    private Date horarioInicio;
+    @Column(name = "HorarioFin")
     @Temporal(TemporalType.TIME)
-    private Date clinicaHorarioFin;
+    private Date horarioFin;
     @Size(max = 45)
-    @Column(name = "Clinica_Detalle_Atencion")
-    private String clinicaDetalleAtencion;
+    @Column(name = "DetalleAtencion")
+    private String detalleAtencion;
     @Lob
     @Column(name = "Clinica_Logo")
     private byte[] clinicaLogo;
     @Size(max = 20)
-    @Column(name = "Clinica_Telefono")
-    private String clinicaTelefono;
+    @Column(name = "Telefono")
+    private String telefono;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "Clinica_Longitud")
-    private Double clinicaLongitud;
-    @Column(name = "Clinica_Latitud")
-    private Double clinicaLatitud;
-    @Column(name = "Clinica_FechaRegistro")
+    @Column(name = "Longitud")
+    private Double longitud;
+    @Column(name = "Latitud")
+    private Double latitud;
+    @Column(name = "FechaRegistro")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date clinicaFechaRegistro;
-    @Column(name = "Clinica_Estado")
-    private Short clinicaEstado;
+    private Date fechaRegistro;
+    @Column(name = "FechaModificacion")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaModificacion;
+    @Column(name = "Estado")
+    private Short estado;
     @OneToMany(mappedBy = "clinica", fetch = FetchType.LAZY)
     private List<DetalleClinicaSeguro> detalleClinicaSeguroList;
     @OneToMany(mappedBy = "clinica", fetch = FetchType.LAZY)
     private List<DetalleClinicaEspecialidad> detalleClinicaEspecialidadList;
+    @JoinColumn(name = "FK_Distrito", referencedColumnName = "PK_Id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Distrito distrito;
 
     public Clinica() {
     }
 
-    public Clinica(Integer clinicaId) {
-        this.clinicaId = clinicaId;
+    public Clinica(Integer pKId) {
+        this.pKId = pKId;
     }
 
-    public Integer getClinicaId() {
-        return clinicaId;
+    public Integer getPKId() {
+        return pKId;
     }
 
-    public void setClinicaId(Integer clinicaId) {
-        this.clinicaId = clinicaId;
+    public void setPKId(Integer pKId) {
+        this.pKId = pKId;
     }
 
-    public String getClinicaNombre() {
-        return clinicaNombre;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setClinicaNombre(String clinicaNombre) {
-        this.clinicaNombre = clinicaNombre;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public String getClinicaSlogan() {
-        return clinicaSlogan;
+    public String getSlogan() {
+        return slogan;
     }
 
-    public void setClinicaSlogan(String clinicaSlogan) {
-        this.clinicaSlogan = clinicaSlogan;
+    public void setSlogan(String slogan) {
+        this.slogan = slogan;
     }
 
-    public String getClinicaDireccion() {
-        return clinicaDireccion;
+    public String getDireccion() {
+        return direccion;
     }
 
-    public void setClinicaDireccion(String clinicaDireccion) {
-        this.clinicaDireccion = clinicaDireccion;
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
     }
 
-    public String getClinicaDescripcion() {
-        return clinicaDescripcion;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setClinicaDescripcion(String clinicaDescripcion) {
-        this.clinicaDescripcion = clinicaDescripcion;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
-    public Date getClinicaHorarioInicio() {
-        return clinicaHorarioInicio;
+    public Date getHorarioInicio() {
+        return horarioInicio;
     }
 
-    public void setClinicaHorarioInicio(Date clinicaHorarioInicio) {
-        this.clinicaHorarioInicio = clinicaHorarioInicio;
+    public void setHorarioInicio(Date horarioInicio) {
+        this.horarioInicio = horarioInicio;
     }
 
-    public Date getClinicaHorarioFin() {
-        return clinicaHorarioFin;
+    public Date getHorarioFin() {
+        return horarioFin;
     }
 
-    public void setClinicaHorarioFin(Date clinicaHorarioFin) {
-        this.clinicaHorarioFin = clinicaHorarioFin;
+    public void setHorarioFin(Date horarioFin) {
+        this.horarioFin = horarioFin;
     }
 
-    public String getClinicaDetalleAtencion() {
-        return clinicaDetalleAtencion;
+    public String getDetalleAtencion() {
+        return detalleAtencion;
     }
 
-    public void setClinicaDetalleAtencion(String clinicaDetalleAtencion) {
-        this.clinicaDetalleAtencion = clinicaDetalleAtencion;
+    public void setDetalleAtencion(String detalleAtencion) {
+        this.detalleAtencion = detalleAtencion;
     }
 
     public byte[] getClinicaLogo() {
@@ -176,44 +185,52 @@ public class Clinica implements Serializable {
         this.clinicaLogo = clinicaLogo;
     }
 
-    public String getClinicaTelefono() {
-        return clinicaTelefono;
+    public String getTelefono() {
+        return telefono;
     }
 
-    public void setClinicaTelefono(String clinicaTelefono) {
-        this.clinicaTelefono = clinicaTelefono;
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 
-    public Double getClinicaLongitud() {
-        return clinicaLongitud;
+    public Double getLongitud() {
+        return longitud;
     }
 
-    public void setClinicaLongitud(Double clinicaLongitud) {
-        this.clinicaLongitud = clinicaLongitud;
+    public void setLongitud(Double longitud) {
+        this.longitud = longitud;
     }
 
-    public Double getClinicaLatitud() {
-        return clinicaLatitud;
+    public Double getLatitud() {
+        return latitud;
     }
 
-    public void setClinicaLatitud(Double clinicaLatitud) {
-        this.clinicaLatitud = clinicaLatitud;
+    public void setLatitud(Double latitud) {
+        this.latitud = latitud;
     }
 
-    public Date getClinicaFechaRegistro() {
-        return clinicaFechaRegistro;
+    public Date getFechaRegistro() {
+        return fechaRegistro;
     }
 
-    public void setClinicaFechaRegistro(Date clinicaFechaRegistro) {
-        this.clinicaFechaRegistro = clinicaFechaRegistro;
+    public void setFechaRegistro(Date fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
     }
 
-    public Short getClinicaEstado() {
-        return clinicaEstado;
+    public Date getFechaModificacion() {
+        return fechaModificacion;
     }
 
-    public void setClinicaEstado(Short clinicaEstado) {
-        this.clinicaEstado = clinicaEstado;
+    public void setFechaModificacion(Date fechaModificacion) {
+        this.fechaModificacion = fechaModificacion;
+    }
+
+    public Short getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Short estado) {
+        this.estado = estado;
     }
 
     @XmlTransient
@@ -234,10 +251,18 @@ public class Clinica implements Serializable {
         this.detalleClinicaEspecialidadList = detalleClinicaEspecialidadList;
     }
 
+    public Distrito getDistrito() {
+        return distrito;
+    }
+
+    public void setDistrito(Distrito distrito) {
+        this.distrito = distrito;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (clinicaId != null ? clinicaId.hashCode() : 0);
+        hash += (pKId != null ? pKId.hashCode() : 0);
         return hash;
     }
 
@@ -248,7 +273,7 @@ public class Clinica implements Serializable {
             return false;
         }
         Clinica other = (Clinica) object;
-        if ((this.clinicaId == null && other.clinicaId != null) || (this.clinicaId != null && !this.clinicaId.equals(other.clinicaId))) {
+        if ((this.pKId == null && other.pKId != null) || (this.pKId != null && !this.pKId.equals(other.pKId))) {
             return false;
         }
         return true;
@@ -256,7 +281,7 @@ public class Clinica implements Serializable {
 
     @Override
     public String toString() {
-        return "be.Clinica[ clinicaId=" + clinicaId + " ]";
+        return "be.Clinica[ pKId=" + pKId + " ]";
     }
     
 }

@@ -27,7 +27,7 @@ public interface SeguroFacadeLocal {
     List<Seguro> findAll();
 
     List<Seguro> findRange(int[] range);
-    List<Seguro> Seguro_lista();
+    List<Seguro> lista_activos();
     int count();
     
 }

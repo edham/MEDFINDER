@@ -34,89 +34,101 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "CasosSalud.findAll", query = "SELECT c FROM CasosSalud c"),
-    @NamedQuery(name = "CasosSalud.findByCasosSaludId", query = "SELECT c FROM CasosSalud c WHERE c.casosSaludId = :casosSaludId"),
-    @NamedQuery(name = "CasosSalud.findByCasosSaludTema", query = "SELECT c FROM CasosSalud c WHERE c.casosSaludTema = :casosSaludTema"),
-    @NamedQuery(name = "CasosSalud.findByCasosSaludFechaInicio", query = "SELECT c FROM CasosSalud c WHERE c.casosSaludFechaInicio = :casosSaludFechaInicio"),
-    @NamedQuery(name = "CasosSalud.findByCasosSaludFechaFin", query = "SELECT c FROM CasosSalud c WHERE c.casosSaludFechaFin = :casosSaludFechaFin"),
-    @NamedQuery(name = "CasosSalud.findByCasosSaludFecha", query = "SELECT c FROM CasosSalud c WHERE c.casosSaludFecha = :casosSaludFecha"),
-    @NamedQuery(name = "CasosSalud.findByCasosSaludEstado", query = "SELECT c FROM CasosSalud c WHERE c.casosSaludEstado = :casosSaludEstado")})
+    @NamedQuery(name = "CasosSalud.findByPKId", query = "SELECT c FROM CasosSalud c WHERE c.pKId = :pKId"),
+    @NamedQuery(name = "CasosSalud.findByTema", query = "SELECT c FROM CasosSalud c WHERE c.tema = :tema"),
+    @NamedQuery(name = "CasosSalud.findByFechaInicio", query = "SELECT c FROM CasosSalud c WHERE c.fechaInicio = :fechaInicio"),
+    @NamedQuery(name = "CasosSalud.findByFechaFin", query = "SELECT c FROM CasosSalud c WHERE c.fechaFin = :fechaFin"),
+    @NamedQuery(name = "CasosSalud.findByFechaRegistro", query = "SELECT c FROM CasosSalud c WHERE c.fechaRegistro = :fechaRegistro"),
+    @NamedQuery(name = "CasosSalud.findByFechaModificacion", query = "SELECT c FROM CasosSalud c WHERE c.fechaModificacion = :fechaModificacion"),
+    @NamedQuery(name = "CasosSalud.findByEstado", query = "SELECT c FROM CasosSalud c WHERE c.estado = :estado")})
 public class CasosSalud implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "Casos_Salud_Id")
-    private Integer casosSaludId;
+    @Column(name = "PK_Id")
+    private Integer pKId;
     @Size(max = 45)
-    @Column(name = "Casos_Salud_Tema")
-    private String casosSaludTema;
-    @Column(name = "Casos_Salud_FechaInicio")
+    @Column(name = "Tema")
+    private String tema;
+    @Column(name = "FechaInicio")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date casosSaludFechaInicio;
-    @Column(name = "Casos_Salud_FechaFin")
+    private Date fechaInicio;
+    @Column(name = "FechaFin")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date casosSaludFechaFin;
-    @Column(name = "Casos_Salud_Fecha")
+    private Date fechaFin;
+    @Column(name = "FechaRegistro")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date casosSaludFecha;
-    @Column(name = "Casos_Salud_Estado")
-    private Short casosSaludEstado;
+    private Date fechaRegistro;
+    @Column(name = "FechaModificacion")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaModificacion;
+    @Column(name = "Estado")
+    private Short estado;
     @OneToMany(mappedBy = "casosSalud", fetch = FetchType.LAZY)
     private List<RespuestaCasoSalud> respuestaCasoSaludList;
 
     public CasosSalud() {
     }
 
-    public CasosSalud(Integer casosSaludId) {
-        this.casosSaludId = casosSaludId;
+    public CasosSalud(Integer pKId) {
+        this.pKId = pKId;
     }
 
-    public Integer getCasosSaludId() {
-        return casosSaludId;
+    public Integer getPKId() {
+        return pKId;
     }
 
-    public void setCasosSaludId(Integer casosSaludId) {
-        this.casosSaludId = casosSaludId;
+    public void setPKId(Integer pKId) {
+        this.pKId = pKId;
     }
 
-    public String getCasosSaludTema() {
-        return casosSaludTema;
+    public String getTema() {
+        return tema;
     }
 
-    public void setCasosSaludTema(String casosSaludTema) {
-        this.casosSaludTema = casosSaludTema;
+    public void setTema(String tema) {
+        this.tema = tema;
     }
 
-    public Date getCasosSaludFechaInicio() {
-        return casosSaludFechaInicio;
+    public Date getFechaInicio() {
+        return fechaInicio;
     }
 
-    public void setCasosSaludFechaInicio(Date casosSaludFechaInicio) {
-        this.casosSaludFechaInicio = casosSaludFechaInicio;
+    public void setFechaInicio(Date fechaInicio) {
+        this.fechaInicio = fechaInicio;
     }
 
-    public Date getCasosSaludFechaFin() {
-        return casosSaludFechaFin;
+    public Date getFechaFin() {
+        return fechaFin;
     }
 
-    public void setCasosSaludFechaFin(Date casosSaludFechaFin) {
-        this.casosSaludFechaFin = casosSaludFechaFin;
+    public void setFechaFin(Date fechaFin) {
+        this.fechaFin = fechaFin;
     }
 
-    public Date getCasosSaludFecha() {
-        return casosSaludFecha;
+    public Date getFechaRegistro() {
+        return fechaRegistro;
     }
 
-    public void setCasosSaludFecha(Date casosSaludFecha) {
-        this.casosSaludFecha = casosSaludFecha;
+    public void setFechaRegistro(Date fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
     }
 
-    public Short getCasosSaludEstado() {
-        return casosSaludEstado;
+    public Date getFechaModificacion() {
+        return fechaModificacion;
     }
 
-    public void setCasosSaludEstado(Short casosSaludEstado) {
-        this.casosSaludEstado = casosSaludEstado;
+    public void setFechaModificacion(Date fechaModificacion) {
+        this.fechaModificacion = fechaModificacion;
+    }
+
+    public Short getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Short estado) {
+        this.estado = estado;
     }
 
     @XmlTransient
@@ -131,7 +143,7 @@ public class CasosSalud implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (casosSaludId != null ? casosSaludId.hashCode() : 0);
+        hash += (pKId != null ? pKId.hashCode() : 0);
         return hash;
     }
 
@@ -142,7 +154,7 @@ public class CasosSalud implements Serializable {
             return false;
         }
         CasosSalud other = (CasosSalud) object;
-        if ((this.casosSaludId == null && other.casosSaludId != null) || (this.casosSaludId != null && !this.casosSaludId.equals(other.casosSaludId))) {
+        if ((this.pKId == null && other.pKId != null) || (this.pKId != null && !this.pKId.equals(other.pKId))) {
             return false;
         }
         return true;
@@ -150,7 +162,7 @@ public class CasosSalud implements Serializable {
 
     @Override
     public String toString() {
-        return "be.CasosSalud[ casosSaludId=" + casosSaludId + " ]";
+        return "be.CasosSalud[ pKId=" + pKId + " ]";
     }
     
 }

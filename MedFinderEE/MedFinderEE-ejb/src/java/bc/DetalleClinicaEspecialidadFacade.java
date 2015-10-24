@@ -5,7 +5,7 @@
  */
 package bc;
 
-import be.PreguntaPaciente;
+import be.DetalleClinicaEspecialidad;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author EdHam
  */
 @Stateless
-public class PreguntaPacienteFacade extends AbstractFacade<PreguntaPaciente> implements PreguntaPacienteFacadeLocal {
+public class DetalleClinicaEspecialidadFacade extends AbstractFacade<DetalleClinicaEspecialidad> implements DetalleClinicaEspecialidadFacadeLocal {
     @PersistenceContext(unitName = "MedFinderEE-ejbPU")
     private EntityManager em;
 
@@ -24,8 +24,8 @@ public class PreguntaPacienteFacade extends AbstractFacade<PreguntaPaciente> imp
         return em;
     }
 
-    public PreguntaPacienteFacade() {
-        super(PreguntaPaciente.class);
+    public DetalleClinicaEspecialidadFacade() {
+        super(DetalleClinicaEspecialidad.class);
     }
     
 }

@@ -5,7 +5,7 @@
  */
 package bc;
 
-import be.Clinica;
+import be.Departamento;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -14,19 +14,19 @@ import javax.ejb.Local;
  * @author EdHam
  */
 @Local
-public interface ClinicaFacadeLocal {
+public interface DepartamentoFacadeLocal {
 
-    void create(Clinica clinica);
+    void create(Departamento departamento);
 
-    void edit(Clinica clinica);
+    void edit(Departamento departamento);
 
-    void remove(Clinica clinica);
+    void remove(Departamento departamento);
 
-    Clinica find(Object id);
+    Departamento find(Object id);
 
-    List<Clinica> findAll();
+    List<Departamento> findAll();
 
-    List<Clinica> findRange(int[] range);
+    List<Departamento> findRange(int[] range);
 
     int count();
     

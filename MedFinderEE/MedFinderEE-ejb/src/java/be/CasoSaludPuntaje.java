@@ -6,6 +6,7 @@
 package be;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,6 +19,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -29,45 +32,68 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "CasoSaludPuntaje.findAll", query = "SELECT c FROM CasoSaludPuntaje c"),
-    @NamedQuery(name = "CasoSaludPuntaje.findByCasoSaludPuntajeId", query = "SELECT c FROM CasoSaludPuntaje c WHERE c.casoSaludPuntajeId = :casoSaludPuntajeId"),
-    @NamedQuery(name = "CasoSaludPuntaje.findByCasoSaludPuntajeTotal", query = "SELECT c FROM CasoSaludPuntaje c WHERE c.casoSaludPuntajeTotal = :casoSaludPuntajeTotal")})
+    @NamedQuery(name = "CasoSaludPuntaje.findByPKId", query = "SELECT c FROM CasoSaludPuntaje c WHERE c.pKId = :pKId"),
+    @NamedQuery(name = "CasoSaludPuntaje.findByPuntajeTotal", query = "SELECT c FROM CasoSaludPuntaje c WHERE c.puntajeTotal = :puntajeTotal"),
+    @NamedQuery(name = "CasoSaludPuntaje.findByFechaRegistro", query = "SELECT c FROM CasoSaludPuntaje c WHERE c.fechaRegistro = :fechaRegistro"),
+    @NamedQuery(name = "CasoSaludPuntaje.findByEstado", query = "SELECT c FROM CasoSaludPuntaje c WHERE c.estado = :estado")})
 public class CasoSaludPuntaje implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "Caso_Salud_Puntaje_Id")
-    private Integer casoSaludPuntajeId;
-    @Column(name = "Caso_Salud_Puntaje_Total")
-    private Short casoSaludPuntajeTotal;
-    @JoinColumn(name = "Respuesta_Caso_Salud_Id", referencedColumnName = "Respuesta_Caso_Salud_Id")
+    @Column(name = "PK_Id")
+    private Integer pKId;
+    @Column(name = "PuntajeTotal")
+    private Short puntajeTotal;
+    @Column(name = "FechaRegistro")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaRegistro;
+    @Column(name = "Estado")
+    private Short estado;
+    @JoinColumn(name = "FK_RespuestaCasoSalud", referencedColumnName = "PK_Id")
     @ManyToOne(fetch = FetchType.LAZY)
     private RespuestaCasoSalud respuestaCasoSalud;
-    @JoinColumn(name = "Usuario_Id", referencedColumnName = "Usuario_Id")
+    @JoinColumn(name = "FK_Usuario", referencedColumnName = "PK_Id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Usuario usuario;
 
     public CasoSaludPuntaje() {
     }
 
-    public CasoSaludPuntaje(Integer casoSaludPuntajeId) {
-        this.casoSaludPuntajeId = casoSaludPuntajeId;
+    public CasoSaludPuntaje(Integer pKId) {
+        this.pKId = pKId;
     }
 
-    public Integer getCasoSaludPuntajeId() {
-        return casoSaludPuntajeId;
+    public Integer getPKId() {
+        return pKId;
     }
 
-    public void setCasoSaludPuntajeId(Integer casoSaludPuntajeId) {
-        this.casoSaludPuntajeId = casoSaludPuntajeId;
+    public void setPKId(Integer pKId) {
+        this.pKId = pKId;
     }
 
-    public Short getCasoSaludPuntajeTotal() {
-        return casoSaludPuntajeTotal;
+    public Short getPuntajeTotal() {
+        return puntajeTotal;
     }
 
-    public void setCasoSaludPuntajeTotal(Short casoSaludPuntajeTotal) {
-        this.casoSaludPuntajeTotal = casoSaludPuntajeTotal;
+    public void setPuntajeTotal(Short puntajeTotal) {
+        this.puntajeTotal = puntajeTotal;
+    }
+
+    public Date getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public void setFechaRegistro(Date fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
+    }
+
+    public Short getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Short estado) {
+        this.estado = estado;
     }
 
     public RespuestaCasoSalud getRespuestaCasoSalud() {
@@ -89,7 +115,7 @@ public class CasoSaludPuntaje implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (casoSaludPuntajeId != null ? casoSaludPuntajeId.hashCode() : 0);
+        hash += (pKId != null ? pKId.hashCode() : 0);
         return hash;
     }
 
@@ -100,7 +126,7 @@ public class CasoSaludPuntaje implements Serializable {
             return false;
         }
         CasoSaludPuntaje other = (CasoSaludPuntaje) object;
-        if ((this.casoSaludPuntajeId == null && other.casoSaludPuntajeId != null) || (this.casoSaludPuntajeId != null && !this.casoSaludPuntajeId.equals(other.casoSaludPuntajeId))) {
+        if ((this.pKId == null && other.pKId != null) || (this.pKId != null && !this.pKId.equals(other.pKId))) {
             return false;
         }
         return true;
@@ -108,7 +134,7 @@ public class CasoSaludPuntaje implements Serializable {
 
     @Override
     public String toString() {
-        return "be.CasoSaludPuntaje[ casoSaludPuntajeId=" + casoSaludPuntajeId + " ]";
+        return "be.CasoSaludPuntaje[ pKId=" + pKId + " ]";
     }
     
 }

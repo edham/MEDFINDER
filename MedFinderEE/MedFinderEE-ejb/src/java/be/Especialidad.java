@@ -34,29 +34,33 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Especialidad.findAll", query = "SELECT e FROM Especialidad e"),
-    @NamedQuery(name = "Especialidad.findByEspecialidadId", query = "SELECT e FROM Especialidad e WHERE e.especialidadId = :especialidadId"),
-    @NamedQuery(name = "Especialidad.findByEspecialidadNombre", query = "SELECT e FROM Especialidad e WHERE e.especialidadNombre = :especialidadNombre"),
-    @NamedQuery(name = "Especialidad.findByEspecialidadDescripcion", query = "SELECT e FROM Especialidad e WHERE e.especialidadDescripcion = :especialidadDescripcion"),
-    @NamedQuery(name = "Especialidad.findByEspecialidadEstado", query = "SELECT e FROM Especialidad e WHERE e.especialidadEstado = :especialidadEstado"),
-    @NamedQuery(name = "Especialidad.findByEspecialidadFecha", query = "SELECT e FROM Especialidad e WHERE e.especialidadFecha = :especialidadFecha")})
+    @NamedQuery(name = "Especialidad.findByPKId", query = "SELECT e FROM Especialidad e WHERE e.pKId = :pKId"),
+    @NamedQuery(name = "Especialidad.findByNombre", query = "SELECT e FROM Especialidad e WHERE e.nombre = :nombre"),
+    @NamedQuery(name = "Especialidad.findByDescripcion", query = "SELECT e FROM Especialidad e WHERE e.descripcion = :descripcion"),
+    @NamedQuery(name = "Especialidad.findByFechaRegistro", query = "SELECT e FROM Especialidad e WHERE e.fechaRegistro = :fechaRegistro"),
+    @NamedQuery(name = "Especialidad.findByFechaModificacion", query = "SELECT e FROM Especialidad e WHERE e.fechaModificacion = :fechaModificacion"),
+    @NamedQuery(name = "Especialidad.findByEstado", query = "SELECT e FROM Especialidad e WHERE e.estado = :estado")})
 public class Especialidad implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "Especialidad_Id")
-    private Integer especialidadId;
+    @Column(name = "PK_Id")
+    private Integer pKId;
     @Size(max = 45)
-    @Column(name = "Especialidad_Nombre")
-    private String especialidadNombre;
+    @Column(name = "Nombre")
+    private String nombre;
     @Size(max = 256)
-    @Column(name = "Especialidad_Descripcion")
-    private String especialidadDescripcion;
-    @Column(name = "Especialidad_Estado")
-    private Short especialidadEstado;
-    @Column(name = "Especialidad_Fecha")
+    @Column(name = "Descripcion")
+    private String descripcion;
+    @Column(name = "FechaRegistro")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date especialidadFecha;
+    private Date fechaRegistro;
+    @Column(name = "FechaModificacion")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaModificacion;
+    @Column(name = "Estado")
+    private Short estado;
     @OneToMany(mappedBy = "especialidad", fetch = FetchType.LAZY)
     private List<DetalleClinicaEspecialidad> detalleClinicaEspecialidadList;
     @OneToMany(mappedBy = "especialidad", fetch = FetchType.LAZY)
@@ -67,48 +71,56 @@ public class Especialidad implements Serializable {
     public Especialidad() {
     }
 
-    public Especialidad(Integer especialidadId) {
-        this.especialidadId = especialidadId;
+    public Especialidad(Integer pKId) {
+        this.pKId = pKId;
     }
 
-    public Integer getEspecialidadId() {
-        return especialidadId;
+    public Integer getPKId() {
+        return pKId;
     }
 
-    public void setEspecialidadId(Integer especialidadId) {
-        this.especialidadId = especialidadId;
+    public void setPKId(Integer pKId) {
+        this.pKId = pKId;
     }
 
-    public String getEspecialidadNombre() {
-        return especialidadNombre;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setEspecialidadNombre(String especialidadNombre) {
-        this.especialidadNombre = especialidadNombre;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public String getEspecialidadDescripcion() {
-        return especialidadDescripcion;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setEspecialidadDescripcion(String especialidadDescripcion) {
-        this.especialidadDescripcion = especialidadDescripcion;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
-    public Short getEspecialidadEstado() {
-        return especialidadEstado;
+    public Date getFechaRegistro() {
+        return fechaRegistro;
     }
 
-    public void setEspecialidadEstado(Short especialidadEstado) {
-        this.especialidadEstado = especialidadEstado;
+    public void setFechaRegistro(Date fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
     }
 
-    public Date getEspecialidadFecha() {
-        return especialidadFecha;
+    public Date getFechaModificacion() {
+        return fechaModificacion;
     }
 
-    public void setEspecialidadFecha(Date especialidadFecha) {
-        this.especialidadFecha = especialidadFecha;
+    public void setFechaModificacion(Date fechaModificacion) {
+        this.fechaModificacion = fechaModificacion;
+    }
+
+    public Short getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Short estado) {
+        this.estado = estado;
     }
 
     @XmlTransient
@@ -141,7 +153,7 @@ public class Especialidad implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (especialidadId != null ? especialidadId.hashCode() : 0);
+        hash += (pKId != null ? pKId.hashCode() : 0);
         return hash;
     }
 
@@ -152,7 +164,7 @@ public class Especialidad implements Serializable {
             return false;
         }
         Especialidad other = (Especialidad) object;
-        if ((this.especialidadId == null && other.especialidadId != null) || (this.especialidadId != null && !this.especialidadId.equals(other.especialidadId))) {
+        if ((this.pKId == null && other.pKId != null) || (this.pKId != null && !this.pKId.equals(other.pKId))) {
             return false;
         }
         return true;
@@ -160,7 +172,7 @@ public class Especialidad implements Serializable {
 
     @Override
     public String toString() {
-        return "be.Especialidad[ especialidadId=" + especialidadId + " ]";
+        return "be.Especialidad[ pKId=" + pKId + " ]";
     }
     
 }

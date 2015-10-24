@@ -63,38 +63,20 @@ public abstract class AbstractFacade<T> {
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
     }
-     public List<T> Especialidad_lista() {
+      public List<T> lista_activos() {
 
         // agregar aqui
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
-        CriteriaQuery<Especialidad> cq = getEntityManager().getCriteriaBuilder().createQuery(Especialidad.class);
-        Root<Especialidad> registro = cq.from(Especialidad.class);
-
+        javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
+        Root<Class<T>> registro = cq.from(entityClass);
         // agregar aqui
-        cq.orderBy(cb.asc(registro.get("especialidadNombre")));
+        cq.orderBy(cb.asc(registro.get("nombre")));
         cq.where(
                 cb.and(
-                        cb.equal(registro.get(Especialidad_.especialidadEstado), 1)
+                        cb.equal(registro.get("estado"), 1)
                 ));
-
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         return q.getResultList();
     }  
-     public List<T> Seguro_lista() {
-
-        // agregar aqui
-        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
-        CriteriaQuery<Seguro> cq = getEntityManager().getCriteriaBuilder().createQuery(Seguro.class);
-        Root<Seguro> registro = cq.from(Seguro.class);
-
-        // agregar aqui
-        cq.orderBy(cb.asc(registro.get("especialidadNombre")));
-        cq.where(
-                cb.and(
-                        cb.equal(registro.get(Seguro_.seguroEstado), 1)
-                ));
-
-        javax.persistence.Query q = getEntityManager().createQuery(cq);
-        return q.getResultList();
-    }  
+    
 }

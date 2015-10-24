@@ -33,80 +33,92 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "RespuestaPreguntaPaciente.findAll", query = "SELECT r FROM RespuestaPreguntaPaciente r"),
-    @NamedQuery(name = "RespuestaPreguntaPaciente.findByRespuestaPreguntaPacienteId", query = "SELECT r FROM RespuestaPreguntaPaciente r WHERE r.respuestaPreguntaPacienteId = :respuestaPreguntaPacienteId"),
-    @NamedQuery(name = "RespuestaPreguntaPaciente.findByRespuestaPreguntaPacienteDetalle", query = "SELECT r FROM RespuestaPreguntaPaciente r WHERE r.respuestaPreguntaPacienteDetalle = :respuestaPreguntaPacienteDetalle"),
-    @NamedQuery(name = "RespuestaPreguntaPaciente.findByRespuestaPreguntaPacientePuntaje", query = "SELECT r FROM RespuestaPreguntaPaciente r WHERE r.respuestaPreguntaPacientePuntaje = :respuestaPreguntaPacientePuntaje"),
-    @NamedQuery(name = "RespuestaPreguntaPaciente.findByRespuestaPreguntaPacienteFecha", query = "SELECT r FROM RespuestaPreguntaPaciente r WHERE r.respuestaPreguntaPacienteFecha = :respuestaPreguntaPacienteFecha"),
-    @NamedQuery(name = "RespuestaPreguntaPaciente.findByRespuestaPreguntaPacienteEstado", query = "SELECT r FROM RespuestaPreguntaPaciente r WHERE r.respuestaPreguntaPacienteEstado = :respuestaPreguntaPacienteEstado")})
+    @NamedQuery(name = "RespuestaPreguntaPaciente.findByPKId", query = "SELECT r FROM RespuestaPreguntaPaciente r WHERE r.pKId = :pKId"),
+    @NamedQuery(name = "RespuestaPreguntaPaciente.findByDetalle", query = "SELECT r FROM RespuestaPreguntaPaciente r WHERE r.detalle = :detalle"),
+    @NamedQuery(name = "RespuestaPreguntaPaciente.findByPuntaje", query = "SELECT r FROM RespuestaPreguntaPaciente r WHERE r.puntaje = :puntaje"),
+    @NamedQuery(name = "RespuestaPreguntaPaciente.findByFechaRegistro", query = "SELECT r FROM RespuestaPreguntaPaciente r WHERE r.fechaRegistro = :fechaRegistro"),
+    @NamedQuery(name = "RespuestaPreguntaPaciente.findByFechaModificacion", query = "SELECT r FROM RespuestaPreguntaPaciente r WHERE r.fechaModificacion = :fechaModificacion"),
+    @NamedQuery(name = "RespuestaPreguntaPaciente.findByEstado", query = "SELECT r FROM RespuestaPreguntaPaciente r WHERE r.estado = :estado")})
 public class RespuestaPreguntaPaciente implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "Respuesta_Pregunta_Paciente_Id")
-    private Integer respuestaPreguntaPacienteId;
+    @Column(name = "PK_Id")
+    private Integer pKId;
     @Size(max = 200)
-    @Column(name = "Respuesta_Pregunta_Paciente_Detalle")
-    private String respuestaPreguntaPacienteDetalle;
-    @Column(name = "Respuesta_Pregunta_Paciente_Puntaje")
-    private Short respuestaPreguntaPacientePuntaje;
-    @Column(name = "Respuesta_Pregunta_Paciente_Fecha")
+    @Column(name = "Detalle")
+    private String detalle;
+    @Column(name = "Puntaje")
+    private Short puntaje;
+    @Column(name = "FechaRegistro")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date respuestaPreguntaPacienteFecha;
-    @Column(name = "Respuesta_Pregunta_Paciente_Estado")
-    private Short respuestaPreguntaPacienteEstado;
-    @JoinColumn(name = "Doctor_Id", referencedColumnName = "Doctor_Id")
+    private Date fechaRegistro;
+    @Column(name = "FechaModificacion")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaModificacion;
+    @Column(name = "Estado")
+    private Short estado;
+    @JoinColumn(name = "FK_Doctor", referencedColumnName = "PK_Id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Doctor doctor;
-    @JoinColumn(name = "Pregunta_Paciente_Id", referencedColumnName = "Pregunta_Paciente_Id")
+    @JoinColumn(name = "FK_PreguntaPaciente", referencedColumnName = "PK_Id")
     @ManyToOne(fetch = FetchType.LAZY)
     private PreguntaPaciente preguntaPaciente;
 
     public RespuestaPreguntaPaciente() {
     }
 
-    public RespuestaPreguntaPaciente(Integer respuestaPreguntaPacienteId) {
-        this.respuestaPreguntaPacienteId = respuestaPreguntaPacienteId;
+    public RespuestaPreguntaPaciente(Integer pKId) {
+        this.pKId = pKId;
     }
 
-    public Integer getRespuestaPreguntaPacienteId() {
-        return respuestaPreguntaPacienteId;
+    public Integer getPKId() {
+        return pKId;
     }
 
-    public void setRespuestaPreguntaPacienteId(Integer respuestaPreguntaPacienteId) {
-        this.respuestaPreguntaPacienteId = respuestaPreguntaPacienteId;
+    public void setPKId(Integer pKId) {
+        this.pKId = pKId;
     }
 
-    public String getRespuestaPreguntaPacienteDetalle() {
-        return respuestaPreguntaPacienteDetalle;
+    public String getDetalle() {
+        return detalle;
     }
 
-    public void setRespuestaPreguntaPacienteDetalle(String respuestaPreguntaPacienteDetalle) {
-        this.respuestaPreguntaPacienteDetalle = respuestaPreguntaPacienteDetalle;
+    public void setDetalle(String detalle) {
+        this.detalle = detalle;
     }
 
-    public Short getRespuestaPreguntaPacientePuntaje() {
-        return respuestaPreguntaPacientePuntaje;
+    public Short getPuntaje() {
+        return puntaje;
     }
 
-    public void setRespuestaPreguntaPacientePuntaje(Short respuestaPreguntaPacientePuntaje) {
-        this.respuestaPreguntaPacientePuntaje = respuestaPreguntaPacientePuntaje;
+    public void setPuntaje(Short puntaje) {
+        this.puntaje = puntaje;
     }
 
-    public Date getRespuestaPreguntaPacienteFecha() {
-        return respuestaPreguntaPacienteFecha;
+    public Date getFechaRegistro() {
+        return fechaRegistro;
     }
 
-    public void setRespuestaPreguntaPacienteFecha(Date respuestaPreguntaPacienteFecha) {
-        this.respuestaPreguntaPacienteFecha = respuestaPreguntaPacienteFecha;
+    public void setFechaRegistro(Date fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
     }
 
-    public Short getRespuestaPreguntaPacienteEstado() {
-        return respuestaPreguntaPacienteEstado;
+    public Date getFechaModificacion() {
+        return fechaModificacion;
     }
 
-    public void setRespuestaPreguntaPacienteEstado(Short respuestaPreguntaPacienteEstado) {
-        this.respuestaPreguntaPacienteEstado = respuestaPreguntaPacienteEstado;
+    public void setFechaModificacion(Date fechaModificacion) {
+        this.fechaModificacion = fechaModificacion;
+    }
+
+    public Short getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Short estado) {
+        this.estado = estado;
     }
 
     public Doctor getDoctor() {
@@ -128,7 +140,7 @@ public class RespuestaPreguntaPaciente implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (respuestaPreguntaPacienteId != null ? respuestaPreguntaPacienteId.hashCode() : 0);
+        hash += (pKId != null ? pKId.hashCode() : 0);
         return hash;
     }
 
@@ -139,7 +151,7 @@ public class RespuestaPreguntaPaciente implements Serializable {
             return false;
         }
         RespuestaPreguntaPaciente other = (RespuestaPreguntaPaciente) object;
-        if ((this.respuestaPreguntaPacienteId == null && other.respuestaPreguntaPacienteId != null) || (this.respuestaPreguntaPacienteId != null && !this.respuestaPreguntaPacienteId.equals(other.respuestaPreguntaPacienteId))) {
+        if ((this.pKId == null && other.pKId != null) || (this.pKId != null && !this.pKId.equals(other.pKId))) {
             return false;
         }
         return true;
@@ -147,7 +159,7 @@ public class RespuestaPreguntaPaciente implements Serializable {
 
     @Override
     public String toString() {
-        return "be.RespuestaPreguntaPaciente[ respuestaPreguntaPacienteId=" + respuestaPreguntaPacienteId + " ]";
+        return "be.RespuestaPreguntaPaciente[ pKId=" + pKId + " ]";
     }
     
 }

@@ -6,6 +6,7 @@
 package be;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,6 +19,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -29,34 +32,69 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Favoritos.findAll", query = "SELECT f FROM Favoritos f"),
-    @NamedQuery(name = "Favoritos.findByFavoritosId", query = "SELECT f FROM Favoritos f WHERE f.favoritosId = :favoritosId")})
+    @NamedQuery(name = "Favoritos.findByPKId", query = "SELECT f FROM Favoritos f WHERE f.pKId = :pKId"),
+    @NamedQuery(name = "Favoritos.findByFechaModificacion", query = "SELECT f FROM Favoritos f WHERE f.fechaModificacion = :fechaModificacion"),
+    @NamedQuery(name = "Favoritos.findByFechaRegistro", query = "SELECT f FROM Favoritos f WHERE f.fechaRegistro = :fechaRegistro"),
+    @NamedQuery(name = "Favoritos.findByEstado", query = "SELECT f FROM Favoritos f WHERE f.estado = :estado")})
 public class Favoritos implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "Favoritos_Id")
-    private Integer favoritosId;
-    @JoinColumn(name = "Doctor_Id", referencedColumnName = "Doctor_Id")
+    @Column(name = "PK_Id")
+    private Integer pKId;
+    @Column(name = "FechaModificacion")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaModificacion;
+    @Column(name = "FechaRegistro")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaRegistro;
+    @Column(name = "Estado")
+    private Short estado;
+    @JoinColumn(name = "FK_Doctor", referencedColumnName = "PK_Id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Doctor doctor;
-    @JoinColumn(name = "Usuario_Id", referencedColumnName = "Usuario_Id")
+    @JoinColumn(name = "FK_Usuario", referencedColumnName = "PK_Id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Usuario usuario;
 
     public Favoritos() {
     }
 
-    public Favoritos(Integer favoritosId) {
-        this.favoritosId = favoritosId;
+    public Favoritos(Integer pKId) {
+        this.pKId = pKId;
     }
 
-    public Integer getFavoritosId() {
-        return favoritosId;
+    public Integer getPKId() {
+        return pKId;
     }
 
-    public void setFavoritosId(Integer favoritosId) {
-        this.favoritosId = favoritosId;
+    public void setPKId(Integer pKId) {
+        this.pKId = pKId;
+    }
+
+    public Date getFechaModificacion() {
+        return fechaModificacion;
+    }
+
+    public void setFechaModificacion(Date fechaModificacion) {
+        this.fechaModificacion = fechaModificacion;
+    }
+
+    public Date getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public void setFechaRegistro(Date fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
+    }
+
+    public Short getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Short estado) {
+        this.estado = estado;
     }
 
     public Doctor getDoctor() {
@@ -78,7 +116,7 @@ public class Favoritos implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (favoritosId != null ? favoritosId.hashCode() : 0);
+        hash += (pKId != null ? pKId.hashCode() : 0);
         return hash;
     }
 
@@ -89,7 +127,7 @@ public class Favoritos implements Serializable {
             return false;
         }
         Favoritos other = (Favoritos) object;
-        if ((this.favoritosId == null && other.favoritosId != null) || (this.favoritosId != null && !this.favoritosId.equals(other.favoritosId))) {
+        if ((this.pKId == null && other.pKId != null) || (this.pKId != null && !this.pKId.equals(other.pKId))) {
             return false;
         }
         return true;
@@ -97,7 +135,7 @@ public class Favoritos implements Serializable {
 
     @Override
     public String toString() {
-        return "be.Favoritos[ favoritosId=" + favoritosId + " ]";
+        return "be.Favoritos[ pKId=" + pKId + " ]";
     }
     
 }

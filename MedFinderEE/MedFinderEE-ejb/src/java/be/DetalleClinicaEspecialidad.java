@@ -33,93 +33,105 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "DetalleClinicaEspecialidad.findAll", query = "SELECT d FROM DetalleClinicaEspecialidad d"),
-    @NamedQuery(name = "DetalleClinicaEspecialidad.findByDetalleClinicaEspecialidadId", query = "SELECT d FROM DetalleClinicaEspecialidad d WHERE d.detalleClinicaEspecialidadId = :detalleClinicaEspecialidadId"),
-    @NamedQuery(name = "DetalleClinicaEspecialidad.findByDetalleClinicaEspecialidadHorarioInicio", query = "SELECT d FROM DetalleClinicaEspecialidad d WHERE d.detalleClinicaEspecialidadHorarioInicio = :detalleClinicaEspecialidadHorarioInicio"),
-    @NamedQuery(name = "DetalleClinicaEspecialidad.findByDetalleClinicaEspecialidadHorarioFin", query = "SELECT d FROM DetalleClinicaEspecialidad d WHERE d.detalleClinicaEspecialidadHorarioFin = :detalleClinicaEspecialidadHorarioFin"),
-    @NamedQuery(name = "DetalleClinicaEspecialidad.findByDetalleClinicaEspecialidadDetalleHorario", query = "SELECT d FROM DetalleClinicaEspecialidad d WHERE d.detalleClinicaEspecialidadDetalleHorario = :detalleClinicaEspecialidadDetalleHorario"),
-    @NamedQuery(name = "DetalleClinicaEspecialidad.findByDetalleClinicaEspecialidadEstado", query = "SELECT d FROM DetalleClinicaEspecialidad d WHERE d.detalleClinicaEspecialidadEstado = :detalleClinicaEspecialidadEstado"),
-    @NamedQuery(name = "DetalleClinicaEspecialidad.findByDetalleClinicaEspecialidadFecha", query = "SELECT d FROM DetalleClinicaEspecialidad d WHERE d.detalleClinicaEspecialidadFecha = :detalleClinicaEspecialidadFecha")})
+    @NamedQuery(name = "DetalleClinicaEspecialidad.findByPKId", query = "SELECT d FROM DetalleClinicaEspecialidad d WHERE d.pKId = :pKId"),
+    @NamedQuery(name = "DetalleClinicaEspecialidad.findByHorarioInicio", query = "SELECT d FROM DetalleClinicaEspecialidad d WHERE d.horarioInicio = :horarioInicio"),
+    @NamedQuery(name = "DetalleClinicaEspecialidad.findByHorarioFin", query = "SELECT d FROM DetalleClinicaEspecialidad d WHERE d.horarioFin = :horarioFin"),
+    @NamedQuery(name = "DetalleClinicaEspecialidad.findByDetalleHorario", query = "SELECT d FROM DetalleClinicaEspecialidad d WHERE d.detalleHorario = :detalleHorario"),
+    @NamedQuery(name = "DetalleClinicaEspecialidad.findByFechaRegistro", query = "SELECT d FROM DetalleClinicaEspecialidad d WHERE d.fechaRegistro = :fechaRegistro"),
+    @NamedQuery(name = "DetalleClinicaEspecialidad.findByFechaModificacion", query = "SELECT d FROM DetalleClinicaEspecialidad d WHERE d.fechaModificacion = :fechaModificacion"),
+    @NamedQuery(name = "DetalleClinicaEspecialidad.findByEstado", query = "SELECT d FROM DetalleClinicaEspecialidad d WHERE d.estado = :estado")})
 public class DetalleClinicaEspecialidad implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "Detalle_Clinica_Especialidad_Id")
-    private Integer detalleClinicaEspecialidadId;
-    @Column(name = "Detalle_Clinica_Especialidad_HorarioInicio")
+    @Column(name = "PK_Id")
+    private Integer pKId;
+    @Column(name = "HorarioInicio")
     @Temporal(TemporalType.TIME)
-    private Date detalleClinicaEspecialidadHorarioInicio;
-    @Column(name = "Detalle_Clinica_Especialidad_HorarioFin")
+    private Date horarioInicio;
+    @Column(name = "HorarioFin")
     @Temporal(TemporalType.TIME)
-    private Date detalleClinicaEspecialidadHorarioFin;
+    private Date horarioFin;
     @Size(max = 45)
-    @Column(name = "Detalle_Clinica_Especialidad_Detalle_Horario")
-    private String detalleClinicaEspecialidadDetalleHorario;
-    @Column(name = "Detalle_Clinica_Especialidad_Estado")
-    private Short detalleClinicaEspecialidadEstado;
-    @Column(name = "Detalle_Clinica_Especialidad_Fecha")
+    @Column(name = "DetalleHorario")
+    private String detalleHorario;
+    @Column(name = "FechaRegistro")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date detalleClinicaEspecialidadFecha;
-    @JoinColumn(name = "Clinica_Id", referencedColumnName = "Clinica_Id")
+    private Date fechaRegistro;
+    @Column(name = "FechaModificacion")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaModificacion;
+    @Column(name = "Estado")
+    private Short estado;
+    @JoinColumn(name = "FK_Clinica", referencedColumnName = "PK_Id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Clinica clinica;
-    @JoinColumn(name = "Especialidad_Id", referencedColumnName = "Especialidad_Id")
+    @JoinColumn(name = "FK_Especialidad", referencedColumnName = "PK_Id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Especialidad especialidad;
 
     public DetalleClinicaEspecialidad() {
     }
 
-    public DetalleClinicaEspecialidad(Integer detalleClinicaEspecialidadId) {
-        this.detalleClinicaEspecialidadId = detalleClinicaEspecialidadId;
+    public DetalleClinicaEspecialidad(Integer pKId) {
+        this.pKId = pKId;
     }
 
-    public Integer getDetalleClinicaEspecialidadId() {
-        return detalleClinicaEspecialidadId;
+    public Integer getPKId() {
+        return pKId;
     }
 
-    public void setDetalleClinicaEspecialidadId(Integer detalleClinicaEspecialidadId) {
-        this.detalleClinicaEspecialidadId = detalleClinicaEspecialidadId;
+    public void setPKId(Integer pKId) {
+        this.pKId = pKId;
     }
 
-    public Date getDetalleClinicaEspecialidadHorarioInicio() {
-        return detalleClinicaEspecialidadHorarioInicio;
+    public Date getHorarioInicio() {
+        return horarioInicio;
     }
 
-    public void setDetalleClinicaEspecialidadHorarioInicio(Date detalleClinicaEspecialidadHorarioInicio) {
-        this.detalleClinicaEspecialidadHorarioInicio = detalleClinicaEspecialidadHorarioInicio;
+    public void setHorarioInicio(Date horarioInicio) {
+        this.horarioInicio = horarioInicio;
     }
 
-    public Date getDetalleClinicaEspecialidadHorarioFin() {
-        return detalleClinicaEspecialidadHorarioFin;
+    public Date getHorarioFin() {
+        return horarioFin;
     }
 
-    public void setDetalleClinicaEspecialidadHorarioFin(Date detalleClinicaEspecialidadHorarioFin) {
-        this.detalleClinicaEspecialidadHorarioFin = detalleClinicaEspecialidadHorarioFin;
+    public void setHorarioFin(Date horarioFin) {
+        this.horarioFin = horarioFin;
     }
 
-    public String getDetalleClinicaEspecialidadDetalleHorario() {
-        return detalleClinicaEspecialidadDetalleHorario;
+    public String getDetalleHorario() {
+        return detalleHorario;
     }
 
-    public void setDetalleClinicaEspecialidadDetalleHorario(String detalleClinicaEspecialidadDetalleHorario) {
-        this.detalleClinicaEspecialidadDetalleHorario = detalleClinicaEspecialidadDetalleHorario;
+    public void setDetalleHorario(String detalleHorario) {
+        this.detalleHorario = detalleHorario;
     }
 
-    public Short getDetalleClinicaEspecialidadEstado() {
-        return detalleClinicaEspecialidadEstado;
+    public Date getFechaRegistro() {
+        return fechaRegistro;
     }
 
-    public void setDetalleClinicaEspecialidadEstado(Short detalleClinicaEspecialidadEstado) {
-        this.detalleClinicaEspecialidadEstado = detalleClinicaEspecialidadEstado;
+    public void setFechaRegistro(Date fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
     }
 
-    public Date getDetalleClinicaEspecialidadFecha() {
-        return detalleClinicaEspecialidadFecha;
+    public Date getFechaModificacion() {
+        return fechaModificacion;
     }
 
-    public void setDetalleClinicaEspecialidadFecha(Date detalleClinicaEspecialidadFecha) {
-        this.detalleClinicaEspecialidadFecha = detalleClinicaEspecialidadFecha;
+    public void setFechaModificacion(Date fechaModificacion) {
+        this.fechaModificacion = fechaModificacion;
+    }
+
+    public Short getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Short estado) {
+        this.estado = estado;
     }
 
     public Clinica getClinica() {
@@ -141,7 +153,7 @@ public class DetalleClinicaEspecialidad implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (detalleClinicaEspecialidadId != null ? detalleClinicaEspecialidadId.hashCode() : 0);
+        hash += (pKId != null ? pKId.hashCode() : 0);
         return hash;
     }
 
@@ -152,7 +164,7 @@ public class DetalleClinicaEspecialidad implements Serializable {
             return false;
         }
         DetalleClinicaEspecialidad other = (DetalleClinicaEspecialidad) object;
-        if ((this.detalleClinicaEspecialidadId == null && other.detalleClinicaEspecialidadId != null) || (this.detalleClinicaEspecialidadId != null && !this.detalleClinicaEspecialidadId.equals(other.detalleClinicaEspecialidadId))) {
+        if ((this.pKId == null && other.pKId != null) || (this.pKId != null && !this.pKId.equals(other.pKId))) {
             return false;
         }
         return true;
@@ -160,7 +172,7 @@ public class DetalleClinicaEspecialidad implements Serializable {
 
     @Override
     public String toString() {
-        return "be.DetalleClinicaEspecialidad[ detalleClinicaEspecialidadId=" + detalleClinicaEspecialidadId + " ]";
+        return "be.DetalleClinicaEspecialidad[ pKId=" + pKId + " ]";
     }
     
 }

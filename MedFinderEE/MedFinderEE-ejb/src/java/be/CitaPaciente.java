@@ -33,81 +33,93 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "CitaPaciente.findAll", query = "SELECT c FROM CitaPaciente c"),
-    @NamedQuery(name = "CitaPaciente.findByCitaPacienteId", query = "SELECT c FROM CitaPaciente c WHERE c.citaPacienteId = :citaPacienteId"),
-    @NamedQuery(name = "CitaPaciente.findByCitaPacienteDetalle", query = "SELECT c FROM CitaPaciente c WHERE c.citaPacienteDetalle = :citaPacienteDetalle"),
-    @NamedQuery(name = "CitaPaciente.findByCitaPacienteCreacion", query = "SELECT c FROM CitaPaciente c WHERE c.citaPacienteCreacion = :citaPacienteCreacion"),
-    @NamedQuery(name = "CitaPaciente.findByCitaPacienteAtencion", query = "SELECT c FROM CitaPaciente c WHERE c.citaPacienteAtencion = :citaPacienteAtencion"),
-    @NamedQuery(name = "CitaPaciente.findByCitaPacienteEstado", query = "SELECT c FROM CitaPaciente c WHERE c.citaPacienteEstado = :citaPacienteEstado")})
+    @NamedQuery(name = "CitaPaciente.findByPKId", query = "SELECT c FROM CitaPaciente c WHERE c.pKId = :pKId"),
+    @NamedQuery(name = "CitaPaciente.findByDetalle", query = "SELECT c FROM CitaPaciente c WHERE c.detalle = :detalle"),
+    @NamedQuery(name = "CitaPaciente.findByAtencion", query = "SELECT c FROM CitaPaciente c WHERE c.atencion = :atencion"),
+    @NamedQuery(name = "CitaPaciente.findByFechaRegistro", query = "SELECT c FROM CitaPaciente c WHERE c.fechaRegistro = :fechaRegistro"),
+    @NamedQuery(name = "CitaPaciente.findByFechaModificacion", query = "SELECT c FROM CitaPaciente c WHERE c.fechaModificacion = :fechaModificacion"),
+    @NamedQuery(name = "CitaPaciente.findByEstado", query = "SELECT c FROM CitaPaciente c WHERE c.estado = :estado")})
 public class CitaPaciente implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "Cita_Paciente_Id")
-    private Integer citaPacienteId;
+    @Column(name = "PK_Id")
+    private Integer pKId;
     @Size(max = 200)
-    @Column(name = "Cita_Paciente_Detalle")
-    private String citaPacienteDetalle;
-    @Column(name = "Cita_Paciente_Creacion")
+    @Column(name = "Detalle")
+    private String detalle;
+    @Column(name = "Atencion")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date citaPacienteCreacion;
-    @Column(name = "Cita_Paciente_Atencion")
+    private Date atencion;
+    @Column(name = "FechaRegistro")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date citaPacienteAtencion;
-    @Column(name = "Cita_Paciente_Estado")
-    private Short citaPacienteEstado;
-    @JoinColumn(name = "Doctor_Id", referencedColumnName = "Doctor_Id")
+    private Date fechaRegistro;
+    @Column(name = "FechaModificacion")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaModificacion;
+    @Column(name = "Estado")
+    private Short estado;
+    @JoinColumn(name = "FK_Doctor", referencedColumnName = "PK_Id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Doctor doctor;
-    @JoinColumn(name = "Paciente_Id", referencedColumnName = "Paciente_Id")
+    @JoinColumn(name = "FK_Paciente", referencedColumnName = "PK_Id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Paciente paciente;
 
     public CitaPaciente() {
     }
 
-    public CitaPaciente(Integer citaPacienteId) {
-        this.citaPacienteId = citaPacienteId;
+    public CitaPaciente(Integer pKId) {
+        this.pKId = pKId;
     }
 
-    public Integer getCitaPacienteId() {
-        return citaPacienteId;
+    public Integer getPKId() {
+        return pKId;
     }
 
-    public void setCitaPacienteId(Integer citaPacienteId) {
-        this.citaPacienteId = citaPacienteId;
+    public void setPKId(Integer pKId) {
+        this.pKId = pKId;
     }
 
-    public String getCitaPacienteDetalle() {
-        return citaPacienteDetalle;
+    public String getDetalle() {
+        return detalle;
     }
 
-    public void setCitaPacienteDetalle(String citaPacienteDetalle) {
-        this.citaPacienteDetalle = citaPacienteDetalle;
+    public void setDetalle(String detalle) {
+        this.detalle = detalle;
     }
 
-    public Date getCitaPacienteCreacion() {
-        return citaPacienteCreacion;
+    public Date getAtencion() {
+        return atencion;
     }
 
-    public void setCitaPacienteCreacion(Date citaPacienteCreacion) {
-        this.citaPacienteCreacion = citaPacienteCreacion;
+    public void setAtencion(Date atencion) {
+        this.atencion = atencion;
     }
 
-    public Date getCitaPacienteAtencion() {
-        return citaPacienteAtencion;
+    public Date getFechaRegistro() {
+        return fechaRegistro;
     }
 
-    public void setCitaPacienteAtencion(Date citaPacienteAtencion) {
-        this.citaPacienteAtencion = citaPacienteAtencion;
+    public void setFechaRegistro(Date fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
     }
 
-    public Short getCitaPacienteEstado() {
-        return citaPacienteEstado;
+    public Date getFechaModificacion() {
+        return fechaModificacion;
     }
 
-    public void setCitaPacienteEstado(Short citaPacienteEstado) {
-        this.citaPacienteEstado = citaPacienteEstado;
+    public void setFechaModificacion(Date fechaModificacion) {
+        this.fechaModificacion = fechaModificacion;
+    }
+
+    public Short getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Short estado) {
+        this.estado = estado;
     }
 
     public Doctor getDoctor() {
@@ -129,7 +141,7 @@ public class CitaPaciente implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (citaPacienteId != null ? citaPacienteId.hashCode() : 0);
+        hash += (pKId != null ? pKId.hashCode() : 0);
         return hash;
     }
 
@@ -140,7 +152,7 @@ public class CitaPaciente implements Serializable {
             return false;
         }
         CitaPaciente other = (CitaPaciente) object;
-        if ((this.citaPacienteId == null && other.citaPacienteId != null) || (this.citaPacienteId != null && !this.citaPacienteId.equals(other.citaPacienteId))) {
+        if ((this.pKId == null && other.pKId != null) || (this.pKId != null && !this.pKId.equals(other.pKId))) {
             return false;
         }
         return true;
@@ -148,7 +160,7 @@ public class CitaPaciente implements Serializable {
 
     @Override
     public String toString() {
-        return "be.CitaPaciente[ citaPacienteId=" + citaPacienteId + " ]";
+        return "be.CitaPaciente[ pKId=" + pKId + " ]";
     }
     
 }

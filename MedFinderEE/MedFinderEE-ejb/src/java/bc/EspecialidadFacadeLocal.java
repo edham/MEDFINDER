@@ -29,7 +29,7 @@ public interface EspecialidadFacadeLocal {
     List<Especialidad> findRange(int[] range);
 
     
-    List<Especialidad> Especialidad_lista();
+    List<Especialidad> lista_activos();
     int count();
     
 }

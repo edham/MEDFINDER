@@ -32,57 +32,69 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "DetalleClinicaSeguro.findAll", query = "SELECT d FROM DetalleClinicaSeguro d"),
-    @NamedQuery(name = "DetalleClinicaSeguro.findByDetalleClinicaSeguroId", query = "SELECT d FROM DetalleClinicaSeguro d WHERE d.detalleClinicaSeguroId = :detalleClinicaSeguroId"),
-    @NamedQuery(name = "DetalleClinicaSeguro.findByDetalleClinicaSeguroFecha", query = "SELECT d FROM DetalleClinicaSeguro d WHERE d.detalleClinicaSeguroFecha = :detalleClinicaSeguroFecha"),
-    @NamedQuery(name = "DetalleClinicaSeguro.findByDetalleClinicaSeguroEstado", query = "SELECT d FROM DetalleClinicaSeguro d WHERE d.detalleClinicaSeguroEstado = :detalleClinicaSeguroEstado")})
+    @NamedQuery(name = "DetalleClinicaSeguro.findByPKId", query = "SELECT d FROM DetalleClinicaSeguro d WHERE d.pKId = :pKId"),
+    @NamedQuery(name = "DetalleClinicaSeguro.findByFechaRegistro", query = "SELECT d FROM DetalleClinicaSeguro d WHERE d.fechaRegistro = :fechaRegistro"),
+    @NamedQuery(name = "DetalleClinicaSeguro.findByFechaModificacion", query = "SELECT d FROM DetalleClinicaSeguro d WHERE d.fechaModificacion = :fechaModificacion"),
+    @NamedQuery(name = "DetalleClinicaSeguro.findByEstado", query = "SELECT d FROM DetalleClinicaSeguro d WHERE d.estado = :estado")})
 public class DetalleClinicaSeguro implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "Detalle_Clinica_Seguro_Id")
-    private Integer detalleClinicaSeguroId;
-    @Column(name = "Detalle_Clinica_Seguro_Fecha")
+    @Column(name = "PK_Id")
+    private Integer pKId;
+    @Column(name = "FechaRegistro")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date detalleClinicaSeguroFecha;
-    @Column(name = "Detalle_Clinica_Seguro_Estado")
-    private Short detalleClinicaSeguroEstado;
-    @JoinColumn(name = "Clinica_Id", referencedColumnName = "Clinica_Id")
+    private Date fechaRegistro;
+    @Column(name = "FechaModificacion")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaModificacion;
+    @Column(name = "Estado")
+    private Short estado;
+    @JoinColumn(name = "FK_Clinica", referencedColumnName = "PK_Id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Clinica clinica;
-    @JoinColumn(name = "Seguro_Id", referencedColumnName = "Seguro_Id")
+    @JoinColumn(name = "FK_Seguro", referencedColumnName = "PK_Id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Seguro seguro;
 
     public DetalleClinicaSeguro() {
     }
 
-    public DetalleClinicaSeguro(Integer detalleClinicaSeguroId) {
-        this.detalleClinicaSeguroId = detalleClinicaSeguroId;
+    public DetalleClinicaSeguro(Integer pKId) {
+        this.pKId = pKId;
     }
 
-    public Integer getDetalleClinicaSeguroId() {
-        return detalleClinicaSeguroId;
+    public Integer getPKId() {
+        return pKId;
     }
 
-    public void setDetalleClinicaSeguroId(Integer detalleClinicaSeguroId) {
-        this.detalleClinicaSeguroId = detalleClinicaSeguroId;
+    public void setPKId(Integer pKId) {
+        this.pKId = pKId;
     }
 
-    public Date getDetalleClinicaSeguroFecha() {
-        return detalleClinicaSeguroFecha;
+    public Date getFechaRegistro() {
+        return fechaRegistro;
     }
 
-    public void setDetalleClinicaSeguroFecha(Date detalleClinicaSeguroFecha) {
-        this.detalleClinicaSeguroFecha = detalleClinicaSeguroFecha;
+    public void setFechaRegistro(Date fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
     }
 
-    public Short getDetalleClinicaSeguroEstado() {
-        return detalleClinicaSeguroEstado;
+    public Date getFechaModificacion() {
+        return fechaModificacion;
     }
 
-    public void setDetalleClinicaSeguroEstado(Short detalleClinicaSeguroEstado) {
-        this.detalleClinicaSeguroEstado = detalleClinicaSeguroEstado;
+    public void setFechaModificacion(Date fechaModificacion) {
+        this.fechaModificacion = fechaModificacion;
+    }
+
+    public Short getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Short estado) {
+        this.estado = estado;
     }
 
     public Clinica getClinica() {
@@ -104,7 +116,7 @@ public class DetalleClinicaSeguro implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (detalleClinicaSeguroId != null ? detalleClinicaSeguroId.hashCode() : 0);
+        hash += (pKId != null ? pKId.hashCode() : 0);
         return hash;
     }
 
@@ -115,7 +127,7 @@ public class DetalleClinicaSeguro implements Serializable {
             return false;
         }
         DetalleClinicaSeguro other = (DetalleClinicaSeguro) object;
-        if ((this.detalleClinicaSeguroId == null && other.detalleClinicaSeguroId != null) || (this.detalleClinicaSeguroId != null && !this.detalleClinicaSeguroId.equals(other.detalleClinicaSeguroId))) {
+        if ((this.pKId == null && other.pKId != null) || (this.pKId != null && !this.pKId.equals(other.pKId))) {
             return false;
         }
         return true;
@@ -123,7 +135,7 @@ public class DetalleClinicaSeguro implements Serializable {
 
     @Override
     public String toString() {
-        return "be.DetalleClinicaSeguro[ detalleClinicaSeguroId=" + detalleClinicaSeguroId + " ]";
+        return "be.DetalleClinicaSeguro[ pKId=" + pKId + " ]";
     }
     
 }

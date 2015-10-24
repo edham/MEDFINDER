@@ -35,76 +35,88 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Seguro.findAll", query = "SELECT s FROM Seguro s"),
-    @NamedQuery(name = "Seguro.findBySeguroId", query = "SELECT s FROM Seguro s WHERE s.seguroId = :seguroId"),
-    @NamedQuery(name = "Seguro.findBySeguroNombre", query = "SELECT s FROM Seguro s WHERE s.seguroNombre = :seguroNombre"),
-    @NamedQuery(name = "Seguro.findBySeguroFecha", query = "SELECT s FROM Seguro s WHERE s.seguroFecha = :seguroFecha"),
-    @NamedQuery(name = "Seguro.findBySeguroEstado", query = "SELECT s FROM Seguro s WHERE s.seguroEstado = :seguroEstado")})
+    @NamedQuery(name = "Seguro.findByPKId", query = "SELECT s FROM Seguro s WHERE s.pKId = :pKId"),
+    @NamedQuery(name = "Seguro.findByNombre", query = "SELECT s FROM Seguro s WHERE s.nombre = :nombre"),
+    @NamedQuery(name = "Seguro.findByFechaRegistro", query = "SELECT s FROM Seguro s WHERE s.fechaRegistro = :fechaRegistro"),
+    @NamedQuery(name = "Seguro.findByFechaModificacion", query = "SELECT s FROM Seguro s WHERE s.fechaModificacion = :fechaModificacion"),
+    @NamedQuery(name = "Seguro.findByEstado", query = "SELECT s FROM Seguro s WHERE s.estado = :estado")})
 public class Seguro implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "Seguro_Id")
-    private Integer seguroId;
+    @Column(name = "PK_Id")
+    private Integer pKId;
     @Size(max = 45)
-    @Column(name = "Seguro_Nombre")
-    private String seguroNombre;
+    @Column(name = "Nombre")
+    private String nombre;
     @Lob
-    @Column(name = "Seguro_Logo")
-    private byte[] seguroLogo;
-    @Column(name = "Seguro_Fecha")
+    @Column(name = "Logo")
+    private byte[] logo;
+    @Column(name = "FechaRegistro")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date seguroFecha;
-    @Column(name = "Seguro_Estado")
-    private Short seguroEstado;
+    private Date fechaRegistro;
+    @Column(name = "FechaModificacion")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaModificacion;
+    @Column(name = "Estado")
+    private Short estado;
     @OneToMany(mappedBy = "seguro", fetch = FetchType.LAZY)
     private List<DetalleClinicaSeguro> detalleClinicaSeguroList;
 
     public Seguro() {
     }
 
-    public Seguro(Integer seguroId) {
-        this.seguroId = seguroId;
+    public Seguro(Integer pKId) {
+        this.pKId = pKId;
     }
 
-    public Integer getSeguroId() {
-        return seguroId;
+    public Integer getPKId() {
+        return pKId;
     }
 
-    public void setSeguroId(Integer seguroId) {
-        this.seguroId = seguroId;
+    public void setPKId(Integer pKId) {
+        this.pKId = pKId;
     }
 
-    public String getSeguroNombre() {
-        return seguroNombre;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setSeguroNombre(String seguroNombre) {
-        this.seguroNombre = seguroNombre;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public byte[] getSeguroLogo() {
-        return seguroLogo;
+    public byte[] getLogo() {
+        return logo;
     }
 
-    public void setSeguroLogo(byte[] seguroLogo) {
-        this.seguroLogo = seguroLogo;
+    public void setLogo(byte[] logo) {
+        this.logo = logo;
     }
 
-    public Date getSeguroFecha() {
-        return seguroFecha;
+    public Date getFechaRegistro() {
+        return fechaRegistro;
     }
 
-    public void setSeguroFecha(Date seguroFecha) {
-        this.seguroFecha = seguroFecha;
+    public void setFechaRegistro(Date fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
     }
 
-    public Short getSeguroEstado() {
-        return seguroEstado;
+    public Date getFechaModificacion() {
+        return fechaModificacion;
     }
 
-    public void setSeguroEstado(Short seguroEstado) {
-        this.seguroEstado = seguroEstado;
+    public void setFechaModificacion(Date fechaModificacion) {
+        this.fechaModificacion = fechaModificacion;
+    }
+
+    public Short getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Short estado) {
+        this.estado = estado;
     }
 
     @XmlTransient
@@ -119,7 +131,7 @@ public class Seguro implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (seguroId != null ? seguroId.hashCode() : 0);
+        hash += (pKId != null ? pKId.hashCode() : 0);
         return hash;
     }
 
@@ -130,7 +142,7 @@ public class Seguro implements Serializable {
             return false;
         }
         Seguro other = (Seguro) object;
-        if ((this.seguroId == null && other.seguroId != null) || (this.seguroId != null && !this.seguroId.equals(other.seguroId))) {
+        if ((this.pKId == null && other.pKId != null) || (this.pKId != null && !this.pKId.equals(other.pKId))) {
             return false;
         }
         return true;
@@ -138,7 +150,7 @@ public class Seguro implements Serializable {
 
     @Override
     public String toString() {
-        return "be.Seguro[ seguroId=" + seguroId + " ]";
+        return "be.Seguro[ pKId=" + pKId + " ]";
     }
     
 }

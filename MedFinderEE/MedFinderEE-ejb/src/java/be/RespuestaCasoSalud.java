@@ -36,32 +36,36 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "RespuestaCasoSalud.findAll", query = "SELECT r FROM RespuestaCasoSalud r"),
-    @NamedQuery(name = "RespuestaCasoSalud.findByRespuestaCasoSaludId", query = "SELECT r FROM RespuestaCasoSalud r WHERE r.respuestaCasoSaludId = :respuestaCasoSaludId"),
-    @NamedQuery(name = "RespuestaCasoSalud.findByRespuestaCasoSaludDescripcion", query = "SELECT r FROM RespuestaCasoSalud r WHERE r.respuestaCasoSaludDescripcion = :respuestaCasoSaludDescripcion"),
-    @NamedQuery(name = "RespuestaCasoSalud.findByRespuestaCasoSaludPuntajeTotal", query = "SELECT r FROM RespuestaCasoSalud r WHERE r.respuestaCasoSaludPuntajeTotal = :respuestaCasoSaludPuntajeTotal"),
-    @NamedQuery(name = "RespuestaCasoSalud.findByRespuestaCasoSaludFecha", query = "SELECT r FROM RespuestaCasoSalud r WHERE r.respuestaCasoSaludFecha = :respuestaCasoSaludFecha"),
-    @NamedQuery(name = "RespuestaCasoSalud.findByRespuestaCasoSaludEstado", query = "SELECT r FROM RespuestaCasoSalud r WHERE r.respuestaCasoSaludEstado = :respuestaCasoSaludEstado")})
+    @NamedQuery(name = "RespuestaCasoSalud.findByPKId", query = "SELECT r FROM RespuestaCasoSalud r WHERE r.pKId = :pKId"),
+    @NamedQuery(name = "RespuestaCasoSalud.findByDescripcion", query = "SELECT r FROM RespuestaCasoSalud r WHERE r.descripcion = :descripcion"),
+    @NamedQuery(name = "RespuestaCasoSalud.findByPuntajeTotal", query = "SELECT r FROM RespuestaCasoSalud r WHERE r.puntajeTotal = :puntajeTotal"),
+    @NamedQuery(name = "RespuestaCasoSalud.findByFechaRegistro", query = "SELECT r FROM RespuestaCasoSalud r WHERE r.fechaRegistro = :fechaRegistro"),
+    @NamedQuery(name = "RespuestaCasoSalud.findByFechaModificacion", query = "SELECT r FROM RespuestaCasoSalud r WHERE r.fechaModificacion = :fechaModificacion"),
+    @NamedQuery(name = "RespuestaCasoSalud.findByEstado", query = "SELECT r FROM RespuestaCasoSalud r WHERE r.estado = :estado")})
 public class RespuestaCasoSalud implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "Respuesta_Caso_Salud_Id")
-    private Integer respuestaCasoSaludId;
+    @Column(name = "PK_Id")
+    private Integer pKId;
     @Size(max = 255)
-    @Column(name = "Respuesta_Caso_Salud_Descripcion")
-    private String respuestaCasoSaludDescripcion;
-    @Column(name = "Respuesta_Caso_Salud_Puntaje_Total")
-    private Integer respuestaCasoSaludPuntajeTotal;
-    @Column(name = "Respuesta_Caso_Salud_Fecha")
+    @Column(name = "Descripcion")
+    private String descripcion;
+    @Column(name = "PuntajeTotal")
+    private Integer puntajeTotal;
+    @Column(name = "FechaRegistro")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date respuestaCasoSaludFecha;
-    @Column(name = "Respuesta_Caso_Salud_Estado")
-    private Short respuestaCasoSaludEstado;
-    @JoinColumn(name = "Casos_Salud_Id", referencedColumnName = "Casos_Salud_Id")
+    private Date fechaRegistro;
+    @Column(name = "FechaModificacion")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaModificacion;
+    @Column(name = "Estado")
+    private Short estado;
+    @JoinColumn(name = "FK_CasosSalud", referencedColumnName = "PK_Id")
     @ManyToOne(fetch = FetchType.LAZY)
     private CasosSalud casosSalud;
-    @JoinColumn(name = "Doctor_Id", referencedColumnName = "Doctor_Id")
+    @JoinColumn(name = "FK_Doctor", referencedColumnName = "PK_Id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Doctor doctor;
     @OneToMany(mappedBy = "respuestaCasoSalud", fetch = FetchType.LAZY)
@@ -70,48 +74,56 @@ public class RespuestaCasoSalud implements Serializable {
     public RespuestaCasoSalud() {
     }
 
-    public RespuestaCasoSalud(Integer respuestaCasoSaludId) {
-        this.respuestaCasoSaludId = respuestaCasoSaludId;
+    public RespuestaCasoSalud(Integer pKId) {
+        this.pKId = pKId;
     }
 
-    public Integer getRespuestaCasoSaludId() {
-        return respuestaCasoSaludId;
+    public Integer getPKId() {
+        return pKId;
     }
 
-    public void setRespuestaCasoSaludId(Integer respuestaCasoSaludId) {
-        this.respuestaCasoSaludId = respuestaCasoSaludId;
+    public void setPKId(Integer pKId) {
+        this.pKId = pKId;
     }
 
-    public String getRespuestaCasoSaludDescripcion() {
-        return respuestaCasoSaludDescripcion;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setRespuestaCasoSaludDescripcion(String respuestaCasoSaludDescripcion) {
-        this.respuestaCasoSaludDescripcion = respuestaCasoSaludDescripcion;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
-    public Integer getRespuestaCasoSaludPuntajeTotal() {
-        return respuestaCasoSaludPuntajeTotal;
+    public Integer getPuntajeTotal() {
+        return puntajeTotal;
     }
 
-    public void setRespuestaCasoSaludPuntajeTotal(Integer respuestaCasoSaludPuntajeTotal) {
-        this.respuestaCasoSaludPuntajeTotal = respuestaCasoSaludPuntajeTotal;
+    public void setPuntajeTotal(Integer puntajeTotal) {
+        this.puntajeTotal = puntajeTotal;
     }
 
-    public Date getRespuestaCasoSaludFecha() {
-        return respuestaCasoSaludFecha;
+    public Date getFechaRegistro() {
+        return fechaRegistro;
     }
 
-    public void setRespuestaCasoSaludFecha(Date respuestaCasoSaludFecha) {
-        this.respuestaCasoSaludFecha = respuestaCasoSaludFecha;
+    public void setFechaRegistro(Date fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
     }
 
-    public Short getRespuestaCasoSaludEstado() {
-        return respuestaCasoSaludEstado;
+    public Date getFechaModificacion() {
+        return fechaModificacion;
     }
 
-    public void setRespuestaCasoSaludEstado(Short respuestaCasoSaludEstado) {
-        this.respuestaCasoSaludEstado = respuestaCasoSaludEstado;
+    public void setFechaModificacion(Date fechaModificacion) {
+        this.fechaModificacion = fechaModificacion;
+    }
+
+    public Short getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Short estado) {
+        this.estado = estado;
     }
 
     public CasosSalud getCasosSalud() {
@@ -142,7 +154,7 @@ public class RespuestaCasoSalud implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (respuestaCasoSaludId != null ? respuestaCasoSaludId.hashCode() : 0);
+        hash += (pKId != null ? pKId.hashCode() : 0);
         return hash;
     }
 
@@ -153,7 +165,7 @@ public class RespuestaCasoSalud implements Serializable {
             return false;
         }
         RespuestaCasoSalud other = (RespuestaCasoSalud) object;
-        if ((this.respuestaCasoSaludId == null && other.respuestaCasoSaludId != null) || (this.respuestaCasoSaludId != null && !this.respuestaCasoSaludId.equals(other.respuestaCasoSaludId))) {
+        if ((this.pKId == null && other.pKId != null) || (this.pKId != null && !this.pKId.equals(other.pKId))) {
             return false;
         }
         return true;
@@ -161,7 +173,7 @@ public class RespuestaCasoSalud implements Serializable {
 
     @Override
     public String toString() {
-        return "be.RespuestaCasoSalud[ respuestaCasoSaludId=" + respuestaCasoSaludId + " ]";
+        return "be.RespuestaCasoSalud[ pKId=" + pKId + " ]";
     }
     
 }
