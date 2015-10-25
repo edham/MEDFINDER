@@ -27,7 +27,9 @@ public interface DepartamentoFacadeLocal {
     List<Departamento> findAll();
 
     List<Departamento> findRange(int[] range);
-
+    
+    List<Departamento> lista_activos();
+    
     int count();
     
 }

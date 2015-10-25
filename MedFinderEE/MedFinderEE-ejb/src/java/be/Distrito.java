@@ -58,7 +58,7 @@ public class Distrito implements Serializable {
     private Date fechaModificacion;
     @Column(name = "Estado")
     private Short estado;
-    @JoinColumn(name = "FK_Provincia", referencedColumnName = "Provincia_Id")
+    @JoinColumn(name = "FK_Provincia", referencedColumnName = "PK_Id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Provincia provincia;
     @OneToMany(mappedBy = "distrito", fetch = FetchType.LAZY)

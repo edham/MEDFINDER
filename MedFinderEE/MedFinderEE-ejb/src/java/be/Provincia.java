@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Provincia.findAll", query = "SELECT p FROM Provincia p"),
-    @NamedQuery(name = "Provincia.findByProvinciaId", query = "SELECT p FROM Provincia p WHERE p.provinciaId = :provinciaId"),
+    @NamedQuery(name = "Provincia.findByPKId", query = "SELECT p FROM Provincia p WHERE p.pKId = :pKId"),
     @NamedQuery(name = "Provincia.findByProvinciaNombre", query = "SELECT p FROM Provincia p WHERE p.provinciaNombre = :provinciaNombre"),
     @NamedQuery(name = "Provincia.findByFechaRegistro", query = "SELECT p FROM Provincia p WHERE p.fechaRegistro = :fechaRegistro"),
     @NamedQuery(name = "Provincia.findByFechaModificacion", query = "SELECT p FROM Provincia p WHERE p.fechaModificacion = :fechaModificacion"),
@@ -45,8 +45,8 @@ public class Provincia implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "Provincia_Id")
-    private Integer provinciaId;
+    @Column(name = "PK_Id")
+    private Integer pKId;
     @Size(max = 45)
     @Column(name = "Provincia_Nombre")
     private String provinciaNombre;
@@ -68,16 +68,16 @@ public class Provincia implements Serializable {
     public Provincia() {
     }
 
-    public Provincia(Integer provinciaId) {
-        this.provinciaId = provinciaId;
+    public Provincia(Integer pKId) {
+        this.pKId = pKId;
     }
 
-    public Integer getProvinciaId() {
-        return provinciaId;
+    public Integer getPKId() {
+        return pKId;
     }
 
-    public void setProvinciaId(Integer provinciaId) {
-        this.provinciaId = provinciaId;
+    public void setPKId(Integer pKId) {
+        this.pKId = pKId;
     }
 
     public String getProvinciaNombre() {
@@ -132,7 +132,7 @@ public class Provincia implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (provinciaId != null ? provinciaId.hashCode() : 0);
+        hash += (pKId != null ? pKId.hashCode() : 0);
         return hash;
     }
 
@@ -143,7 +143,7 @@ public class Provincia implements Serializable {
             return false;
         }
         Provincia other = (Provincia) object;
-        if ((this.provinciaId == null && other.provinciaId != null) || (this.provinciaId != null && !this.provinciaId.equals(other.provinciaId))) {
+        if ((this.pKId == null && other.pKId != null) || (this.pKId != null && !this.pKId.equals(other.pKId))) {
             return false;
         }
         return true;
@@ -151,7 +151,7 @@ public class Provincia implements Serializable {
 
     @Override
     public String toString() {
-        return "be.Provincia[ provinciaId=" + provinciaId + " ]";
+        return "be.Provincia[ pKId=" + pKId + " ]";
     }
     
 }
