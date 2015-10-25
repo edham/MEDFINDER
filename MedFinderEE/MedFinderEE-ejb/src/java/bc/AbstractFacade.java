@@ -5,8 +5,10 @@
  */
 package bc;
 
+import be.Usuario;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -64,9 +66,9 @@ public abstract class AbstractFacade<T> {
     }
     public List<T> lista_activos() {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
-        CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
+        CriteriaQuery cq = cb.createQuery();
         Root<Class<T>> registro = cq.from(entityClass);
-        cq.orderBy(cb.asc(registro.get("nombre")));
+        cq.orderBy(cb.asc(registro.get("pKId")));
         cq.where(
                 cb.and(
                         cb.equal(registro.get("estado"), 1)
@@ -74,5 +76,41 @@ public abstract class AbstractFacade<T> {
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         return q.getResultList();
     }  
-    
+     public T login(String usuario,String clave) {
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery cq = cb.createQuery();
+        Root<Class<T>> registro = cq.from(entityClass);
+        cq.where(
+                cb.and(
+                        cb.equal(registro.get("estado"), 1),
+                        cb.equal(registro.get("usuario"), usuario),
+                        cb.equal(registro.get("clave"), clave)
+                ));
+        try {
+            javax.persistence.Query q = getEntityManager().createQuery(cq);
+            return (T) q.getSingleResult();
+        }
+        catch (PersistenceException e) {}
+        return null;
+    }
+     
+     
+     public List<T> listaXUsuarios(Usuario obejto) {
+
+        // agregar aqui
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery cq = cb.createQuery();
+        Root<Class<T>> registro = cq.from(entityClass);
+        cq.orderBy(cb.asc(registro.get("pKId")));
+            cq.where(
+                    cb.and(
+                            cb.equal(registro.get("estado"), 1),
+                            cb.equal(registro.get("usuario"), obejto)
+                ));
+   
+        // agregar aqui
+
+        javax.persistence.Query q = getEntityManager().createQuery(cq);
+        return q.getResultList();
+    }
 }

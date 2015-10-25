@@ -6,6 +6,7 @@
 package bc;
 
 import be.CitaPaciente;
+import be.Usuario;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -27,7 +28,7 @@ public interface CitaPacienteFacadeLocal {
     List<CitaPaciente> findAll();
 
     List<CitaPaciente> findRange(int[] range);
-
+    List<CitaPaciente> listaXUsuarios(Usuario obejto);
     int count();
     
 }

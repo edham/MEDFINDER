@@ -27,7 +27,9 @@ public interface AdministradorFacadeLocal {
     List<Administrador> findAll();
 
     List<Administrador> findRange(int[] range);
-
+    
+    Administrador login(String usuario,String clave);
+    
     int count();
     
 }

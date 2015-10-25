@@ -27,7 +27,9 @@ public interface DoctorFacadeLocal {
     List<Doctor> findAll();
 
     List<Doctor> findRange(int[] range);
-
+    
+    Doctor login(String usuario,String clave);
+    List<Doctor> lista_activos();
     int count();
     
 }

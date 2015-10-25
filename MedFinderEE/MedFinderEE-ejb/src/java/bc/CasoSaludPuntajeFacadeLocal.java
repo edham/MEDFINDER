@@ -6,6 +6,7 @@
 package bc;
 
 import be.CasoSaludPuntaje;
+import be.Usuario;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -27,7 +28,7 @@ public interface CasoSaludPuntajeFacadeLocal {
     List<CasoSaludPuntaje> findAll();
 
     List<CasoSaludPuntaje> findRange(int[] range);
-
+    List<CasoSaludPuntaje> listaXUsuarios(Usuario obejto);
     int count();
     
 }

@@ -27,7 +27,7 @@ public interface CasosSaludFacadeLocal {
     List<CasosSalud> findAll();
 
     List<CasosSalud> findRange(int[] range);
-
+    List<CasosSalud> lista_activos();
     int count();
     
 }

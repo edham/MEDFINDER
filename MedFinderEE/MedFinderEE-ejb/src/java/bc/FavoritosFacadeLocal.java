@@ -6,6 +6,7 @@
 package bc;
 
 import be.Favoritos;
+import be.Usuario;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -27,7 +28,8 @@ public interface FavoritosFacadeLocal {
     List<Favoritos> findAll();
 
     List<Favoritos> findRange(int[] range);
-
+    List<Favoritos> lista_activos();
+    List<Favoritos> listaXUsuarios(Usuario obejto);
     int count();
     
 }

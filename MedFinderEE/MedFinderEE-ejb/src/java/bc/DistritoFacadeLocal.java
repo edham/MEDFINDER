@@ -28,6 +28,8 @@ public interface DistritoFacadeLocal {
 
     List<Distrito> findRange(int[] range);
 
+    List<Distrito> lista_activos();
+    
     int count();
     
 }

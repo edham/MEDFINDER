@@ -28,6 +28,8 @@ public interface ProvinciaFacadeLocal {
 
     List<Provincia> findRange(int[] range);
 
+    List<Provincia> lista_activos();
+    
     int count();
     
 }

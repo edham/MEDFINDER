@@ -27,7 +27,7 @@ public interface DetalleClinicaSeguroFacadeLocal {
     List<DetalleClinicaSeguro> findAll();
 
     List<DetalleClinicaSeguro> findRange(int[] range);
-
+    List<DetalleClinicaSeguro> lista_activos();
     int count();
     
 }
