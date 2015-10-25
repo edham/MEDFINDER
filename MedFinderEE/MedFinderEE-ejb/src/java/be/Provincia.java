@@ -36,7 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Provincia.findAll", query = "SELECT p FROM Provincia p"),
     @NamedQuery(name = "Provincia.findByPKId", query = "SELECT p FROM Provincia p WHERE p.pKId = :pKId"),
-    @NamedQuery(name = "Provincia.findByProvinciaNombre", query = "SELECT p FROM Provincia p WHERE p.provinciaNombre = :provinciaNombre"),
+    @NamedQuery(name = "Provincia.findByNombre", query = "SELECT p FROM Provincia p WHERE p.nombre = :nombre"),
     @NamedQuery(name = "Provincia.findByFechaRegistro", query = "SELECT p FROM Provincia p WHERE p.fechaRegistro = :fechaRegistro"),
     @NamedQuery(name = "Provincia.findByFechaModificacion", query = "SELECT p FROM Provincia p WHERE p.fechaModificacion = :fechaModificacion"),
     @NamedQuery(name = "Provincia.findByEstado", query = "SELECT p FROM Provincia p WHERE p.estado = :estado")})
@@ -48,8 +48,8 @@ public class Provincia implements Serializable {
     @Column(name = "PK_Id")
     private Integer pKId;
     @Size(max = 45)
-    @Column(name = "Provincia_Nombre")
-    private String provinciaNombre;
+    @Column(name = "Nombre")
+    private String nombre;
     @Column(name = "FechaRegistro")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaRegistro;
@@ -80,12 +80,12 @@ public class Provincia implements Serializable {
         this.pKId = pKId;
     }
 
-    public String getProvinciaNombre() {
-        return provinciaNombre;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setProvinciaNombre(String provinciaNombre) {
-        this.provinciaNombre = provinciaNombre;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public Date getFechaRegistro() {
