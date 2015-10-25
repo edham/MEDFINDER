@@ -23,6 +23,16 @@ import javax.imageio.ImageIO;
  * @author EdHam
  */
 public class Utilidades {
+    
+    public static byte[] getDecodeBase64(String input)
+    {    
+       return Base64.decode(input,Base64.NO_WRAP|Base64.URL_SAFE);
+    }
+
+    public static String getEncodeBase64(byte[] input)
+    {
+        return Base64.encodeToString(input,Base64.NO_WRAP|Base64.URL_SAFE);
+    }
     public static byte[] Redimensionar(byte[] bytes, int w, int h)
     {
         byte[] imageBytes=null;
