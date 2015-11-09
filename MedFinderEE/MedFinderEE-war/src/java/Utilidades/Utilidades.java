@@ -5,6 +5,15 @@
  */
 package Utilidades;
 
+import be.CitaPaciente;
+import be.Clinica;
+import be.DetalleClinicaEspecialidad;
+import be.DetalleClinicaSeguro;
+import be.Doctor;
+import be.PreguntaPaciente;
+import be.RespuestaCasoSalud;
+import be.RespuestaPreguntaPaciente;
+import be.Seguro;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
@@ -14,6 +23,9 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -68,4 +80,87 @@ public class Utilidades {
         return imageBytes;
     }
 
+   public static List<RespuestaPreguntaPaciente> clearListRespuestaPreguntaPaciente (List<RespuestaPreguntaPaciente> ListRespuestaPreguntaPaciente)
+   {
+       
+        Set<RespuestaPreguntaPaciente> linkedHashSet = new LinkedHashSet<RespuestaPreguntaPaciente>();
+        linkedHashSet.addAll(ListRespuestaPreguntaPaciente);                
+        ListRespuestaPreguntaPaciente.clear();
+        ListRespuestaPreguntaPaciente.addAll(linkedHashSet);
+        return ListRespuestaPreguntaPaciente;
+   }
+   
+   
+   public static List<CitaPaciente> clearListCitaPaciente (List<CitaPaciente> ListCitaPaciente)
+   {
+       
+        Set<CitaPaciente> linkedHashSet = new LinkedHashSet<CitaPaciente>();
+        linkedHashSet.addAll(ListCitaPaciente);                
+        ListCitaPaciente.clear();
+        ListCitaPaciente.addAll(linkedHashSet);
+        return ListCitaPaciente;
+   }
+   public static List<PreguntaPaciente> clearListPreguntaPaciente (List<PreguntaPaciente> ListPreguntaPaciente)
+   {
+       
+        Set<PreguntaPaciente> linkedHashSet = new LinkedHashSet<PreguntaPaciente>();
+        linkedHashSet.addAll(ListPreguntaPaciente);                
+        ListPreguntaPaciente.clear();
+        ListPreguntaPaciente.addAll(linkedHashSet);
+        return ListPreguntaPaciente;
+   }
+   public static List<DetalleClinicaEspecialidad> clearListDetalleClinicaEspecialidad (List<DetalleClinicaEspecialidad> ListDetalleClinicaEspecialidad)
+   {
+       
+        Set<DetalleClinicaEspecialidad> linkedHashSet = new LinkedHashSet<DetalleClinicaEspecialidad>();
+        linkedHashSet.addAll(ListDetalleClinicaEspecialidad);                
+        ListDetalleClinicaEspecialidad.clear();
+        ListDetalleClinicaEspecialidad.addAll(linkedHashSet);
+        return ListDetalleClinicaEspecialidad;
+   }
+   public static List<Clinica> clearListClinica (List<Clinica> ListClinica)
+   {
+       
+        Set<Clinica> linkedHashSet = new LinkedHashSet<Clinica>();
+        linkedHashSet.addAll(ListClinica);                
+        ListClinica.clear();
+        ListClinica.addAll(linkedHashSet);
+        return ListClinica;
+   }
+   public static List<Doctor> clearListDoctor (List<Doctor> ListDoctor)
+   {
+       
+        Set<Doctor> linkedHashSet = new LinkedHashSet<Doctor>();
+        linkedHashSet.addAll(ListDoctor);                
+        ListDoctor.clear();
+        ListDoctor.addAll(linkedHashSet);
+        return ListDoctor;
+   }
+   public static List<DetalleClinicaSeguro> clearListDetalleClinicaSeguro (List<DetalleClinicaSeguro> ListDetalleClinicaSeguro)
+   {
+       
+        Set<DetalleClinicaSeguro> linkedHashSet = new LinkedHashSet<DetalleClinicaSeguro>();
+        linkedHashSet.addAll(ListDetalleClinicaSeguro);                
+        ListDetalleClinicaSeguro.clear();
+        ListDetalleClinicaSeguro.addAll(linkedHashSet);
+        return ListDetalleClinicaSeguro;
+   }
+   public static List<Seguro> clearListSeguro (List<Seguro> ListSeguro)
+   {
+       
+        Set<Seguro> linkedHashSet = new LinkedHashSet<Seguro>();
+        linkedHashSet.addAll(ListSeguro);                
+        ListSeguro.clear();
+        ListSeguro.addAll(linkedHashSet);
+        return ListSeguro;
+   }
+   public static List<RespuestaCasoSalud> clearListRespuestaCasoSalud (List<RespuestaCasoSalud> ListRespuestaCasoSalud)
+   {
+       
+        Set<RespuestaCasoSalud> linkedHashSet = new LinkedHashSet<RespuestaCasoSalud>();
+        linkedHashSet.addAll(ListRespuestaCasoSalud);                
+        ListRespuestaCasoSalud.clear();
+        ListRespuestaCasoSalud.addAll(linkedHashSet);
+        return ListRespuestaCasoSalud;
+   }
 }
