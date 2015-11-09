@@ -5,6 +5,8 @@
  */
 package bc;
 
+import be.Favoritos;
+import be.Favoritos_;
 import be.Usuario;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -19,6 +21,8 @@ import javax.persistence.criteria.Root;
  */
 public abstract class AbstractFacade<T> {
     private Class<T> entityClass;
+ 
+//<editor-fold defaultstate="collapsed" desc="Globales">
 
     public AbstractFacade(Class<T> entityClass) {
         this.entityClass = entityClass;
@@ -107,10 +111,11 @@ public abstract class AbstractFacade<T> {
                             cb.equal(registro.get("estado"), 1),
                             cb.equal(registro.get("usuario"), obejto)
                 ));
-   
-        // agregar aqui
 
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         return q.getResultList();
     }
+// </editor-fold>
+     
+     
 }
