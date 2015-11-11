@@ -15,6 +15,7 @@ import bc.PacienteFacadeLocal;
 import bc.PersonaFacadeLocal;
 import bc.PreguntaPacienteFacadeLocal;
 import bc.RespuestaCasoSaludFacadeLocal;
+import bc.RespuestaPreguntaPacienteFacadeLocal;
 import bc.UsuarioFacadeLocal;
 import be.CasoSaludPuntaje;
 import be.CasosSalud;
@@ -72,6 +73,8 @@ public class servicio_usuario extends HttpServlet {
     private FavoritosFacadeLocal favoritosFacade;
     @EJB
     private CitaPacienteFacadeLocal citaPacienteFacade;
+    @EJB
+    private RespuestaPreguntaPacienteFacadeLocal respuestaPreguntaPacienteFacade;
     
     
     /**
@@ -330,7 +333,7 @@ public class servicio_usuario extends HttpServlet {
                                obj.put("listCitaPacienteJSON", listCitaPacienteJSON);
                                 
                                List<RespuestaPreguntaPaciente> listRespuestaPreguntaPaciente=new ArrayList<RespuestaPreguntaPaciente>();
-                               
+//                               
                                listPreguntaPaciente=Utilidades.clearListPreguntaPaciente(listPreguntaPaciente);
                                 JSONArray listPreguntaPacienteJSON = new JSONArray();
                                if(listPreguntaPaciente.size()>0)
@@ -396,9 +399,108 @@ public class servicio_usuario extends HttpServlet {
                                    }
                                }
                               obj.put("listRespuestaPreguntaPacienteJSON", listRespuestaPreguntaPacienteJSON);  
-                              
-                           
-                               List<DetalleClinicaEspecialidad> listDetalleClinicaEspecialidad=new ArrayList<DetalleClinicaEspecialidad>();    
+                              //xd
+//                           
+                               
+                    }
+                    else
+                       obj.put("rpta", 0); 
+                }
+                else if(idServicio==4 && request.getParameter("idPaciente") != null && request.getParameter("idPaciente") != ""
+                    && request.getParameter("idEspecialidad") != null && request.getParameter("idEspecialidad") != ""
+                    && request.getParameter("detalle") != null && request.getParameter("detalle") != ""
+                    && request.getParameter("asunto") != null && request.getParameter("asunto") != "")
+                {
+                   PreguntaPaciente entdiad = new PreguntaPaciente();
+                   entdiad.setEspecialidad(new Especialidad(Integer.parseInt(request.getParameter("idEspecialidad"))));
+                   entdiad.setPaciente(new Paciente(Integer.parseInt(request.getParameter("idPaciente"))));        
+                   entdiad.setAsunto(request.getParameter("asunto"));
+                   entdiad.setDetalle(request.getParameter("detalle"));
+                   entdiad.setFechaFin(new Date());
+                   entdiad.setFechaInicio(new Date());
+                   entdiad.setEstado((short)1);
+                   if(request.getParameter("imagen") != null && request.getParameter("imagen") != "")
+                   entdiad.setImagen(Utilidades.getDecodeBase64(request.getParameter("imagen")));
+                    preguntaPacienteFacade.create(entdiad);
+                    obj.put("preguntaPacienteId", entdiad.getPKId());    
+                    obj.put("rpta", 1); 
+
+                }
+                 else if(idServicio==5 && request.getParameter("idUsuario") != null && request.getParameter("idUsuario") != ""
+                            && request.getParameter("idRespuestaCasosSalud") != null && request.getParameter("idRespuestaCasosSalud") != ""
+                            && request.getParameter("puntaje") != null && request.getParameter("puntaje") != "")
+                   {
+                       CasoSaludPuntaje entidad = new CasoSaludPuntaje();
+                       entidad.setEstado((short)1);
+                       entidad.setFechaRegistro(new Date());
+                       entidad.setPuntajeTotal((short)Integer.parseInt(request.getParameter("puntaje")));
+                       entidad.setRespuestaCasoSalud(new RespuestaCasoSalud(Integer.parseInt(request.getParameter("idRespuestaCasosSalud"))));
+                       entidad.setUsuario(new Usuario(Integer.parseInt(request.getParameter("idUsuario"))));
+                       casoSaludPuntajeFacade.create(entidad);                       
+                       obj.put("casoSaludPuntajeId", entidad.getPKId());    
+                       obj.put("rpta", 1); 
+                   }
+                  else if(idServicio==6 && request.getParameter("idUsuario") != null && request.getParameter("idUsuario") != ""
+                            && request.getParameter("idDoctor") != null && request.getParameter("idDoctor") != ""
+                            && request.getParameter("idFavoritos") != null && request.getParameter("idFavoritos") != "")
+                   {
+                       Favoritos entidad = new Favoritos();
+                     
+                      if(Integer.parseInt(request.getParameter("idFavoritos"))>0) 
+                      {  
+                            entidad.setUsuario(new Usuario(Integer.parseInt(request.getParameter("idUsuario"))));
+                            entidad.setDoctor(new Doctor(Integer.parseInt(request.getParameter("idDoctor"))));
+                            entidad.setFechaModificacion(new Date());
+                            entidad.setFechaRegistro(new Date());
+                            entidad.setEstado((short)1);
+                            favoritosFacade.create(entidad);
+                            obj.put("favoritosId", entidad.getPKId());    
+                            obj.put("rpta", 1); 
+                      }
+                      else
+                      { 
+                            entidad=favoritosFacade.find(new Favoritos(Integer.parseInt(request.getParameter("idFavoritos"))));
+                            entidad.setFechaModificacion(new Date());
+                            entidad.setEstado((short)0);
+                            favoritosFacade.edit(entidad);
+                            obj.put("rpta", 1); 
+                      }
+                   }
+                   else if(idServicio==7 && request.getParameter("idPaciente") != null && request.getParameter("idPaciente") != ""
+                    && request.getParameter("idDoctor") != null && request.getParameter("idDoctor") != ""
+                    && request.getParameter("detalle") != null && request.getParameter("detalle") != "")
+                    {
+                        CitaPaciente entidad = new CitaPaciente();
+                        entidad.setDoctor(new Doctor(Integer.parseInt(request.getParameter("idDoctor"))));
+                        entidad.setPaciente(new Paciente(Integer.parseInt(request.getParameter("idPaciente"))));
+                        entidad.setDetalle(request.getParameter("detalle"));
+                        entidad.setFechaModificacion(new Date());
+                        entidad.setFechaRegistro(new Date());
+                        entidad.setEstado((short)1);
+                        citaPacienteFacade.create(entidad);
+                        obj.put("citaPacienteId", entidad.getPKId());    
+                        obj.put("rpta", 1); 
+                    }
+                   else if(idServicio==8 && request.getParameter("idCita") != null && request.getParameter("idCita") != "")
+                    {
+                        CitaPaciente entidad =citaPacienteFacade.find(new CitaPaciente(Integer.parseInt(request.getParameter("idCita"))));
+                        entidad.setEstado((short)3);
+                        entidad.setFechaRegistro(new Date());
+                        citaPacienteFacade.edit(entidad);   
+                        obj.put("rpta", 1); 
+                    }  
+                   else if(idServicio==9 && request.getParameter("idRespuesta") != null && request.getParameter("idRespuesta") != ""
+                            && request.getParameter("puntaje") != null && request.getParameter("puntaje") != "")
+                    {
+                        RespuestaPreguntaPaciente entidad=respuestaPreguntaPacienteFacade.find(new RespuestaPreguntaPaciente(Integer.parseInt(request.getParameter("idRespuesta"))));
+                        entidad.setFechaModificacion(new Date());
+                        entidad.setEstado((short)1);
+                        entidad.setPuntaje((short)Integer.parseInt(request.getParameter("puntaje")));
+                        obj.put("rpta", 1); 
+                    }
+                   else if(idServicio==10 && request.getParameter("idUsuario") != null && request.getParameter("idUsuario") != "")
+                    {
+                                List<DetalleClinicaEspecialidad> listDetalleClinicaEspecialidad=new ArrayList<DetalleClinicaEspecialidad>();    
                                 List<Doctor> listDoctor=new  ArrayList<Doctor>();
                                List<Especialidad> listEspecialidad=especialidadFacade.lista_activos();
                                JSONArray listEspecialidadJSON = new JSONArray();
@@ -570,101 +672,10 @@ public class servicio_usuario extends HttpServlet {
                                    }   
                                }
                                 obj.put("listRespuestaCasosSaludJSON", listRespuestaCasosSaludJSON);
-                    }
-                    else
-                       obj.put("rpta", 0); 
-                }
-                else if(idServicio==4 && request.getParameter("idPaciente") != null && request.getParameter("idPaciente") != ""
-                    && request.getParameter("idEspecialidad") != null && request.getParameter("idEspecialidad") != ""
-                    && request.getParameter("detalle") != null && request.getParameter("detalle") != ""
-                    && request.getParameter("asunto") != null && request.getParameter("asunto") != "")
-                {
-                   PreguntaPaciente entdiad = new PreguntaPaciente();
-                   entdiad.setEspecialidad(new Especialidad(Integer.parseInt(request.getParameter("idEspecialidad"))));
-                   entdiad.setPaciente(new Paciente(Integer.parseInt(request.getParameter("idPaciente"))));        
-                   entdiad.setAsunto(request.getParameter("asunto"));
-                   entdiad.setDetalle(request.getParameter("detalle"));
-                   entdiad.setFechaFin(new Date());
-                   entdiad.setFechaInicio(new Date());
-                   entdiad.setEstado((short)1);
-                   if(request.getParameter("imagen") != null && request.getParameter("imagen") != "")
-                   entdiad.setImagen(Utilidades.getDecodeBase64(request.getParameter("imagen")));
-                    preguntaPacienteFacade.create(entdiad);
-                    obj.put("preguntaPacienteId", entdiad.getPKId());    
-                    obj.put("rpta", 1); 
-
-                }
-                 else if(idServicio==5 && request.getParameter("idUsuario") != null && request.getParameter("idUsuario") != ""
-                            && request.getParameter("idRespuestaCasosSalud") != null && request.getParameter("idRespuestaCasosSalud") != ""
-                            && request.getParameter("puntaje") != null && request.getParameter("puntaje") != "")
-                   {
-                       CasoSaludPuntaje entidad = new CasoSaludPuntaje();
-                       entidad.setEstado((short)1);
-                       entidad.setFechaRegistro(new Date());
-                       entidad.setPuntajeTotal((short)Integer.parseInt(request.getParameter("puntaje")));
-                       entidad.setRespuestaCasoSalud(new RespuestaCasoSalud(Integer.parseInt(request.getParameter("idRespuestaCasosSalud"))));
-                       entidad.setUsuario(new Usuario(Integer.parseInt(request.getParameter("idUsuario"))));
-                       casoSaludPuntajeFacade.create(entidad);                       
-                       obj.put("casoSaludPuntajeId", entidad.getPKId());    
-                       obj.put("rpta", 1); 
-                   }
-                  else if(idServicio==6 && request.getParameter("idUsuario") != null && request.getParameter("idUsuario") != ""
-                            && request.getParameter("idDoctor") != null && request.getParameter("idDoctor") != ""
-                            && request.getParameter("idFavoritos") != null && request.getParameter("idFavoritos") != "")
-                   {
-                       Favoritos entidad = new Favoritos();
-                     
-                      if(Integer.parseInt(request.getParameter("idFavoritos"))>0) 
-                      {  
-                            entidad.setUsuario(new Usuario(Integer.parseInt(request.getParameter("idUsuario"))));
-                            entidad.setDoctor(new Doctor(Integer.parseInt(request.getParameter("idDoctor"))));
-                            entidad.setFechaModificacion(new Date());
-                            entidad.setFechaRegistro(new Date());
-                            entidad.setEstado((short)1);
-                            favoritosFacade.create(entidad);
-                            obj.put("favoritosId", entidad.getPKId());    
-                            obj.put("rpta", 1); 
-                      }
-                      else
-                      { 
-                            entidad=favoritosFacade.find(new Favoritos(Integer.parseInt(request.getParameter("idFavoritos"))));
-                            entidad.setFechaModificacion(new Date());
-                            entidad.setEstado((short)0);
-                            favoritosFacade.edit(entidad);
-                            obj.put("rpta", 1); 
-                      }
-                   }
-                   else if(idServicio==7 && request.getParameter("idPaciente") != null && request.getParameter("idPaciente") != ""
-                    && request.getParameter("idDoctor") != null && request.getParameter("idDoctor") != ""
-                    && request.getParameter("detalle") != null && request.getParameter("detalle") != "")
-                    {
-                        CitaPaciente entidad = new CitaPaciente();
-                        entidad.setDoctor(new Doctor(Integer.parseInt(request.getParameter("idDoctor"))));
-                        entidad.setPaciente(new Paciente(Integer.parseInt(request.getParameter("idPaciente"))));
-                        entidad.setDetalle(request.getParameter("detalle"));
-                        entidad.setFechaModificacion(new Date());
-                        entidad.setFechaRegistro(new Date());
-                        entidad.setEstado((short)1);
-                        citaPacienteFacade.create(entidad);
-                        obj.put("citaPacienteId", entidad.getPKId());    
-                        obj.put("rpta", 1); 
-                    }
-                   else if(idServicio==8 && request.getParameter("idCita") != null && request.getParameter("idCita") != "")
-                    {
-                        CitaPaciente entidad =citaPacienteFacade.find(new CitaPaciente(Integer.parseInt(request.getParameter("idCita"))));
-                        entidad.setEstado((short)3);
-                        entidad.setFechaRegistro(new Date());
-                        citaPacienteFacade.edit(entidad);   
-                        obj.put("rpta", 1); 
-                    }  
-                   else if(idServicio==9 && request.getParameter("idRespuesta") != null && request.getParameter("idRespuesta") != ""
-                            && request.getParameter("puntaje") != null && request.getParameter("puntaje") != "")
-                    {
-                        if(Gestor.puntajeRespuestaPreguntaPaciente(Integer.parseInt(request.getParameter("idRespuesta")),Integer.parseInt(request.getParameter("puntaje"))))
-                            out.print("1");
-                        else
-                            out.print("0");
-                    }
+                                obj.put("rpta", 1);
+       
+                        }
+                   
                              else
                        obj.put("rpta", 0); 
             }
