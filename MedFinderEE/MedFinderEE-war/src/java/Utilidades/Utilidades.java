@@ -28,6 +28,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.imageio.ImageIO;
 
 /**
@@ -35,7 +37,21 @@ import javax.imageio.ImageIO;
  * @author EdHam
  */
 public class Utilidades {
-    
+     public static void Info(String msg) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN", msg));
+    }
+     
+    public static void Warn(String msg) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "PRECAUCIÓN!", msg));
+    }
+     
+    public static void Error(String msg) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR!", msg));
+    }
+     
+    public static void Fatal(String msg) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "ERROR FATAL!", msg));
+    }
     public static byte[] getDecodeBase64(String input)
     {    
        return Base64.decode(input,Base64.NO_WRAP|Base64.URL_SAFE);
