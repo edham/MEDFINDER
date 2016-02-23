@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <style>
+            html{
+                height: 98%;
+            }
+            
+            body{
+                background-image: url(/MedFinderEE-war/resources/gfx/fondo.jpg);
+                background-repeat: no-repeat;
+                background-position: 0px;
+                background-size: 100% 100%;
+                width: 98%;
+                height: 98%;
+            }
+            
+            body form{
+                width: 500px;
+                margin: 0 auto;
+                font-size: 18px;
+            }
+        </style>
+        
+        <h:body >
+            <ui:composition template="/WEB-INF/templates/default.xhtml">
+                <ui:define name="content">
+
+                    <div id="centrado">
+                        <h:form>    
+                            <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+
+                            <p:panel header="Ingreso a SISCAR" style="width:500px;">
+                                <h:panelGrid columns="2" cellpadding="50">
+                                    <h:outputLabel for="username" value="Username:" />
+                                    <p:inputText id="username" value="" required="true" label="username" style="margin-bottom: 10px;margin-left: 10px;"/>
+
+                                    <h:outputLabel for="password" value="Password:" />
+                                    <p:password id="password" value="" required="true" label="password" style="margin-bottom: 10px;margin-left: 10px;"/>
+                                </h:panelGrid>
+                                <f:facet name="footer">
+                               </f:facet>  
+                            </p:panel>
+                        </h:form>
+                    </div>
+                    
+                </ui:define>           
+            </ui:composition>
+        </h:body>
+    </f:view>
+</html>

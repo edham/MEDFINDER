@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html 	xmlns="http://www.w3.org/1999/xhtml"
+   	xmlns:h="http://java.sun.com/jsf/html"
+   	xmlns:ui="http://java.sun.com/jsf/facelets"
+    	xmlns:p="http://primefaces.org/ui">
+<h:head>
+   <title>MEDFINDER</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+   <h:outputStylesheet name="css/screen.css" />
+   <link rel="shortcut icon" type="image/png" href="#{request.contextPath}/resources/gfx/logo_siscar.png"/>
+   
+   <script type="text/javascript">   
+        function logout(xhr, status, args) {
+        setTimeout(function() {
+          window.location = '/MedFinderEE-war/faces/index.xhtml';
+        }, 500);
+      }
+      
+        function handleLoginRequest(xhr, status, args) {
+            if(args.validationFailed || !args.loggedIn) {
+                /*PF('dlg').jq.effect("shake", {times:5}, 100);*/
+            }
+            else {
+                setTimeout(function() {
+                window.location = '/MedFinderEE-war/faces/index.xhtml';
+                }, 500);
+               /* PF('dlg').hide();*/
+                $('#growl').fadeOut();
+            }
+        }
+    </script>   
+</h:head>
+<h:body >
+   
+<div id="usercontent">
+    <img class="logosistema1" src="${facesContext.externalContext.requestContextPath}/resources/gfx/mimp.png"/> 
+    <img class="logosistema2" src="${facesContext.externalContext.requestContextPath}/resources/gfx/siscar.png"/>
+</div>
+<ul id="nav">
+    <li><a href="/MedFinderEE-war/faces/login.xhtml">INICIO</a></li>  
+    <li><a href="#">REPORTE</a>
+        <ul>
+            <li><a href="/MedFinderEE-war/faces/reporte/albergado.xhtml">ALBERGADO</a></li>
+            <li><a href="/MedFinderEE-war/faces/reporte/organismo.xhtml">ORGANISMO</a></li>
+        </ul>
+    </li> 
+</ul>
+
+    <p:menubar model="#{menubarManagedBean.menubar}">
+    </p:menubar>
+    
+<div id="content" >
+   <ui:insert name="content">
+        [Template content will be inserted here]
+   </ui:insert>
+</div>
+</h:body>
+</html>
+
+
