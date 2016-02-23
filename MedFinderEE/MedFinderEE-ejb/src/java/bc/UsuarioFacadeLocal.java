@@ -31,5 +31,5 @@ public interface UsuarioFacadeLocal {
     Usuario login(String usuario,String clave);
     
     int count();
-    
+    Usuario buscarXString(String dato,String columna);
 }

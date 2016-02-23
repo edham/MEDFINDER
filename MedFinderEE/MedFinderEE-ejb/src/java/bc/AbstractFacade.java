@@ -22,7 +22,6 @@ import javax.persistence.criteria.Root;
 public abstract class AbstractFacade<T> {
     private Class<T> entityClass;
  
-//<editor-fold defaultstate="collapsed" desc="Globales">
 
     public AbstractFacade(Class<T> entityClass) {
         this.entityClass = entityClass;
@@ -80,6 +79,28 @@ public abstract class AbstractFacade<T> {
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         return q.getResultList();
     }  
+    
+      public T buscarXString(String dato,String columna) {
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery cq = cb.createQuery();
+        Root<Class<T>> registro = cq.from(entityClass);
+        cq.where(
+                cb.and(
+                        cb.equal(registro.get("estado"), 1),
+                        cb.equal(registro.get(columna), dato)
+                ));
+        try {
+            javax.persistence.Query q = getEntityManager().createQuery(cq);
+            return (T) q.getSingleResult();
+        }
+        catch (PersistenceException e) {}
+        return null;
+    }
+    
+    
+    
+    
+    
      public T login(String usuario,String clave) {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaQuery cq = cb.createQuery();
@@ -115,7 +136,5 @@ public abstract class AbstractFacade<T> {
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         return q.getResultList();
     }
-// </editor-fold>
-     
-     
+
 }

@@ -68,6 +68,8 @@ public class Usuario implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaUltimoAcceso;
     @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
+    private List<UsuarioRol> usuarioRolList;
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
     private List<Paciente> pacienteList;
     @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
     private List<Favoritos> favoritosList;
@@ -138,6 +140,15 @@ public class Usuario implements Serializable {
 
     public void setFechaUltimoAcceso(Date fechaUltimoAcceso) {
         this.fechaUltimoAcceso = fechaUltimoAcceso;
+    }
+
+    @XmlTransient
+    public List<UsuarioRol> getUsuarioRolList() {
+        return usuarioRolList;
+    }
+
+    public void setUsuarioRolList(List<UsuarioRol> usuarioRolList) {
+        this.usuarioRolList = usuarioRolList;
     }
 
     @XmlTransient

@@ -95,8 +95,6 @@ public class Persona implements Serializable {
     private Date fechaModificacion;
     @Column(name = "Estado")
     private Short estado;
-    @OneToMany(mappedBy = "persona", fetch = FetchType.LAZY)
-    private List<Administrador> administradorList;
     @JoinColumn(name = "FK_Distrito", referencedColumnName = "PK_Id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Distrito distrito;
@@ -224,15 +222,6 @@ public class Persona implements Serializable {
 
     public void setEstado(Short estado) {
         this.estado = estado;
-    }
-
-    @XmlTransient
-    public List<Administrador> getAdministradorList() {
-        return administradorList;
-    }
-
-    public void setAdministradorList(List<Administrador> administradorList) {
-        this.administradorList = administradorList;
     }
 
     public Distrito getDistrito() {
