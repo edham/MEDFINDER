@@ -60,7 +60,7 @@ public class PreguntaPaciente implements Serializable {
     @Column(name = "Imagen")
     private byte[] imagen;
     @Column(name = "Estado")
-    private Short estado;
+    private Integer estado;
     @Column(name = "FechaInicio")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaInicio;
@@ -115,11 +115,11 @@ public class PreguntaPaciente implements Serializable {
         this.imagen = imagen;
     }
 
-    public Short getEstado() {
+    public Integer getEstado() {
         return estado;
     }
 
-    public void setEstado(Short estado) {
+    public void setEstado(Integer estado) {
         this.estado = estado;
     }
 

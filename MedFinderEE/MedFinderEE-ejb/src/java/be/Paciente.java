@@ -83,7 +83,7 @@ public class Paciente implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaModificacion;
     @Column(name = "Estado")
-    private Short estado;
+    private Integer estado;
     @OneToMany(mappedBy = "paciente", fetch = FetchType.LAZY)
     private List<PreguntaPaciente> preguntaPacienteList;
     @OneToMany(mappedBy = "paciente", fetch = FetchType.LAZY)
@@ -206,11 +206,11 @@ public class Paciente implements Serializable {
         this.fechaModificacion = fechaModificacion;
     }
 
-    public Short getEstado() {
+    public Integer getEstado() {
         return estado;
     }
 
-    public void setEstado(Short estado) {
+    public void setEstado(Integer estado) {
         this.estado = estado;
     }
 

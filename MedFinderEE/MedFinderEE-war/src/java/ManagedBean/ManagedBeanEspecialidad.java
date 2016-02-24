@@ -29,7 +29,6 @@ public class ManagedBeanEspecialidad implements Serializable {
     private List<Especialidad> listaobjEspecialidad;
     private List<SelectItem> objEspecialidadItems;
     private Especialidad objEspecialidad;
-    private Especialidad objEspecialidadSelecionado;
     private Especialidad objEspecialidadVacio;
     private String nuevoTitulo;
     private boolean nuevo;
@@ -46,16 +45,7 @@ public class ManagedBeanEspecialidad implements Serializable {
         nuevo=true;
         nuevoTitulo="AGREGAR NUEVO";
         objEspecialidad=new Especialidad();
-        objEspecialidad.setEstado((short)1);
-        objEspecialidadSelecionado=new Especialidad();
-    }
-    public Especialidad getObjEspecialidadSelecionado() {
-        return objEspecialidadSelecionado;
-    }
-
-    public void setObjEspecialidadSelecionado(Especialidad objEspecialidadSelecionado) {
-       
-        this.objEspecialidadSelecionado = objEspecialidadSelecionado;
+        objEspecialidad.setEstado(1);
     }
 
     public Especialidad getObjEspecialidadVacio() {

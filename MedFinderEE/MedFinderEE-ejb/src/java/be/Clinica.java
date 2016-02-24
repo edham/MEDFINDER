@@ -97,7 +97,7 @@ public class Clinica implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaModificacion;
     @Column(name = "Estado")
-    private Short estado;
+    private Integer estado;
     @OneToMany(mappedBy = "clinica", fetch = FetchType.LAZY)
     private List<DetalleClinicaSeguro> detalleClinicaSeguroList;
     @OneToMany(mappedBy = "clinica", fetch = FetchType.LAZY)
@@ -225,11 +225,11 @@ public class Clinica implements Serializable {
         this.fechaModificacion = fechaModificacion;
     }
 
-    public Short getEstado() {
+    public Integer getEstado() {
         return estado;
     }
 
-    public void setEstado(Short estado) {
+    public void setEstado(Integer estado) {
         this.estado = estado;
     }
 

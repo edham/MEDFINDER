@@ -60,7 +60,7 @@ public class Roles implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaRegistro;
     @Column(name = "Estado")
-    private Short estado;
+    private Integer estado;
     @OneToMany(mappedBy = "roles", fetch = FetchType.LAZY)
     private List<UsuarioRol> usuarioRolList;
 
@@ -111,11 +111,11 @@ public class Roles implements Serializable {
         this.fechaRegistro = fechaRegistro;
     }
 
-    public Short getEstado() {
+    public Integer getEstado() {
         return estado;
     }
 
-    public void setEstado(Short estado) {
+    public void setEstado(Integer estado) {
         this.estado = estado;
     }
 

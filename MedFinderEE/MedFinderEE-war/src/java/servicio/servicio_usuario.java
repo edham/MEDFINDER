@@ -418,7 +418,7 @@ public class servicio_usuario extends HttpServlet {
                    entdiad.setDetalle(request.getParameter("detalle"));
                    entdiad.setFechaFin(new Date());
                    entdiad.setFechaInicio(new Date());
-                   entdiad.setEstado((short)1);
+                   entdiad.setEstado(1);
                    if(request.getParameter("imagen") != null && request.getParameter("imagen") != "")
                    entdiad.setImagen(Utilidades.getDecodeBase64(request.getParameter("imagen")));
                     preguntaPacienteFacade.create(entdiad);
@@ -431,7 +431,7 @@ public class servicio_usuario extends HttpServlet {
                             && request.getParameter("puntaje") != null && request.getParameter("puntaje") != "")
                    {
                        CasoSaludPuntaje entidad = new CasoSaludPuntaje();
-                       entidad.setEstado((short)1);
+                       entidad.setEstado(1);
                        entidad.setFechaRegistro(new Date());
                        entidad.setPuntajeTotal((short)Integer.parseInt(request.getParameter("puntaje")));
                        entidad.setRespuestaCasoSalud(new RespuestaCasoSalud(Integer.parseInt(request.getParameter("idRespuestaCasosSalud"))));
@@ -452,7 +452,7 @@ public class servicio_usuario extends HttpServlet {
                             entidad.setDoctor(new Doctor(Integer.parseInt(request.getParameter("idDoctor"))));
                             entidad.setFechaModificacion(new Date());
                             entidad.setFechaRegistro(new Date());
-                            entidad.setEstado((short)1);
+                            entidad.setEstado(1);
                             favoritosFacade.create(entidad);
                             obj.put("favoritosId", entidad.getPKId());    
                             obj.put("rpta", 1); 
@@ -461,7 +461,7 @@ public class servicio_usuario extends HttpServlet {
                       { 
                             entidad=favoritosFacade.find(new Favoritos(Integer.parseInt(request.getParameter("idFavoritos"))));
                             entidad.setFechaModificacion(new Date());
-                            entidad.setEstado((short)0);
+                            entidad.setEstado(0);
                             favoritosFacade.edit(entidad);
                             obj.put("rpta", 1); 
                       }
@@ -476,7 +476,7 @@ public class servicio_usuario extends HttpServlet {
                         entidad.setDetalle(request.getParameter("detalle"));
                         entidad.setFechaModificacion(new Date());
                         entidad.setFechaRegistro(new Date());
-                        entidad.setEstado((short)1);
+                        entidad.setEstado(1);
                         citaPacienteFacade.create(entidad);
                         obj.put("citaPacienteId", entidad.getPKId());    
                         obj.put("rpta", 1); 
@@ -484,7 +484,7 @@ public class servicio_usuario extends HttpServlet {
                    else if(idServicio==8 && request.getParameter("idCita") != null && request.getParameter("idCita") != "")
                     {
                         CitaPaciente entidad =citaPacienteFacade.find(new CitaPaciente(Integer.parseInt(request.getParameter("idCita"))));
-                        entidad.setEstado((short)3);
+                        entidad.setEstado(3);
                         entidad.setFechaRegistro(new Date());
                         citaPacienteFacade.edit(entidad);   
                         obj.put("rpta", 1); 
@@ -494,8 +494,8 @@ public class servicio_usuario extends HttpServlet {
                     {
                         RespuestaPreguntaPaciente entidad=respuestaPreguntaPacienteFacade.find(new RespuestaPreguntaPaciente(Integer.parseInt(request.getParameter("idRespuesta"))));
                         entidad.setFechaModificacion(new Date());
-                        entidad.setEstado((short)1);
-                        entidad.setPuntaje((short)Integer.parseInt(request.getParameter("puntaje")));
+                        entidad.setEstado(1);
+                        entidad.setPuntaje(Integer.parseInt(request.getParameter("puntaje")));
                         obj.put("rpta", 1); 
                     }
                    else if(idServicio==10 && request.getParameter("idUsuario") != null && request.getParameter("idUsuario") != "")

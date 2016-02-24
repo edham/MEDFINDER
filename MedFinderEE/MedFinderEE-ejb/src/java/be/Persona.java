@@ -94,7 +94,7 @@ public class Persona implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaModificacion;
     @Column(name = "Estado")
-    private Short estado;
+    private Integer estado;
     @JoinColumn(name = "FK_Distrito", referencedColumnName = "PK_Id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Distrito distrito;
@@ -216,11 +216,11 @@ public class Persona implements Serializable {
         this.fechaModificacion = fechaModificacion;
     }
 
-    public Short getEstado() {
+    public Integer getEstado() {
         return estado;
     }
 
-    public void setEstado(Short estado) {
+    public void setEstado(Integer estado) {
         this.estado = estado;
     }
 

@@ -6,6 +6,7 @@
 package ManagedBean;
 
 import bc.ProvinciaFacadeLocal;
+import be.Departamento;
 import be.Provincia;
 import java.io.Serializable;
 import java.util.Date;
@@ -29,13 +30,14 @@ public class ManagedBeanProvincia implements Serializable {
     private List<Provincia> listaobjProvincia;
     private List<SelectItem> objProvinciaItems;
     private Provincia objProvincia;
-    private Provincia objProvinciaSelecionado;
+    private Departamento objDepartamento;
     private Provincia objProvinciaVacio;
     private String nuevoTitulo;
     public ManagedBeanProvincia() {
        
         limpiar();
         objProvinciaVacio=new Provincia();       
+        objDepartamento= new Departamento();
         objProvinciaVacio.setNombre("SELECCIONE UNA OPCIÓN");
         objProvinciaItems = new LinkedList<SelectItem>();
         listaobjProvincia = new LinkedList<Provincia>();
@@ -44,16 +46,16 @@ public class ManagedBeanProvincia implements Serializable {
     {
         nuevoTitulo="SELECCIONE";
         objProvincia=new Provincia();
-        objProvincia.setEstado((short)1);
-        objProvinciaSelecionado=new Provincia();
-    }
-    public Provincia getObjProvinciaSelecionado() {
-        return objProvinciaSelecionado;
+        objProvincia.setEstado(1);
     }
 
-    public void setObjProvinciaSelecionado(Provincia objProvinciaSelecionado) {
+    public Departamento getObjDepartamento() {
+        return objDepartamento;
+    }
+
+    public void setObjDepartamento(Departamento objDepartamento) {
        
-        this.objProvinciaSelecionado = objProvinciaSelecionado;
+        this.objDepartamento = objDepartamento;
     }
 
     public Provincia getObjProvinciaVacio() {
@@ -73,10 +75,18 @@ public class ManagedBeanProvincia implements Serializable {
     }
 
     public List<Provincia> getListaobjProvincia() {
-        listaobjProvincia = new LinkedList<Provincia>();
+         listaobjProvincia = new LinkedList<Provincia>();
         try
         {
-            listaobjProvincia=provinciaFacade.findAll();       
+            if(objDepartamento!=null)
+            {
+                for(Provincia objProvincia:objDepartamento.getProvinciaList())
+                {
+                        listaobjProvincia.add(objProvincia);
+                }
+                
+            }
+            
         }
         catch (Exception e) {
         }

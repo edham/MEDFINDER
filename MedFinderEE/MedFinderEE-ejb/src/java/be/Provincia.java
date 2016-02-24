@@ -57,7 +57,7 @@ public class Provincia implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaModificacion;
     @Column(name = "Estado")
-    private Short estado;
+    private Integer estado;
     @OneToMany(mappedBy = "provincia", fetch = FetchType.LAZY)
     private List<Distrito> distritoList;
     @JoinColumn(name = "FK_Departamento", referencedColumnName = "PK_Id")
@@ -103,11 +103,11 @@ public class Provincia implements Serializable {
         this.fechaModificacion = fechaModificacion;
     }
 
-    public Short getEstado() {
+    public Integer getEstado() {
         return estado;
     }
 
-    public void setEstado(Short estado) {
+    public void setEstado(Integer estado) {
         this.estado = estado;
     }
 

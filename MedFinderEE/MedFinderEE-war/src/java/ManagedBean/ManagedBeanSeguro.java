@@ -36,7 +36,6 @@ public class ManagedBeanSeguro implements Serializable {
     private List<Seguro> listaobjSeguro;
     private List<SelectItem> objSeguroItems;
     private Seguro objSeguro;
-    private Seguro objSeguroSelecionado;
     private Seguro objSeguroVacio;
     private String nuevoTitulo;
     private boolean nuevo;
@@ -54,17 +53,8 @@ public class ManagedBeanSeguro implements Serializable {
         nuevo=true;
         nuevoTitulo="AGREGAR NUEVO";
         objSeguro=new Seguro();
-        objSeguro.setEstado((short)1);
-        objSeguroSelecionado=new Seguro();
+        objSeguro.setEstado(1);
         imagen=null;
-    }
-    public Seguro getObjSeguroSelecionado() {
-        return objSeguroSelecionado;
-    }
-
-    public void setObjSeguroSelecionado(Seguro objSeguroSelecionado) {
-       
-        this.objSeguroSelecionado = objSeguroSelecionado;
     }
 
     public Seguro getObjSeguroVacio() {

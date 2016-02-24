@@ -49,7 +49,7 @@ public class CasoSaludPuntaje implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaRegistro;
     @Column(name = "Estado")
-    private Short estado;
+    private Integer estado;
     @JoinColumn(name = "FK_RespuestaCasoSalud", referencedColumnName = "PK_Id")
     @ManyToOne(fetch = FetchType.LAZY)
     private RespuestaCasoSalud respuestaCasoSalud;
@@ -88,11 +88,11 @@ public class CasoSaludPuntaje implements Serializable {
         this.fechaRegistro = fechaRegistro;
     }
 
-    public Short getEstado() {
+    public Integer getEstado() {
         return estado;
     }
 
-    public void setEstado(Short estado) {
+    public void setEstado(Integer estado) {
         this.estado = estado;
     }
 

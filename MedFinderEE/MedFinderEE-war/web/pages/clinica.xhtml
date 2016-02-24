@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+	<h:body >
+        <ui:composition template="/WEB-INF/templates/default.xhtml">
+            <ui:define name="content">
+            	<p:growl id="mensajes" showDetail="true" />
+            	<h1>Estado Albergado</h1>
+
+                <h:form id="form">
+                            <p:growl id="msgs" showDetail="true" />
+                    <div class="innerLR">
+                        <!-- Widget -->
+                        <!-- Widget -->
+                        <div class="widget">
+                            <h:panelGrid columns="1">
+                              
+                                <p:dataTable  id="lista" var="item" value="#{managedBeanClinica.listaobjClinica}" rows="10" scrollable="true" scrollHeight="180"
+                                              paginator="true" rowStyleClass="#{item.estado eq 0 ? 'colored' : null}" rowIndexVar="rowIndex" 
+                                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                         rowsPerPageTemplate="5,10,15">
+
+
+                                                 <f:facet name="header">
+
+                                                    LISTA DE SEGURO
+                                                </f:facet>
+                                                 <p:column headerText="N°" style="width:15px; text-align: center">
+                                                       <h:outputText value="#{rowIndex + 1}" />
+                                                </p:column>
+                                               <p:column headerText="NOMBRE" style="text-align: center">
+                                                   <h:outputText value="#{item.nombre}" />
+                                                </p:column>
+
+                                               <p:column headerText="ESTADO" style="width:95px; text-align: center">
+                                                   <h:outputText value="#{item.estado eq 1 ?'ACTIVO':'DESACTIVO'}" />
+
+                                                </p:column>
+                                                 <p:column style="width:80px;text-align: center">
+                                                   <p:commandButton update=":frm_clinica :form:msgs" value="Editar"  oncomplete="PF('dlgclinica').show();"  actionListener="#{managedBeanClinica.actualizar(item)}"/>  
+                                                </p:column>
+
+                                </p:dataTable>
+                            </h:panelGrid>
+
+                        </div>
+                       
+                        <!-- // Widget END -->
+                    </div>	
+                 
+                </h:form> 
+
+                <h:form id="frm_clinica" >
+
+                    <p:growl id="messages" showDetail="true" />
+                    <p:dialog header="#{managedBeanClinica.nuevoTitulo}" closable="true" resizable="false" widgetVar="dlgclinica" showEffect="explode" height="500" width="800">
+                              <p:panel  style="margin-bottom:10px;">
+                                  <h:panelGrid style="vertical-align: top" columns="2">
+                                      
+                                  
+                                    <h:panelGrid style="vertical-align: top" columns="4">
+                                        <h:outputText value="NOMBRE"/>
+                                        <h:inputTextarea rows="2"  value="#{managedBeanClinica.objClinica.nombre}"/>
+                                         <h:outputText value="SLOGAN"/>
+                                         <h:inputTextarea rows="2"  value="#{managedBeanClinica.objClinica.slogan}"/>
+                                         <h:outputText value="DESCRIPCIÓN"/>
+                                         <h:inputTextarea rows="2"  value="#{managedBeanClinica.objClinica.descripcion}"/>
+
+                                         <h:outputText value="DIRECCIÓN"/>
+                                         <h:inputTextarea rows="2"  value="#{managedBeanClinica.objClinica.direccion}"/>
+
+
+                                          <h:outputText value="DEPARTAMENTO"/>
+                                          <p:selectOneMenu filter="true" filterMatchMode="contains" value="#{managedBeanDistrito.objDepartamento}" converter="departamentoConverter">
+                                            <f:selectItem itemLabel="#{managedBeanDepartamento.objDepartamentoVacio.nombre}" itemValue="#{managedBeanDistrito.objDepartamento}" noSelectionOption="false" />
+                                            <f:selectItems   value="#{managedBeanDepartamento.objDepartamentoItems}"/>	                                        
+                                            <p:ajax  update=":frm_clinica:provincia " /> 
+                                        </p:selectOneMenu>
+                                          <h:outputText value="PROVNCIA"/>
+                                          <p:selectOneMenu id="provincia"  filter="true" filterMatchMode="contains" value="#{managedBeanDistrito.objProvincia}" converter="provinciaConverter">
+                                              <f:selectItem itemLabel="#{managedBeanProvincia.objProvinciaVacio.nombre}" itemValue="#{managedBeanDistrito.objProvincia}" noSelectionOption="false" />
+                                              <f:selectItems   value="#{managedBeanDistrito.objProvinciaItems}"/>	                                        
+                                          <p:ajax  update=":frm_clinica:distrito" /> 
+                                        </p:selectOneMenu>
+
+                                          <p:selectOneMenu id="distrito"  filter="true" filterMatchMode="contains" value="#{managedBeanClinica.objClinica.distrito}" converter="distritoConverter">
+                                              <f:selectItem itemLabel="#{managedBeanDistrito.objDistritoVacio.nombre}" itemValue="#{managedBeanClinica.objClinica.distrito}" noSelectionOption="false" />
+                                              <f:selectItems   value="#{managedBeanDistrito.objDistritoItems}"/>	                                        
+                                          
+                                        </p:selectOneMenu>
+
+
+                                        <h:outputText value="ESTADO"/>
+                                        <p:selectOneRadio  value="#{managedBeanClinica.objClinica.estado}">
+                                                                        <f:selectItem itemLabel="ACTIVO" itemValue="1" />
+                                                                        <f:selectItem itemLabel="DESACTIVO" itemValue="0" />
+                                        </p:selectOneRadio>
+
+                                    </h:panelGrid>
+                                    <h:panelGrid style="vertical-align: top" columns="1">
+                                        <p:panel   style="margin-bottom:10px;">
+                                             <h:outputText value="IMAGEN"/>
+                                            <p:graphicImage   value="#{managedBeanClinica.imagen}" width="80" cache="false"  id="grpImage" height="80"/>
+
+                                            <h:outputText value="SELECIONAR"/>
+                                            <p:fileUpload  fileUploadListener="#{managedBeanClinica.subirImagen}" mode="advanced"  skinSimple="true"
+                                                update=":frm_clinica :frm_clinica:messages" auto="true"  sizeLimit="100000000" allowTypes="/(\.|\/)(jpeg|png)$/"
+                                                label="SUBIR IMAGEN" />
+                                        </p:panel>                                       
+                                    </h:panelGrid>
+                                  </h:panelGrid>
+                                      <p:separator />
+                                           <p:commandButton value="ACEPTAR" update=":form :form:msgs" oncomplete="PF('dlgclinica').hide();"  actionListener="#{managedBeanClinica.crear()}"/>
+                                           <p:commandButton value="CERRAR" update=":form :form:msgs"  oncomplete="PF('dlgclinica').hide();"    actionListener="#{managedBeanClinica.limpiar()}"/>  
+                                </p:panel>
+   
+                    </p:dialog>
+                </h:form>
+            </ui:define>
+            
+        </ui:composition>
+        
+    </h:body>
+    
+</html>

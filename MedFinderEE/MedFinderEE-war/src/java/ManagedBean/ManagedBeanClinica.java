@@ -10,6 +10,8 @@ package ManagedBean;
 import Utilidades.Utilidades;
 import bc.ClinicaFacadeLocal;
 import be.Clinica;
+import be.Departamento;
+import be.Provincia;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.Serializable;
@@ -19,6 +21,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
@@ -36,7 +39,6 @@ public class ManagedBeanClinica implements Serializable {
     private List<Clinica> listaobjClinica;
     private List<SelectItem> objClinicaItems;
     private Clinica objClinica;
-    private Clinica objClinicaSelecionado;
     private Clinica objClinicaVacio;
     private String nuevoTitulo;
     private boolean nuevo;
@@ -51,21 +53,15 @@ public class ManagedBeanClinica implements Serializable {
     }
     public void limpiar()
     {
+
         nuevo=true;
         nuevoTitulo="AGREGAR NUEVO";
         objClinica=new Clinica();
-        objClinica.setEstado((short)1);
-        objClinicaSelecionado=new Clinica();
+        objClinica.setEstado(1);
         imagen=null;
     }
-    public Clinica getObjClinicaSelecionado() {
-        return objClinicaSelecionado;
-    }
 
-    public void setObjClinicaSelecionado(Clinica objClinicaSelecionado) {
-       
-        this.objClinicaSelecionado = objClinicaSelecionado;
-    }
+
 
     public Clinica getObjClinicaVacio() {
         return objClinicaVacio;
@@ -160,6 +156,7 @@ public class ManagedBeanClinica implements Serializable {
     }
      public void actualizar(Clinica obejto)
     {
+        
         limpiar();
         imagen=null;
         this.nuevoTitulo="EDITAR ID : "+obejto.getPKId();        
@@ -167,7 +164,13 @@ public class ManagedBeanClinica implements Serializable {
         nuevo=false;
         InputStream is = new ByteArrayInputStream(objClinica.getLogo());
         imagen = new DefaultStreamedContent(is);
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        ManagedBeanDistrito managedBeanDistrito = (ManagedBeanDistrito)facesContext.getApplication().createValueBinding("#{managedBeanDistrito}").getValue(facesContext);
+        managedBeanDistrito.setObjDepartamento(obejto.getDistrito().getProvincia().getDepartamento());
+        managedBeanDistrito.setObjProvincia(obejto.getDistrito().getProvincia());
+        managedBeanDistrito.setObjDistrito(obejto.getDistrito());
     
+       
     }
      public void subirImagen(FileUploadEvent event) {
          

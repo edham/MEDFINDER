@@ -29,7 +29,6 @@ public class ManagedBeanDepartamento implements Serializable {
     private List<Departamento> listaobjDepartamento;
     private List<SelectItem> objDepartamentoItems;
     private Departamento objDepartamento;
-    private Departamento objDepartamentoSelecionado;
     private Departamento objDepartamentoVacio;
     private String nuevoTitulo;
     public ManagedBeanDepartamento() {
@@ -44,16 +43,7 @@ public class ManagedBeanDepartamento implements Serializable {
     {
         nuevoTitulo="SELECCIONE";
         objDepartamento=new Departamento();
-        objDepartamento.setEstado((short)1);
-        objDepartamentoSelecionado=new Departamento();
-    }
-    public Departamento getObjDepartamentoSelecionado() {
-        return objDepartamentoSelecionado;
-    }
-
-    public void setObjDepartamentoSelecionado(Departamento objDepartamentoSelecionado) {
-       
-        this.objDepartamentoSelecionado = objDepartamentoSelecionado;
+        objDepartamento.setEstado(1);
     }
 
     public Departamento getObjDepartamentoVacio() {
