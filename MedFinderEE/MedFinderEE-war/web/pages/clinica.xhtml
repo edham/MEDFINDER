@@ -205,7 +205,7 @@
                                              <f:selectItem itemLabel="#{managedBeanSeguro.objSeguroVacio.nombre}" itemValue="#{managedBeanClinica.objDetalleClinicaSeguro.seguro}" noSelectionOption="false" />
                                              <f:selectItems   value="#{managedBeanClinica.objSeguroItems}"/>	 
                                         </p:selectOneMenu>
-                                         <p:commandButton value="AGREGAR" update=":form :frm_seguro:lista :frm_seguro:seguro :frm_seguro:messages" oncomplete="PF('dlgseguro').hide();"  actionListener="#{managedBeanClinica.crearSeguro(true)}"/>
+                                         <p:commandButton value="AGREGAR" update=":form :frm_seguro:lista :frm_seguro:seguro :frm_seguro:messages"   actionListener="#{managedBeanClinica.crearSeguro(true)}"/>
                                  
                                     </h:panelGrid>
                                     <p:separator />

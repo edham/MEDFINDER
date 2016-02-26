@@ -179,26 +179,31 @@ public class ManagedBeanClinica implements Serializable {
       }
        public void crearSeguro(boolean nuevo)
       {
+        
         try
         {
-            objDetalleClinicaSeguro.setFechaModificacion(new Date());
-            if(nuevo)
+            if(objDetalleClinicaSeguro.getSeguro()!=null)
             {
-                objDetalleClinicaSeguro.setFechaRegistro(new Date());
-                objDetalleClinicaSeguro.setEstado(1);
-                objDetalleClinicaSeguro.setClinica(objClinica);
-                detalleClinicaSeguroFacade.create(objDetalleClinicaSeguro);
-                objDetalleClinicaSeguro = new DetalleClinicaSeguro();
-            }
-            else
-            {
-                objDetalleClinicaSeguro.setEstado(0);
-                clinicaFacade.edit(objClinica);
-            }
-            limpiar();
+                objDetalleClinicaSeguro.setFechaModificacion(new Date());
+                if(nuevo)
+                {
+                    objDetalleClinicaSeguro.setFechaRegistro(new Date());
+                    objDetalleClinicaSeguro.setEstado(1);
+                    objDetalleClinicaSeguro.setClinica(objClinica);
+                    detalleClinicaSeguroFacade.create(objDetalleClinicaSeguro);
+                    objDetalleClinicaSeguro = new DetalleClinicaSeguro();
+                }
+                else
+                {
+                    objDetalleClinicaSeguro.setEstado(0);
+                    clinicaFacade.edit(objClinica);
+                }
+            }else
+            Utilidades.Error("POR FAVOR SELECCIONE UN SEGURO");
         }
          catch (Exception e) {
         }
+        
           
       }
      public void crear()
@@ -274,27 +279,35 @@ public class ManagedBeanClinica implements Serializable {
     public int contarSeguro(List<DetalleClinicaSeguro> lista)
     {
         int contador=0;
-        if(lista!=null)
-        {
-            System.out.println("contarSeguro "+lista.size());
-            for(DetalleClinicaSeguro seguro:lista)
+        try{
+            if(lista!=null)
             {
-                if(seguro.getSeguro().getEstado()==1)
-                    contador++;
+                System.out.println("contarSeguro "+lista.size());
+                for(DetalleClinicaSeguro seguro:lista)
+                {
+                    if(seguro.getSeguro().getEstado()==1)
+                        contador++;
+                }
             }
+        }
+        catch (Exception e) {
         }
         return contador;
     }
     public int contarEspecialidad(List<DetalleClinicaEspecialidad> lista)
     {
         int contador=0;
-        if(lista!=null)
-        {
-            for(DetalleClinicaEspecialidad especialidad:lista)
+        try{
+            if(lista!=null)
             {
-                if(especialidad.getEspecialidad().getEstado()==1)
-                    contador++;
+                for(DetalleClinicaEspecialidad especialidad:lista)
+                {
+                    if(especialidad.getEspecialidad().getEstado()==1)
+                        contador++;
+                }
             }
+        }
+        catch (Exception e) {
         }
         return contador;
     }
