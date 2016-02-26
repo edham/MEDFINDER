@@ -5,10 +5,16 @@
  */
 package bc;
 
+import be.Departamento;
 import be.Provincia;
+import be.Provincia_;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 /**
  *
@@ -27,5 +33,22 @@ public class ProvinciaFacade extends AbstractFacade<Provincia> implements Provin
     public ProvinciaFacade() {
         super(Provincia.class);
     }
-    
+    public List<Provincia> lista_Departamento(Departamento objDepartamento,boolean activos) {
+
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery<Provincia> cq = getEntityManager().getCriteriaBuilder().createQuery(Provincia.class);
+        Root<Provincia> registro = cq.from(Provincia.class);
+        cq.orderBy(cb.desc(registro.get("nombre")));
+        if(activos)
+        {
+            cq.where(cb.and(cb.equal(registro.get(Provincia_.departamento), objDepartamento)));
+        }else
+        {
+            cq.where(cb.and(cb.equal(registro.get(Provincia_.departamento), objDepartamento),
+                    cb.equal(registro.get(Provincia_.estado), 1)));
+        }
+
+        javax.persistence.Query q = getEntityManager().createQuery(cq);
+        return q.getResultList();
+    }
 }

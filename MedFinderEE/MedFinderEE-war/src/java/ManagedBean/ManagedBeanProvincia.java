@@ -80,7 +80,7 @@ public class ManagedBeanProvincia implements Serializable {
         {
             if(objDepartamento!=null)
             {
-                for(Provincia objProvincia:objDepartamento.getProvinciaList())
+                for(Provincia objProvincia:provinciaFacade.lista_Departamento(objDepartamento, true))
                 {
                         listaobjProvincia.add(objProvincia);
                 }
@@ -100,9 +100,8 @@ public class ManagedBeanProvincia implements Serializable {
     public List<SelectItem> getObjProvinciaItems() {
         objProvinciaItems = new LinkedList<SelectItem>();
         try
-        {
-            listaobjProvincia=provinciaFacade.lista_activos();         
-            for(Provincia p:listaobjProvincia){
+        {         
+            for(Provincia p:provinciaFacade.lista_Departamento(objDepartamento, false)){
                 objProvinciaItems.add(new SelectItem(p, p.getNombre()));
             }
         }

@@ -9,9 +9,15 @@ package ManagedBean;
 
 import Utilidades.Utilidades;
 import bc.ClinicaFacadeLocal;
+import bc.DetalleClinicaEspecialidadFacadeLocal;
+import bc.DetalleClinicaSeguroFacadeLocal;
+import bc.EspecialidadFacadeLocal;
+import bc.SeguroFacadeLocal;
 import be.Clinica;
-import be.Departamento;
-import be.Provincia;
+import be.DetalleClinicaEspecialidad;
+import be.DetalleClinicaSeguro;
+import be.Especialidad;
+import be.Seguro;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.Serializable;
@@ -24,9 +30,15 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.event.map.GeocodeEvent;
+import org.primefaces.event.map.MarkerDragEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
-
+import org.primefaces.model.map.DefaultMapModel;
+import org.primefaces.model.map.GeocodeResult;
+import org.primefaces.model.map.LatLng;
+import org.primefaces.model.map.MapModel;
+import org.primefaces.model.map.Marker;
 /**
  *
  * @author EdHam
@@ -35,14 +47,33 @@ import org.primefaces.model.StreamedContent;
 @SessionScoped
 public class ManagedBeanClinica implements Serializable {
     @EJB
+    private SeguroFacadeLocal seguroFacade;
+    @EJB
+    private EspecialidadFacadeLocal especialidadFacade;
+    @EJB
+    private DetalleClinicaSeguroFacadeLocal detalleClinicaSeguroFacade;
+    @EJB
+    private DetalleClinicaEspecialidadFacadeLocal detalleClinicaEspecialidadFacade;
+    @EJB
     private ClinicaFacadeLocal clinicaFacade;
+    
+    
     private List<Clinica> listaobjClinica;
     private List<SelectItem> objClinicaItems;
+    private List<SelectItem> objEspecialidadItems;
+    private List<SelectItem> objSeguroItems;
+    private List<DetalleClinicaEspecialidad> listaobjDetalleClinicaEspecialidad;
+    private List<DetalleClinicaSeguro> listaobjDetalleClinicaSeguro;
     private Clinica objClinica;
     private Clinica objClinicaVacio;
+    private DetalleClinicaEspecialidad objDetalleClinicaEspecialidad;
+    private DetalleClinicaSeguro objDetalleClinicaSeguro;
     private String nuevoTitulo;
     private boolean nuevo;
     private StreamedContent imagen;
+    private MapModel geoModel;
+    private String centerGeoMap;
+    private Marker marker;
     public ManagedBeanClinica() {
        
         limpiar();
@@ -50,15 +81,26 @@ public class ManagedBeanClinica implements Serializable {
         objClinicaVacio.setNombre("SELECCIONE UNA OPCIÓN");
         objClinicaItems = new LinkedList<SelectItem>();
         listaobjClinica = new LinkedList<Clinica>();
+        objDetalleClinicaEspecialidad = new DetalleClinicaEspecialidad();
+        objDetalleClinicaSeguro = new DetalleClinicaSeguro();
     }
     public void limpiar()
     {
-
+        centerGeoMap = "0.0, 0.0";
+        geoModel = new DefaultMapModel();
         nuevo=true;
         nuevoTitulo="AGREGAR NUEVO";
         objClinica=new Clinica();
         objClinica.setEstado(1);
         imagen=null;
+    }
+
+    public MapModel getGeoModel() {
+        return geoModel;
+    }
+
+    public void setGeoModel(MapModel geoModel) {
+        this.geoModel = geoModel;
     }
 
 
@@ -131,21 +173,48 @@ public class ManagedBeanClinica implements Serializable {
     }
 
   
-    
+      public void crearEspecialidad()
+      {
+          
+      }
+       public void crearSeguro(boolean nuevo)
+      {
+        try
+        {
+            objDetalleClinicaSeguro.setFechaModificacion(new Date());
+            if(nuevo)
+            {
+                objDetalleClinicaSeguro.setFechaRegistro(new Date());
+                objDetalleClinicaSeguro.setEstado(1);
+                objDetalleClinicaSeguro.setClinica(objClinica);
+                detalleClinicaSeguroFacade.create(objDetalleClinicaSeguro);
+                objDetalleClinicaSeguro = new DetalleClinicaSeguro();
+            }
+            else
+            {
+                objDetalleClinicaSeguro.setEstado(0);
+                clinicaFacade.edit(objClinica);
+            }
+            limpiar();
+        }
+         catch (Exception e) {
+        }
+          
+      }
      public void crear()
     {
         try
         {
+            objClinica.setLatitud( marker.getLatlng().getLat() );
+            objClinica.setLongitud(marker.getLatlng().getLng());
+            objClinica.setFechaModificacion(new Date());
             if(nuevo)
             {
                 objClinica.setFechaRegistro(new Date());
-                objClinica.setFechaModificacion(new Date());
                 clinicaFacade.create(objClinica);
-                 System.out.println(""+objClinica.getPKId());
             }
             else
             {
-                objClinica.setFechaModificacion(new Date());
                 clinicaFacade.edit(objClinica);
             }
             limpiar();
@@ -169,8 +238,13 @@ public class ManagedBeanClinica implements Serializable {
         managedBeanDistrito.setObjDepartamento(obejto.getDistrito().getProvincia().getDepartamento());
         managedBeanDistrito.setObjProvincia(obejto.getDistrito().getProvincia());
         managedBeanDistrito.setObjDistrito(obejto.getDistrito());
-    
-       
+        
+        centerGeoMap = objClinica.getLatitud()+ "," + objClinica.getLongitud();
+        LatLng coord = new LatLng(objClinica.getLatitud(), objClinica.getLongitud());
+        marker=new Marker(coord);
+        geoModel.getMarkers().clear();
+        geoModel.addOverlay(marker);
+        marker.setDraggable(true);
     }
      public void subirImagen(FileUploadEvent event) {
          
@@ -197,4 +271,163 @@ public class ManagedBeanClinica implements Serializable {
     }
       
       
+    public int contarSeguro(List<DetalleClinicaSeguro> lista)
+    {
+        int contador=0;
+        if(lista!=null)
+        {
+            System.out.println("contarSeguro "+lista.size());
+            for(DetalleClinicaSeguro seguro:lista)
+            {
+                if(seguro.getSeguro().getEstado()==1)
+                    contador++;
+            }
+        }
+        return contador;
+    }
+    public int contarEspecialidad(List<DetalleClinicaEspecialidad> lista)
+    {
+        int contador=0;
+        if(lista!=null)
+        {
+            for(DetalleClinicaEspecialidad especialidad:lista)
+            {
+                if(especialidad.getEspecialidad().getEstado()==1)
+                    contador++;
+            }
+        }
+        return contador;
+    }
+      
+      public void onGeocode(GeocodeEvent event) {
+        List<GeocodeResult> results = event.getResults();
+         
+        if (results != null && !results.isEmpty()) {
+            LatLng center = results.get(0).getLatLng();
+            centerGeoMap = center.getLat() + "," + center.getLng();
+             
+            for (int i = 0; i < results.size(); i++) {
+                GeocodeResult result = results.get(i);
+                marker=new Marker(result.getLatLng());
+                geoModel.getMarkers().clear();
+                geoModel.addOverlay(marker);
+                    marker.setDraggable(true);
+            }
+        }
+    }
+     
+    public void onMarkerDrag(MarkerDragEvent event) {
+        marker = event.getMarker();
+        
+        Utilidades.Info("Lat:" + marker.getLatlng().getLat() + ", Lng:" + marker.getLatlng().getLng());
+
+    }
+    public String getCenterGeoMap() {
+        return centerGeoMap;
+    }
+
+    public void setCenterGeoMap(String centerGeoMap) {
+        this.centerGeoMap = centerGeoMap;
+    }
+
+    public Marker getMarker() {
+        return marker;
+    }
+
+    public void setMarker(Marker marker) {
+        this.marker = marker;
+    }
+
+    public List<DetalleClinicaEspecialidad> getListaobjDetalleClinicaEspecialidad() {
+        listaobjDetalleClinicaEspecialidad = new LinkedList<DetalleClinicaEspecialidad>(); 
+         try
+        {   if(objClinica!=null)   
+            {
+                listaobjDetalleClinicaEspecialidad = detalleClinicaEspecialidadFacade.lista_Clinica(objClinica,false);
+              
+            }
+        }
+        catch (Exception e) {
+        }
+        return listaobjDetalleClinicaEspecialidad;
+    }
+
+    public void setListaobjDetalleClinicaEspecialidad(List<DetalleClinicaEspecialidad> listaobjDetalleClinicaEspecialidad) {
+        this.listaobjDetalleClinicaEspecialidad = listaobjDetalleClinicaEspecialidad;
+    }
+
+    public List<DetalleClinicaSeguro> getListaobjDetalleClinicaSeguro() {
+        listaobjDetalleClinicaSeguro = new LinkedList<DetalleClinicaSeguro>(); 
+         try
+        {   if(objClinica!=null)   
+            {
+                listaobjDetalleClinicaSeguro=detalleClinicaSeguroFacade.lista_Clinica(objClinica,false);
+            }
+        }
+        catch (Exception e) {
+        }
+        
+        return listaobjDetalleClinicaSeguro;
+    }
+
+    public void setListaobjDetalleClinicaSeguro(List<DetalleClinicaSeguro> listaobjDetalleClinicaSeguro) {
+        this.listaobjDetalleClinicaSeguro = listaobjDetalleClinicaSeguro;
+    }
+
+    public List<SelectItem> getObjEspecialidadItems() {
+         objEspecialidadItems = new LinkedList<SelectItem>();
+        try
+        {   if(objClinica!=null)   
+            {
+                for(Especialidad p:especialidadFacade.lista_Distinct_Clinica(objClinica)){
+                        objEspecialidadItems.add(new SelectItem(p, p.getNombre()));
+                }
+            }
+        }
+        catch (Exception e) {
+        }
+         
+        return objEspecialidadItems;
+    }
+
+    public void setObjEspecialidadItems(List<SelectItem> objEspecialidadItems) {
+        this.objEspecialidadItems = objEspecialidadItems;
+    }
+
+    public DetalleClinicaEspecialidad getObjDetalleClinicaEspecialidad() {
+        return objDetalleClinicaEspecialidad;
+    }
+
+    public void setObjDetalleClinicaEspecialidad(DetalleClinicaEspecialidad objDetalleClinicaEspecialidad) {
+        this.objDetalleClinicaEspecialidad = objDetalleClinicaEspecialidad;
+    }
+
+    public DetalleClinicaSeguro getObjDetalleClinicaSeguro() {
+        return objDetalleClinicaSeguro;
+    }
+
+    public void setObjDetalleClinicaSeguro(DetalleClinicaSeguro objDetalleClinicaSeguro) {
+        this.objDetalleClinicaSeguro = objDetalleClinicaSeguro;
+    }
+
+    public List<SelectItem> getObjSeguroItems() {
+         objSeguroItems = new LinkedList<SelectItem>();
+        try
+        {   if(objClinica!=null)   
+            {
+                for(Seguro p:seguroFacade.lista_Distinct_Clinica(objClinica)){
+                        objSeguroItems.add(new SelectItem(p, p.getNombre()));
+                }
+            }
+        }
+        catch (Exception e) {
+        }
+         
+        return objSeguroItems;
+    }
+
+    public void setObjSeguroItems(List<SelectItem> objSeguroItems) {
+        this.objSeguroItems = objSeguroItems;
+    }
+ 
 }

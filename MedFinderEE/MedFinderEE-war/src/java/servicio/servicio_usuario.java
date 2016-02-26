@@ -45,8 +45,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  *
@@ -308,7 +308,7 @@ public class servicio_usuario extends HttpServlet {
                                         entidadJSON.put("pacientePsicologicos", objPaciente.getPsicologicos());
                                         entidadJSON.put("pacienteEstado", objPaciente.getEstado());
                                         entidadJSON.put("usuarioId",objUsuario.getPKId());
-                                        listPacienteJSON.add(entidadJSON);
+                                        listPacienteJSON.put(entidadJSON);
                                     }                                        
                                 }
                                 obj.put("listPacienteJSON", listPacienteJSON);
@@ -327,7 +327,7 @@ public class servicio_usuario extends HttpServlet {
                                        entidadJSON.put("citaPacienteFechaRegistro", objCitaPaciente.getFechaRegistro().getTime());
                                        entidadJSON.put("citaPacienteAtencion", objCitaPaciente.getAtencion().getTime());
                                        entidadJSON.put("citaPacienteEstado", objCitaPaciente.getEstado());
-                                       listCitaPacienteJSON.add(entidadJSON);
+                                       listCitaPacienteJSON.put(entidadJSON);
                                    }    
                                }
                                obj.put("listCitaPacienteJSON", listCitaPacienteJSON);
@@ -349,7 +349,7 @@ public class servicio_usuario extends HttpServlet {
                                        entidadJSON.put("preguntaPacienteDetalle", objPreguntaPaciente.getDetalle());
                                        entidadJSON.put("preguntaPacienteEstado", objPreguntaPaciente.getEstado());
                                        entidadJSON.put("preguntaPacienteFechaInicio", objPreguntaPaciente.getFechaInicio().getTime());  
-                                        listPreguntaPacienteJSON.add(entidadJSON); 
+                                        listPreguntaPacienteJSON.put(entidadJSON); 
                                    }    
                                }
                               obj.put("listPreguntaPacienteJSON", listPreguntaPacienteJSON);  
@@ -363,7 +363,7 @@ public class servicio_usuario extends HttpServlet {
                                     {    
                                         JSONObject entidadJSON=new JSONObject();
                                         entidadJSON.put("doctorId", objFavoritos.getDoctor().getPKId());  
-                                        listFavoritosJSON.add(entidadJSON); 
+                                        listFavoritosJSON.put(entidadJSON); 
                                     }     
                                 }
                                 obj.put("listFavoritosJSON", listFavoritosJSON);  
@@ -376,7 +376,7 @@ public class servicio_usuario extends HttpServlet {
                                    {
                                        JSONObject entidadJSON=new JSONObject();
                                         entidadJSON.put("casoSaludId",objRespuestaCasosSalud.getRespuestaCasoSalud().getPKId());  
-                                        listRespuestaCasosSaludVotosJSON.add(entidadJSON); 
+                                        listRespuestaCasosSaludVotosJSON.put(entidadJSON); 
                                    }   
                                }
                                obj.put("listRespuestaCasosSaludVotosJSON", listRespuestaCasosSaludVotosJSON);  
@@ -395,7 +395,7 @@ public class servicio_usuario extends HttpServlet {
                                        entidadJSON.put("respuestaPreguntaPacienteDetalle", objRespuestaPreguntaPaciente.getDetalle()); 
                                        entidadJSON.put("respuestaPreguntaPacientePuntaje", objRespuestaPreguntaPaciente.getPuntaje()); 
                                        entidadJSON.put("respuestaPreguntaPacienteFechaRegistr", objRespuestaPreguntaPaciente.getFechaRegistro().getTime());                                                  
-                                        listRespuestaPreguntaPacienteJSON.add(entidadJSON); 
+                                        listRespuestaPreguntaPacienteJSON.put(entidadJSON); 
                                    }
                                }
                               obj.put("listRespuestaPreguntaPacienteJSON", listRespuestaPreguntaPacienteJSON);  
@@ -515,7 +515,7 @@ public class servicio_usuario extends HttpServlet {
                                        entidadJSON.put("especialidadNombre", objEspecialidad.getNombre());
                                        entidadJSON.put("especialidadDescripcion", objEspecialidad.getDescripcion());
                                        entidadJSON.put("especialidadEstado", objEspecialidad.getEstado());
-                                       listEspecialidadJSON.add(entidadJSON); 
+                                       listEspecialidadJSON.put(entidadJSON); 
                                    }   
                                }
                                obj.put("listEspecialidadJSON", listEspecialidadJSON);  
@@ -534,7 +534,7 @@ public class servicio_usuario extends HttpServlet {
                                        entidadJSON.put("detalleClinicaEspecialidadHorarioFin", objDetalleClinicaEspecialidad.getHorarioFin().getTime());                                       
                                        entidadJSON.put("detalleClinicaEspecialidadDetalleHorario", objDetalleClinicaEspecialidad.getDetalleHorario());
                                        entidadJSON.put("detalleClinicaEspecialidadEstado", objDetalleClinicaEspecialidad.getEstado());
-                                       listDetalleClinicaEspecialidadJSON.add(entidadJSON); 
+                                       listDetalleClinicaEspecialidadJSON.put(entidadJSON); 
                                    }   
                                }
                               obj.put("listDetalleClinicaEspecialidadJSON", listDetalleClinicaEspecialidadJSON);
@@ -566,7 +566,7 @@ public class servicio_usuario extends HttpServlet {
                                         entidadJSON.put("clinicaLongitud", objClinica.getLongitud());
                                         entidadJSON.put("clinicaLatitud", objClinica.getLatitud());
                                         entidadJSON.put("clinicaEstado", objClinica.getEstado());
-                                        listClinicaJSON.add(entidadJSON); 
+                                        listClinicaJSON.put(entidadJSON); 
                                    }   
                                }
                               obj.put("listClinicaJSON", listClinicaJSON);
@@ -584,7 +584,7 @@ public class servicio_usuario extends HttpServlet {
                                        entidadJSON.put("clinicaId", objDetalleClinicaSeguro.getClinica().getPKId());
                                        entidadJSON.put("seguroId", objDetalleClinicaSeguro.getSeguro().getPKId());
                                        entidadJSON.put("detalleClinicaSeguroEstado", objDetalleClinicaSeguro.getEstado());
-                                       listDetalleClinicaSeguroJSON.add(entidadJSON); 
+                                       listDetalleClinicaSeguroJSON.put(entidadJSON); 
                                    }   
                                }
                                 obj.put("listDetalleClinicaSeguroJSON", listDetalleClinicaSeguroJSON);
@@ -614,7 +614,7 @@ public class servicio_usuario extends HttpServlet {
                                             entidadJSON.put("personaFoto", "");
                                         else
                                             entidadJSON.put("personaFoto", Utilidades.getEncodeBase64(objDoctor.getPersona().getFoto()));
-                                        listDoctorJSON.add(entidadJSON); 
+                                        listDoctorJSON.put(entidadJSON); 
                                    }   
                                }
                                 obj.put("listDoctorJSON", listDoctorJSON);
@@ -633,7 +633,7 @@ public class servicio_usuario extends HttpServlet {
                                             entidadJSON.put("seguroLogo", "");
                                         else
                                             entidadJSON.put("seguroLogo",Utilidades.getEncodeBase64(objSeguro.getLogo()));  
-                                        listSeguroJSON.add(entidadJSON); 
+                                        listSeguroJSON.put(entidadJSON); 
                                    }   
                                }
                                 obj.put("listSeguroJSON", listSeguroJSON);
@@ -651,7 +651,7 @@ public class servicio_usuario extends HttpServlet {
                                         entidadJSON.put("casosSaludTema",objCasosSalud.getTema());
                                         entidadJSON.put("casosSaludFechaInicio",objCasosSalud.getFechaInicio().getTime());
                                         entidadJSON.put("casosSaludFechaFin",objCasosSalud.getFechaFin().getTime());  
-                                        listCasosSaludJSON.add(entidadJSON); 
+                                        listCasosSaludJSON.put(entidadJSON); 
                                    }   
                                }
                                 obj.put("listCasosSaludJSON", listCasosSaludJSON);
@@ -668,7 +668,7 @@ public class servicio_usuario extends HttpServlet {
                                        entidadJSON.put("casosSaludId",objRespuestaCasosSalud.getCasosSalud().getPKId());
                                        entidadJSON.put("respuestaCasosSaludDescripcion",objRespuestaCasosSalud.getDescripcion());
                                        entidadJSON.put("respuestaCasosSaludPuntajeTotal",objRespuestaCasosSalud.getPuntajeTotal());       
-                                       listRespuestaCasosSaludJSON.add(entidadJSON); 
+                                       listRespuestaCasosSaludJSON.put(entidadJSON); 
                                    }   
                                }
                                 obj.put("listRespuestaCasosSaludJSON", listRespuestaCasosSaludJSON);

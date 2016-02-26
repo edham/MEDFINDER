@@ -6,6 +6,7 @@
 package ManagedBean;
 
 import bc.DistritoFacadeLocal;
+import bc.ProvinciaFacadeLocal;
 import be.Departamento;
 import be.Distrito;
 import be.Provincia;
@@ -27,7 +28,8 @@ import javax.faces.model.SelectItem;
 public class ManagedBeanDistrito implements Serializable {
     @EJB
     private DistritoFacadeLocal distritoFacade;
-    
+    @EJB
+    private ProvinciaFacadeLocal provinciaFacade;
     
     
     
@@ -93,16 +95,11 @@ public class ManagedBeanDistrito implements Serializable {
     public List<SelectItem> getObjProvinciaItems() {
         
         objProvinciaItems = new LinkedList<SelectItem>();
-        try{
-            if(objDepartamento!=null)
-            {
-                for(Provincia p:objDepartamento.getProvinciaList())
-                {
-                    if(p.getEstado()==1)
-                        objProvinciaItems.add(new SelectItem(p, p.getNombre()));
-                }
+        try
+        {         
+            for(Provincia p:provinciaFacade.lista_Departamento(objDepartamento, false)){
+                objProvinciaItems.add(new SelectItem(p, p.getNombre()));
             }
-            
         }
         catch (Exception e) {
         }
@@ -119,7 +116,7 @@ public class ManagedBeanDistrito implements Serializable {
         {
             if(objProvincia!=null)
             {
-                for(Distrito objDistrito:objProvincia.getDistritoList())
+                for(Distrito objDistrito:distritoFacade.lista_Provincia(objProvincia, true))
                 {
                         listaobjDistrito.add(objDistrito);
                 }
@@ -140,9 +137,9 @@ public class ManagedBeanDistrito implements Serializable {
         objDistritoItems = new LinkedList<SelectItem>();        
         try
         {
-            if(objProvincia!=null)
+              if(objProvincia!=null)
             {
-                for(Distrito p:objProvincia.getDistritoList())
+                for(Distrito p:distritoFacade.lista_Provincia(objProvincia, true))
                 {
                         objDistritoItems.add(new SelectItem(p, p.getNombre()));
                 }

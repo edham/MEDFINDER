@@ -5,6 +5,7 @@
  */
 package bc;
 
+import be.Clinica;
 import be.Especialidad;
 import java.util.List;
 import javax.ejb.Local;
@@ -28,7 +29,7 @@ public interface EspecialidadFacadeLocal {
 
     List<Especialidad> findRange(int[] range);
 
-    
+    List<Especialidad> lista_Distinct_Clinica(Clinica objClinica);
     List<Especialidad> lista_activos();
     int count();
     

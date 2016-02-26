@@ -80,9 +80,8 @@ public class ManagedBeanDepartamento implements Serializable {
     public List<SelectItem> getObjDepartamentoItems() {
         objDepartamentoItems = new LinkedList<SelectItem>();
         try
-        {
-            listaobjDepartamento=departamentoFacade.lista_activos();         
-            for(Departamento p:listaobjDepartamento){
+        {     
+            for(Departamento p:departamentoFacade.lista_activos()){
                 objDepartamentoItems.add(new SelectItem(p, p.getNombre()));
             }
         }

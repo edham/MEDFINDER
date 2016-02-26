@@ -5,6 +5,7 @@
  */
 package bc;
 
+import be.Clinica;
 import be.DetalleClinicaEspecialidad;
 import java.util.List;
 import javax.ejb.Local;
@@ -25,7 +26,7 @@ public interface DetalleClinicaEspecialidadFacadeLocal {
     DetalleClinicaEspecialidad find(Object id);
 
     List<DetalleClinicaEspecialidad> findAll();
-
+    List<DetalleClinicaEspecialidad> lista_Clinica(Clinica objClinica,boolean activos);
     List<DetalleClinicaEspecialidad> findRange(int[] range);
     List<DetalleClinicaEspecialidad> lista_activos();
     int count();

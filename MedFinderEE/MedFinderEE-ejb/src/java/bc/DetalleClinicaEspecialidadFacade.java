@@ -5,10 +5,16 @@
  */
 package bc;
 
+import be.Clinica;
 import be.DetalleClinicaEspecialidad;
+import be.DetalleClinicaEspecialidad_;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 /**
  *
@@ -26,6 +32,25 @@ public class DetalleClinicaEspecialidadFacade extends AbstractFacade<DetalleClin
 
     public DetalleClinicaEspecialidadFacade() {
         super(DetalleClinicaEspecialidad.class);
+    }
+    
+    public List<DetalleClinicaEspecialidad> lista_Clinica(Clinica objClinica,boolean activos) {
+
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery<DetalleClinicaEspecialidad> cq = getEntityManager().getCriteriaBuilder().createQuery(DetalleClinicaEspecialidad.class);
+        Root<DetalleClinicaEspecialidad> registro = cq.from(DetalleClinicaEspecialidad.class);
+        cq.orderBy(cb.desc(registro.get("pKId")));
+        if(activos)
+        {
+            cq.where(cb.and(cb.equal(registro.get(DetalleClinicaEspecialidad_.clinica), objClinica)));
+        }else
+        {
+            cq.where(cb.and(cb.equal(registro.get(DetalleClinicaEspecialidad_.clinica), objClinica),
+                    cb.equal(registro.get(DetalleClinicaEspecialidad_.estado), 1)));
+        }
+
+        javax.persistence.Query q = getEntityManager().createQuery(cq);
+        return q.getResultList();
     }
     
 }

@@ -5,6 +5,7 @@
  */
 package bc;
 
+import be.Departamento;
 import be.Provincia;
 import java.util.List;
 import javax.ejb.Local;
@@ -29,7 +30,7 @@ public interface ProvinciaFacadeLocal {
     List<Provincia> findRange(int[] range);
 
     List<Provincia> lista_activos();
-    
+    List<Provincia> lista_Departamento(Departamento objDepartamento,boolean activos);
     int count();
     
 }

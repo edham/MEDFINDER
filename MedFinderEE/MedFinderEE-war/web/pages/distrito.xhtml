@@ -10,7 +10,7 @@
         <ui:composition template="/WEB-INF/templates/default.xhtml">
             <ui:define name="content">
             	<p:growl id="mensajes" showDetail="true" />
-            	<h1>Estado Albergado</h1>
+            	<h1>GESTIÓN DE DISTRITO</h1>
 
                 <h:form id="form">
                             <p:growl id="msgs" showDetail="true" />
@@ -19,28 +19,7 @@
                         <!-- Widget -->
                         <div class="widget">
                             
-                              <h:panelGrid columns="2">
-                                <p:panel id="nuevo" header="#{managedBeanDistrito.nuevoTitulo}" style="margin-bottom:10px;">
-
-                                    <h:panelGrid style="vertical-align: top" columns="2">
-                                        <h:outputText value="DEPARTAMENTO"/>
-                                        <h:outputText  value="#{managedBeanDistrito.objDistrito.provincia.departamento.nombre}"/>
-                                          <h:outputText value="PROVINCIA"/>
-                                          <h:outputText  value="#{managedBeanDistrito.objDistrito.provincia.nombre}"/>
-                                          <h:outputText value="DISTRITO"/>
-                                        <h:outputText  value="#{managedBeanDistrito.objDistrito.nombre}"/>
-                                        <h:outputText value="ESTADO"/>
-                                        <p:selectOneRadio  value="#{managedBeanDistrito.objDistrito.estado}">
-                                                                        <f:selectItem itemLabel="ACTIVO" itemValue="1" />
-                                                                        <f:selectItem itemLabel="DESACTIVO" itemValue="0" />
-                                        </p:selectOneRadio>
-
-                                    </h:panelGrid>
-                                      <p:separator />
-                                           <p:commandButton value="ACEPTAR" update=":form :form:msgs"  actionListener="#{managedBeanDistrito.crear()}"/>
-                                           <p:commandButton value="LIMPIAR" update=":form :form:msgs"  actionListener="#{managedBeanDistrito.limpiar()}"/>  
-                                </p:panel>
-                                  
+                              <h:panelGrid columns="1">
                                 <h:panelGrid columns="1" style="display:block; text-align:center">
                                     <h:panelGrid columns="4">
                                         <h:outputText value="SELECCIONAR UN DEPARTAMENTO"/>
@@ -57,7 +36,7 @@
                                         </p:selectOneMenu>
                                     </h:panelGrid>
                                         
-                                        <p:dataTable  id="lista" var="item" value="#{managedBeanDistrito.listaobjDistrito}" rows="10" scrollable="true" scrollHeight="180"
+                                        <p:dataTable  id="lista" widgetVar="lista" var="item" value="#{managedBeanDistrito.listaobjDistrito}" rows="10" scrollable="true" scrollHeight="180"
                                               paginator="true" rowStyleClass="#{item.estado eq 0 ? 'colored' : null}" rowIndexVar="rowIndex" 
                                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                          rowsPerPageTemplate="5,10,15">
@@ -65,10 +44,13 @@
 
                                                  <f:facet name="header">
 
-                                                    LISTA DE ESPECIALIDAD
+                                                    LISTA DE DISTRITOS
                                                 </f:facet>
                                                  <p:column headerText="N°" style="width:15px; text-align: center">
                                                        <h:outputText value="#{rowIndex + 1}" />
+                                                </p:column>
+                                            <p:column style="width:80px;text-align: center">
+                                                   <p:commandButton icon="ui-icon-pencil" update=":frm_editar :form:msgs" value=""  title="Editar"  oncomplete="PF('dlgeditar').show();" actionListener="#{managedBeanDistrito.actualizar(item)}"/>  
                                                 </p:column>
                                              <p:column headerText="DEPARTAMENTO" style="text-align: center">
                                                  <h:outputText value="#{item.provincia.departamento.nombre}" />
@@ -80,13 +62,18 @@
                                                     <h:outputText value="#{item.nombre}" />
                                                 </p:column>
 
-                                               <p:column headerText="ESTADO" style="width:95px; text-align: center">
-                                                   <h:outputText value="#{item.estado eq 1 ?'ACTIVO':'DESACTIVO'}" />
-
-                                                </p:column>
-                                                 <p:column style="width:80px;text-align: center">
-                                                   <p:commandButton update=":form :form:msgs" value="Editar" actionListener="#{managedBeanDistrito.actualizar(item)}"/>  
-                                                </p:column>
+                                                <p:column headerText="ESTADO" style="width:95px; text-align: center" filterBy="#{item.estado}" filterMatchMode="contains">
+                                                        <f:facet name="filter">
+                                                                                <p:selectOneMenu onchange="PF('lista').filter()" >
+                                                                                    <f:selectItem itemLabel="TODOS" itemValue="#{null}" noSelectionOption="true" />
+                                                                                    <f:selectItem itemLabel="ACTIVO" itemValue="1" />
+                                                                                    <f:selectItem itemLabel="DESACTIVO" itemValue="0" />
+                                                                                </p:selectOneMenu>
+                                                                            </f:facet>
+                                                      <h:outputText value="#{item.estado eq 1 ?'ACTIVO':'DESACTIVO'}" >
+                                                        <f:converter converterId="javax.faces.Character" />                                    
+                                                    </h:outputText>
+                                                </p:column>     
 
                                          </p:dataTable>
                                 </h:panelGrid>
@@ -100,6 +87,33 @@
                 </h:form> 
 
                 
+                <h:form id="frm_editar" >
+
+                    <p:growl id="messages" showDetail="true" />
+                    <p:dialog header="#{managedBeanDistrito.nuevoTitulo}" closable="true" resizable="false" widgetVar="dlgeditar" showEffect="explode" height="160" width="300">
+                                   <h:panelGrid style="vertical-align: top" columns="2">
+                                        <h:outputText value="DEPARTAMENTO"/>
+                                        <h:outputText  value="#{managedBeanDistrito.objDistrito.provincia.departamento.nombre}"/>
+                                          <h:outputText value="PROVINCIA"/>
+                                          <h:outputText  value="#{managedBeanDistrito.objDistrito.provincia.nombre}"/>
+                                          <h:outputText value="DISTRITO"/>
+                                        <h:outputText  value="#{managedBeanDistrito.objDistrito.nombre}"/>
+                                        <h:outputText value="ESTADO"/>
+                                        <p:selectOneRadio  value="#{managedBeanDistrito.objDistrito.estado}">
+                                                                        <f:selectItem itemLabel="ACTIVO" itemValue="1" />
+                                                                        <f:selectItem itemLabel="DESACTIVO" itemValue="0" />
+                                        </p:selectOneRadio>
+
+                                    </h:panelGrid>
+                                <p:panel  style="margin-bottom:10px;">
+                                      <p:separator />
+                                           <p:commandButton value="ACEPTAR" update=":form :form:msgs" oncomplete="PF('dlgeditar').hide();"  actionListener="#{managedBeanDistrito.crear()}"/>
+                                           <p:commandButton value="CERRAR" update=":form :form:msgs"  oncomplete="PF('dlgeditar').hide();"    actionListener="#{managedBeanDistrito.limpiar()}"/>  
+                                </p:panel>
+   
+                    </p:dialog>
+                </h:form>
+         
             </ui:define>
             
         </ui:composition>
