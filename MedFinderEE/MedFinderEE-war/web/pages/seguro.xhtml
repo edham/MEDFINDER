@@ -10,7 +10,7 @@
         <ui:composition template="/WEB-INF/templates/default.xhtml">
             <ui:define name="content">
             	<p:growl id="mensajes" showDetail="true" />
-            	<h1>Estado Albergado</h1>
+            	<h1>MANTENIMIENTO DE SEGUROS</h1>
 
                 <h:form id="form">
                             <p:growl id="msgs" showDetail="true" />
@@ -21,7 +21,7 @@
                             <h:panelGrid columns="2">
                                   <p:panel id="nuevo" header="#{managedBeanSeguro.nuevoTitulo}" style="margin-bottom:10px;">
 
-                                <h:panelGrid style="vertical-align: top" columns="2">
+                                <h:panelGrid style="vertical-align: top; height: 230px;" columns="2">
                                     <h:outputText value="NOMBRE"/>
                                     <h:inputText  value="#{managedBeanSeguro.objSeguro.nombre}" />
 
@@ -48,7 +48,7 @@
                                        <p:commandButton value="LIMPIAR" update=":form :form:msgs"  actionListener="#{managedBeanSeguro.limpiar()}"/>  
                             </p:panel>
                                 
-                                                <p:dataTable widgetVar="tabla"  id="lista" var="item" value="#{managedBeanSeguro.listaobjSeguro}" rows="10" scrollable="true" scrollHeight="180"
+                                                <p:dataTable widgetVar="lista"  id="lista" var="item" value="#{managedBeanSeguro.listaobjSeguro}" rows="10" scrollable="true" scrollHeight="180"
                                                           paginator="true" rowStyleClass="#{item.estado eq 0 ? 'colored' : null}" rowIndexVar="rowIndex" 
                                                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                                      rowsPerPageTemplate="5,10,15">
@@ -61,17 +61,26 @@
                                                              <p:column headerText="N°" style="width:15px; text-align: center">
                                                                    <h:outputText value="#{rowIndex + 1}" />
                                                             </p:column>
-                                                           <p:column headerText="NOMBRE" style="width:150px; text-align: center">
-                                                               <h:outputText value="#{item.nombre}" />
+                                                            <p:column style="width:40px;text-align: center">
+                                                                <p:commandButton icon="ui-icon-pencil" update=":form :form:msgs" value=""  title="Editar"  actionListener="#{managedBeanSeguro.actualizar(item)}"/>  
+                                                           
                                                             </p:column>
+                                                            <p:column headerText="NOMBRE" filterBy="#{item.nombre}" style="text-align: center">
+                                                                <h:outputText value="#{item.nombre}" />
+                                                             </p:column>
 
-                                                           <p:column headerText="ESTADO" style="width:95px; text-align: center">
-                                                               <h:outputText value="#{item.estado eq 1 ?'ACTIVO':'DESACTIVO'}" />
-
-                                                            </p:column>
-                                                             <p:column style="width:80px;text-align: center">
-                                                               <p:commandButton update=":form :form:msgs" value="Editar" actionListener="#{managedBeanSeguro.actualizar(item)}"/>  
-                                                            </p:column>
+                                                           <p:column headerText="ESTADO" style="width:95px; text-align: center" filterBy="#{item.estado}" filterMatchMode="contains">
+                                                                <f:facet name="filter">
+                                                                                        <p:selectOneMenu onchange="PF('lista').filter()" >
+                                                                                            <f:selectItem itemLabel="TODOS" itemValue="#{null}" noSelectionOption="true" />
+                                                                                            <f:selectItem itemLabel="ACTIVO" itemValue="1" />
+                                                                                            <f:selectItem itemLabel="DESACTIVO" itemValue="0" />
+                                                                                        </p:selectOneMenu>
+                                                                                    </f:facet>
+                                                              <h:outputText value="#{item.estado eq 1 ?'ACTIVO':'DESACTIVO'}" >
+                                                                <f:converter converterId="javax.faces.Character" />                                    
+                                                            </h:outputText>
+                                                        </p:column>   
 
                                             </p:dataTable>
 					

@@ -29,6 +29,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.map.GeocodeEvent;
 import org.primefaces.event.map.MarkerDragEvent;
@@ -70,6 +71,7 @@ public class ManagedBeanClinica implements Serializable {
     private DetalleClinicaSeguro objDetalleClinicaSeguro;
     private String nuevoTitulo;
     private boolean nuevo;
+    private String editarSeguro;
     private StreamedContent imagen;
     private MapModel geoModel;
     private String centerGeoMap;
@@ -82,6 +84,10 @@ public class ManagedBeanClinica implements Serializable {
         objClinicaItems = new LinkedList<SelectItem>();
         listaobjClinica = new LinkedList<Clinica>();
         objDetalleClinicaEspecialidad = new DetalleClinicaEspecialidad();
+        objDetalleClinicaEspecialidad.setHorarioInicio(new Date());
+        objDetalleClinicaEspecialidad.setHorarioFin(new Date());
+        objDetalleClinicaEspecialidad.setEstado(1);
+        objDetalleClinicaEspecialidad.setDetalleHorario("");
         objDetalleClinicaSeguro = new DetalleClinicaSeguro();
     }
     public void limpiar()
@@ -175,7 +181,46 @@ public class ManagedBeanClinica implements Serializable {
   
       public void crearEspecialidad()
       {
-          
+           try
+        {
+            if(objDetalleClinicaEspecialidad.getEspecialidad()!=null)
+            {
+                if(objDetalleClinicaEspecialidad.getHorarioInicio()!=null)
+                {
+                    if(objDetalleClinicaEspecialidad.getHorarioFin()!=null)
+                    {
+                         if(objDetalleClinicaEspecialidad.getDetalleHorario().length()>0)
+                        {
+                            objDetalleClinicaEspecialidad.setFechaModificacion(new Date());
+                            if(objDetalleClinicaEspecialidad.getPKId()==null)
+                            {
+                                objDetalleClinicaEspecialidad.setFechaRegistro(new Date());
+                                objDetalleClinicaEspecialidad.setClinica(objClinica);
+                                detalleClinicaEspecialidadFacade.create(objDetalleClinicaEspecialidad);
+
+                            }
+                            else
+                            {
+                                detalleClinicaEspecialidadFacade.edit(objDetalleClinicaEspecialidad);
+                            }
+                             RequestContext.getCurrentInstance().execute("PF('dlgespecialidadeditar').hide();");
+                        }else
+                            Utilidades.Error("POR FAVOR INGRESE DETALLE DE ATENCIÓN");
+                    }else
+                        Utilidades.Error("POR FAVOR INGRESE HORA DE FIN DE ATENCIÓN");
+                }else
+                     Utilidades.Error("POR FAVOR INGRESE HORA DE INICIO DE ATENCIÓN");
+            }
+            
+        }
+         catch (Exception e) {
+             Utilidades.Error("POR FAVOR INTENTELO DE NUEVO");
+        }
+        objDetalleClinicaEspecialidad = new DetalleClinicaEspecialidad();
+        objDetalleClinicaEspecialidad.setHorarioInicio(new Date());
+        objDetalleClinicaEspecialidad.setHorarioFin(new Date());
+        objDetalleClinicaEspecialidad.setEstado(1);
+        objDetalleClinicaEspecialidad.setDetalleHorario("");
       }
        public void crearSeguro(boolean nuevo)
       {
@@ -195,8 +240,8 @@ public class ManagedBeanClinica implements Serializable {
                 }
                 else
                 {
-                    objDetalleClinicaSeguro.setEstado(0);
-                    clinicaFacade.edit(objClinica);
+                    objDetalleClinicaSeguro.setEstado((objDetalleClinicaSeguro.getEstado()==0)?1:0);
+                    detalleClinicaSeguroFacade.edit(objDetalleClinicaSeguro);
                 }
             }else
             Utilidades.Error("POR FAVOR SELECCIONE UN SEGURO");
@@ -205,6 +250,24 @@ public class ManagedBeanClinica implements Serializable {
         }
         
           
+      }
+       
+        public void selecionarDetalleSeguro(DetalleClinicaSeguro objeto)
+      {
+        
+        try
+        {
+            objDetalleClinicaSeguro=objeto;
+            if(objDetalleClinicaSeguro!=null)
+            {
+                if(objDetalleClinicaSeguro.getEstado()==0)
+                    editarSeguro="DESEA RESTAURAR "+((objDetalleClinicaSeguro.getSeguro()==null)?"":objDetalleClinicaSeguro.getSeguro().getNombre().toUpperCase());
+                else
+                      editarSeguro="DESEA ELIMINAR "+((objDetalleClinicaSeguro.getSeguro()==null)?"":objDetalleClinicaSeguro.getSeguro().getNombre().toUpperCase());
+            }
+        }
+         catch (Exception e) {
+        }   
       }
      public void crear()
     {
@@ -282,10 +345,9 @@ public class ManagedBeanClinica implements Serializable {
         try{
             if(lista!=null)
             {
-                System.out.println("contarSeguro "+lista.size());
                 for(DetalleClinicaSeguro seguro:lista)
                 {
-                    if(seguro.getSeguro().getEstado()==1)
+                    if(seguro.getEstado()==1)
                         contador++;
                 }
             }
@@ -302,7 +364,7 @@ public class ManagedBeanClinica implements Serializable {
             {
                 for(DetalleClinicaEspecialidad especialidad:lista)
                 {
-                    if(especialidad.getEspecialidad().getEstado()==1)
+                    if(especialidad.getEstado()==1)
                         contador++;
                 }
             }
@@ -356,7 +418,7 @@ public class ManagedBeanClinica implements Serializable {
          try
         {   if(objClinica!=null)   
             {
-                listaobjDetalleClinicaEspecialidad = detalleClinicaEspecialidadFacade.lista_Clinica(objClinica,false);
+                listaobjDetalleClinicaEspecialidad = detalleClinicaEspecialidadFacade.lista_Clinica(objClinica,true);
               
             }
         }
@@ -374,7 +436,7 @@ public class ManagedBeanClinica implements Serializable {
          try
         {   if(objClinica!=null)   
             {
-                listaobjDetalleClinicaSeguro=detalleClinicaSeguroFacade.lista_Clinica(objClinica,false);
+                listaobjDetalleClinicaSeguro=detalleClinicaSeguroFacade.lista_Clinica(objClinica,true);
             }
         }
         catch (Exception e) {
@@ -412,14 +474,17 @@ public class ManagedBeanClinica implements Serializable {
     }
 
     public void setObjDetalleClinicaEspecialidad(DetalleClinicaEspecialidad objDetalleClinicaEspecialidad) {
+      
         this.objDetalleClinicaEspecialidad = objDetalleClinicaEspecialidad;
     }
 
     public DetalleClinicaSeguro getObjDetalleClinicaSeguro() {
+       
         return objDetalleClinicaSeguro;
     }
 
     public void setObjDetalleClinicaSeguro(DetalleClinicaSeguro objDetalleClinicaSeguro) {
+       
         this.objDetalleClinicaSeguro = objDetalleClinicaSeguro;
     }
 
@@ -442,5 +507,15 @@ public class ManagedBeanClinica implements Serializable {
     public void setObjSeguroItems(List<SelectItem> objSeguroItems) {
         this.objSeguroItems = objSeguroItems;
     }
+
+    public String getEditarSeguro() {
+        return editarSeguro;
+    }
+
+    public void setEditarSeguro(String editarSeguro) {
+        this.editarSeguro = editarSeguro;
+    }
+
+
  
 }

@@ -37,8 +37,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Doctor.findAll", query = "SELECT d FROM Doctor d"),
     @NamedQuery(name = "Doctor.findByPKId", query = "SELECT d FROM Doctor d WHERE d.pKId = :pKId"),
-    @NamedQuery(name = "Doctor.findByUsuario", query = "SELECT d FROM Doctor d WHERE d.usuario = :usuario"),
-    @NamedQuery(name = "Doctor.findByClave", query = "SELECT d FROM Doctor d WHERE d.clave = :clave"),
     @NamedQuery(name = "Doctor.findByCodigoColegiatura", query = "SELECT d FROM Doctor d WHERE d.codigoColegiatura = :codigoColegiatura"),
     @NamedQuery(name = "Doctor.findByDireccion", query = "SELECT d FROM Doctor d WHERE d.direccion = :direccion"),
     @NamedQuery(name = "Doctor.findByDireccionDetalle", query = "SELECT d FROM Doctor d WHERE d.direccionDetalle = :direccionDetalle"),
@@ -57,12 +55,6 @@ public class Doctor implements Serializable {
     @Basic(optional = false)
     @Column(name = "PK_Id")
     private Integer pKId;
-    @Size(max = 45)
-    @Column(name = "Usuario")
-    private String usuario;
-    @Size(max = 45)
-    @Column(name = "Clave")
-    private String clave;
     @Size(max = 45)
     @Column(name = "CodigoColegiatura")
     private String codigoColegiatura;
@@ -121,22 +113,6 @@ public class Doctor implements Serializable {
 
     public void setPKId(Integer pKId) {
         this.pKId = pKId;
-    }
-
-    public String getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
-
-    public String getClave() {
-        return clave;
-    }
-
-    public void setClave(String clave) {
-        this.clave = clave;
     }
 
     public String getCodigoColegiatura() {

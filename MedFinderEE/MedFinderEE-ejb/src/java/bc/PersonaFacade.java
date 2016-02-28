@@ -5,10 +5,13 @@
  */
 package bc;
 
+import be.Doctor;
 import be.Persona;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -28,4 +31,13 @@ public class PersonaFacade extends AbstractFacade<Persona> implements PersonaFac
         super(Persona.class);
     }
     
+    public List<Persona> lista_Distinct_DoctorFiltro(String dato) {
+      
+        TypedQuery q = getEntityManager().createQuery("SELECT p FROM Persona p WHERE p.pKId not in (SELECT pe.pKId FROM Persona pe INNER JOIN pe.doctorList d) and p.estado=1 and (p.apellidoPaterno LIKE :paterno or p.apellidoMaterno LIKE :materno or p.nombre LIKE :nombre or p.dni LIKE :dni)", Persona.class);
+        q.setParameter("paterno","%"+dato+"%" );
+        q.setParameter("materno","%"+dato+"%" );
+        q.setParameter("nombre","%"+dato+"%" );
+        q.setParameter("dni","%"+dato+"%" );
+        return q.getResultList();
+    }
 }

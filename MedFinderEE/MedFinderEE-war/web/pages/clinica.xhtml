@@ -34,17 +34,17 @@
                                                  <p:column headerText="N°" style="width:15px; text-align: center">
                                                        <h:outputText value="#{rowIndex + 1}" />
                                                 </p:column>
-                                                <p:column style="width:80px;text-align: center">
+                                                <p:column style="width:40px;text-align: center">
                                                    <p:commandButton icon="ui-icon-pencil" update=":frm_clinica :form:msgs" value=""  title="Editar" oncomplete="PF('dlgclinica').show();"  actionListener="#{managedBeanClinica.actualizar(item)}"/>  
                                                 </p:column>
-                                                <p:column headerText="ESPECIALIDADES" style="text-align: center">
+                                                <p:column headerText="ESPECIALIDADES" style="width:100px; text-align: center">
                                                     
                                                     <p:commandLink update=":frm_especialidad" value="#{managedBeanClinica.contarEspecialidad(item.detalleClinicaEspecialidadList)}"  oncomplete="PF('dlgespecialidad').show();">
                                                         <f:setPropertyActionListener value="#{item}" target="#{managedBeanClinica.objClinica}"/>                                                
                                                     </p:commandLink>
  
                                                 </p:column> 
-                                                <p:column headerText="SEGUROS" style="text-align: center">
+                                                <p:column headerText="SEGUROS" style="width:60px; text-align: center">
                                                      <p:commandLink update=":frm_seguro" value="#{managedBeanClinica.contarSeguro(item.detalleClinicaSeguroList)}"  oncomplete="PF('dlgseguro').show();">
                                                         <f:setPropertyActionListener value="#{item}" target="#{managedBeanClinica.objClinica}"/>                                                
                                                     </p:commandLink>
@@ -171,45 +171,98 @@
                   <h:form id="frm_especialidad" >
 
                     <p:growl id="messages" showDetail="true" />
-                    <p:dialog header="GESTIONAR ESPECIALIDADES: #{managedBeanClinica.objClinica.nombre.toUpperCase()}" closable="true" resizable="false" widgetVar="dlgespecialidad" showEffect="explode" height="550" width="1000">
+                    <p:dialog header="GESTIONAR ESPECIALIDADES: #{managedBeanClinica.objClinica.nombre.toUpperCase()}" closable="true" resizable="false" widgetVar="dlgespecialidad" showEffect="explode" height="430" width="800">
                             <p:panel  style="margin-bottom:10px;">
                                 
-                                <h:panelGrid style="vertical-align: top" columns="2">
+                                <h:panelGrid style="vertical-align: top" columns="3">
                                      <h:outputText value="ESPECIALIDAD"/>
-                                    <p:selectOneMenu  filter="true" filterMatchMode="contains" value="#{managedBeanClinica.objDetalleClinicaEspecialidad.especialidad}" converter="especialidadConverter">
-                                                 <f:selectItem itemLabel="#{managedBeanEspecialidad.objEspecialidadVacio.nombre}" itemValue="#{managedBeanClinica.objDetalleClinicaEspecialidad.especialidad}" noSelectionOption="false" />
-                                                   <f:selectItems   value="#{managedBeanClinica.objEspecialidadItems}"/>	                                        
+                                    <p:selectOneMenu id="especialidad" filter="true" filterMatchMode="contains" value="#{managedBeanClinica.objDetalleClinicaEspecialidad.especialidad}" converter="especialidadConverter">
+                                        <f:selectItems   value="#{managedBeanClinica.objEspecialidadItems}"/>	                                        
 
                                     </p:selectOneMenu>
+                                       <p:commandButton value="AGREGAR" update=":frm_especialidad_editar" oncomplete="PF('dlgespecialidadeditar').show();" />
+                                       
+                                 
                                 </h:panelGrid>
-                                
+                                      <p:separator />
+                                      <p:dataTable  id="listaEspecialidad" widgetVar="listaSeguros" var="item" value="#{managedBeanClinica.listaobjDetalleClinicaEspecialidad}" rows="10" scrollable="true" scrollHeight="180"
+                                              paginator="true" rowStyleClass="#{item.estado eq 0 ? 'colored' : null}" rowIndexVar="rowIndex" 
+                                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                         rowsPerPageTemplate="5,10,15">
+
+
+                                                 <f:facet name="header">
+
+                                                    LISTA DE ESPECIALIDAD
+                                                </f:facet>
+                                                 <p:column headerText="N°" style="width:15px; text-align: center">
+                                                       <h:outputText value="#{rowIndex + 1}" />
+                                                </p:column>
+                                                <p:column style="width:40px;text-align: center">
+                                                    <p:commandButton icon="ui-icon-pencil" update=":frm_especialidad_editar" value=""  title="EDITAR" oncomplete="PF('dlgespecialidadeditar').show();" >                                                        
+	                                		<f:setPropertyActionListener value="#{item}" target="#{managedBeanClinica.objDetalleClinicaEspecialidad}"/>
+                                                    </p:commandButton>
+                                                     
+                                                </p:column> 
+                                                <p:column headerText="NOMBRE" filterBy="#{item.especialidad.nombre}" style="text-align: center">
+                                                     <h:outputText value="#{item.especialidad.nombre.toUpperCase()}" />
+                                                </p:column>
+                                               <p:column headerText="HORA INICIO" style="width:55px; text-align: center">
+                                                   <h:outputText value="#{item.horarioInicio}" >
+                                                        <f:convertDateTime pattern="hh:mm a" />
+                                                    </h:outputText>
+                                                </p:column>
+                                                <p:column headerText="HORA FIN" style="width:55px;  text-align: center">
+                                                    <h:outputText value="#{item.horarioFin}" >
+                                                        <f:convertDateTime pattern="hh:mm a" />
+                                                    </h:outputText>
+                                                </p:column>
+                                                <p:column headerText="ATENCIÓN" style="text-align: center">
+                                                    <h:outputText value="#{item.detalleHorario.toUpperCase()}" />
+                                                </p:column>
+                                                
+
+                                                <p:column headerText="ESTADO" style="width:95px; text-align: center" filterBy="#{item.estado}" filterMatchMode="contains">
+                                                        <f:facet name="filter">
+                                                                                <p:selectOneMenu onchange="PF('listaSeguros').filter()" >
+                                                                                    <f:selectItem itemLabel="TODOS" itemValue="#{null}" noSelectionOption="true" />
+                                                                                    <f:selectItem itemLabel="ACTIVO" itemValue="1" />
+                                                                                    <f:selectItem itemLabel="DESACTIVO" itemValue="0" />
+                                                                                </p:selectOneMenu>
+                                                                            </f:facet>
+                                                      <h:outputText value="#{item.estado eq 1 ?'ACTIVO':'DESACTIVO'}" >
+                                                        <f:converter converterId="javax.faces.Character" />                                    
+                                                    </h:outputText>
+                                                </p:column>   
+                                               
+
+                                </p:dataTable>
                               
                          
                                <p:separator />
-                                <p:commandButton value="ACEPTAR" update=":form :form:msgs" oncomplete="PF('dlgespecialidad').hide();"  actionListener="#{managedBeanClinica.crearEspecialidad()}"/>
                                 <p:commandButton value="CERRAR" oncomplete="PF('dlgespecialidad').hide();" />  
                             </p:panel>
    
                     </p:dialog>
                 </h:form>
                     
-                    <p:dialog header="GESTIONAR SEGUROS: #{managedBeanClinica.objClinica.nombre.toUpperCase()}"  resizable="false" widgetVar="dlgseguro" showEffect="explode" height="430" width="500">
-                        <h:form id="frm_seguro" >
-
+                      <h:form id="frm_seguro" >
+                        <p:dialog header="GESTIONAR SEGUROS: #{managedBeanClinica.objClinica.nombre.toUpperCase()}"  resizable="false" widgetVar="dlgseguro" showEffect="explode" height="430" width="500">
+                      
                         <p:growl id="messages" showDetail="true" />    
                         <p:panel  style="margin-bottom:10px;">
                                 
                                     <h:panelGrid style="vertical-align: top" columns="3">
                                          <h:outputText value="SEGURO"/>
                                          <p:selectOneMenu id="seguro" filter="true" filterMatchMode="contains" value="#{managedBeanClinica.objDetalleClinicaSeguro.seguro}" converter="seguroConverter">
-                                             <f:selectItem itemLabel="#{managedBeanSeguro.objSeguroVacio.nombre}" itemValue="#{managedBeanClinica.objDetalleClinicaSeguro.seguro}" noSelectionOption="false" />
+                                             <f:selectItem itemLabel="#{managedBeanSeguro.objSeguroVacio.nombre}" itemValue="#{managedBeanClinica.objDetalleClinicaSeguro.seguro}" />
                                              <f:selectItems   value="#{managedBeanClinica.objSeguroItems}"/>	 
                                         </p:selectOneMenu>
-                                         <p:commandButton value="AGREGAR" update=":form :frm_seguro:lista :frm_seguro:seguro :frm_seguro:messages"   actionListener="#{managedBeanClinica.crearSeguro(true)}"/>
+                                         <p:commandButton value="AGREGAR" update=":form :frm_seguro:listaSeguros :frm_seguro:seguro :frm_seguro:messages"   actionListener="#{managedBeanClinica.crearSeguro(true)}"/>
                                  
                                     </h:panelGrid>
                                     <p:separator />
-                                <p:dataTable  id="lista" widgetVar="lista" var="item" value="#{managedBeanClinica.listaobjDetalleClinicaSeguro}" rows="10" scrollable="true" scrollHeight="180"
+                                <p:dataTable  id="listaSeguros" widgetVar="listaSeguros" var="item" value="#{managedBeanClinica.listaobjDetalleClinicaSeguro}" rows="10" scrollable="true" scrollHeight="180"
                                               paginator="true" rowStyleClass="#{item.estado eq 0 ? 'colored' : null}" rowIndexVar="rowIndex" 
                                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                          rowsPerPageTemplate="5,10,15">
@@ -223,16 +276,17 @@
                                                        <h:outputText value="#{rowIndex + 1}" />
                                                 </p:column>
                                                 <p:column style="width:80px;text-align: center">
-                                                   <p:commandButton icon="ui-icon-pencil" update=":frm_clinica :form:msgs" value=""  title="Editar" oncomplete="PF('dlgclinica').show();"  actionListener="#{managedBeanClinica.actualizar(item)}"/>  
-                                                </p:column>
+                                                    <p:commandButton icon="#{item.estado eq 1 ?'ui-icon-trash':'ui-icon-arrowreturnthick-1-w'}" update=":frm_seguro_editar" value=""  title="#{item.estado eq 1 ?'ELIMINAR':'RESTAURAR'}" oncomplete="PF('dlgseguroeditar').show();" actionListener="#{managedBeanClinica.selecionarDetalleSeguro(item)}"/>
+                                                     
+                                                </p:column> 
                                                  <p:column headerText="NOMBRE" filterBy="#{item.seguro.nombre}" style="text-align: center">
-                                                   <h:outputText value="#{item.seguro.nombre}" />
+                                                     <h:outputText value="#{item.seguro.nombre.toUpperCase()}" />
                                                 </p:column>
                                                
 
                                                 <p:column headerText="ESTADO" style="width:95px; text-align: center" filterBy="#{item.estado}" filterMatchMode="contains">
                                                         <f:facet name="filter">
-                                                                                <p:selectOneMenu onchange="PF('lista').filter()" >
+                                                                                <p:selectOneMenu onchange="PF('listaSeguros').filter()" >
                                                                                     <f:selectItem itemLabel="TODOS" itemValue="#{null}" noSelectionOption="true" />
                                                                                     <f:selectItem itemLabel="ACTIVO" itemValue="1" />
                                                                                     <f:selectItem itemLabel="DESACTIVO" itemValue="0" />
@@ -248,9 +302,49 @@
                                <p:separator />
                                <p:commandButton value="CERRAR" oncomplete="PF('dlgseguro').hide();"    />  
                             </p:panel>
-                    </h:form>
+                    
+                      </p:dialog>
+                      </h:form>
+                    
+               <h:form id="frm_seguro_editar" >
+
+                    <p:growl id="messages" showDetail="true" />
+                    <p:dialog header="#{managedBeanClinica.editarSeguro}" closable="true" resizable="false" widgetVar="dlgseguroeditar" showEffect="explode" height="30" width="280">
+
+                        <p:commandButton value="ACEPTAR" update=":form :frm_seguro:listaSeguros :frm_seguro:seguro :frm_seguro:messages"  actionListener="#{managedBeanClinica.crearSeguro(false)}"  oncomplete="PF('dlgseguroeditar').hide();"  />
+
+                         <p:commandButton value="CANCELAR"  styleClass="btn btn-primary" oncomplete="PF('dlgseguroeditar').hide();"/>
                     </p:dialog>
-               
+                </h:form>
+                
+                   <h:form id="frm_especialidad_editar" >
+
+                    <p:growl id="messages" showDetail="true" />
+                    <p:dialog header="#{managedBeanClinica.objDetalleClinicaEspecialidad.especialidad eq null?'':managedBeanClinica.objDetalleClinicaEspecialidad.especialidad.nombre}" closable="true" resizable="false" widgetVar="dlgespecialidadeditar" showEffect="explode" height="170" width="550">
+
+                           <p:panel  style="margin-bottom:10px;">
+                                    <h:panelGrid style="vertical-align: top" columns="4">
+                                         <h:outputText value="HORA DE INICIO ATENCIÓN"/>
+                                         <p:calendar value="#{managedBeanClinica.objDetalleClinicaEspecialidad.horarioInicio}" pattern="hh:mm a" timeOnly="true"  />
+                                         <h:outputText value="HORA DE FIN ATENCIÓN"/>
+                                         <p:calendar value="#{managedBeanClinica.objDetalleClinicaEspecialidad.horarioFin}" pattern="hh:mm a" timeOnly="true"  />
+                                        <h:outputText value="DETALLE DE ATENCIÓN"/>
+                                        <h:inputTextarea rows="2"  value="#{managedBeanClinica.objDetalleClinicaEspecialidad.detalleHorario}"/>
+
+                                        <h:outputText value="ESTADO"/>
+                                        <p:selectOneRadio  value="#{managedBeanClinica.objDetalleClinicaEspecialidad.estado}">
+                                                                        <f:selectItem itemLabel="ACTIVO" itemValue="1" />
+                                                                        <f:selectItem itemLabel="DESACTIVO" itemValue="0" />
+                                        </p:selectOneRadio>
+                                       
+                                    </h:panelGrid>
+                           </p:panel>
+   
+                        <p:commandButton value="ACEPTAR" update=":form :frm_especialidad:listaEspecialidad :frm_especialidad:especialidad :frm_seguro:messages"  actionListener="#{managedBeanClinica.crearEspecialidad()}"  />
+
+                         <p:commandButton value="CANCELAR"  styleClass="btn btn-primary" oncomplete="PF('dlgespecialidadeditar').hide();"/>
+                    </p:dialog>
+                </h:form>
                 <script type="text/javascript">
                     function geocodeClick() {
                           PF('geoMap').geocode(PF('departamento').getSelectedLabel()+' '+PF('provincia').getSelectedLabel()+' '+PF('distrito').getSelectedLabel());

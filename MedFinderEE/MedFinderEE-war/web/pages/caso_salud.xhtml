@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+	<h:body >
+        <ui:composition template="/WEB-INF/templates/default.xhtml">
+            <ui:define name="content">
+            	<p:growl id="mensajes" showDetail="true" />
+            	<h1>GESTIÓN DE DEPARTAMENTO</h1>
+
+                <h:form id="form">
+                            <p:growl id="msgs" showDetail="true" />
+                    <div class="innerLR">
+                        <!-- Widget -->
+                        <!-- Widget -->
+                        <div class="widget">
+                              <h:panelGrid columns="1">
+                              <p:commandButton update=":frm_editar :form:msgs" value="AGREGAR"  oncomplete="PF('dlgeditar').show();" actionListener="#{managedBeanCasosSalud.limpiar()}" /> 
+                               
+                                <p:dataTable  id="lista" widgetVar="lista" var="item" value="#{managedBeanCasosSalud.listaobjCasosSalud}" rows="10" scrollable="true" scrollHeight="180"
+                                              paginator="true" rowStyleClass="#{item.estado eq 0 ? 'colored' : null}" rowIndexVar="rowIndex" 
+                                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                         rowsPerPageTemplate="5,10,15">
+
+
+                                                 <f:facet name="header">
+
+                                                    LISTA DE DEPARTAMENTOS
+                                                </f:facet>
+                                                 <p:column headerText="N°" style="width:15px; text-align: center">
+                                                       <h:outputText value="#{rowIndex + 1}" />
+                                                </p:column>
+                                                <p:column style="width:80px;text-align: center">
+                                                   <p:commandButton icon="ui-icon-pencil" update=":frm_editar :form:msgs" value=""  title="Editar"  oncomplete="PF('dlgeditar').show();" actionListener="#{managedBeanCasosSalud.actualizar(item)}"/>  
+                                                </p:column>
+                                                <p:column headerText="TEMA" filterBy="#{item.tema}" style="text-align: center">
+                                                    <h:outputText value="#{item.tema}" />  
+                                                </p:column>
+                                                <p:column headerText="RESPUESTAS" style="width:75px; text-align: center">
+                                                    <p:commandLink value="#{managedBeanCasosSalud.contar(item.respuestaCasoSaludList)}" update=":frm_respuestas" oncomplete="PF('dlgrespuestas').show();">
+                                                        <f:setPropertyActionListener value="#{item}" target="#{managedBeanCasosSalud.objCasosSalud}"/>                                                
+                                                    </p:commandLink>
+                                                </p:column> 
+                                                 <p:column headerText="FECHA INICIO" style="width:65px; text-align: center">
+                                                    <h:outputText value="#{item.fechaInicio}" >
+                                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                    </h:outputText>
+                                                </p:column>
+                                                <p:column headerText="FECHA FIN" style="width:65px; text-align: center">
+                                                    <h:outputText value="#{item.fechaFin}" >
+                                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                    </h:outputText>
+                                                </p:column>
+                                                <p:column headerText="ESTADO" style="width:95px; text-align: center" filterBy="#{item.estado}" filterMatchMode="contains">
+                                                        <f:facet name="filter">
+                                                                                <p:selectOneMenu onchange="PF('lista').filter()" >
+                                                                                    <f:selectItem itemLabel="TODOS" itemValue="#{null}" noSelectionOption="true" />
+                                                                                    <f:selectItem itemLabel="ACTIVO" itemValue="1" />
+                                                                                    <f:selectItem itemLabel="DESACTIVO" itemValue="0" />
+                                                                                </p:selectOneMenu>
+                                                                            </f:facet>
+                                                      <h:outputText value="#{item.estado eq 1 ?'ACTIVO':'DESACTIVO'}" >
+                                                        <f:converter converterId="javax.faces.Character" />                                    
+                                                    </h:outputText>
+                                                </p:column>     
+                                                 
+
+                                </p:dataTable>
+                            </h:panelGrid>
+                        </div>
+                       
+                        <!-- // Widget END -->
+                    </div>	
+                 
+                </h:form> 
+
+                
+                <h:form id="frm_editar" >
+
+                    <p:growl id="messages" showDetail="true" />
+                    <p:dialog header="#{managedBeanCasosSalud.nuevoTitulo}" closable="true" resizable="false" widgetVar="dlgeditar" showEffect="explode" height="180" width="350">
+                                <h:panelGrid style="vertical-align: top" columns="2">
+                                        <h:outputText value="TEMA"/>
+                                        <h:inputText  value="#{managedBeanCasosSalud.objCasosSalud.tema}"/>
+                                        <h:outputText value="FECHA INICIO"/>   
+                                        <p:calendar value="#{managedBeanCasosSalud.objCasosSalud.fechaInicio}" locale="es" pattern="dd/MM/yyyy"  />
+                                        
+                                        <h:outputText value="FECHA FIN"/>   
+                                        <p:calendar value="#{managedBeanCasosSalud.objCasosSalud.fechaFin}" locale="es" pattern="dd/MM/yyyy"  />
+                                        
+                                        <h:outputText value="ESTADO"/>
+                                        <p:selectOneRadio  value="#{managedBeanCasosSalud.objCasosSalud.estado}">
+                                                                        <f:selectItem itemLabel="ACTIVO" itemValue="1" />
+                                                                        <f:selectItem itemLabel="DESACTIVO" itemValue="0" />
+                                        </p:selectOneRadio>         
+
+                                    </h:panelGrid>
+                        
+                                <p:panel  style="margin-bottom:10px;">
+                                      <p:separator />
+                                           <p:commandButton value="ACEPTAR" update=":form :form:msgs" oncomplete="PF('dlgeditar').hide();"  actionListener="#{managedBeanCasosSalud.crear()}"/>
+                                           <p:commandButton value="CERRAR" update=":form :form:msgs"  oncomplete="PF('dlgeditar').hide();"    actionListener="#{managedBeanCasosSalud.limpiar()}"/>  
+                                </p:panel>
+   
+                    </p:dialog>
+                </h:form>
+                
+                <h:form id="frm_respuestas" >
+                        <p:dialog header="#{managedBeanCasosSalud.objCasosSalud.tema.toUpperCase()}"  resizable="false" widgetVar="dlgrespuestas" showEffect="explode" height="430" width="900">
+                      
+                        <p:growl id="messages" showDetail="true" />    
+                        <p:panel  style="margin-bottom:10px;">
+                            <p:dataTable  id="listaCasos" widgetVar="listaCasos" var="item" value="#{managedBeanCasosSalud.objCasosSalud.respuestaCasoSaludList}" rows="10" scrollable="true" scrollHeight="230"
+                                              paginator="true" rowStyleClass="#{item.estado eq 0 ? 'colored' : null}" rowIndexVar="rowIndex" 
+                                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                         rowsPerPageTemplate="5,10,15">
+
+
+                                                 <f:facet name="header">
+
+                                                    LISTA DE RESPUESTA
+                                                </f:facet>
+                                                 <p:column headerText="N°" style="width:15px; text-align: center">
+                                                       <h:outputText value="#{rowIndex + 1}" />
+                                                </p:column>
+                                                <p:column style="width:80px;text-align: center">
+                                                    <p:commandButton icon="#{item.estado eq 1 ?'ui-icon-trash':'ui-icon-arrowreturnthick-1-w'}" update=":frm_respuesta_editar" value=""  title="#{item.estado eq 1 ?'ELIMINAR':'RESTAURAR'}" oncomplete="PF('dlgrespuestaeditar').show();"  actionListener="#{managedBeanCasosSalud.selecionarRespuesta(item)}"/>
+                                                     
+                                                </p:column> 
+                                                <p:column headerText="DESCRIPCION" filterBy="#{item.descripcion}" style="text-align: center">
+                                                     <h:outputText value="#{item.descripcion.toUpperCase()}" />
+                                                </p:column>
+                                                <p:column headerText="DR. A. PATERNO" filterBy="#{item.doctor.persona.apellidoPaterno}" style="text-align: center">
+                                                     <h:outputText value="#{item.doctor.persona.apellidoPaterno.toUpperCase()}" />
+                                                </p:column>
+                                                <p:column headerText="DR. A. MATERNO" filterBy="#{item.doctor.persona.apellidoMaterno}" style="text-align: center">
+                                                     <h:outputText value="#{item.doctor.persona.apellidoMaterno.toUpperCase()}" />
+                                                </p:column>
+                                                <p:column headerText="DR. NOMBRES" filterBy="#{item.doctor.persona.nombre}" style="text-align: center">
+                                                    <h:outputText value="#{item.doctor.persona.nombre.toUpperCase()}" />
+                                                </p:column>
+                                                <p:column headerText="ESTADO" style="width:95px; text-align: center" filterBy="#{item.estado}" filterMatchMode="contains">
+                                                        <f:facet name="filter">
+                                                                                <p:selectOneMenu onchange="PF('listaCasos').filter()" >
+                                                                                    <f:selectItem itemLabel="TODOS" itemValue="#{null}" noSelectionOption="true" />
+                                                                                    <f:selectItem itemLabel="ACTIVO" itemValue="1" />
+                                                                                    <f:selectItem itemLabel="DESACTIVO" itemValue="0" />
+                                                                                </p:selectOneMenu>
+                                                                            </f:facet>
+                                                      <h:outputText value="#{item.estado eq 1 ?'ACTIVO':'DESACTIVO'}" >
+                                                        <f:converter converterId="javax.faces.Character" />                                    
+                                                    </h:outputText>
+                                                </p:column>   
+                                               
+
+                                </p:dataTable>
+                               <p:separator />
+                               <p:commandButton value="CERRAR" oncomplete="PF('dlgrespuestas').hide();"    />  
+                            </p:panel>
+                    
+                      </p:dialog>
+                      </h:form>
+                
+                <h:form id="frm_respuesta_editar" >
+
+                    <p:growl id="messages" showDetail="true" />
+                    <p:dialog header="#{managedBeanCasosSalud.editarRespuesta}" closable="true" resizable="false" widgetVar="dlgrespuestaeditar" showEffect="explode" height="30" width="280">
+
+                        <p:commandButton value="ACEPTAR" update=":form :frm_respuestas:listaCasos"   actionListener="#{managedBeanCasosSalud.editarRespuesta()}"  oncomplete="PF('dlgrespuestaeditar').hide();"  />
+
+                         <p:commandButton value="CANCELAR"  styleClass="btn btn-primary" oncomplete="PF('dlgrespuestaeditar').hide();"/>
+                    </p:dialog>
+                </h:form>
+            </ui:define>
+            
+        </ui:composition>
+        
+    </h:body>
+    
+</html>

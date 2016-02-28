@@ -27,7 +27,8 @@ public interface PersonaFacadeLocal {
     List<Persona> findAll();
 
     List<Persona> findRange(int[] range);
-
+    List<Persona> lista_Distinct_DoctorFiltro(String dato) ;
+    List<Persona> lista_activos() ;
     int count();
     
 }

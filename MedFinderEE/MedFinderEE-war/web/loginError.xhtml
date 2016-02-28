@@ -19,22 +19,21 @@
         <h:body >
             <ui:composition template="/WEB-INF/templates/defaultWindow.xhtml">
                 <ui:define name="content">
-
-                    <div id="centrado">
-                        
-          
-                        
-                        
-                        
-                        
-                        <form id="slick-login" method="POST" action="j_security_check">
+                    
+                    
+                    <div class="innerLR">
+                        <!-- Widget -->
+                        <!-- Widget -->
+                        <div class="widget">
+                           <form id="slick-login" method="POST" action="j_security_check">  
+                              <h:panelGrid columns="1">
+                               
                             <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
-
-                            <p:panel header="Ingreso a SISCAR" style="width:658px;" class="pshadow">
+                            <p:panel header="INICIO DE SESIÓN" style="width:658px; height:220px;" class="pshadow">
                                 <table>
                                     <tr>
                                         <td rowspan="3">
-                                            <img class="logologin" src="${facesContext.externalContext.requestContextPath}/resources/gfx/logologin.jpg"/>
+                                            <img class="logologin" width="300" height="150"  src="${facesContext.externalContext.requestContextPath}/resources/gfx/logologin.jpg"/>
                                         </td>
                                         <td>
                                             <label for="username" >username</label>
@@ -57,11 +56,18 @@
                                          <input type="submit" value="INGRESAR" />
                                         </td>
                                     </tr>
-                                </table>
-
+                                </table>                                
                             </p:panel>
-                         </form>
-                    </div>
+                       
+                                
+                            </h:panelGrid>
+                                 </form>
+                        </div>
+                       
+                        <!-- // Widget END -->
+                    </div>	
+                 
+              
 
                 </ui:define>           
             </ui:composition>

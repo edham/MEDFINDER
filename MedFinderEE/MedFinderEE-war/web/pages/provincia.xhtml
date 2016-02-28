@@ -23,7 +23,7 @@
                                 <h:panelGrid columns="1" style="display:block; text-align:center">
                                         <h:outputText value="SELECCIONAR UN PROVINCIAS"/>
                                         <p:selectOneMenu filter="true" filterMatchMode="contains" value="#{managedBeanProvincia.objDepartamento}" converter="departamentoConverter">
-                                            <f:selectItem itemLabel="#{managedBeanDepartamento.objDepartamentoVacio.nombre}" itemValue="#{managedBeanProvincia.objDepartamento}" noSelectionOption="false" />
+                                            <f:selectItem itemLabel="#{managedBeanDepartamento.objDepartamentoVacio.nombre}" itemValue="#{managedBeanProvincia.objDepartamento}"  />
                                             <f:selectItems   value="#{managedBeanDepartamento.objDepartamentoItems}"/>	                                        
                                             <p:ajax  update=":form:lista" /> 
                                         </p:selectOneMenu>
@@ -47,9 +47,9 @@
                                                 <h:outputText value="#{item.departamento.nombre}" />
                                                 </p:column>
 
-                                               <p:column headerText="PROVINCIA" style=" text-align: center">
-                                                    <h:outputText value="#{item.nombre}" />
-                                                </p:column>
+                                              <p:column headerText="PROVINCIA" filterBy="#{item.nombre}" style="text-align: center">
+                                                                <h:outputText value="#{item.nombre}" />
+                                               </p:column>
 
                                                <p:column headerText="ESTADO" style="width:95px; text-align: center" filterBy="#{item.estado}" filterMatchMode="contains">
                                                         <f:facet name="filter">

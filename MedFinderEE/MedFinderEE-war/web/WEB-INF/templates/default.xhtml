@@ -21,8 +21,7 @@
     </div>
 </div>
 <div id="usercontent">
-    <img class="logosistema1" src="${facesContext.externalContext.requestContextPath}/resources/gfx/mimp.png"/> 
-    <img class="logosistema2" src="${facesContext.externalContext.requestContextPath}/resources/gfx/siscar.png"/>
+    <img class="logosistema2" src="${facesContext.externalContext.requestContextPath}/resources/gfx/medfinder.png"/>
     
     <c:if test="#{managedBeanLogin.objUsuario !=null}">
         <ul id="nav" class="user">
@@ -43,39 +42,19 @@
 			<li></li>
 		</ul>
 	</li>
-	<li><a href="#">CLINICAS</a>
+	<li><a href="#">GESTIÓN</a>
 		<ul>
+                    
+			<li><a href="/MedFinderEE-war/pages/caso_salud.xhtml">CASOS DE SALUD</a></li>    
+                        <li><a href="/MedFinderEE-war/pages/doctor.xhtml">DOCTORES</a></li>
 			<li><a href="/MedFinderEE-war/pages/clinica.xhtml">CLINICAS</a></li>
+                        
                 </ul>
 	</li>
 	<li><a href="#">MANTENIMIENTO</a>
 		<ul>
-			<li><a href="#">ORGANISMO<span class="flecha">&#9658;</span></a>
-				<ul>
-					<li><a href="/MedFinderEE-war/faces/mantenimiento/estado_organismo.xhtml">ESTADO ORGANISMO</a></li>
-					<li><a href="/MedFinderEE-war/faces/mantenimiento/categoria_organismo.xhtml">CATEGORIA ORGANISMO</a></li>
-					<li><a href="/MedFinderEE-war/faces/mantenimiento/origen_organismo.xhtml">ORIGEN ORGANISMO</a></li>
-					<li><a href="/MedFinderEE-war/faces/mantenimiento/vigencia_organismo.xhtml">VIGENCIA ORGANISMO</a></li>
-					<li><a href="/MedFinderEE-war/faces/mantenimiento/tipo_organismo.xhtml">TIPO ORGANISMO</a></li>
-					<li><a href="/MedFinderEE-war/faces/mantenimiento/subtipo_organismo.xhtml">SUBTIPO ORGANISMO</a></li>
-					<li><a href="/MedFinderEE-war/faces/mantenimiento/subsubtipo_organismo.xhtml">SUB SUBTIPO ORGANISMO</a></li>
-				</ul>
-			</li>
-			<li><a href="/MedFinderEE-war/faces/mantenimiento/cargo_personal.xhtml">CARGO PERSONAL</a></li>
-			<li><a href="/MedFinderEE-war/faces/mantenimiento/estado_albergado.xhtml">ESTADO ALBERGADO</a></li>
-			<li><a href="/MedFinderEE-war/faces/mantenimiento/estado_supervision.xhtml">ESTADO SUPERVISION</a></li>
-			<li><a href="/MedFinderEE-war/faces/mantenimiento/grado_instruccion.xhtml">GRADO INSTRUCCION</a></li>
-			<li><a href="/MedFinderEE-war/faces/mantenimiento/nivel_educacion.xhtml">NIVEL EDUCACION</a></li>
-			<li><a href="/MedFinderEE-war/faces/mantenimiento/linea_actividad.xhtml">LINEA ACTIVIDAD</a></li>
-			<li><a href="/MedFinderEE-war/faces/mantenimiento/modalidad_ingreso.xhtml">MODALIDAD INGRESO</a></li>
-			<li><a href="/MedFinderEE-war/faces/mantenimiento/nacionalidad.xhtml">NACIONALIDAD</a></li>
-			<li><a href="/MedFinderEE-war/faces/mantenimiento/periodo.xhtml">PERIODO</a></li>
-			<li><a href="/MedFinderEE-war/faces/mantenimiento/profesion.xhtml">PROFESION</a></li>
-			<li><a href="/MedFinderEE-war/faces/mantenimiento/subestado_albergado.xhtml">SUB ESTADO ALBERGADO</a></li>
-			<li><a href="/MedFinderEE-war/faces/mantenimiento/tipo_local.xhtml">TIPO LOCAL</a></li>
-			<li><a href="/MedFinderEE-war/faces/mantenimiento/tipo_supervision.xhtml">TIPO SUPERVISION</a></li>
-			<li><a href="/MedFinderEE-war/faces/mantenimiento/variable.xhtml">VARIABLE</a></li>
-			<li><a href="/MedFinderEE-war/faces/mantenimiento/via.xhtml">VIA</a></li>
+			<li><a href="/MedFinderEE-war/pages/especialidad.xhtml">ESPECIALIDAD</a></li>
+                        <li><a href="/MedFinderEE-war/pages/seguro.xhtml">SEGURO</a></li>			
 		</ul>
 	</li>
 	<li><a href="#">UBIGEO</a>
