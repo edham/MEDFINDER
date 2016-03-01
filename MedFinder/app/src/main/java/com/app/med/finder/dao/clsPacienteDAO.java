@@ -13,6 +13,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import com.app.med.finder.entidades.clsPaciente;
 import com.app.med.finder.entidades.clsUsuario;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -27,6 +31,95 @@ import java.util.List;
 public class clsPacienteDAO {
     
     private static String NOMBRE_TABLA="PACIENTE";
+    public static boolean AgregarLogin(Context context,String data,boolean login)
+    {
+        boolean retorno=true;
+        int id;
+        bdSQLite admin=new bdSQLite(context, null);
+        SQLiteDatabase bd=admin.getWritableDatabase();
+        try
+        {
+            if(login)
+                bd.delete(NOMBRE_TABLA, null, null);
+            JSONArray listEmpresaJSON = new JSONArray(data);
+            for(int i=0;i<listEmpresaJSON.length();i++){
+                JSONObject json_data = listEmpresaJSON.getJSONObject(i);
+                ContentValues registro = new ContentValues();
+                registro.put("int_id_paciente",json_data.getInt("pacienteId"));
+                registro.put("str_nombres",json_data.getString("personaNombre"));
+                registro.put("str_apellido_paterno",json_data.getString("personaApellidoPaterno"));
+                registro.put("str_apellido_materno",json_data.getString("personaApellidoMaterno"));
+                registro.put("dat_fecha_nacimiento",new Date(json_data.getLong("personaFechaNacimiento")).getTime());
+                registro.put("int_estatura",json_data.getInt("pacienteEstatura"));
+                registro.put("int_estado",json_data.getInt("pacienteEstado"));
+                registro.put("id_usuario",json_data.getInt("usuarioId"));
+                registro.put("str_dni",json_data.getString("personaDni"));
+                registro.put("int_id_persona",json_data.getInt("personaId"));
+
+                if(json_data.getBoolean("personaSexo"))
+                    registro.put("bol_sexo",1);
+                else
+                    registro.put("bol_sexo",0);
+
+                if(json_data.getInt("pacienteTipo")==1)
+                    registro.put("bol_tipo",1);
+                else
+                    registro.put("bol_tipo",0);
+
+
+                if(json_data.getBoolean("pacienteCardiovascular"))
+                    registro.put("bol_cardiovasculares",1);
+                else
+                    registro.put("bol_cardiovasculares",0);
+
+                if(json_data.getBoolean("pacienteMusculares"))
+                    registro.put("bol_musculares",1);
+                else
+                    registro.put("bol_musculares",0);
+
+                if(json_data.getBoolean("pacienteDigestivos"))
+                    registro.put("bol_digestivos",1);
+                else
+                    registro.put("bol_digestivos",0);
+
+                if(json_data.getBoolean("pacienteAlergicos"))
+                    registro.put("bol_alergicos",1);
+                else
+                    registro.put("bol_alergicos",0);
+
+                if(json_data.getBoolean("pacienteAlcohol"))
+                    registro.put("bol_alcohol",1);
+                else
+                    registro.put("bol_alcohol",0);
+
+                if(json_data.getBoolean("pacienteTabaquismo"))
+                    registro.put("bol_tabaquismo",1);
+                else
+                    registro.put("bol_tabaquismo",0);
+
+                if(json_data.getBoolean("pacienteDrogas"))
+                    registro.put("bol_drogas",1);
+                else
+                    registro.put("bol_drogas",0);
+
+                if(json_data.getBoolean("pacientePsicologicos"))
+                    registro.put("bol_psocilogicos",1);
+                else
+                    registro.put("bol_psocilogicos",0);
+                id = (int) bd.insert(NOMBRE_TABLA, null, registro);
+                if(id==0)
+                {
+                    retorno=false;
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            retorno=false;
+        }
+        bd.close();
+        return retorno;
+    }
      public static int Agregar(Context context,clsPaciente entidad)
     {
         int id = 0;

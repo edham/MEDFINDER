@@ -79,4 +79,10 @@ public class ManagedBeanLogin {
         }
     }
 
+//     public void logoutListener() throws IOException {
+//         Utilidades.Warn("Se ha cerrado la sesión. Hasta luego");
+//         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+//         FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath());
+//
+//    }
 }

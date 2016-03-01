@@ -66,7 +66,7 @@ public class Persona implements Serializable {
     @Size(max = 45)
     @Column(name = "ApellidoMaterno")
     private String apellidoMaterno;
-    @Size(max = 8)
+    @Size(max = 45)
     @Column(name = "DNI")
     private String dni;
     @Lob

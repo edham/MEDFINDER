@@ -15,9 +15,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.med.finder.conexion.ActualizarDataHTTP;
 import com.app.med.finder.conexion.LoginHTTP;
 import com.app.med.finder.dao.*;
 import com.app.med.finder.entidades.*;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.concurrent.ExecutionException;
 
@@ -28,7 +32,9 @@ public class LoginActivity extends Activity
     private EditText txtUsuario;
     private EditText txtPassword;
     private  ProgressDialog pd ;
-    
+	private clsUsuario objUsuario;
+	private boolean validador;
+
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -36,7 +42,9 @@ public class LoginActivity extends Activity
         setContentView(R.layout.login);
         txtUsuario = (EditText)findViewById(R.id.txtUsuario);
         txtPassword = (EditText)findViewById(R.id.txtPassword);
-        
+
+		txtUsuario.setText("12345678");
+		txtPassword.setText("123456");
         TextView lblLink = (TextView)findViewById(R.id.lblLink);
         lblLink.setText(Html.fromHtml(getString(R.string.web)));
         Linkify.addLinks(lblLink, Linkify.ALL);
@@ -44,63 +52,85 @@ public class LoginActivity extends Activity
         if(clsUsuarioDAO.Buscar(this)!=null)
         {
             Intent i=new Intent(this,MenuActivity.class);
-            startActivity(i); 
+            startActivity(i);
         }
-        
-        
+
+
     }
-    
+
     public void btnIngresar(View v)
     {
 
-        LoginHTTP login = new LoginHTTP();
-        login.execute(txtUsuario.getText().toString(), txtPassword.getText().toString());
 
-        try {
-            final String cadena = login.get();
 
-        if(!cadena.trim().equals("0"))
-          {
-	     pd = new ProgressDialog(this);
+	     	pd = new ProgressDialog(this);
             pd.setTitle("Cargando Datos");
-            pd.setMessage("Espere un momento");     
-            pd.show();        
+            pd.setMessage("Espere un momento");
+            pd.show();
+                new Thread() {
+                    public void run() {
+						try {
+							validador = false;
+							LoginHTTP login = new LoginHTTP();
+							login.execute(txtUsuario.getText().toString(), txtPassword.getText().toString());
+							JSONObject entidadJSON = new JSONObject(login.get());
+							if(entidadJSON.getInt("rpta")==1) {
 
-                new Thread() { 
-                    public void run() { 
-			  
-			  String [] datos = cadena.split("\\<+parametro+>");   
-			   clsUsuario objUsuario=new clsUsuario();
-			   objUsuario.setInt_id_usuario(Integer.parseInt(datos[0].trim()));
-			   objUsuario.setStr_nombres(datos[1].trim());
-			   objUsuario.setStr_apellido_paterno(datos[2].trim());
-			   objUsuario.setStr_apellido_materno(datos[3].trim());
-			   objUsuario.setStr_email(datos[4].trim());
-			   objUsuario.setStr_dni(datos[5].trim());
-			   objUsuario.setBol_sexo(Boolean.parseBoolean(datos[6].trim()));
-			   objUsuario.setStr_direccion(datos[7].trim());
-			   objUsuario.setStr_telefono(datos[8].trim());      
-			   objUsuario.setInt_id_persona(Integer.parseInt(datos[9].trim()));          
-			   if(!datos[10].trim().equals("0"))
-				objUsuario.setByte_foto(Base64.decode(datos[10].trim(),Base64.NO_WRAP|Base64.URL_SAFE));           
-			   objUsuario.setStr_usuario(txtUsuario.getText().toString());
-			   objUsuario.setStr_clave(txtPassword.getText().toString());
 
-			   clsUsuarioDAO.Agregar(LoginActivity.this, objUsuario);
+								objUsuario = new clsUsuario();
+								objUsuario.setInt_id_usuario(entidadJSON.getInt("usuarioId"));
+								objUsuario.setStr_nombres(entidadJSON.getString("personaNombre"));
+								objUsuario.setStr_apellido_paterno(entidadJSON.getString("personaApellidoPaterno"));
+								objUsuario.setStr_apellido_materno(entidadJSON.getString("personaApellidoMaterno"));
+								objUsuario.setStr_email(entidadJSON.getString("personaEmail"));
+								objUsuario.setStr_dni(entidadJSON.getString("personaDni"));
+								objUsuario.setBol_sexo(entidadJSON.getBoolean("personaSexo"));
+								objUsuario.setStr_direccion(entidadJSON.getString("personaDireccion"));
+								objUsuario.setStr_telefono(entidadJSON.getString("personaTelefono"));
+								objUsuario.setInt_id_persona(entidadJSON.getInt("personaId"));
+								if (!entidadJSON.getString("personaFoto").equals(""))
+									objUsuario.setByte_foto(Base64.decode(entidadJSON.getString("personaFoto"), Base64.NO_WRAP | Base64.URL_SAFE));
+								objUsuario.setStr_usuario(txtUsuario.getText().toString());
+								objUsuario.setStr_clave(txtPassword.getText().toString());
 
-			    if(!datos[11].trim().equals("0"))
-			    {
-				 String [] entidad = datos[11].trim().split("\\<+entidad+>");
-				 for(int i=0;i<entidad.length;i++)
-				     clsPacienteDAO.Agregar(LoginActivity.this,new clsPaciente(entidad[i]));
-			    }
+								ActualizarDataHTTP actualizar = new ActualizarDataHTTP();
+								actualizar.execute(objUsuario.getInt_id_usuario());
+								JSONObject actualizarJSON = new JSONObject(login.get());
+								if(actualizarJSON.getInt("rpta")==1) {
+									validador = true;
+									if (validador) {
+										if (!clsPacienteDAO.AgregarLogin(LoginActivity.this, entidadJSON.optString("listPacienteJSON"), true))
+											validador = false;
+										if (validador) {
+											if (!clsPreguntaPacienteDAO.AgregarLogin(LoginActivity.this, entidadJSON.optString("listPreguntaPacienteJSON"), true))
+												validador = false;
+											if (validador) {
+												if (!clsEspecialidadDAO.AgregarLogin(LoginActivity.this, actualizarJSON.optString("listEspecialidadJSON"), true))
+													validador = false;
+												if (validador) {
+													if (!clsEspecialidadDAO.AgregarLogin(LoginActivity.this, actualizarJSON.optString("listDetalleClinicaEspecialidadJSON"), true))
+														validador = false;
+												}
+											}
+										}
+									}
+								}
 
-			    if(!datos[12].trim().equals("0"))
-			    {
-				 String [] entidad = datos[12].trim().split("\\<+entidad+>");
-				 for(int i=0;i<entidad.length;i++)
-				     clsEspecialidadDAO.Agregar(LoginActivity.this,new clsEspecialidad(entidad[i]));
-			    }
+							}
+
+
+
+
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						} catch (ExecutionException e) {
+							e.printStackTrace();
+						} catch (JSONException e) {
+							e.printStackTrace();
+						}
+			  /*
+
+
 	      //            
 			    if(!datos[13].trim().equals("0"))
 			    {
@@ -184,22 +214,15 @@ public class LoginActivity extends Activity
 				     clsRespuestaPreguntaPacienteDAO.Agregar(LoginActivity.this,new clsRespuestaPreguntaPaciente(entidad[i]));
 			    }
                     
-			  
-			  
-                          handler.sendEmptyMessage(0);                
-                    } 
-               }.start(); 
-           
+			  */
 
-              }
-         else
-            Toast.makeText(this,"Error de Credenciales.", Toast.LENGTH_SHORT).show();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-       
+                          handler.sendEmptyMessage(0);
+                    }
+               }.start();
+
+
+
+
     }
     
     
@@ -209,8 +232,8 @@ public class LoginActivity extends Activity
             //update UI here depending on what message is received.
             super.handleMessage(msg);
             pd.dismiss();             
-            Intent i=new Intent(LoginActivity.this,MenuActivity.class);
-            startActivity(i); 
+          //  Intent i=new Intent(LoginActivity.this,MenuActivity.class);
+           // startActivity(i);
        
        
         }

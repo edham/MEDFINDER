@@ -26,7 +26,7 @@ import java.util.regex.Pattern;
  * @author Toditos
  */
 public class Funciones {
-    public static String url="http://192.168.1.8:8084/servicio_usuario.jsp";
+    public static String url="http://192.168.0.3:8080/MedFinderEE-war/servicio_usuario";
       public static boolean isDni(String dni){
  
 	Pattern dniPattern = Pattern.compile("(\\d{8})");

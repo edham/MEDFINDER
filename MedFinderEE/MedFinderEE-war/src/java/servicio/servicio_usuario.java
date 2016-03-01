@@ -269,6 +269,7 @@ public class servicio_usuario extends HttpServlet {
                         obj.put("personaApellidoPaterno", objUsuario.getPersona().getApellidoPaterno()); 
                         obj.put("personaApellidoMaterno", objUsuario.getPersona().getApellidoMaterno());
                         obj.put("personaEmail", objUsuario.getPersona().getEmail());
+                        obj.put("personaDni", objUsuario.getPersona().getDni());
                         obj.put("personaSexo", objUsuario.getPersona().getSexo());
                         obj.put("personaDireccion", objUsuario.getPersona().getDireccion());
                         obj.put("personaTelefono", objUsuario.getPersona().getTelefono());

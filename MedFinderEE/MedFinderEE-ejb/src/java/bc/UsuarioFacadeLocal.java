@@ -32,4 +32,6 @@ public interface UsuarioFacadeLocal {
     
     int count();
     Usuario buscarXString(String dato,String columna);
+    List<Usuario> lista_activos();
+    
 }

@@ -14,6 +14,10 @@ import android.database.sqlite.SQLiteDatabase;
 import com.app.med.finder.entidades.clsEspecialidad;
 import com.app.med.finder.entidades.clsPaciente;
 import com.app.med.finder.entidades.clsPreguntaPaciente;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -28,6 +32,43 @@ import java.util.List;
 public class clsPreguntaPacienteDAO {
     
     private static String NOMBRE_TABLA="PREGUNTA_PACIENTE";
+
+    public static boolean AgregarLogin(Context context,String data,boolean login)
+    {
+        boolean retorno=true;
+        int id;
+        bdSQLite admin=new bdSQLite(context, null);
+        SQLiteDatabase bd=admin.getWritableDatabase();
+        try
+        {
+            if(login)
+                bd.delete(NOMBRE_TABLA, null, null);
+            JSONArray listEmpresaJSON = new JSONArray(data);
+            for(int i=0;i<listEmpresaJSON.length();i++){
+                JSONObject json_data = listEmpresaJSON.getJSONObject(i);
+                ContentValues registro = new ContentValues();
+                registro.put("int_id_pregunta_paciente",json_data.getInt("preguntaPacienteId"));
+                registro.put("int_id_paciente",json_data.getInt("pacienteId"));
+                registro.put("int_id_especialidad",json_data.getInt("especialidadId"));
+                registro.put("str_asunto",json_data.getString("preguntaPacienteAsunto"));
+                registro.put("str_paciente_detalle",json_data.getString("preguntaPacienteDetalle"));
+                registro.put("dat_inicio", new Date(json_data.getLong("preguntaPacienteFechaInicio")).getTime());
+                registro.put("int_estado",json_data.getInt("preguntaPacienteEstado"));
+
+                id = (int) bd.insert(NOMBRE_TABLA, null, registro);
+                if(id==0)
+                {
+                    retorno=false;
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            retorno=false;
+        }
+        bd.close();
+        return retorno;
+    }
      public static int Agregar(Context context,clsPreguntaPaciente entidad)
     {
         int id = 0;
