@@ -376,7 +376,7 @@ public class servicio_usuario extends HttpServlet {
                                    for(CasoSaludPuntaje objRespuestaCasosSalud : listRespuestaCasosSaludVotos)
                                    {
                                        JSONObject entidadJSON=new JSONObject();
-                                        entidadJSON.put("casoSaludId",objRespuestaCasosSalud.getRespuestaCasoSalud().getPKId());  
+                                        entidadJSON.put("respuestaCasoSaludId",objRespuestaCasosSalud.getRespuestaCasoSalud().getPKId());  
                                         listRespuestaCasosSaludVotosJSON.put(entidadJSON); 
                                    }   
                                }
@@ -395,7 +395,7 @@ public class servicio_usuario extends HttpServlet {
                                        entidadJSON.put("doctorId", objRespuestaPreguntaPaciente.getDoctor().getPKId()); 
                                        entidadJSON.put("respuestaPreguntaPacienteDetalle", objRespuestaPreguntaPaciente.getDetalle()); 
                                        entidadJSON.put("respuestaPreguntaPacientePuntaje", objRespuestaPreguntaPaciente.getPuntaje()); 
-                                       entidadJSON.put("respuestaPreguntaPacienteFechaRegistr", objRespuestaPreguntaPaciente.getFechaRegistro().getTime());                                                  
+                                       entidadJSON.put("respuestaPreguntaPacienteFechaRegistro", objRespuestaPreguntaPaciente.getFechaRegistro().getTime());                                                  
                                         listRespuestaPreguntaPacienteJSON.put(entidadJSON); 
                                    }
                                }
@@ -530,7 +530,7 @@ public class servicio_usuario extends HttpServlet {
                                        JSONObject entidadJSON=new JSONObject();
                                        entidadJSON.put("detalleClinicaEspecialidadId", objDetalleClinicaEspecialidad.getPKId());
                                        entidadJSON.put("clinicaId", objDetalleClinicaEspecialidad.getClinica().getPKId());
-                                       entidadJSON.put("detalleClinicaEspecialidadId", objDetalleClinicaEspecialidad.getPKId());
+                                       entidadJSON.put("EspecialidadId", objDetalleClinicaEspecialidad.getPKId());
                                        entidadJSON.put("detalleClinicaEspecialidadHorarioInicio", objDetalleClinicaEspecialidad.getHorarioInicio().getTime());
                                        entidadJSON.put("detalleClinicaEspecialidadHorarioFin", objDetalleClinicaEspecialidad.getHorarioFin().getTime());                                       
                                        entidadJSON.put("detalleClinicaEspecialidadDetalleHorario", objDetalleClinicaEspecialidad.getDetalleHorario());
@@ -608,7 +608,6 @@ public class servicio_usuario extends HttpServlet {
                                         entidadJSON.put("doctorTelefono",objDoctor.getTelefono()); 
                                         entidadJSON.put("doctorLongitud",objDoctor.getLongitud()); 
                                         entidadJSON.put("doctorLatitud",objDoctor.getLatitud()); 
-                                        entidadJSON.put("doctorPuntaje",objDoctor.getPuntaje()); 
                                         entidadJSON.put("doctorEspecialidadId",objDoctor.getEspecialidad().getPKId()); 
                                         entidadJSON.put("doctorPuntaje",objDoctor.getPuntaje()); 
                                         if(objDoctor.getPersona().getFoto()==null)

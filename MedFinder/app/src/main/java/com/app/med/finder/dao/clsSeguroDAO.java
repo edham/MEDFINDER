@@ -11,7 +11,13 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Base64;
+
 import com.app.med.finder.entidades.clsSeguro;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,8 +31,44 @@ import java.util.List;
 public class clsSeguroDAO {
     
     private static String NOMBRE_TABLA="SEGURO";
-    
-     public static int Agregar(Context context,clsSeguro entidad)
+
+    public static boolean AgregarLogin(Context context,String data,boolean login)
+    {
+        boolean retorno=true;
+        int id;
+        bdSQLite admin=new bdSQLite(context, null);
+        SQLiteDatabase bd=admin.getWritableDatabase();
+        try
+        {
+            if(login)
+                bd.delete(NOMBRE_TABLA, null, null);
+            JSONArray listEmpresaJSON = new JSONArray(data);
+            for(int i=0;i<listEmpresaJSON.length();i++){
+                JSONObject json_data = listEmpresaJSON.getJSONObject(i);
+                ContentValues registro = new ContentValues();
+                registro.put("int_id_seguro",json_data.getInt("seguroId"));
+                registro.put("str_nombre",json_data.getString("seguroNombre"));
+                registro.put("int_estado",json_data.getInt("seguroEstado"));
+                if(!json_data.getString("seguroLogo").equals(""))
+                    registro.put("byte_logo", Base64.decode(json_data.getString("seguroLogo"), Base64.NO_WRAP | Base64.URL_SAFE));
+
+
+                id = (int) bd.insert(NOMBRE_TABLA, null, registro);
+                if(id==0)
+                {
+                    retorno=false;
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            retorno=false;
+        }
+        bd.close();
+        return retorno;
+    }
+
+    public static int Agregar(Context context,clsSeguro entidad)
     {
         int id = 0;
         bdSQLite admin=new bdSQLite(context,null);

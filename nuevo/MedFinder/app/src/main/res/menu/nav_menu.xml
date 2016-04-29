@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_busqueda"
+            android:checked="true"
+            android:icon="@drawable/busqueda"
+            android:title="@string/inicio_item" />
+
+        <item
+            android:id="@+id/nav_consultas"
+            android:icon="@drawable/inicio"
+            android:title="@string/consulta_item" />
+
+
+        <item
+            android:id="@+id/nav_clinicas"
+            android:icon="@drawable/clinicas"
+            android:title="@string/clinicas_item" />
+        <item
+            android:id="@+id/nav_familares"
+            android:icon="@drawable/familiares"
+            android:title="@string/familiares_item" />
+        <item
+            android:id="@+id/nav_citas"
+            android:icon="@drawable/citas"
+            android:title="@string/cintas_item" />
+        <item
+            android:id="@+id/nav_favoritos"
+            android:icon="@drawable/favorito"
+            android:title="@string/favoritos_item" />
+        <item
+            android:id="@+id/nav_casos"
+            android:icon="@drawable/casos"
+            android:title="@string/casos_item" />
+        <item
+            android:id="@+id/nav_informacion"
+            android:icon="@drawable/informacion"
+            android:title="@string/informacion_item" />
+
+        <!-- Sección de configuración -->
+        <item
+            android:title="@string/configuracion_item">
+            <menu>
+                <item
+                    android:id="@+id/nav_ayuda"
+                    android:icon="@drawable/ayuda"
+                    android:title="@string/ayuda_item" />
+                <item
+                    android:id="@+id/nav_cerrar"
+                    android:icon="@drawable/salir"
+                    android:title="@string/cerrar_item" />
+            </menu>
+        </item>
+    </group>
+
+</menu>

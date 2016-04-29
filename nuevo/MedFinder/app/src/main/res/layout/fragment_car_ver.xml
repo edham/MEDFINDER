@@ -1,0 +1,2567 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/margin_1"
+            android:orientation="vertical">
+
+            <Gallery
+                android:id="@+id/gallery1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                />
+
+
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:background="@drawable/barra_oscura"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/lblTitulo"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_1"
+                    android:layout_marginBottom="@dimen/margin_1"
+                    android:gravity="center"
+                    android:text="@string/centro_atencion_ficha"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="?android:textColorTertiary"
+                    android:textSize="@dimen/text_3"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:id="@+id/viewPadre"
+            android:orientation="vertical">
+
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/barra"
+                android:layout_marginTop="@dimen/margin_1"
+                android:layout_marginLeft="@dimen/margin_1"
+                android:layout_marginRight="@dimen/margin_1"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/lblTNInstitucion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/margin_1"
+                    android:text="@string/institucion_ficha"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="?android:textColorSecondary"
+                    android:textSize="@dimen/text_2"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_1"
+                android:layout_marginRight="@dimen/margin_1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="@string/hint_texto"
+                    android:textSize="@dimen/text_2"
+                    android:typeface="normal"
+                    android:gravity="center"
+                    android:minHeight="@dimen/dimen_5"
+                    android:textColor="?android:textColorSecondary"
+                    android:background="@drawable/border_text_1"
+                    android:id="@+id/lblNInstitucion" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+
+
+
+
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/barra"
+            android:layout_marginTop="@dimen/margin_2"
+            android:layout_marginLeft="@dimen/margin_1"
+            android:layout_marginRight="@dimen/margin_1"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/lblDatos"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center|left"
+                android:paddingLeft="@dimen/margin_1"
+                android:drawableRight="@drawable/closed"
+                android:text="@string/datos_generales_inscripcion_anexo_1"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="?android:textColorSecondary"
+                android:textSize="@dimen/text_2"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+    <LinearLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            android:id="@+id/viewDatosGenerales"
+            android:orientation="vertical">
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_1"
+                android:layout_marginLeft="@dimen/margin_1"
+                android:layout_marginRight="@dimen/margin_1"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/lblNNombre"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="3"
+                    android:gravity="right|center"
+                    android:paddingRight="@dimen/margin_1"
+                    android:minHeight="@dimen/dimen_3"
+                    android:background="@drawable/barra_clara"
+                    android:text="@string/car_nombre_ficha"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="?android:textColorSecondary"
+                    android:textSize="@dimen/text_1"
+                    android:textStyle="bold" />
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:minHeight="@dimen/dimen_3"
+                    android:gravity="center"
+                    android:enabled="false"
+                    android:hint="@string/hint_texto"
+                    android:textSize="@dimen/text_2"
+                    android:textColor="?android:textColorSecondary"
+                    android:background="@drawable/border_text_1"
+                    android:id="@+id/txtNombre" />
+
+            </LinearLayout>
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/margin_1"
+                android:layout_marginLeft="@dimen/margin_1"
+                android:layout_marginRight="@dimen/margin_1"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/lblTipo"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:minHeight="@dimen/dimen_3"
+                    android:layout_weight="1"
+                    android:gravity="right|center"
+                    android:paddingRight="@dimen/margin_1"
+                    android:background="@drawable/barra_clara"
+                    android:text="@string/tipo_inscripcion_anexo_1"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="?android:textColorSecondary"
+                    android:textSize="@dimen/text_1"
+                    android:textStyle="bold" />
+                <Spinner
+                    android:id="@+id/ComboTipo"
+                    android:minHeight="@dimen/dimen_3"
+                    android:enabled="false"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_text_1"
+                    android:layout_gravity="center"
+                    />
+                <TextView
+                    android:id="@+id/lblSubTipo"
+                    android:layout_width="fill_parent"
+                    android:minHeight="@dimen/dimen_3"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:gravity="right|center"
+                    android:paddingRight="@dimen/margin_1"
+                    android:background="@drawable/barra_clara"
+                    android:text="@string/sub_tipo_inscripcion_anexo_1"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="?android:textColorSecondary"
+                    android:textSize="@dimen/text_1"
+                    android:textStyle="bold" />
+                <Spinner
+                    android:id="@+id/ComboSubTipo"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/dimen_3"
+                    android:enabled="false"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_text_1"
+                    android:layout_gravity="center"
+                    />
+
+            </LinearLayout>
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/margin_1"
+                android:layout_marginLeft="@dimen/margin_1"
+                android:layout_marginRight="@dimen/margin_1"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/lblSubSubTipo"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:minHeight="@dimen/dimen_3"
+                    android:layout_weight="1"
+                    android:gravity="right|center"
+                    android:paddingRight="@dimen/margin_1"
+                    android:background="@drawable/barra_clara"
+                    android:text="@string/sub_sub_tipo_inscripcion_anexo_1"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="?android:textColorSecondary"
+                    android:textSize="@dimen/text_1"
+                    android:textStyle="bold" />
+                <Spinner
+                    android:id="@+id/ComboSubSubTipo"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/dimen_3"
+                    android:enabled="false"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_text_1"
+                    android:layout_gravity="center"
+                    />
+                <TextView
+                    android:id="@+id/lblCatInstitucion"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:minHeight="@dimen/dimen_3"
+                    android:layout_weight="1"
+                    android:gravity="right|center"
+                    android:paddingRight="@dimen/margin_1"
+                    android:background="@drawable/barra_clara"
+                    android:text="@string/catinstitucion_inscripcion_anexo_1"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="?android:textColorSecondary"
+                    android:textSize="@dimen/text_1"
+                    android:textStyle="bold" />
+                <Spinner
+                    android:id="@+id/ComboCategoria"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/dimen_3"
+                    android:enabled="false"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_text_1"
+                    android:layout_gravity="center"
+                    />
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/margin_1"
+                android:layout_marginLeft="@dimen/margin_1"
+                android:layout_marginRight="@dimen/margin_1"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/lblTFechaInicio"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:minHeight="@dimen/dimen_3"
+                    android:layout_weight="1"
+                    android:gravity="right|center"
+                    android:paddingRight="@dimen/margin_1"
+                    android:background="@drawable/barra_clara"
+                    android:text="@string/inicio_ficha"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="?android:textColorSecondary"
+                    android:textSize="@dimen/text_1"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/lblFecSolicitud"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/dimen_3"
+                    android:enabled="false"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:background="@drawable/border_text_1"
+                    android:drawableLeft="@drawable/calendar"
+                    android:text="01/01/1999"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="?android:textColorSecondary"
+                    android:textSize="@dimen/text_1"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/lblTFechaCulminacion"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:minHeight="@dimen/dimen_3"
+                    android:layout_weight="1"
+                    android:gravity="right|center"
+                    android:paddingRight="@dimen/margin_1"
+                    android:background="@drawable/barra_clara"
+                    android:text="@string/culminacion_ficha"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="?android:textColorSecondary"
+                    android:textSize="@dimen/text_1"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/lblFecCreacion"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/dimen_3"
+                    android:enabled="false"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:background="@drawable/border_text_1"
+                    android:drawableLeft="@drawable/calendar"
+                    android:text="01/01/1999"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="?android:textColorSecondary"
+                    android:textSize="@dimen/text_1"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+                <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/barra"
+                android:layout_marginTop="@dimen/margin_2"
+                android:layout_marginLeft="@dimen/margin_1"
+                android:layout_marginRight="@dimen/margin_1"
+                android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/lblDResponsable"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center|left"
+                        android:paddingLeft="@dimen/margin_1"
+                        android:drawableRight="@drawable/closed"
+                        android:text="@string/datos_responsable_inscripcion_anexo_1"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="?android:textColorSecondary"
+                        android:textSize="@dimen/text_2"
+                        android:textStyle="bold" />
+
+            </LinearLayout>
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/viewDResponsable"
+                android:visibility="visible"
+                android:orientation="vertical">
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/margin_1"
+                android:layout_marginLeft="@dimen/margin_1"
+                android:layout_marginRight="@dimen/margin_1"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/lblAPaterno"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:minHeight="@dimen/dimen_3"
+                    android:layout_weight="1"
+                    android:gravity="right|center"
+                    android:paddingRight="@dimen/margin_1"
+                    android:background="@drawable/barra_clara"
+                    android:text="@string/ape_paterno_inscripcion_anexo_1"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="?android:textColorSecondary"
+                    android:textSize="@dimen/text_1"
+                    android:textStyle="bold" />
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:minHeight="@dimen/dimen_3"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="?android:textColorSecondary"
+                    android:hint="@string/hint_texto"
+                    android:textSize="@dimen/text_2"
+                    android:background="@drawable/border_text_1"
+                    android:id="@+id/txtAPaterno" />
+                <TextView
+                    android:id="@+id/lblAMaterno"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:minHeight="@dimen/dimen_3"
+                    android:layout_weight="1"
+                    android:gravity="right|center"
+                    android:paddingRight="@dimen/margin_1"
+                    android:background="@drawable/barra_clara"
+                    android:text="@string/ape_materno_inscripcion_anexo_1"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="?android:textColorSecondary"
+                    android:textSize="@dimen/text_1"
+                    android:textStyle="bold" />
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:minHeight="@dimen/dimen_3"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="?android:textColorSecondary"
+                    android:hint="@string/hint_texto"
+                    android:textSize="@dimen/text_2"
+                    android:background="@drawable/border_text_1"
+                    android:id="@+id/txtAMaterno" />
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_1"
+                android:layout_marginLeft="@dimen/margin_1"
+                android:layout_marginRight="@dimen/margin_1"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/lblNombres"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:minHeight="@dimen/dimen_3"
+                    android:layout_weight="3"
+                    android:gravity="right|center"
+                    android:paddingRight="@dimen/margin_1"
+                    android:background="@drawable/barra_clara"
+                    android:text="@string/nombres_inscripcion_anexo_1"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="?android:textColorSecondary"
+                    android:textSize="@dimen/text_1"
+                    android:textStyle="bold" />
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:minHeight="@dimen/dimen_3"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:hint="@string/hint_texto"
+                    android:textSize="@dimen/text_2"
+                    android:textColor="?android:textColorSecondary"
+                    android:background="@drawable/border_text_1"
+                    android:id="@+id/txtNombres" />
+
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/margin_1"
+                android:layout_marginLeft="@dimen/margin_1"
+                android:layout_marginRight="@dimen/margin_1"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/lblCargo"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:minHeight="@dimen/dimen_3"
+                    android:layout_weight="1"
+                    android:gravity="right|center"
+                    android:paddingRight="@dimen/margin_1"
+                    android:background="@drawable/barra_clara"
+                    android:text="@string/cargo_inscripcion_anexo_1"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="?android:textColorSecondary"
+                    android:textSize="@dimen/text_1"
+                    android:textStyle="bold" />
+                <Spinner
+                    android:id="@+id/ComboCargo"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:minHeight="@dimen/dimen_3"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_text_1"
+                    android:layout_gravity="center"
+                    />
+                <TextView
+                    android:id="@+id/lblTRTelefono"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:minHeight="@dimen/dimen_3"
+                    android:layout_weight="1"
+                    android:gravity="right|center"
+                    android:paddingRight="@dimen/margin_1"
+                    android:background="@drawable/barra_clara"
+                    android:text="@string/telefono_inscripcion_anexo_1"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="?android:textColorSecondary"
+                    android:textSize="@dimen/text_1"
+                    android:textStyle="bold" />
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:minHeight="@dimen/dimen_3"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="?android:textColorSecondary"
+                    android:hint="@string/hint_numero"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:digits="0123456789_-#+*/ "
+                    android:textSize="@dimen/text_2"
+                    android:background="@drawable/border_text_1"
+                    android:id="@+id/txtRTelefono" />
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
+
+
+
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/barra"
+                android:layout_marginTop="@dimen/margin_2"
+                android:layout_marginLeft="@dimen/margin_1"
+                android:layout_marginRight="@dimen/margin_1"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/lblUbiFisica"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|left"
+                    android:drawableRight="@drawable/closed"
+                    android:paddingLeft="@dimen/margin_1"
+                    android:text="@string/ubi_fisica_inscripcion_anexo_1"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="?android:textColorSecondary"
+                    android:textSize="@dimen/text_2"
+                    android:textStyle="bold" />
+            </LinearLayout>
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:id="@+id/viewUbiFisica"
+                android:orientation="vertical">
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_1"
+                android:layout_marginLeft="@dimen/margin_1"
+                android:layout_marginRight="@dimen/margin_1"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/lblDirSede"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:minHeight="@dimen/dimen_3"
+                    android:layout_weight="1.5"
+                    android:gravity="right|center"
+                    android:paddingRight="@dimen/margin_1"
+                    android:background="@drawable/barra_clara"
+                    android:text="@string/dir_sede_inscripcion_anexo_1"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="?android:textColorSecondary"
+                    android:textSize="@dimen/text_1"
+                    android:textStyle="bold" />
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/dimen_3"
+                    android:enabled="false"
+                    android:layout_weight="1"
+                    android:hint="@string/hint_texto"
+                    android:textSize="@dimen/text_2"
+                    android:typeface="normal"
+                    android:inputType="textMultiLine"
+                    android:gravity="center"
+                    android:lines="2"
+                    android:textColor="?android:textColorSecondary"
+                    android:background="@drawable/border_text_1"
+                    android:id="@+id/txtDirSede" />
+                <Button
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/dimen_3"
+                    android:text="@string/btn_ubicar"
+                    android:layout_weight="1.7"
+                    android:gravity="center"
+                    android:textSize="@dimen/text_3"
+                    android:textColor="?android:textColorTertiary"
+                    android:background="@drawable/button_red"
+                    android:id="@+id/btnUbicar" />
+
+            </LinearLayout>
+
+                <LinearLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginLeft="@dimen/margin_1"
+                    android:layout_marginRight="@dimen/margin_1"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/lblUbigeo"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:gravity="left|center"
+                        android:paddingRight="@dimen/margin_1"
+                        android:background="@drawable/barra_clara"
+                        android:text="@string/ubi_sede_inscripcion_anexo_1"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="?android:textColorSecondary"
+                        android:textSize="@dimen/text_1"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/margin_1"
+                    android:layout_marginLeft="@dimen/margin_1"
+                    android:layout_marginRight="@dimen/margin_1"
+                    android:orientation="horizontal">
+                    <LinearLayout android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/lblVia"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:minHeight="@dimen/dimen_3"
+                            android:layout_weight="2"
+                            android:gravity="right|center"
+                            android:paddingRight="@dimen/margin_1"
+                            android:background="@drawable/barra_clara"
+                            android:text="@string/via_inscripcion_anexo_1"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textColor="?android:textColorSecondary"
+                            android:textSize="@dimen/text_1"
+                            android:textStyle="bold" />
+                        <Spinner
+                            android:id="@+id/ComboVia"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="@dimen/dimen_3"
+                            android:layout_weight="1"
+                            android:background="@drawable/border_text_1"
+                            android:layout_gravity="center"
+                            />
+                    </LinearLayout>
+                    <LinearLayout android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/lblDepartamento"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:minHeight="@dimen/dimen_3"
+                            android:layout_weight="2"
+                            android:gravity="right|center"
+                            android:paddingRight="@dimen/margin_1"
+                            android:background="@drawable/barra_clara"
+                            android:text="@string/departamento_ficha"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textColor="?android:textColorSecondary"
+                            android:textSize="@dimen/text_1"
+                            android:textStyle="bold" />
+                        <Spinner
+                            android:id="@+id/ComboDepartamento"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="@dimen/dimen_3"
+                            android:layout_weight="1"
+                            android:background="@drawable/border_text_1"
+                            android:layout_gravity="center"
+                            />
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginLeft="@dimen/margin_1"
+                    android:layout_marginRight="@dimen/margin_1"
+                    android:layout_marginTop="@dimen/margin_1"
+                    android:orientation="horizontal">
+                    <LinearLayout android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/lblProvincia"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:minHeight="@dimen/dimen_3"
+                            android:layout_weight="2"
+                            android:gravity="right|center"
+                            android:paddingRight="@dimen/margin_1"
+                            android:background="@drawable/barra_clara"
+                            android:text="@string/provincia_ficha"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textColor="?android:textColorSecondary"
+                            android:textSize="@dimen/text_1"
+                            android:textStyle="bold" />
+
+                        <Spinner
+                            android:id="@+id/ComboProvincia"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="@dimen/dimen_3"
+                            android:layout_weight="1"
+                            android:background="@drawable/border_text_1"
+                            android:layout_gravity="center"
+                            />
+                    </LinearLayout>
+                    <LinearLayout android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/lblDistrito"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:minHeight="@dimen/dimen_3"
+                            android:layout_weight="2"
+                            android:gravity="right|center"
+                            android:paddingRight="@dimen/margin_1"
+                            android:background="@drawable/barra_clara"
+                            android:text="@string/distrito_ficha"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textColor="?android:textColorSecondary"
+                            android:textSize="@dimen/text_1"
+                            android:textStyle="bold" />
+                        <Spinner
+                            android:id="@+id/ComboDistrito"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="@dimen/dimen_3"
+                            android:layout_weight="1"
+                            android:background="@drawable/border_text_1"
+                            android:layout_gravity="center"
+                            />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_1"
+                android:layout_marginLeft="@dimen/margin_1"
+                android:layout_marginRight="@dimen/margin_1"
+                android:orientation="horizontal">
+                <LinearLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/lblTITTelefono"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:minHeight="@dimen/dimen_3"
+                        android:layout_weight="2"
+                        android:gravity="right|center"
+                        android:paddingRight="@dimen/margin_1"
+                        android:background="@drawable/barra_clara"
+                        android:text="@string/fono_sede_inscripcion_anexo_1"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="?android:textColorSecondary"
+                        android:textSize="@dimen/text_1"
+                        android:textStyle="bold" />
+                    <EditText
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/dimen_3"
+                        android:layout_weight="1"
+                        android:enabled="false"
+                        android:gravity="center"
+                        android:textColor="?android:textColorSecondary"
+                        android:hint="@string/hint_numero"
+                        android:textSize="@dimen/text_2"
+                        android:drawableLeft="@drawable/fono"
+                        android:background="@drawable/border_text_1"
+                        android:id="@+id/txtTITTelefono" />
+
+
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/lblFax"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:minHeight="@dimen/dimen_3"
+                        android:layout_weight="2"
+                        android:gravity="right|center"
+                        android:paddingRight="@dimen/margin_1"
+                        android:background="@drawable/barra_clara"
+                        android:text="@string/fax_sede_inscripcion_anexo_1"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="?android:textColorSecondary"
+                        android:textSize="@dimen/text_1"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/dimen_3"
+                        android:layout_weight="1"
+                        android:enabled="false"
+                        android:gravity="center"
+                        android:textColor="?android:textColorSecondary"
+                        android:hint="@string/hint_numero"
+                        android:textSize="@dimen/text_2"
+                        android:drawableLeft="@drawable/fax"
+                        android:background="@drawable/border_text_1"
+                        android:id="@+id/txtFax" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_1"
+                android:layout_marginLeft="@dimen/margin_1"
+                android:layout_marginRight="@dimen/margin_1"
+                android:orientation="horizontal">
+                <LinearLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/lblWeb"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:minHeight="@dimen/dimen_3"
+                        android:layout_weight="2"
+                        android:gravity="right|center"
+                        android:paddingRight="@dimen/margin_1"
+                        android:background="@drawable/barra_clara"
+                        android:text="@string/web_sede_inscripcion_anexo_1"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="?android:textColorSecondary"
+                        android:textSize="@dimen/text_1"
+                        android:textStyle="bold" />
+                    <EditText
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/dimen_3"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:hint="@string/hint_texto"
+                        android:enabled="false"
+                        android:textSize="@dimen/text_2"
+                        android:textColor="?android:textColorSecondary"
+                        android:background="@drawable/border_text_1"
+                        android:id="@+id/txtWeb" />
+
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/lblEmail"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:minHeight="@dimen/dimen_3"
+                        android:layout_weight="2"
+                        android:gravity="right|center"
+                        android:paddingRight="@dimen/margin_1"
+                        android:background="@drawable/barra_clara"
+                        android:text="@string/email_sede_inscripcion_anexo_1"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="?android:textColorSecondary"
+                        android:textSize="@dimen/text_1"
+                        android:textStyle="bold" />
+                    <EditText
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/dimen_3"
+                        android:layout_weight="1"
+                        android:enabled="false"
+                        android:gravity="center"
+                        android:hint="@string/hint_texto"
+                        android:textSize="@dimen/text_2"
+                        android:inputType="textEmailAddress"
+                        android:textColor="?android:textColorSecondary"
+                        android:background="@drawable/border_text_1"
+                        android:id="@+id/txtEmail" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/margin_1"
+                android:layout_marginLeft="@dimen/margin_1"
+                android:layout_marginRight="@dimen/margin_1"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/lblHAtencion"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:minHeight="@dimen/dimen_3"
+                    android:layout_weight="0.5"
+                    android:gravity="right|center"
+                    android:paddingRight="@dimen/margin_1"
+                    android:background="@drawable/barra_clara"
+                    android:text="@string/hor_atencion_inscripcion_anexo_1"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="?android:textColorSecondary"
+                    android:textSize="@dimen/text_1"
+                    android:textStyle="bold" />
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:minHeight="@dimen/dimen_3"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:enabled="false"
+                    android:textColor="?android:textColorSecondary"
+                    android:hint="@string/hint_numero"
+                    android:textSize="@dimen/text_2"
+                    android:background="@drawable/border_text_1"
+                    android:id="@+id/txtHAtencion" />
+                <TextView
+                    android:id="@+id/lblLocal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:minHeight="@dimen/dimen_3"
+                    android:layout_weight="0.5"
+                    android:gravity="right|center"
+                    android:paddingRight="@dimen/margin_1"
+                    android:background="@drawable/barra_clara"
+                    android:text="@string/tip_local_inscripcion_anexo_1"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="?android:textColorSecondary"
+                    android:textSize="@dimen/text_1"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/ComboTipoLocal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/dimen_3"
+                    android:enabled="false"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/border_text_1"
+                    android:layout_gravity="center"
+                    />
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+
+
+
+
+
+
+
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/barra"
+                android:layout_marginTop="@dimen/margin_2"
+                android:layout_marginLeft="@dimen/margin_1"
+                android:layout_marginRight="@dimen/margin_1"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/lblInfTecnica"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|left"
+                    android:drawableRight="@drawable/closed"
+                    android:paddingLeft="@dimen/margin_1"
+                    android:text="@string/inf_tecnica_inscripcion_anexo_1"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="?android:textColorSecondary"
+                    android:textSize="@dimen/text_2"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/viewInfTecnica"
+                android:visibility="gone"
+                android:orientation="vertical">
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_1"
+                android:layout_marginRight="@dimen/margin_1"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/lblObejtivo"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginTop="@dimen/margin_1"
+                    android:gravity="left|center"
+                    android:paddingLeft="@dimen/margin_2"
+                    android:background="@drawable/barra_clara"
+                    android:text="@string/obj_principal_inscripcion_anexo_1"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="?android:textColorSecondary"
+                    android:textSize="@dimen/text_1"
+                    android:textStyle="bold" />
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_texto"
+                    android:textSize="@dimen/text_2"
+                    android:typeface="normal"
+                    android:inputType="textMultiLine"
+                    android:gravity="center"
+                    android:lines="4"
+                    android:textColor="?android:textColorSecondary"
+                    android:background="@drawable/border_text_1"
+                    android:id="@+id/txtObejtivo" />
+
+            </LinearLayout>
+                <LinearLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/barra"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/margin_1"
+                    android:layout_marginLeft="@dimen/margin_1"
+                    android:layout_marginRight="@dimen/margin_1"
+                    android:orientation="horizontal">
+
+                    .<TextView
+                    android:id="@+id/lblLActividad"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="left|center"
+                    android:paddingLeft="@dimen/margin_2"
+                    android:text="@string/lineas_actividad_ficha"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="?android:textColorSecondary"
+                    android:textSize="@dimen/text_1"
+                    android:textStyle="bold" />
+
+                </LinearLayout>
+
+                 <LinearLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_1"
+                    android:layout_marginRight="@dimen/margin_1"
+                    android:layout_marginLeft="@dimen/margin_1"
+                    android:gravity="center"
+                     android:visibility="gone"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:minHeight="@dimen/dimen_3"
+                        android:layout_weight="2"
+                        android:gravity="right|center"
+                        android:paddingRight="@dimen/margin_1"
+                        android:background="@drawable/barra_clara"
+                        android:text="@string/car_nombre_ficha"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="?android:textColorSecondary"
+                        android:textSize="@dimen/text_1"
+                        android:textStyle="bold" />
+                    <LinearLayout android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <Spinner
+                            android:id="@+id/ComboLineaActividad"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="@dimen/dimen_3"
+                            android:background="@drawable/border_text_1"
+                            android:layout_gravity="center"
+                            />
+
+                    </LinearLayout>
+
+
+
+
+                </LinearLayout>
+
+
+                <LinearLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:layout_marginTop="@dimen/margin_1"
+                    android:layout_marginLeft="@dimen/margin_1"
+                    android:layout_marginRight="@dimen/margin_1"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:layout_width="@dimen/dimen_20"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/margin_1"
+                        android:text="@string/btn_agregar"
+                        android:visibility="gone"
+                        android:gravity="center"
+                        android:textSize="@dimen/text_3"
+                        android:textColor="?android:textColorTertiary"
+                        android:background="@drawable/button_red"
+                        android:id="@+id/btnLineaActividad" />
+
+                </LinearLayout>
+
+                <LinearLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_1"
+                    android:layout_marginRight="@dimen/margin_1"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:background="@drawable/barra"
+                        android:layout_weight="1"
+                        android:text="@string/nro_bandeja"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="?android:textColorSecondary"
+                        android:textSize="@dimen/text_2"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:background="@drawable/barra"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:gravity="center"
+                        android:visibility="gone"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:background="@drawable/barra"
+                        android:layout_weight="0.1"
+                        android:text="@string/car_nombre_ficha"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="?android:textColorSecondary"
+                        android:textSize="@dimen/text_2"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
+                <ListView
+                android:id="@+id/listActividad"
+                android:layout_marginLeft="@dimen/margin_1"
+                android:layout_marginRight="@dimen/margin_1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+
+
+
+            .<TextView
+            android:id="@+id/lblPoblacionObjetivo"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="@dimen/margin_2"
+            android:layout_marginLeft="@dimen/margin_1"
+            android:layout_marginRight="@dimen/margin_1"
+            android:gravity="left|center"
+            android:paddingLeft="@dimen/margin_1"
+            android:drawableRight="@drawable/closed"
+            android:background="@drawable/barra"
+            android:text="@string/poblacion_obejetivo_ficha"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="?android:textColorSecondary"
+            android:textSize="@dimen/text_2"
+            android:textStyle="bold" />
+
+
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/viewPoblacionObjetivo"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_1"
+            android:layout_marginRight="@dimen/margin_1"
+            android:layout_marginTop="@dimen/margin_1"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <LinearLayout android:layout_width="@dimen/dimen_20"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/dimen_6"
+                    android:background="@drawable/barra_clara"
+                    android:gravity="center"
+                    android:text="@string/descripcion_actividad_ficha"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="?android:textColorSecondary"
+                    android:textSize="@dimen/text_2"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/barra"
+                    android:gravity="center"
+                    android:layout_weight="0.6"
+                    android:paddingLeft="@dimen/margin_1"
+                    android:text="@string/rango_edad_ficha"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="?android:textColorSecondary"
+                    android:textSize="@dimen/text_2"
+                    android:textStyle="bold" />
+
+
+                <ListView
+                    android:id="@+id/listRangosPoblacion"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="@drawable/barra"
+                    android:gravity="center"
+                    android:layout_weight="0.6"
+                    android:text="@string/total_inscripcion_anexo_1"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="?android:textColorSecondary"
+                    android:textSize="@dimen/text_2"
+                    android:textStyle="bold" />
+                <Button
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/btn_agregar"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textSize="@dimen/text_3"
+                    android:visibility="gone"
+                    android:textColor="?android:textColorTertiary"
+                    android:background="@drawable/button_red"
+                    android:id="@+id/btnAgregarPoblacion" />
+
+                </LinearLayout>
+
+
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left|top"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+                <org.lucasr.twowayview.TwoWayView
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/listPoblacionObjetivaTotal"
+                    style="@style/TwoWayView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+
+
+
+
+            </LinearLayout>
+
+
+
+
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_1"
+                android:layout_marginRight="@dimen/margin_1"
+                android:orientation="horizontal">
+                <LinearLayout android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1.1"
+                    android:orientation="horizontal">
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+
+
+
+
+
+            .<TextView
+            android:id="@+id/lblModalidadIngreso"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="@dimen/margin_2"
+            android:layout_marginLeft="@dimen/margin_1"
+            android:layout_marginRight="@dimen/margin_1"
+            android:gravity="left|center"
+            android:paddingLeft="@dimen/margin_1"
+            android:drawableRight="@drawable/closed"
+            android:background="@drawable/barra"
+            android:text="@string/modalidad_ingreso_ficha"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="?android:textColorSecondary"
+            android:textSize="@dimen/text_2"
+            android:textStyle="bold" />
+
+
+
+
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/viewModalidadIngreso"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+
+
+
+
+
+
+
+
+
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_1"
+                android:layout_marginRight="@dimen/margin_1"
+                android:layout_marginTop="@dimen/margin_1"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <LinearLayout android:layout_width="@dimen/dimen_20"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="@dimen/dimen_6"
+                        android:background="@drawable/barra_clara"
+                        android:gravity="center"
+                        android:text="@string/descripcion_actividad_ficha"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="?android:textColorSecondary"
+                        android:textSize="@dimen/text_2"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/barra"
+                        android:gravity="center"
+                        android:layout_weight="0.6"
+                        android:paddingLeft="@dimen/margin_1"
+                        android:text="@string/rango_edad_ficha"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="?android:textColorSecondary"
+                        android:textSize="@dimen/text_2"
+                        android:textStyle="bold" />
+
+
+                    <ListView
+                        android:id="@+id/listRangosModalidad"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:background="@drawable/barra"
+                        android:gravity="center"
+                        android:layout_weight="0.6"
+                        android:text="@string/total_inscripcion_anexo_1"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="?android:textColorSecondary"
+                        android:textSize="@dimen/text_2"
+                        android:textStyle="bold" />
+                    <Button
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/btn_agregar"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textSize="@dimen/text_3"
+                        android:visibility="gone"
+                        android:textColor="?android:textColorTertiary"
+                        android:background="@drawable/button_red"
+                        android:id="@+id/btnAgregarModalidad" />
+
+                </LinearLayout>
+
+
+                <LinearLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|top"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+                    <org.lucasr.twowayview.TwoWayView
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        xmlns:tools="http://schemas.android.com/tools"
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/listPoblacionModalidadTotal"
+                        style="@style/TwoWayView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+
+
+
+
+            </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+        </LinearLayout>
+
+
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/barra"
+                android:layout_marginTop="@dimen/margin_2"
+                android:layout_marginLeft="@dimen/margin_1"
+                android:layout_marginRight="@dimen/margin_1"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/lblZonaInfluencia"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|center"
+                    android:paddingLeft="@dimen/margin_1"
+                    android:drawableRight="@drawable/closed"
+                    android:text="@string/zona_influenciaficha"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="?android:textColorSecondary"
+                    android:textSize="@dimen/text_2"
+                    android:textStyle="bold" />
+            </LinearLayout>
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:id="@+id/viewZonaInfluencia"
+                android:orientation="vertical">
+
+
+                <LinearLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginLeft="@dimen/margin_1"
+                    android:layout_marginRight="@dimen/margin_1"
+                    android:orientation="horizontal">
+                    <LinearLayout android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:visibility="gone"
+                        android:orientation="horizontal">
+
+
+                        <Spinner
+                            android:id="@+id/ComboDepartamentoZona"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="@dimen/margin_5"
+                            android:layout_weight="1"
+                            android:background="@drawable/border_text_1"
+                            android:layout_gravity="center"
+                            />
+                        <Spinner
+                            android:id="@+id/ComboProvinciaZona"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="@dimen/margin_5"
+                            android:layout_weight="1"
+                            android:background="@drawable/border_text_1"
+                            android:layout_gravity="center"
+                            />
+                        <Spinner
+                            android:id="@+id/ComboDistritoZona"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="@dimen/margin_5"
+                            android:layout_weight="1"
+                            android:background="@drawable/border_text_1"
+                            android:layout_gravity="center"
+                            />
+                    </LinearLayout>
+
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_1"
+                    android:layout_marginLeft="@dimen/margin_1"
+                    android:layout_marginRight="@dimen/margin_1"
+                    android:gravity="right"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:layout_width="@dimen/dimen_20"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/margin_1"
+                        android:text="@string/btn_agregar"
+                        android:gravity="center"
+                        android:textSize="@dimen/text_3"
+                        android:visibility="gone"
+                        android:textColor="?android:textColorTertiary"
+                        android:background="@drawable/button_red"
+                        android:id="@+id/btnAgregarZonaInfluencia" />
+
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_1"
+                    android:layout_marginRight="@dimen/margin_1"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/lblZonaContador"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:background="@drawable/barra"
+                        android:layout_weight="0.9"
+                        android:text="@string/nro_bandeja"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="?android:textColorSecondary"
+                        android:textSize="@dimen/text_2"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:background="@drawable/barra"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:visibility="gone"
+                        android:gravity="center"
+                        android:layout_weight="0.9"/>
+                    <TextView
+                        android:id="@+id/lblZDepartamento"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:background="@drawable/barra"
+                        android:layout_weight="0.7"
+                        android:text="@string/departamento_ficha"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="?android:textColorSecondary"
+                        android:textSize="@dimen/text_2"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/lblZProvincia"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:background="@drawable/barra"
+                        android:layout_weight="0.7"
+                        android:text="@string/provincia_ficha"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="?android:textColorSecondary"
+                        android:textSize="@dimen/text_2"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/lblZDistrito"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:background="@drawable/barra"
+                        android:layout_weight="0.7"
+                        android:text="@string/distrito_ficha"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="?android:textColorSecondary"
+                        android:textSize="@dimen/text_2"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+                <ListView
+                    android:id="@+id/listZonaInfluencia"
+                    android:layout_marginLeft="@dimen/margin_1"
+                    android:layout_marginRight="@dimen/margin_1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="@dimen/margin_2"
+                android:layout_marginLeft="@dimen/margin_1"
+                android:layout_marginRight="@dimen/margin_1"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/lblAmbAccion"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/barra"
+                    android:layout_weight="3"
+                    android:gravity="left|center"
+                    android:minHeight="@dimen/dimen_3"
+                    android:paddingLeft="@dimen/margin_1"
+                    android:text="@string/ambito_ficha"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="?android:textColorSecondary"
+                    android:textSize="@dimen/text_2"
+                    android:textStyle="bold" />
+                <LinearLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="@dimen/margin_1"
+                    android:layout_marginRight="@dimen/margin_1"
+                    android:orientation="horizontal">
+                    <CheckBox
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/ambito_urbano_ficha"
+                        android:enabled="false"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="?android:textColorSecondary"
+                        android:textSize="@dimen/text_2"
+                        android:layout_weight="1"
+                        android:textStyle="bold"
+                        android:id="@+id/chkUrbano" />
+                    <CheckBox
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/ambito_rural_ficha"
+                        android:enabled="false"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="?android:textColorSecondary"
+                        android:textSize="@dimen/text_2"
+                        android:layout_weight="1"
+                        android:textStyle="bold"
+                        android:id="@+id/chkRural" />
+                    <CheckBox
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/ambito_marginal_ficha"
+                        android:enabled="false"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="?android:textColorSecondary"
+                        android:textSize="@dimen/text_2"
+                        android:layout_weight="1"
+                        android:textStyle="bold"
+                        android:id="@+id/chkMarginal" />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/barra"
+                android:layout_marginTop="@dimen/margin_2"
+                android:layout_marginLeft="@dimen/margin_1"
+                android:layout_marginRight="@dimen/margin_1"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/lblRecursosHumanos"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|center"
+                    android:paddingLeft="@dimen/margin_1"
+                    android:drawableRight="@drawable/closed"
+                    android:text="@string/recursos_humanos_ficha"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="?android:textColorSecondary"
+                    android:textSize="@dimen/text_2"
+                    android:textStyle="bold" />
+            </LinearLayout>
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/viewRecursosHumanos"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/margin_1"
+                android:layout_marginLeft="@dimen/margin_1"
+                android:layout_marginRight="@dimen/margin_1"
+                android:orientation="vertical">
+                <LinearLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/margin_1"
+                    android:layout_weight="3"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/lblNRecursosHumanos"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:minHeight="@dimen/dimen_3"
+                        android:layout_weight="1"
+                        android:gravity="right|center"
+                        android:paddingRight="@dimen/margin_1"
+                        android:background="@drawable/barra_clara"
+                        android:text="@string/car_nombre_ficha"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="?android:textColorSecondary"
+                        android:textSize="@dimen/text_1"
+                        android:textStyle="bold" />
+                    <LinearLayout android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.8"
+                        android:orientation="horizontal">
+
+                        <Spinner
+                            android:id="@+id/ComboRecursosHumanos"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="@dimen/dimen_3"
+                            android:background="@drawable/border_text_1"
+                            android:layout_gravity="center"
+                            />
+
+                    </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/lblCRecursosHumanos"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:minHeight="@dimen/dimen_3"
+                            android:layout_weight="1"
+                            android:gravity="right|center"
+                            android:paddingRight="@dimen/margin_1"
+                            android:background="@drawable/barra_clara"
+                            android:text="@string/cantidad_ficha"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textColor="?android:textColorSecondary"
+                            android:textSize="@dimen/text_1"
+                            android:textStyle="bold" />
+                        <EditText
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="@dimen/dimen_3"
+                            android:layout_weight="0.8"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:ems="10"
+                            android:hint="@string/hint_numero"
+                            android:textSize="@dimen/text_2"
+                            android:textColor="?android:textColorSecondary"
+                            android:background="@drawable/border_text_1"
+                            android:id="@+id/txtCRecursosHumanos" />
+
+                 </LinearLayout>
+
+                <LinearLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_1"
+                    android:visibility="gone"
+                    android:gravity="center|right"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:layout_width="@dimen/dimen_20"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/margin_1"
+                        android:text="@string/btn_agregar"
+                        android:gravity="center"
+                        android:textSize="@dimen/text_3"
+                        android:textColor="?android:textColorTertiary"
+                        android:background="@drawable/button_red"
+                        android:id="@+id/btnAgregarRecursosHumanos" />
+
+                </LinearLayout>
+
+                <LinearLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_1"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/lblTNRHContador"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:background="@drawable/barra"
+                        android:layout_weight="1"
+                        android:text="@string/nro_bandeja"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="?android:textColorSecondary"
+                        android:textSize="@dimen/text_2"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:background="@drawable/barra"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:visibility="gone"
+                        android:gravity="center"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:id="@+id/lblTNRecursosHumanos"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:background="@drawable/barra"
+                        android:layout_weight="0.4"
+                        android:text="@string/car_nombre_ficha"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="?android:textColorSecondary"
+                        android:textSize="@dimen/text_2"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/lblTCRecursosHumanos"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:background="@drawable/barra"
+                        android:layout_weight="0.7"
+                        android:text="@string/cant_ficha"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="?android:textColorSecondary"
+                        android:textSize="@dimen/text_2"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+                <ListView
+                    android:id="@+id/listRecursosHumanos"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+
+
+
+
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/barra"
+                android:layout_marginTop="@dimen/margin_2"
+                android:layout_marginLeft="@dimen/margin_1"
+                android:layout_marginRight="@dimen/margin_1"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/lblFinacioamento"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|center"
+                    android:paddingLeft="@dimen/margin_1"
+                    android:drawableRight="@drawable/closed"
+                    android:text="@string/pre_fuentes_inscripcion_anexo_1"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="?android:textColorSecondary"
+                    android:textSize="@dimen/text_2"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:id="@+id/viewFinacioamento"
+                android:orientation="vertical">
+                <LinearLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_1"
+                    android:layout_marginLeft="@dimen/margin_1"
+                    android:layout_marginRight="@dimen/margin_1"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/lblRubros"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/dimen_3"
+                        android:gravity="center"
+                        android:layout_weight="0.4"
+                        android:paddingRight="@dimen/margin_1"
+                        android:background="@drawable/barra_clara"
+                        android:text="@string/rubros_inscripcion_anexo_1"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="?android:textColorSecondary"
+                        android:textSize="@dimen/text_2"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/lblValor"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/dimen_3"
+                        android:gravity="center"
+                        android:paddingRight="@dimen/margin_1"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/barra_clara"
+                        android:text="@string/valor_inscripcion_anexo_1"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="?android:textColorSecondary"
+                        android:textSize="@dimen/text_2"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/lblFuente"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/dimen_3"
+                        android:gravity="center"
+                        android:layout_weight="0.3"
+                        android:paddingRight="@dimen/dimen_3"
+                        android:background="@drawable/barra_clara"
+                        android:text="@string/fuen_principal_inscripcion_anexo_1"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="?android:textColorSecondary"
+                        android:textSize="@dimen/text_2"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_1"
+                    android:layout_marginLeft="@dimen/margin_1"
+                    android:layout_marginRight="@dimen/margin_1"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/lblOperativo"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:minHeight="@dimen/dimen_3"
+                        android:gravity="center"
+                        android:layout_weight="0.4"
+                        android:paddingRight="@dimen/margin_1"
+                        android:background="@drawable/barra_clara"
+                        android:text="@string/operativo_inscripcion_anexo_1"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="?android:textColorSecondary"
+                        android:textSize="@dimen/text_1"
+                        android:textStyle="bold" />
+                    <EditText
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/dimen_3"
+                        android:gravity="center"
+                        android:enabled="false"
+                        android:layout_weight="0.5"
+                        android:textSize="@dimen/text_2"
+                        android:inputType="numberDecimal"
+                        android:ems="10"
+                        android:textColor="?android:textColorSecondary"
+                        android:hint="@string/hint_numero"
+                        android:background="@drawable/border_text_1"
+                        android:id="@+id/txtValor1" />
+                    <EditText
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:minHeight="@dimen/dimen_3"
+                        android:gravity="center"
+                        android:enabled="false"
+                        android:layout_weight="0.3"
+                        android:textSize="@dimen/text_2"
+                        android:textColor="?android:textColorSecondary"
+                        android:hint="@string/hint_texto"
+                        android:background="@drawable/border_text_1"
+                        android:id="@+id/txtFuente1" />
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_1"
+                    android:layout_marginLeft="@dimen/margin_1"
+                    android:layout_marginRight="@dimen/margin_1"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/lblProgramas"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:minHeight="@dimen/dimen_3"
+                        android:gravity="center"
+                        android:layout_weight="0.4"
+                        android:paddingRight="@dimen/margin_1"
+                        android:background="@drawable/barra_clara"
+                        android:text="@string/programas_inscripcion_anexo_1"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="?android:textColorSecondary"
+                        android:textSize="@dimen/text_1"
+                        android:textStyle="bold" />
+                    <EditText
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/dimen_3"
+                        android:enabled="false"
+                        android:gravity="center"
+                        android:layout_weight="0.5"
+                        android:inputType="numberDecimal"
+                        android:ems="10"
+                        android:textSize="@dimen/text_2"
+                        android:textColor="?android:textColorSecondary"
+                        android:hint="@string/hint_numero"
+                        android:background="@drawable/border_text_1"
+                        android:id="@+id/txtValor2" />
+                    <EditText
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:minHeight="@dimen/dimen_3"
+                        android:enabled="false"
+                        android:gravity="center"
+                        android:layout_weight="0.3"
+                        android:textSize="@dimen/text_2"
+                        android:textColor="?android:textColorSecondary"
+                        android:hint="@string/hint_texto"
+                        android:background="@drawable/border_text_1"
+                        android:id="@+id/txtFuente2" />
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_1"
+                    android:layout_marginLeft="@dimen/margin_1"
+                    android:layout_marginRight="@dimen/margin_1"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/lblInversion"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:minHeight="@dimen/dimen_3"
+                        android:gravity="center"
+                        android:layout_weight="0.4"
+                        android:paddingRight="@dimen/margin_1"
+                        android:background="@drawable/barra_clara"
+                        android:text="@string/inversion_inscripcion_anexo_1"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="?android:textColorSecondary"
+                        android:textSize="@dimen/text_1"
+                        android:textStyle="bold" />
+                    <EditText
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/dimen_3"
+                        android:gravity="center"
+                        android:enabled="false"
+                        android:layout_weight="0.5"
+                        android:inputType="numberDecimal"
+                        android:ems="10"
+                        android:textSize="@dimen/text_2"
+                        android:textColor="?android:textColorSecondary"
+                        android:hint="@string/hint_numero"
+                        android:background="@drawable/border_text_1"
+                        android:id="@+id/txtValor3" />
+                    <EditText
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:minHeight="@dimen/dimen_3"
+                        android:gravity="center"
+                        android:layout_weight="0.3"
+                        android:enabled="false"
+                        android:textSize="@dimen/text_2"
+                        android:textColor="?android:textColorSecondary"
+                        android:hint="@string/hint_texto"
+                        android:background="@drawable/border_text_1"
+                        android:id="@+id/txtFuente3" />
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_1"
+                    android:layout_marginLeft="@dimen/margin_1"
+                    android:layout_marginRight="@dimen/margin_1"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/lblTotal"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_weight="0.4"
+                        android:paddingRight="@dimen/margin_1"
+                        android:background="@drawable/barra_clara"
+                        android:text="@string/total_inscripcion_anexo_1"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="?android:textColorSecondary"
+                        android:textSize="@dimen/text_3"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingRight="@dimen/margin_1"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/barra_clara"
+                        android:text="@string/valor_inscripcion_anexo_1"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="?android:textColorSecondary"
+                        android:textSize="@dimen/text_3"
+                        android:id="@+id/lblTotalValor"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_weight="0.3" />
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+
+
+
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/barra"
+                android:layout_marginTop="@dimen/margin_2"
+                android:layout_marginLeft="@dimen/margin_1"
+                android:layout_marginRight="@dimen/margin_1"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/lblServicios"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|center"
+                    android:paddingLeft="@dimen/margin_1"
+                    android:drawableRight="@drawable/closed"
+                    android:text="@string/servicios_ficha"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="?android:textColorSecondary"
+                    android:textSize="@dimen/text_2"
+                    android:textStyle="bold" />
+            </LinearLayout>
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:id="@+id/viewServicios"
+                android:orientation="vertical">
+
+                <LinearLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_1"
+                    android:layout_marginRight="@dimen/margin_1"
+                    android:layout_marginLeft="@dimen/margin_1"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/lblNServicios"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:minHeight="@dimen/dimen_3"
+                        android:layout_weight="2"
+                        android:gravity="right|center"
+                        android:paddingRight="@dimen/margin_1"
+                        android:background="@drawable/barra_clara"
+                        android:text="@string/car_nombre_ficha"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="?android:textColorSecondary"
+                        android:textSize="@dimen/text_1"
+                        android:textStyle="bold" />
+                    <LinearLayout android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <Spinner
+                            android:id="@+id/ComboServicios"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="@dimen/dimen_3"
+                            android:background="@drawable/border_text_1"
+                            android:layout_gravity="center"
+                            />
+
+                    </LinearLayout>
+
+
+
+
+                </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_1"
+                android:layout_marginLeft="@dimen/margin_1"
+                android:layout_marginRight="@dimen/margin_1"
+                android:gravity="right"
+                android:visibility="gone"
+                android:orientation="horizontal">
+
+                <Button
+                    android:layout_width="@dimen/dimen_20"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/margin_1"
+                    android:text="@string/btn_agregar"
+                    android:gravity="center"
+                    android:textSize="@dimen/text_3"
+                    android:textColor="?android:textColorTertiary"
+                    android:background="@drawable/button_red"
+                    android:id="@+id/btnAgregarServicios" />
+
+            </LinearLayout>
+
+                <LinearLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_1"
+                    android:layout_marginRight="@dimen/margin_1"
+                    android:layout_marginTop="@dimen/margin_1"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/lblServicioContador"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:background="@drawable/barra"
+                        android:layout_weight="1"
+                        android:text="@string/nro_bandeja"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="?android:textColorSecondary"
+                        android:textSize="@dimen/text_2"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:background="@drawable/barra"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:gravity="center"
+                        android:visibility="gone"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:id="@+id/lblTServicio"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:background="@drawable/barra"
+                        android:layout_weight="0.1"
+                        android:text="@string/car_nombre_ficha"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="?android:textColorSecondary"
+                        android:textSize="@dimen/text_2"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
+                <ListView
+                    android:id="@+id/listServicios"
+                    android:layout_marginTop="@dimen/margin_1"
+                    android:layout_marginLeft="@dimen/margin_1"
+                    android:layout_marginRight="@dimen/margin_1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"/>
+
+
+
+            </LinearLayout>
+
+
+
+
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/barra"
+                android:layout_marginTop="@dimen/margin_2"
+                android:layout_marginLeft="@dimen/margin_1"
+                android:layout_marginRight="@dimen/margin_1"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/lblInfraestructura"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|center"
+                    android:paddingLeft="@dimen/margin_1"
+                    android:drawableRight="@drawable/closed"
+                    android:text="@string/infraestructura_ficha"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="?android:textColorSecondary"
+                    android:textSize="@dimen/text_2"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:id="@+id/viewInfraestructura"
+            android:orientation="vertical">
+
+
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_1"
+                android:layout_marginLeft="@dimen/margin_1"
+                android:layout_marginRight="@dimen/margin_1"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/lblATDisponible"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/dimen_3"
+                    android:gravity="center|left"
+                    android:layout_weight="1"
+                    android:paddingLeft="@dimen/margin_2"
+                    android:background="@drawable/barra_clara"
+                    android:text="@string/at_disponible_ficha"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="?android:textColorSecondary"
+                    android:textSize="@dimen/text_2"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/dimen_3"
+                    android:gravity="center"
+                    android:layout_weight="3"
+                    android:enabled="false"
+                    android:textSize="@dimen/text_2"
+                    android:inputType="numberDecimal"
+                    android:ems="10"
+                    android:textColor="?android:textColorSecondary"
+                    android:hint="@string/hint_numero"
+                    android:background="@drawable/border_text_1"
+                    android:id="@+id/txtATDisponible" />
+
+
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_1"
+                android:layout_marginLeft="@dimen/margin_1"
+                android:layout_marginRight="@dimen/margin_1"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/lblATConstruida"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/dimen_3"
+                    android:gravity="center|left"
+                    android:layout_weight="1"
+                    android:paddingLeft="@dimen/margin_2"
+                    android:background="@drawable/barra_clara"
+                    android:text="@string/at_construida_ficha"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="?android:textColorSecondary"
+                    android:textSize="@dimen/text_2"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/dimen_3"
+                    android:gravity="center"
+                    android:enabled="false"
+                    android:layout_weight="3"
+                    android:textSize="@dimen/text_2"
+                    android:inputType="numberDecimal"
+                    android:ems="10"
+                    android:textColor="?android:textColorSecondary"
+                    android:hint="@string/hint_numero"
+                    android:background="@drawable/border_text_1"
+                    android:id="@+id/txtATConstruida" />
+
+
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_1"
+                android:layout_marginLeft="@dimen/margin_1"
+                android:layout_marginRight="@dimen/margin_1"
+                android:orientation="horizontal">
+                <LinearLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/barra_clara"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/lblALibre"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center|left"
+                        android:minHeight="@dimen/dimen_3"
+                        android:paddingLeft="@dimen/margin_2"
+                        android:paddingRight="@dimen/margin_1"
+                        android:text="@string/a_libre_ficha"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="?android:textColorSecondary"
+                        android:textSize="@dimen/text_2"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/lblALibreDet"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/dimen_3"
+                        android:gravity="center|left"
+                        android:paddingLeft="@dimen/margin_1"
+                        android:text="@string/a_libre_det_ficha"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="?android:textColorSecondary"
+                        android:textSize="@dimen/text_1"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/dimen_3"
+                    android:gravity="center"
+                    android:layout_weight="3"
+                    android:enabled="false"
+                    android:textSize="@dimen/text_2"
+                    android:inputType="numberDecimal"
+                    android:ems="10"
+                    android:textColor="?android:textColorSecondary"
+                    android:hint="@string/hint_numero"
+                    android:background="@drawable/border_text_1"
+                    android:id="@+id/txtALibre" />
+
+
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_1"
+                android:layout_marginLeft="@dimen/margin_1"
+                android:layout_marginRight="@dimen/margin_1"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/lblNTCamas"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/dimen_3"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:paddingRight="@dimen/margin_1"
+                    android:background="@drawable/barra_clara"
+                    android:text="@string/nt_camas_ficha"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="?android:textColorSecondary"
+                    android:textSize="@dimen/text_2"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/dimen_3"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:textSize="@dimen/text_2"
+                    android:inputType="number"
+                    android:enabled="false"
+                    android:ems="10"
+                    android:textColor="?android:textColorSecondary"
+                    android:hint="@string/hint_numero"
+                    android:background="@drawable/border_text_1"
+                    android:id="@+id/txtNTCamas" />
+
+                <TextView
+                    android:id="@+id/lblNTCunas"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:minHeight="@dimen/dimen_3"
+                    android:paddingRight="@dimen/margin_1"
+                    android:background="@drawable/barra_clara"
+                    android:text="@string/nt_cunas_ficha"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="?android:textColorSecondary"
+                    android:textSize="@dimen/text_2"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/dimen_3"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:textSize="@dimen/text_2"
+                    android:enabled="false"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:textColor="?android:textColorSecondary"
+                    android:hint="@string/hint_numero"
+                    android:background="@drawable/border_text_1"
+                    android:id="@+id/txtNTCunas" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+
+
+
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/barra"
+                android:layout_marginTop="@dimen/margin_2"
+                android:layout_marginLeft="@dimen/margin_1"
+                android:layout_marginRight="@dimen/margin_1"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/lblObservaciones"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|center"
+                    android:paddingLeft="@dimen/margin_1"
+                    android:drawableRight="@drawable/closed"
+                    android:text="@string/obeservaciones_inscripcion_anexo_1"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="?android:textColorSecondary"
+                    android:textSize="@dimen/text_2"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:id="@+id/viewObservaciones"
+                android:orientation="vertical">
+                <LinearLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_1"
+                    android:layout_marginLeft="@dimen/margin_1"
+                    android:layout_marginRight="@dimen/margin_1"
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/hint_texto"
+                        android:textSize="@dimen/text_2"
+                        android:typeface="normal"
+                        android:inputType="textMultiLine"
+                        android:gravity="center"
+                        android:lines="4"
+                        android:enabled="false"
+                        android:textColor="?android:textColorSecondary"
+                        android:background="@drawable/border_text_1"
+                        android:id="@+id/txtObservaciones" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
