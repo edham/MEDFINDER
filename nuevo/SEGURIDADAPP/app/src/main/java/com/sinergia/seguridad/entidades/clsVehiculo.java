@@ -11,7 +11,7 @@ public class clsVehiculo {
     private String str_tipo;
     private String str_marca;
     private String str_clase;
-
+    private int int_idSesion;
     public clsVehiculo() {
     }
 
@@ -61,5 +61,13 @@ public class clsVehiculo {
 
     public void setStr_clase(String str_clase) {
         this.str_clase = str_clase;
+    }
+
+    public int getInt_idSesion() {
+        return int_idSesion;
+    }
+
+    public void setInt_idSesion(int int_idSesion) {
+        this.int_idSesion = int_idSesion;
     }
 }

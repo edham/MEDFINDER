@@ -36,20 +36,22 @@ public class clsVehiculoDAO {
             registro.put("str_tipo",entidad.getStr_tipo());
             registro.put("str_marca",entidad.getStr_marca());
             registro.put("str_clase",entidad.getStr_clase());
+            registro.put("int_idSesion",entidad.getInt_idSesion());
             id = (int) bd.insert(NOMBRE_TABLA, null, registro);
         }
         bd.close();  
         return id;
     }   
    
-     public static clsVehiculo Buscar(Context context)
+     public static clsVehiculo BuscarIdSesion(Context context,int idSesion)
      {
          clsVehiculo entidad=null;
         bdSQLite admin=new bdSQLite(context,null);
         SQLiteDatabase bd=admin.getWritableDatabase();
          if(bd!=null)
          {
-            String query="select int_id,int_numero,str_placa,str_tipo,str_marca,str_clase from "+NOMBRE_TABLA;
+            String query="select int_id,int_numero,str_placa,str_tipo,str_marca,str_clase from "+NOMBRE_TABLA
+                    +" where int_idSesion="+idSesion;
 
             Cursor fila=bd.rawQuery(query,null);
 

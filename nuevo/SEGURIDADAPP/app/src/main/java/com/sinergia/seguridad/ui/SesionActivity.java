@@ -254,7 +254,7 @@ public class SesionActivity extends Activity {
     final Handler handlerSesion =new Handler(){
         @Override
         public void handleMessage(Message msg) {
-            clsSesionVigilanciaDAO.Agregar(SesionActivity.this,objSesionVigilancia);
+            clsSesionVigilanciaDAO.Agregar(SesionActivity.this,objSesionVigilancia,1);
             clsVehiculoDAO.Agregar(SesionActivity.this,objVehiculo);
             pd.dismiss();
             Intent i = new Intent(SesionActivity.this, MainActivity.class);

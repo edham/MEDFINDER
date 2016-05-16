@@ -13,6 +13,10 @@ public class clsCuadrante {
     public clsCuadrante() {
     }
 
+    public clsCuadrante(int int_id) {
+        this.int_id = int_id;
+    }
+
     public int getInt_id() {
         return int_id;
     }

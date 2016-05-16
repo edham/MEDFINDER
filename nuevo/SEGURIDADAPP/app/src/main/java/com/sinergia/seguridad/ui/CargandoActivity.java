@@ -17,7 +17,7 @@ public class CargandoActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cargando);
-        clsSesionVigilancia entidad= clsSesionVigilanciaDAO.Buscar(this);
+        clsSesionVigilancia entidad= clsSesionVigilanciaDAO.BuscarPrincipal(this);
         if(entidad!=null)
             configuracion=false;
         AsyncTaskCargaDatos ATCargaDatos = new AsyncTaskCargaDatos(this);

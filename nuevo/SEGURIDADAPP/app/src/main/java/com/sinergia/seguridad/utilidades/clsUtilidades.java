@@ -45,8 +45,7 @@ import java.util.regex.Pattern;
  * Created by EdHam on 13/09/2015.
  */
 public class clsUtilidades {
-
-    //public static String url="http://192.168.0.15:8080/ery-war/";
+   // public static String url="http://192.168.0.27:8080/ery-war/";
    public static String url="http://integradosinergiaconsulting.com/ery-war/";
 
 
@@ -375,4 +374,14 @@ public class clsUtilidades {
         return Math.abs((int)(Radius * c));
     }
 
+    public static String getFecha(Date fecha)
+    {
+        SimpleDateFormat e=new SimpleDateFormat("dd/MM/yyyy");
+        return e.format(fecha);
+    }
+    public static String getHora(Date fecha)
+    {
+        SimpleDateFormat e=new SimpleDateFormat("HH:mm a");
+        return e.format(fecha);
+    }
 }

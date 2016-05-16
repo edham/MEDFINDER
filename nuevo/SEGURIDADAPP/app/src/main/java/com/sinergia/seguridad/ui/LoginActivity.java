@@ -14,9 +14,14 @@ import com.sinergia.seguridad.dao.clsCuadranteDAO;
 import com.sinergia.seguridad.dao.clsEntidadDAO;
 import com.sinergia.seguridad.dao.clsNegocioDAO;
 import com.sinergia.seguridad.dao.clsPersonalDAO;
+import com.sinergia.seguridad.dao.clsSesionVigilanciaDAO;
+import com.sinergia.seguridad.dao.clsVehiculoDAO;
+import com.sinergia.seguridad.entidades.clsCuadrante;
 import com.sinergia.seguridad.entidades.clsEntidad;
 import com.sinergia.seguridad.entidades.clsPersonal;
+import com.sinergia.seguridad.entidades.clsSesionVigilancia;
 import com.sinergia.seguridad.entidades.clsUsuario;
+import com.sinergia.seguridad.entidades.clsVehiculo;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,8 +34,6 @@ public class LoginActivity extends Activity {
     private EditText txtClave;
     private  ProgressDialog pd ;
     private boolean validador;
-    private  clsPersonal objPersonal;
-    private  clsEntidad objEntidad;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,35 +70,44 @@ public class LoginActivity extends Activity {
                     loginJson.put("clave",txtClave.getText().toString());
 
                     postDataHTTP login = new postDataHTTP();
-                    login.execute(loginJson.toString(),"PersonalRest");
+                    login.execute(loginJson.toString(),"SesionInicioRest");
                     JSONObject entidadJSON = new JSONObject(login.get());
                     if(entidadJSON.getInt("rpta")==1) {
-                        objPersonal = new clsPersonal();
-                        objPersonal.setBool_principal(true);
-                        objPersonal.setInt_id(entidadJSON.getInt("id"));
-                        objPersonal.setStr_nombres(entidadJSON.getString("nombres"));
-                        objPersonal.setStr_ape_paterno(entidadJSON.getString("ape_paterno"));
-                        objPersonal.setStr_ape_materno(entidadJSON.getString("ape_materno"));
-                        objPersonal.setStr_telefono(entidadJSON.getString("telefono"));
-                        objPersonal.setStr_cargo(entidadJSON.getString("cargo"));
-                        objPersonal.setStr_clave(txtClave.getText().toString());
-                        objPersonal.setStr_usuario(txtUsuario.getText().toString());
-                        objPersonal.setBool_principal(true);
 
-                        objEntidad = new clsEntidad();
+                        clsSesionVigilancia objSesionVigilancia = new clsSesionVigilancia();
+                        objSesionVigilancia.setInt_id(entidadJSON.getInt("id"));
+                        objSesionVigilancia.setObjCuadrante(new clsCuadrante(entidadJSON.getInt("id_cuadrante")));
+                        clsSesionVigilanciaDAO.Agregar(LoginActivity.this, objSesionVigilancia, 1);
+
+                        clsEntidad objEntidad = new clsEntidad();
                         objEntidad.setInt_id(entidadJSON.getInt("entidad_id"));
                         objEntidad.setStr_nombre(entidadJSON.getString("entidad_nombre"));
                         objEntidad.setStr_descripcion(entidadJSON.getString("entidad_descripcion"));
                         objEntidad.setStr_tipo(entidadJSON.getString("entidad_tipo"));
+                        clsEntidadDAO.Agregar(LoginActivity.this, objEntidad);
 
-                         validador=clsCuadranteDAO.AgregarLogin(LoginActivity.this,entidadJSON.getString("listaJSON"));
+                        JSONObject json_vehiculo = new JSONObject(entidadJSON.getString("json_Vehiculo"));
+                        clsVehiculo clsVehiculo = new clsVehiculo();
+                        clsVehiculo.setInt_id(json_vehiculo.getInt("id"));
+                        clsVehiculo.setInt_numero(json_vehiculo.getInt("numero"));
+                        clsVehiculo.setStr_placa(json_vehiculo.getString("placa"));
+                        clsVehiculo.setStr_tipo(json_vehiculo.getString("tipo"));
+                        clsVehiculo.setStr_marca(json_vehiculo.getString("marca"));
+                        clsVehiculo.setStr_clase(json_vehiculo.getString("clase"));
+                        clsVehiculo.setInt_idSesion(objSesionVigilancia.getInt_id());
+                        clsVehiculoDAO.Agregar(LoginActivity.this, clsVehiculo);
 
+                         validador=clsCuadranteDAO.AgregarLogin(LoginActivity.this,entidadJSON.getString("listaCuandranteJSON"));
+                        if(validador)
+                        {
+                            validador=clsPersonalDAO.AgregarLogin(LoginActivity.this, entidadJSON.getString("listaPersomalJSON"),objSesionVigilancia.getInt_id());
 
-
+                            if(validador)
+                            {
+                                validador= clsNegocioDAO.AgregarLogin(LoginActivity.this, entidadJSON.getString("listaNegociosJSON"));
+                            }
+                        }
                     }
-
-
-
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (ExecutionException e) {
@@ -125,10 +137,9 @@ public class LoginActivity extends Activity {
 
             pd.dismiss();
            if(validador) {
-                clsPersonalDAO.Agregar(LoginActivity.this, objPersonal);
-                clsEntidadDAO.Agregar(LoginActivity.this, objEntidad);
-                Intent i = new Intent(LoginActivity.this, SesionActivity.class);
-                startActivity(i);
+
+               Intent i = new Intent(LoginActivity.this, MainActivity.class);
+               startActivity(i);
                finish();
            }
 

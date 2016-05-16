@@ -77,7 +77,7 @@
 
                         <EditText
                             android:id="@+id/txtUsuario"
-                            android:hint="@string/usuario_minp"
+                            android:hint="@string/usuario"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/dimen_1"
@@ -104,7 +104,7 @@
 
                         <EditText
                             android:id="@+id/txtClave"
-                            android:hint="@string/contrasenna_minp"
+                            android:hint="@string/contrasenna"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:typeface="normal"

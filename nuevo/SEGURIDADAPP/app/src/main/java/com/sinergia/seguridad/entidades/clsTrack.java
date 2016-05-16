@@ -9,6 +9,8 @@ public class clsTrack {
     private int int_id;
     private double dou_latitud;
     private double dou_longitud;
+    private String str_direccion;
+    private boolean bool_encuandrante;
     private Date dat_fec_reg;
 
     public clsTrack() {
@@ -45,5 +47,21 @@ public class clsTrack {
 
     public void setDat_fec_reg(Date dat_fec_reg) {
         this.dat_fec_reg = dat_fec_reg;
+    }
+
+    public String getStr_direccion() {
+        return str_direccion;
+    }
+
+    public void setStr_direccion(String str_direccion) {
+        this.str_direccion = str_direccion;
+    }
+
+    public boolean isBool_encuandrante() {
+        return bool_encuandrante;
+    }
+
+    public void setBool_encuandrante(boolean bool_encuandrante) {
+        this.bool_encuandrante = bool_encuandrante;
     }
 }

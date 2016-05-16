@@ -12,6 +12,7 @@ public class clsPersonal {
     private String str_ape_materno;
     private String str_telefono;
     private String str_cargo;
+    private int int_idSesion;
     private boolean bool_principal;
 
     public clsPersonal()
@@ -89,5 +90,13 @@ public class clsPersonal {
 
     public void setStr_clave(String str_clave) {
         this.str_clave = str_clave;
+    }
+
+    public int getInt_idSesion() {
+        return int_idSesion;
+    }
+
+    public void setInt_idSesion(int int_idSesion) {
+        this.int_idSesion = int_idSesion;
     }
 }

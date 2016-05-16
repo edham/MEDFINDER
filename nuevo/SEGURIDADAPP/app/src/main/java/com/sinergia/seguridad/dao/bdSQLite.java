@@ -15,6 +15,7 @@ public class bdSQLite extends SQLiteOpenHelper {
                                 + "str_usuario text NOT NULL,"
                                 + "str_clave text NOT NULL,"
                                 + "str_nombres text NOT NULL,"
+                                + "int_idSesion integer NOT NULL,"
                                 + "str_ape_paterno text NOT NULL,"
                                 + "str_ape_materno text NOT NULL,"
                                 + "str_telefono text NOT NULL,"
@@ -24,6 +25,7 @@ public class bdSQLite extends SQLiteOpenHelper {
     private static final String CREATE_VEHICULO = "CREATE TABLE VEHICULO ("
                             + "int_id integer NOT NULL PRIMARY KEY,"
                             + "int_numero integer NOT NULL,"
+                            + "int_idSesion integer NOT NULL,"
                             + "str_placa text NOT NULL,"
                             + "str_tipo text NOT NULL,"
                             + "str_marca text NOT NULL,"
@@ -33,6 +35,7 @@ public class bdSQLite extends SQLiteOpenHelper {
                         + "int_id integer NOT NULL PRIMARY KEY,"
                         + "int_id_cuadrante integer NOT NULL,"
                         + "dat_fec_vigilancia numeric NOT NULL,"
+                        + "int_principal integer NOT NULL,"
                         + "dat_fec_ini numeric NOT NULL)";
 
     private static final String CREATE_ENTIDAD= "CREATE TABLE ENTIDAD ("
@@ -45,6 +48,8 @@ public class bdSQLite extends SQLiteOpenHelper {
                                 + "int_id INTEGER PRIMARY KEY AUTOINCREMENT,"
                                 + "dou_latitud numeric NOT NULL,"
                                 + "dou_longitud numeric NOT NULL,"
+                                + "str_direccion text NOT NULL,"
+                                + "bool_encuandrante integer NOT NULL,"
                                 + "dat_fec_reg integer NOT NULL)";
 
     private static final String CREATE_CUADRANTE = "CREATE TABLE CUADRANTE ("

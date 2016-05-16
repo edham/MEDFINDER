@@ -6,6 +6,8 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -16,7 +18,10 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.sinergia.seguridad.conexion.postDataHTTP;
+import com.sinergia.seguridad.dao.clsCuadranteDAO;
 import com.sinergia.seguridad.dao.clsSesionVigilanciaDAO;
 import com.sinergia.seguridad.dao.clsTrackDAO;
 import com.sinergia.seguridad.entidades.clsSesionVigilancia;
@@ -27,23 +32,36 @@ import com.sinergia.seguridad.utilidades.clsUtilidades;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 
-public class clsGPSTrackService extends Service implements LocationListener {
+public class clsGPSTrackService extends Service{
 
     private Timer timer;
     private TimerTask timerTask;
     final Handler handler = new Handler();
+    private boolean validagps=true;
+
+    private MyLocationListener mll;
 
     private clsSesionVigilancia objclsSesionVigilancia=null;
 
+    private String direccion="";
+
+    private String sesionesJson="";
+
+    private PolylineOptions cuadrante=null;
 
     double longitud=0D;
     double latitud=0D;
 
+    private int contador=0;
     // flag for GPS status
     boolean canGetLocation = false;
 
@@ -51,7 +69,7 @@ public class clsGPSTrackService extends Service implements LocationListener {
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 0; // 10 meters
 
     // The minimum time between updates in milliseconds
-    private static final long MIN_TIME_BW_UPDATES = 0; // 1 minute
+    private static final long MIN_TIME_BW_UPDATES =  TimeUnit.SECONDS.toMillis(2); // 1 minute
 
     // Declaring a Location Manager
     protected LocationManager locationManager;
@@ -61,8 +79,15 @@ public class clsGPSTrackService extends Service implements LocationListener {
     @Override
     public void onCreate() {
         super.onCreate();
+        objclsSesionVigilancia=clsSesionVigilanciaDAO.BuscarPrincipal(clsGPSTrackService.this.getApplication());
+        if(objclsSesionVigilancia!=null)
+        {
+            mll = new MyLocationListener();
+            cuadrante= clsCuadranteDAO.ListarCoordenadasXIdCuadrante(this, objclsSesionVigilancia.getObjCuadrante().getInt_id());
+            startLocation();
+        }
 
-            startTimer();
+          // startTimer();
 
     }
 
@@ -81,13 +106,13 @@ public class clsGPSTrackService extends Service implements LocationListener {
 
     public void stopUsingGPS(){
         if(locationManager != null){
-            locationManager.removeUpdates(this);
+            locationManager.removeUpdates(mll);
         }
     }
 
     public void startLocation() {
-        Location location=null; // location
-
+        Location location=null;
+        validagps=true;
         try {
             locationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
 
@@ -100,8 +125,9 @@ public class clsGPSTrackService extends Service implements LocationListener {
             boolean isNetworkEnabled = locationManager
                     .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
-            if (!isGPSEnabled) {
+            if (!isGPSEnabled || !isNetworkEnabled) {
                 NotificacionGPS();
+                validagps=false;
             } else {
                 borrarNotificacionxId(0);
                 this.canGetLocation = true;
@@ -113,13 +139,13 @@ public class clsGPSTrackService extends Service implements LocationListener {
                         locationManager.requestLocationUpdates(
                                 LocationManager.GPS_PROVIDER,
                                 MIN_TIME_BW_UPDATES,
-                                MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+                                MIN_DISTANCE_CHANGE_FOR_UPDATES, mll);
                         Log.d("GPS Enabled", "GPS Enabled");
                         if (locationManager != null) {
                             location = locationManager
                                     .getLastKnownLocation(LocationManager.GPS_PROVIDER);
                             if (location != null) {
-                                onLocationChanged(location);
+                                mll.onLocationChanged(location);
                             }
                         }
                     }
@@ -130,76 +156,29 @@ public class clsGPSTrackService extends Service implements LocationListener {
                         locationManager.requestLocationUpdates(
                                 LocationManager.NETWORK_PROVIDER,
                                 MIN_TIME_BW_UPDATES,
-                                MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+                                MIN_DISTANCE_CHANGE_FOR_UPDATES, mll);
                         Log.d("Network", "Network");
                         if (locationManager != null) {
                             location = locationManager
                                     .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                             if (location != null) {
-                                onLocationChanged(location);
+                                mll.onLocationChanged(location);
                             }
                         }
                     }
                 }
             }
 
-            clsTrack entidad = new clsTrack();
-            entidad.setDou_longitud(location.getLongitude());
-            entidad.setDou_latitud(location.getLatitude());
-            clsTrackDAO.Agregar(clsGPSTrackService.this.getApplication(), entidad);
-            if(location!=null) {
-               // int distancia=clsUtilidades.distanciaMetros(latitud, longitud, location.getLatitude(), location.getLongitude());
-               // Log.wtf("---------------- distancia",""+distancia);
-              //  if (distancia > 0) {
 
-                    try {
-                        JSONObject json_Object = new JSONObject();
-                        json_Object.put("latitud", location.getLatitude());
-                        json_Object.put("longitud", location.getLongitude());
-                        json_Object.put("idSesion", objclsSesionVigilancia.getInt_id());
-                        postDataHTTP data = new postDataHTTP();
-                        data.execute(json_Object.toString(), "SesionTrackRest");
-                        String dato = data.get().trim();
-                        latitud = location.getLatitude();
-                        longitud = location.getLongitude();
 
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                    }
-               // }
-            }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        stopUsingGPS();
+        startTimer();
 
     }
 
-    @Override
-    public void onLocationChanged(Location location) {
-
-
-    }
-
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-
-    }
-
-    @Override
-    public void onProviderEnabled(String provider) {
-
-    }
-
-    @Override
-    public void onProviderDisabled(String provider) {
-
-    }
 
 
     public void startTimer() {
@@ -228,31 +207,23 @@ public class clsGPSTrackService extends Service implements LocationListener {
             public void run() {
                 handler.post(new Runnable() {
                     public void run() {
-                        objclsSesionVigilancia=clsSesionVigilanciaDAO.Buscar(clsGPSTrackService.this.getApplication());
-                        if(objclsSesionVigilancia!=null) {
-                           // if (clsUtilidades.conectadoWifi(clsGPSTrackService.this.getApplication())) {
-                                startLocation();
-                                try {
-                                    JSONObject json_Object = new JSONObject();
-                                    json_Object.put("idSesion", objclsSesionVigilancia.getInt_id());
-                                    json_Object.put("fec_vigilancia", objclsSesionVigilancia.getDat_fec_vigilancia());
-                                    json_Object.put("fec_ini", objclsSesionVigilancia.getDat_fec_ini().getTime());
-                                    postDataHTTP data = new postDataHTTP();
-                                    data.execute(json_Object.toString(), "SesionComunicacion");
-                                    String dato = data.get().trim();
-                                    Log.wtf("-------------------dato", dato);
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                } catch (ExecutionException e) {
-                                    e.printStackTrace();
-                                }
+                        boolean isGPSEnabled = locationManager
+                                .isProviderEnabled(LocationManager.GPS_PROVIDER);
 
-                            //}
-                            objclsSesionVigilancia.setDat_fec_vigilancia(new Date().getTime());
-                            clsSesionVigilanciaDAO.ActualizarFecha(clsGPSTrackService.this.getApplication(),objclsSesionVigilancia);
+                        // getting network status
+
+                        boolean isNetworkEnabled = locationManager
+                                .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+                        if (!isGPSEnabled || !isNetworkEnabled) {
+                            NotificacionGPS();
+                        }else {
+                            if(!validagps) {
+                                startLocation();
+                                borrarNotificacionxId(0);
+                            }
                         }
+
                     }
                 });
             }
@@ -309,5 +280,136 @@ public class clsGPSTrackService extends Service implements LocationListener {
 
 
 
+
+    private class MyLocationListener implements LocationListener {
+
+        @Override
+        public void onLocationChanged(Location location) {
+
+            if(location!=null) {
+                final Location loc=location;
+
+                new Thread(new Runnable() {
+                    public void run() {
+
+                        try {
+                            Geocoder gc = new Geocoder(clsGPSTrackService.this.getApplication(), Locale.getDefault());
+
+                            List<Address> addresses = gc.getFromLocation(loc.getLatitude(), loc.getLongitude(), 1);
+
+                            StringBuilder sb = new StringBuilder();
+                            if (addresses.size() > 0) {
+                                Address address = addresses.get(0);
+                                for (int i = 0; i < address.getMaxAddressLineIndex(); i++)
+                                    sb.append(address.getAddressLine(i)).append(" - ");
+                                sb.append(address.getLocality());
+                            }
+                            direccion=sb.toString();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
+                // }
+            }
+            Log.e("--------------------------", "LocationListener " + location);
+            final boolean encuandrante=clsUtilidades.insidePolygon(cuadrante.getPoints(),new LatLng(location.getLatitude(),location.getLongitude()));
+
+            clsTrack entidad = new clsTrack();
+            entidad.setDou_longitud(location.getLongitude());
+            entidad.setDou_latitud(location.getLatitude());
+            entidad.setStr_direccion(direccion);
+            entidad.setBool_encuandrante(encuandrante);
+            clsTrackDAO.Agregar(clsGPSTrackService.this.getApplication(), entidad);
+            final Location loc=location;
+            new Thread(new Runnable() {
+                public void run() {
+                    try {
+                        JSONObject json_Object = new JSONObject();
+                        json_Object.put("latitud", loc.getLatitude());
+                        json_Object.put("longitud", loc.getLongitude());
+                        json_Object.put("encuandrante", encuandrante);
+                        json_Object.put("direccion", direccion);
+                        json_Object.put("idSesion", objclsSesionVigilancia.getInt_id());
+                        postDataHTTP data = new postDataHTTP();
+                        data.execute(json_Object.toString(), "SesionTrackRest");
+                        String dato = data.get().trim();
+                        latitud = loc.getLatitude();
+                        longitud = loc.getLongitude();
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+
+            if(contador%2==0) {
+                new Thread(new Runnable() {
+                    public void run() {
+                        try {
+                            JSONObject json_Object = new JSONObject();
+                            json_Object.put("idSesion", objclsSesionVigilancia.getInt_id());
+                            json_Object.put("fec_vigilancia", objclsSesionVigilancia.getDat_fec_vigilancia());
+                            json_Object.put("fec_ini", objclsSesionVigilancia.getDat_fec_ini().getTime());
+                            postDataHTTP data = new postDataHTTP();
+                            data.execute(json_Object.toString(), "SesionComunicacion");
+                            JSONObject entidadJSON = new JSONObject(data.get().trim());
+                            sesionesJson=entidadJSON.getString("listaSesionesJSON");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        } catch (ExecutionException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
+            }
+
+
+            contador++;
+
+
+
+            // int distancia=clsUtilidades.distanciaMetros(latitud, longitud, location.getLatitude(), location.getLongitude());
+            // Log.wtf("---------------- distancia",""+distancia);
+            //  if (distancia > 0) {
+/*
+
+*/
+            Intent intent = new Intent("clsGPSTrackService");
+            intent.putExtra("Lat", location.getLatitude());
+            intent.putExtra("Long", location.getLongitude());
+            intent.putExtra("direccion", direccion);
+            intent.putExtra("encuandrante", encuandrante);
+            intent.putExtra("sesionesJson", sesionesJson);
+
+            sendBroadcast(intent);
+
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+            // TODO Auto-generated method stub
+
+        }
+
+    }
 
 }

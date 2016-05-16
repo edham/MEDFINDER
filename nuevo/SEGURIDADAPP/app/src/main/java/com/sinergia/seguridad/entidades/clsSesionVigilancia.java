@@ -10,6 +10,7 @@ public class clsSesionVigilancia {
     private clsCuadrante objCuadrante;
     private Date dat_fec_ini;
     private Long dat_fec_vigilancia;
+    private int int_principal;
 
     public clsSesionVigilancia() {
         this.dat_fec_ini = new Date();
@@ -45,5 +46,13 @@ public class clsSesionVigilancia {
 
     public void setDat_fec_vigilancia(Long dat_fec_vigilancia) {
         this.dat_fec_vigilancia = dat_fec_vigilancia;
+    }
+
+    public int getInt_principal() {
+        return int_principal;
+    }
+
+    public void setInt_principal(int int_principal) {
+        this.int_principal = int_principal;
     }
 }

@@ -79,7 +79,7 @@ public class InicioFragment extends Fragment implements RoutingListener {
         View view = inflater.inflate(R.layout.fragment_inicio, container, false);
 
         //Id=getArguments().getInt("id");
-        entidad=clsSesionVigilanciaDAO.Buscar(this.getActivity());
+        entidad=clsSesionVigilanciaDAO.BuscarPrincipal(this.getActivity());
         cuadrante= clsCuadranteDAO.ListarCoordenadasXIdCuadrante(this.getActivity(), entidad.getObjCuadrante().getInt_id());
         cuadrante.color(getResources().getColor(R.color.granate_oscuro));
         cuadrante.width(10);
