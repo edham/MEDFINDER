@@ -6,17 +6,14 @@
 package ManagedBean;
 
 import bc.CasosSaludFacadeLocal;
-import bc.RespuestaCasoSaludFacadeLocal;
 import be.CasosSalud;
-import be.RespuestaCasoSalud;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.model.SelectItem;
 
 /**
  *
@@ -26,39 +23,41 @@ import javax.faces.model.SelectItem;
 @SessionScoped
 public class ManagedBeanCasosSalud implements Serializable {
     @EJB
-    private RespuestaCasoSaludFacadeLocal respuestaCasoSaludFacade;
-    @EJB
     private CasosSaludFacadeLocal casosSaludFacade;
     
-    private List<CasosSalud> listaobjCasosSalud;
-    private List<SelectItem> objCasosSaludItems;
-    private CasosSalud objCasosSalud;
-    private CasosSalud objCasosSaludVacio;
-    private RespuestaCasoSalud objRespuestaCasoSalud;
+    private List<CasosSalud> listaObjeto;    
+    private CasosSalud objeto;
     private String nuevoTitulo;
-    private String editarRespuesta;
     public ManagedBeanCasosSalud() {
        
-        limpiar();
-        objCasosSaludVacio=new CasosSalud();       
-        objCasosSaludVacio.setTema("SELECCIONE UNA OPCIÓN");
-        objCasosSaludItems = new LinkedList<SelectItem>();
-        listaobjCasosSalud = new LinkedList<CasosSalud>();
+      instanciar();
     }
-    public void limpiar()
+
+    public CasosSaludFacadeLocal getCasosSaludFacade() {
+        return casosSaludFacade;
+    }
+    
+    public void instanciar()    
     {
         nuevoTitulo="NUEVO";
-        objRespuestaCasoSalud = new RespuestaCasoSalud();
-        objCasosSalud=new CasosSalud();
-        objCasosSalud.setEstado(1);
+        objeto=new CasosSalud();
+        listaObjeto = new ArrayList<CasosSalud>();
     }
 
-    public CasosSalud getObjCasosSaludVacio() {
-        return objCasosSaludVacio;
+    public List<CasosSalud> getListaObjeto() {
+        return listaObjeto;
     }
 
-    public void setObjCasosSaludVacio(CasosSalud objCasosSaludVacio) {
-        this.objCasosSaludVacio = objCasosSaludVacio;
+    public void setListaObjeto(List<CasosSalud> listaObjeto) {
+        this.listaObjeto = listaObjeto;
+    }
+
+    public CasosSalud getObjeto() {
+        return objeto;
+    }
+
+    public void setObjeto(CasosSalud objeto) {
+        this.objeto = objeto;
     }
 
     public String getNuevoTitulo() {
@@ -69,67 +68,43 @@ public class ManagedBeanCasosSalud implements Serializable {
         this.nuevoTitulo = nuevoTitulo;
     }
 
-    public List<CasosSalud> getListaobjCasosSalud() {
-        listaobjCasosSalud = new LinkedList<CasosSalud>();
-        try
-        {
-            listaobjCasosSalud=casosSaludFacade.findAll();       
-        }
-        catch (Exception e) {
-        }
-        return listaobjCasosSalud;
-    }
+ 
 
-    public void setListaobjCasosSalud(List<CasosSalud> listaobjCasosSalud) {
-        this.listaobjCasosSalud = listaobjCasosSalud;
-    }
-
-    public List<SelectItem> getObjCasosSaludItems() {
-        objCasosSaludItems = new LinkedList<SelectItem>();
+    public List<CasosSalud> lista(boolean todos) {
+        List<CasosSalud> lista = new ArrayList<CasosSalud>();
         try
-        {     
-            for(CasosSalud p:casosSaludFacade.lista_activos()){
-                objCasosSaludItems.add(new SelectItem(p, p.getTema()));
-            }
+        {  
+            if(todos)
+                lista=casosSaludFacade.findAll();
+            else
+                lista=casosSaludFacade.lista_activos();
         }
         catch (Exception e) {
         }
          
-        return objCasosSaludItems;
+        return lista;
     }
-
-    public void setObjCasosSaludItems(List<SelectItem> objCasosSaludItems) {
-        this.objCasosSaludItems = objCasosSaludItems;
-    }
-
-    public CasosSalud getObjCasosSalud() {
-        return objCasosSalud;
-    }
-
-    public void setObjCasosSalud(CasosSalud objCasosSalud) {
-      
-        this.objCasosSalud = objCasosSalud;
-    }
-
-  
     
      public void crear()
     {
+        System.out.println("crear objeto.getPKId() "+objeto.getPKId());
         try
         {
-           objCasosSalud.setFechaModificacion(new Date());
-           casosSaludFacade.edit(objCasosSalud);
-         
-            limpiar();
+           objeto.setFechaModificacion(new Date());
+           if(objeto.getPKId()==null)
+                casosSaludFacade.create(objeto);
+           else
+                casosSaludFacade.edit(objeto);
+            instanciar();
         }
          catch (Exception e) {
         }
-        limpiar();
+       
     }
      public void actualizar(CasosSalud obejto)
     {
         this.nuevoTitulo="EDITAR ID : "+obejto.getPKId();        
-        objCasosSalud=obejto;
+        this.objeto=obejto;
     
     }
      
@@ -137,62 +112,4 @@ public class ManagedBeanCasosSalud implements Serializable {
         CasosSalud objBuscar = casosSaludFacade.find(Integer.parseInt(id));
         return objBuscar;
     }
-      
-    public int contar(List<RespuestaCasoSalud> lista)
-    {
-        int contador=0;
-        try{
-            if(lista!=null)
-            {
-                for(RespuestaCasoSalud seguro:lista)
-                {
-                    if(seguro.getEstado()==1)
-                        contador++;
-                }
-            }
-        }
-        catch (Exception e) {
-        }
-        return contador;
-    }
-    public void selecionarRespuesta(RespuestaCasoSalud objeto)
-      {
-        
-        try
-        {
-            objRespuestaCasoSalud=objeto;
-            if(objRespuestaCasoSalud!=null)
-            {
-                if(objRespuestaCasoSalud.getEstado()==0)
-                    editarRespuesta="DESEA RESTAURAR";
-                else
-                      editarRespuesta="DESEA ELIMINAR";
-            }
-        }
-         catch (Exception e) {
-        }   
-      } 
-
-    public void editarRespuesta()
-    {
-         try
-        {
-            if(objRespuestaCasoSalud!=null)
-            {
-                objRespuestaCasoSalud.setFechaModificacion(new Date());
-                objRespuestaCasoSalud.setEstado((objRespuestaCasoSalud.getEstado()==0)?1:0);
-               respuestaCasoSaludFacade.edit(objRespuestaCasoSalud);
-            }
-        }
-         catch (Exception e) {
-        }   
-    }
-    public String getEditarRespuesta() {
-        return editarRespuesta;
-    }
-
-    public void setEditarRespuesta(String editarRespuesta) {
-        this.editarRespuesta = editarRespuesta;
-    }
-    
 }

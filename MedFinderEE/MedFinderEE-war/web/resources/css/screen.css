@@ -441,3 +441,7 @@ color: #FFFFFF;
 .ui-dialog-content {
     overflow-x: hidden !important;
 }
+
+.pnoborder > .ui-panelgrid-content {
+  border: none !important;
+}

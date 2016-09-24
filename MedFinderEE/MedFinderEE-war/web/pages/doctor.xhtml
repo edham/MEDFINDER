@@ -242,7 +242,7 @@
                                                        <h:outputText value="#{rowIndex + 1}" />
                                                 </p:column>
                                                 <p:column style="width:40px;text-align: center">
-                                                    <p:commandButton icon="#{item.estado eq 1 ?'ui-icon-trash':'ui-icon-arrowreturnthick-1-w'}" update=":frm_respuesta_editar" value=""  title="#{item.estado eq 1 ?'ELIMINAR':'RESTAURAR'}" oncomplete="PF('dlgrespuestaeditar').show();"  actionListener="#{managedBeanCasosSalud.selecionarRespuesta(item)}"/>
+                                                    <p:commandButton icon="#{item.estado eq 1 ?'ui-icon-trash':'ui-icon-arrowreturnthick-1-w'}" update=":frm_respuesta_editar" value=""  title="#{item.estado eq 1 ?'ELIMINAR':'RESTAURAR'}" oncomplete="PF('dlgrespuestaeditar').show();"  actionListener="#{managedBeanRespuestaCasosSalud.selecionar(item)}"/>
                                                      
                                                 </p:column> 
                                             <p:column headerText="TEMA" filterBy="#{item.casosSalud.tema}" style="text-align: center">
@@ -276,9 +276,9 @@
                  <h:form id="frm_respuesta_editar" >
 
                     <p:growl id="messages" showDetail="true" />
-                    <p:dialog header="#{managedBeanCasosSalud.editarRespuesta}" closable="true" resizable="false" widgetVar="dlgrespuestaeditar" showEffect="explode" height="30" width="280">
+                    <p:dialog header="#{managedBeanRespuestaCasosSalud.editarRespuesta}" closable="true" resizable="false" widgetVar="dlgrespuestaeditar" showEffect="explode" height="30" width="280">
 
-                        <p:commandButton value="ACEPTAR" update=":form :frm_respuestas:listaCasos"   actionListener="#{managedBeanCasosSalud.editarRespuesta()}"  oncomplete="PF('dlgrespuestaeditar').hide();"  />
+                        <p:commandButton value="ACEPTAR" update=":form :frm_respuestas:listaCasos"   actionListener="#{managedBeanRespuestaCasosSalud.editar()}"  oncomplete="PF('dlgrespuestaeditar').hide();"  />
 
                          <p:commandButton value="CANCELAR"  styleClass="btn btn-primary" oncomplete="PF('dlgrespuestaeditar').hide();"/>
                     </p:dialog>

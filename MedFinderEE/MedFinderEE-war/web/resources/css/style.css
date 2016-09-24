@@ -20,3 +20,6 @@ body {
 .ui-datatable-even {
     background: #FFDFE2;
 }
+.pnoborder > .ui-panelgrid-content {
+  border: none !important;
+}

@@ -22,8 +22,8 @@
                                   <p:panel id="nuevo" header="#{managedBeanSeguro.nuevoTitulo}" style="margin-bottom:10px;">
 
                                 <h:panelGrid style="vertical-align: top; height: 230px;" columns="2">
-                                    <h:outputText value="NOMBRE"/>
-                                    <h:inputText  value="#{managedBeanSeguro.objSeguro.nombre}" />
+                                    <h:outputLabel for="nombre" value="NOMBRE"/>
+                                    <h:inputText required="true" id="nombre" value="#{managedBeanSeguro.objSeguro.nombre}" />
 
 
                                     <h:outputText value="IMAGEN"/>
@@ -45,7 +45,7 @@
                                 </h:panelGrid>
                                   <p:separator />
                                        <p:commandButton value="ACEPTAR" update=":form :form:msgs"  actionListener="#{managedBeanSeguro.crear()}"/>
-                                       <p:commandButton value="LIMPIAR" update=":form :form:msgs"  actionListener="#{managedBeanSeguro.limpiar()}"/>  
+                                       <p:commandButton value="LIMPIAR" immediate="true" process="@this" update=":form :form:msgs"  actionListener="#{managedBeanSeguro.limpiar()}"/>  
                             </p:panel>
                                 
                                                 <p:dataTable widgetVar="lista"  id="lista" var="item" value="#{managedBeanSeguro.listaobjSeguro}" rows="10" scrollable="true" scrollHeight="180"
@@ -62,7 +62,7 @@
                                                                    <h:outputText value="#{rowIndex + 1}" />
                                                             </p:column>
                                                             <p:column style="width:40px;text-align: center">
-                                                                <p:commandButton icon="ui-icon-pencil" update=":form :form:msgs" value=""  title="Editar"  actionListener="#{managedBeanSeguro.actualizar(item)}"/>  
+                                                                <p:commandButton immediate="true" process="@this" icon="ui-icon-pencil" update=":form :form:msgs" value=""  title="Editar"  actionListener="#{managedBeanSeguro.actualizar(item)}"/>  
                                                            
                                                             </p:column>
                                                             <p:column headerText="NOMBRE" filterBy="#{item.nombre}" style="text-align: center">
