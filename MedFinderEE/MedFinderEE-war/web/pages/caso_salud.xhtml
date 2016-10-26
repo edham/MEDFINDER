@@ -9,11 +9,121 @@
 	<h:body >
         <ui:composition template="/WEB-INF/templates/default.xhtml">
             <ui:define name="content">
-            	<p:growl id="mensajes" showDetail="true" />
             	<h1>GESTIÓN DE CASOS DE SALUD</h1>
+                
+                <h:form id="frm_doctor" >
+                        
+                     <p:growl id="msgs" showDetail="true" />
+                    <p:dialog header="#{managedBeanDoctor.nuevoTitulo}"  id="dlgdoctor" closable="true" resizable="false"  widgetVar="dlgdoctor" showEffect="explode" width="1000">
+                         <p:growl id="messages" showDetail="true" />  
+                                  <p:panelGrid id="datos" style="vertical-align: top" class="pnoborder" columnClasses="ui-grid-col-4,ui-grid-col-3,ui-grid-col-5"  layout="grid" columns="3">
+                                    <p:panel  header="DATOS PERSONA">
+                                    <p:panelGrid columnClasses="ui-grid-col-5,ui-grid-col-7" class="pnoborder" layout="grid" columns="2">
+                                        <p:outputLabel for="paterno" value="A. PATERNO"/>   
+                                        <p:inputText id="paterno"  required="true" value="#{managedBeanDoctor.objPersona.apellidoPaterno}"/>
+                                        <p:outputLabel value="A. MATERNO"/>   
+                                        <p:inputText  value="#{managedBeanDoctor.objPersona.apellidoPaterno}"/>
+                                        <p:outputLabel value="NOMBRES"/>   
+                                        <p:inputText  value="#{managedBeanDoctor.objPersona.nombre}"/>
+                                         <p:outputLabel value="DNI"/>   
+                                         <p:inputText  value="#{managedBeanDoctor.objPersona.dni}"/>
+                                         <p:outputLabel value="FEC. NAC."/>   
+                                         <p:calendar value="#{managedBeanDoctor.objPersona.fechaNacimiento}" locale="es" navigator="true" pattern="dd/MM/yyyy" maxdate="#{managedBeanDoctor.maxDate}"  />
+                                        
+                                        <p:outputLabel value="SEXO"/>
+                                        <p:selectOneRadio  value="#{managedBeanDoctor.objPersona.sexo}">
+                                                                        <f:selectItem itemLabel="HOMBRE" itemValue="true" />
+                                                                        <f:selectItem itemLabel="MUJER" itemValue="false" />
+                                        </p:selectOneRadio>
+                                         
+                                         <p:outputLabel value="DEPARTAMENTO"/>
+                                          <p:selectOneMenu filter="true" widgetVar="departamento" filterMatchMode="contains" value="#{managedBeanDistrito.objDepartamento}" converter="departamentoConverter">
+                                            <f:selectItem itemLabel="#{managedBeanDepartamento.objDepartamentoVacio.nombre}" itemValue="#{managedBeanDistrito.objDepartamento}" noSelectionOption="false" />
+                                            <f:selectItems   value="#{managedBeanDepartamento.objDepartamentoItems}"/>	                                        
+                                            <p:ajax  update=":frm_doctor:provincia " /> 
+                                        </p:selectOneMenu>
+                                          <p:outputLabel value="PROVNCIA"/>
+                                          <p:selectOneMenu id="provincia" widgetVar="provincia"  filter="true" filterMatchMode="contains" value="#{managedBeanDistrito.objProvincia}" converter="provinciaConverter">
+                                              <f:selectItem itemLabel="#{managedBeanProvincia.objProvinciaVacio.nombre}" itemValue="#{managedBeanDistrito.objProvincia}" noSelectionOption="false" />
+                                              <f:selectItems   value="#{managedBeanDistrito.objProvinciaItems}"/>	                                        
+                                          <p:ajax  update=":frm_doctor:distrito" /> 
+                                        </p:selectOneMenu>
+                                        <p:outputLabel value="DISTRITO"/>
+                                        <p:selectOneMenu id="distrito" widgetVar="distrito"  filter="true" filterMatchMode="contains" value="#{managedBeanDoctor.objPersona.distrito}"  onchange="geocodeClick()" converter="distritoConverter">
+                                            <f:selectItem itemLabel="#{managedBeanDistrito.objDistritoVacio.nombre}" itemValue="#{managedBeanDoctor.objPersona.distrito}" />
+                                              <f:selectItems   value="#{managedBeanDistrito.objDistritoItems}"/>	                                        
+                                              
+                                        </p:selectOneMenu>
+                                          <p:outputLabel value="DIR. DOMICILIO"/>
+                                         <p:inputTextarea rows="2"  value="#{managedBeanDoctor.objPersona.direccion}"/>
+                                         <p:outputLabel value="TELEFONO"/>   
+                                         <p:inputText  value="#{managedBeanDoctor.objPersona.telefono}"/>
+                                         <p:outputLabel value="CORREO"/>   
+                                         <p:inputText  value="#{managedBeanDoctor.objPersona.email}"/>
+                                        
+                                    </p:panelGrid>
+                                   </p:panel>  
+                                    <p:panel  header="DATOS UBICACIÓN">
+                                           <p:gmap id="geoGmap" widgetVar="geoMap" center="#{managedBeanDoctor.centerGeoMap}" zoom="15" type="ROADMAP" model="#{managedBeanDoctor.geoModel}" style="width:195px;height:530px">
+                                        <p:ajax event="geocode" listener="#{managedBeanDoctor.onGeocode}" update="@this" />
+                                            <p:ajax event="markerDrag" listener="#{managedBeanDoctor.onMarkerDrag}" update=":frm_doctor:msgs" />                                        
+                                        </p:gmap>
+                                    </p:panel>  
+                                  
+                                      
+                                   <p:panelGrid class="pnoborder" layout="grid" columnClasses="ui-grid-col-12" style="vertical-align: top" columns="1">
+                                      <p:panel  id="image" header="DATOS USUARIO">
+                                           <p:panelGrid class="pnoborder" layout="grid" columnClasses="ui-grid-col-4,ui-grid-col-8" style="vertical-align: top;"  columns="2">
+                                                <p:outputLabel value="USUARIO"/>   
+                                                <p:outputLabel value="#{managedBeanDoctor.objUsuario.usuario}"/>   
+                                                <p:outputLabel value="CLAVE"/>   
+                                                <p:inputText  value="#{managedBeanDoctor.objUsuario.clave}"/>
+                                                <p:graphicImage   value="#{managedBeanDoctor.imagen}" width="80" cache="false"  id="grpImage" height="80"/>
 
+                                                <p:fileUpload  fileUploadListener="#{managedBeanDoctor.subirImagen}" mode="advanced"  skinSimple="true"
+                                                    update=":frm_doctor:image :frm_doctor:msgs" auto="true"  sizeLimit="100000000" allowTypes="/(\.|\/)(jpeg|png)$/"
+                                                    label="SUBIR IMAGEN" />    
+                                           </p:panelGrid>
+                                      </p:panel>
+                                        <p:panel  header="DATOS DOCTOR">         
+                                    <p:panelGrid class="pnoborder" layout="grid"  columnClasses="ui-grid-col-5,ui-grid-col-7" columns="2">
+                                         <p:outputLabel value="ESPECIALIDAD"/>
+                                         <p:selectOneMenu  filter="true" filterMatchMode="contains" value="#{managedBeanDoctor.objDoctor.especialidad}"  converter="especialidadConverter">
+                                            <f:selectItem itemLabel="#{managedBeanEspecialidad.objEspecialidadVacio.nombre}" itemValue="#{managedBeanDoctor.objDoctor.especialidad}" noSelectionOption="false" />
+                                              <f:selectItems   value="#{managedBeanEspecialidad.objEspecialidadItems}"/>	                                        
+                                              
+                                        </p:selectOneMenu>
+                                        <p:outputLabel value="N° COLEGIATURA"/>
+                                        <p:inputText  value="#{managedBeanDoctor.objDoctor.codigoColegiatura}"/>
+                                         <p:outputLabel value="TELEFONO"/>
+                                         <p:inputText  value="#{managedBeanDoctor.objDoctor.telefono}"/>
+                                         <p:outputLabel value="DIR. CONSULTORIO"/>
+                                         <p:inputTextarea rows="2"  value="#{managedBeanDoctor.objDoctor.direccion}"/>
+                                         <p:outputLabel value="DETALLE DE DIR."/>
+                                         <p:inputTextarea rows="2"  value="#{managedBeanDoctor.objDoctor.direccionDetalle}"/>
+                                        <p:outputLabel value="ESTADO"/>
+                                        <p:selectOneRadio  value="#{managedBeanDoctor.objDoctor.estado}">
+                                                                        <f:selectItem itemLabel="ACTIVO" itemValue="2" />
+                                                                        <f:selectItem itemLabel="DESACTIVO" itemValue="0" />
+                                        </p:selectOneRadio>
+                                       
+                                    </p:panelGrid>
+                                   </p:panel>  
+                                       <p:panelGrid  layout="grid"  columnClasses="ui-grid-col-3,ui-grid-col-9" columns="2">
+                                           <p:commandButton value="ACEPTAR" update=":frm_doctor:datos :frm_doctor:msgs" />
+                                           <p:commandButton value="CERRAR" update=":frm_doctor:datos :frm_doctor:msgs" oncomplete="PF('dlgdoctor').hide();" actionListener="#{managedBeanDoctor.limpiar(true)}"/>  
+                    
+                                       </p:panelGrid>
+                                  
+                                        
+                                  </p:panelGrid>
+                                 
+                                  </p:panelGrid>
+                   </p:dialog>
+                </h:form>
+                
                 <h:form id="form">
-                            <p:growl id="msgs" showDetail="true" />
+                    <p:growl id="msgs" showDetail="true" />
                     <div class="innerLR">
                         <!-- Widget -->
                         <!-- Widget -->

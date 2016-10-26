@@ -75,8 +75,9 @@ public class ManagedBeanDoctor implements Serializable {
         nuevoTitulo="AGREGAR NUEVO";
         objDoctor=new Doctor();
         objDoctor.setEstado(1);
+         objPersona= new Persona();
         if(nuevoPer){
-            objPersona= new Persona();
+           
             objPersona.setEstado(1);
             objPersona.setFechaNacimiento(new Date());
 //            ManagedBeanDistrito managedBeanDistrito = (ManagedBeanDistrito)facesContext.getApplication().createValueBinding("#{managedBeanDistrito}").getValue(facesContext);

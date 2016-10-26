@@ -22,12 +22,12 @@
                                 <p:panel id="nuevo" header="#{managedBeanEspecialidad.nuevoTitulo}" style="margin-bottom:10px;">
 
                                     <h:panelGrid style="vertical-align: top; height: 230px;" columns="2">
-                                        <h:outputText value="NOMBRE"/>
-                                        <h:inputText  value="#{managedBeanEspecialidad.objEspecialidad.nombre}" />
-                                        <h:outputText value="DESCRIPION"/>
-                                        <h:inputTextarea rows="6" value="#{managedBeanEspecialidad.objEspecialidad.descripcion}"/>
-                                        <h:outputText value="ESTADO"/>
-                                        <p:selectOneRadio  value="#{managedBeanEspecialidad.objEspecialidad.estado}">
+                                        <p:outputLabel for="nombre" value="NOMBRE"/>
+                                        <p:inputText  id="nombre" required="true" value="#{managedBeanEspecialidad.objEspecialidad.nombre}" />
+                                        <p:outputLabel for="des" value="DESCRIPION"/>
+                                        <p:inputTextarea id="des" required="true" rows="6" value="#{managedBeanEspecialidad.objEspecialidad.descripcion}"/>
+                                        <p:outputLabel for="estado" value="ESTADO"/>
+                                        <p:selectOneRadio id="estado" required="true" value="#{managedBeanEspecialidad.objEspecialidad.estado}">
                                                                         <f:selectItem itemLabel="ACTIVO" itemValue="1" />
                                                                         <f:selectItem itemLabel="DESACTIVO" itemValue="0" />
                                         </p:selectOneRadio>
@@ -48,17 +48,17 @@
                                                                 LISTA DE ESPECIALIDAD
                                                             </f:facet>
                                                              <p:column headerText="N°" style="width:15px; text-align: center">
-                                                                   <h:outputText value="#{rowIndex + 1}" />
+                                                                   <p:outputLabel value="#{rowIndex + 1}" />
                                                             </p:column>
                                                             <p:column style="width:40px;text-align: center">
                                                                 <p:commandButton icon="ui-icon-pencil" update=":form :form:msgs" value=""  title="Editar"  actionListener="#{managedBeanEspecialidad.actualizar(item)}"/>  
                                                            
                                                             </p:column>
                                                             <p:column headerText="NOMBRE" filterBy="#{item.nombre}" style="text-align: center">
-                                                                <h:outputText value="#{item.nombre}" />
+                                                                <p:outputLabel value="#{item.nombre}" />
                                                              </p:column>
                                                             <p:column headerText="DESCRIPCIÓN" filterBy="#{item.descripcion}" style="text-align: center">
-                                                                <h:outputText value="#{item.descripcion}" />
+                                                                <p:outputLabel value="#{item.descripcion}" />
                                                              </p:column>    
                                                            <p:column headerText="ESTADO" style="width:95px; text-align: center" filterBy="#{item.estado}" filterMatchMode="contains">
                                                                 <f:facet name="filter">
@@ -68,9 +68,9 @@
                                                                                             <f:selectItem itemLabel="DESACTIVO" itemValue="0" />
                                                                                         </p:selectOneMenu>
                                                                                     </f:facet>
-                                                              <h:outputText value="#{item.estado eq 1 ?'ACTIVO':'DESACTIVO'}" >
+                                                              <p:outputLabel value="#{item.estado eq 1 ?'ACTIVO':'DESACTIVO'}" >
                                                                 <f:converter converterId="javax.faces.Character" />                                    
-                                                            </h:outputText>
+                                                            </p:outputLabel>
                                                         </p:column>   
 
                                             </p:dataTable>

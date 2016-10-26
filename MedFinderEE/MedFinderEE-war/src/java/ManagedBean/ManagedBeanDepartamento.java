@@ -35,7 +35,7 @@ public class ManagedBeanDepartamento implements Serializable {
        
         limpiar();
         objDepartamentoVacio=new Departamento();       
-        objDepartamentoVacio.setNombre("SELECCIONE UNA OPCIÓN");
+        objDepartamentoVacio.setNombre("SELECCIONE");
         objDepartamentoItems = new LinkedList<SelectItem>();
         listaobjDepartamento = new LinkedList<Departamento>();
     }

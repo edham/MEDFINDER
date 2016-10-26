@@ -82,6 +82,9 @@
          <p:commandButton value="CANCELAR"  styleClass="btn btn-primary" oncomplete="PF('dlglogout').hide();"/>
     </p:dialog>
 </h:form>
+    <p:dialog widgetVar="statusDialog" modal="true" style="background-color: grey" draggable="false" closable="false" resizable="false" showHeader="false">
+        <img src="${facesContext.externalContext.requestContextPath}/resources/gfx/ajaxloadingbar.gif"/>
+    </p:dialog>
 <script type="text/javascript">   
     function logout(xhr, status, args) {
     setTimeout(function() {

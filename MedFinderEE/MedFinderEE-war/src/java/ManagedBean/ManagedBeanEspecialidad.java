@@ -36,7 +36,7 @@ public class ManagedBeanEspecialidad implements Serializable {
        
         limpiar();
         objEspecialidadVacio=new Especialidad();       
-        objEspecialidadVacio.setNombre("SELECCIONE UNA OPCIÓN");
+        objEspecialidadVacio.setNombre("SELECCIONE");
         objEspecialidadItems = new LinkedList<SelectItem>();
         listaobjEspecialidad = new LinkedList<Especialidad>();
     }

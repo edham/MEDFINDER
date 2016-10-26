@@ -38,7 +38,7 @@ public class ManagedBeanProvincia implements Serializable {
         limpiar();
         objProvinciaVacio=new Provincia();       
         objDepartamento= new Departamento();
-        objProvinciaVacio.setNombre("SELECCIONE UNA OPCIÓN");
+        objProvinciaVacio.setNombre("SELECCIONE");
         objProvinciaItems = new LinkedList<SelectItem>();
         listaobjProvincia = new LinkedList<Provincia>();
     }

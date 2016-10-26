@@ -45,7 +45,7 @@ public class ManagedBeanDistrito implements Serializable {
        
         limpiar();
         objDistritoVacio=new Distrito();       
-        objDistritoVacio.setNombre("SELECCIONE UNA OPCIÓN");
+        objDistritoVacio.setNombre("SELECCIONE");
         objDistritoItems = new LinkedList<SelectItem>();
         listaobjDistrito = new LinkedList<Distrito>();
         objProvinciaItems = new LinkedList<SelectItem>();

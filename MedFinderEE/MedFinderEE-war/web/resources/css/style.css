@@ -12,6 +12,9 @@ body {
 .colored {
  background: #C9C5C5  !important ;
 }
+.colored1 {
+ background: #A52E2E  !important ;
+}
 
 .ui-datatable-odd {
     background: #ffffff;
