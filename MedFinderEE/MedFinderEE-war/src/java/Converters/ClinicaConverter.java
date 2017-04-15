@@ -5,7 +5,7 @@
  */
 package Converters;
 
-import ManagedBean.ManagedBeanClinica;
+import Controlador.ManagedBeanClinica;
 import be.Clinica;
 import javax.el.ValueExpression;
 import javax.faces.application.FacesMessage;

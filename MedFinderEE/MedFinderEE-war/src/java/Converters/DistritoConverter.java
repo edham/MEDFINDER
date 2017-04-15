@@ -5,7 +5,7 @@
  */
 package Converters;
 
-import ManagedBean.ManagedBeanDistrito;
+import Controlador.ManagedBeanDistrito;
 import be.Distrito;
 import javax.el.ValueExpression;
 import javax.faces.application.FacesMessage;

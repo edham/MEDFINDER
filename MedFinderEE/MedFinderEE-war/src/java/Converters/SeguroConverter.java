@@ -5,7 +5,7 @@
  */
 package Converters;
 
-import ManagedBean.ManagedBeanSeguro;
+import Controlador.ManagedBeanSeguro;
 import be.Seguro;
 import javax.el.ValueExpression;
 import javax.faces.application.FacesMessage;

@@ -5,7 +5,7 @@
  */
 package Converters;
 
-import ManagedBean.ManagedBeanEspecialidad;
+import Controlador.ManagedBeanEspecialidad;
 import be.Especialidad;
 import javax.el.ValueExpression;
 import javax.faces.application.FacesMessage;

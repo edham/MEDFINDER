@@ -5,7 +5,7 @@
  */
 package Converters;
 
-import ManagedBean.ManagedBeanUsuario;
+import Controlador.ManagedBeanUsuario;
 import be.Usuario;
 import javax.el.ValueExpression;
 import javax.faces.application.FacesMessage;

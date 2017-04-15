@@ -5,7 +5,7 @@
  */
 package Converters;
 
-import ManagedBean.ManagedBeanDoctor;
+import Controlador.ManagedBeanDoctor;
 import be.Doctor;
 import javax.el.ValueExpression;
 import javax.faces.application.FacesMessage;
