@@ -8,16 +8,16 @@ package Controlador;
 
 
 import Utilidades.Utilidades;
-import bc.ClinicaFacadeLocal;
-import bc.DetalleClinicaEspecialidadFacadeLocal;
-import bc.DetalleClinicaSeguroFacadeLocal;
-import bc.EspecialidadFacadeLocal;
-import bc.SeguroFacadeLocal;
-import be.Clinica;
-import be.DetalleClinicaEspecialidad;
-import be.DetalleClinicaSeguro;
-import be.Especialidad;
-import be.Seguro;
+import fachada.ClinicaFacadeLocal;
+import fachada.DetalleClinicaEspecialidadFacadeLocal;
+import fachada.DetalleClinicaSeguroFacadeLocal;
+import fachada.EspecialidadFacadeLocal;
+import fachada.SeguroFacadeLocal;
+import modelo.Clinica;
+import modelo.DetalleClinicaEspecialidad;
+import modelo.DetalleClinicaSeguro;
+import modelo.Especialidad;
+import modelo.Seguro;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.Serializable;

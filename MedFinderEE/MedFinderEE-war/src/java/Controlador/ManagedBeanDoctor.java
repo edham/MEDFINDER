@@ -8,13 +8,13 @@ package Controlador;
 
 
 import Utilidades.Utilidades;
-import bc.DoctorFacadeLocal;
-import bc.PersonaFacadeLocal;
-import bc.UsuarioFacadeLocal;
-import be.Doctor;
-import be.Persona;
-import be.RespuestaCasoSalud;
-import be.Usuario;
+import fachada.DoctorFacadeLocal;
+import fachada.PersonaFacadeLocal;
+import fachada.UsuarioFacadeLocal;
+import modelo.Doctor;
+import modelo.Persona;
+import modelo.RespuestaCasoSalud;
+import modelo.Usuario;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.Serializable;

@@ -5,10 +5,10 @@
  */
 package Controlador;
 
-import bc.CasosSaludFacadeLocal;
-import bc.RespuestaCasoSaludFacadeLocal;
-import be.CasosSalud;
-import be.RespuestaCasoSalud;
+import fachada.CasosSaludFacadeLocal;
+import fachada.RespuestaCasoSaludFacadeLocal;
+import modelo.CasosSalud;
+import modelo.RespuestaCasoSalud;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;

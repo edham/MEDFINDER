@@ -6,7 +6,7 @@
 package Converters;
 
 import Controlador.ManagedBeanDistrito;
-import be.Distrito;
+import modelo.Distrito;
 import javax.el.ValueExpression;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;

@@ -6,7 +6,7 @@
 package Converters;
 
 import Controlador.ManagedBeanUsuario;
-import be.Usuario;
+import modelo.Usuario;
 import javax.el.ValueExpression;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;

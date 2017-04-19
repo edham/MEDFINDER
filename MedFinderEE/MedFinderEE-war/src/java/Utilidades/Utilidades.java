@@ -5,15 +5,15 @@
  */
 package Utilidades;
 
-import be.CitaPaciente;
-import be.Clinica;
-import be.DetalleClinicaEspecialidad;
-import be.DetalleClinicaSeguro;
-import be.Doctor;
-import be.PreguntaPaciente;
-import be.RespuestaCasoSalud;
-import be.RespuestaPreguntaPaciente;
-import be.Seguro;
+import modelo.CitaPaciente;
+import modelo.Clinica;
+import modelo.DetalleClinicaEspecialidad;
+import modelo.DetalleClinicaSeguro;
+import modelo.Doctor;
+import modelo.PreguntaPaciente;
+import modelo.RespuestaCasoSalud;
+import modelo.RespuestaPreguntaPaciente;
+import modelo.Seguro;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;

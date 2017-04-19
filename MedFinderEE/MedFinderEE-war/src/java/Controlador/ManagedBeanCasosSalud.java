@@ -5,8 +5,8 @@
  */
 package Controlador;
 
-import bc.CasosSaludFacadeLocal;
-import be.CasosSalud;
+import fachada.CasosSaludFacadeLocal;
+import modelo.CasosSalud;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;

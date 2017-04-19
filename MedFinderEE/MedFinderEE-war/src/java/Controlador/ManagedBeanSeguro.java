@@ -8,8 +8,8 @@ package Controlador;
 
 
 import Utilidades.Utilidades;
-import bc.SeguroFacadeLocal;
-import be.Seguro;
+import fachada.SeguroFacadeLocal;
+import modelo.Seguro;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.Serializable;

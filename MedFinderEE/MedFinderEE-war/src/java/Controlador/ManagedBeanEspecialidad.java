@@ -5,8 +5,8 @@
  */
 package Controlador;
 
-import bc.EspecialidadFacadeLocal;
-import be.Especialidad;
+import fachada.EspecialidadFacadeLocal;
+import modelo.Especialidad;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.LinkedList;

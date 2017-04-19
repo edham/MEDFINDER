@@ -6,8 +6,8 @@
 package Controlador;
 
 import Utilidades.Utilidades;
-import bc.UsuarioFacadeLocal;
-import be.Usuario;
+import fachada.UsuarioFacadeLocal;
+import modelo.Usuario;
 import java.io.IOException;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;

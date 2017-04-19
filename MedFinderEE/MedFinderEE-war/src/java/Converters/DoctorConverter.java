@@ -6,7 +6,7 @@
 package Converters;
 
 import Controlador.ManagedBeanDoctor;
-import be.Doctor;
+import modelo.Doctor;
 import javax.el.ValueExpression;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;

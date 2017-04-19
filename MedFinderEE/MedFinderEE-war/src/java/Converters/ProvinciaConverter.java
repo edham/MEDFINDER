@@ -6,7 +6,7 @@
 package Converters;
 
 import Controlador.ManagedBeanProvincia;
-import be.Provincia;
+import modelo.Provincia;
 import javax.el.ValueExpression;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;

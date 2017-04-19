@@ -5,9 +5,9 @@
  */
 package Controlador;
 
-import bc.ProvinciaFacadeLocal;
-import be.Departamento;
-import be.Provincia;
+import fachada.ProvinciaFacadeLocal;
+import modelo.Departamento;
+import modelo.Provincia;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.LinkedList;

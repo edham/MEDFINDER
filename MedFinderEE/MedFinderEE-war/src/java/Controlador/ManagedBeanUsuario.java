@@ -8,10 +8,10 @@ package Controlador;
 
 
 import Utilidades.Utilidades;
-import bc.PersonaFacadeLocal;
-import bc.UsuarioFacadeLocal;
-import be.Persona;
-import be.Usuario;
+import fachada.PersonaFacadeLocal;
+import fachada.UsuarioFacadeLocal;
+import modelo.Persona;
+import modelo.Usuario;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.Serializable;

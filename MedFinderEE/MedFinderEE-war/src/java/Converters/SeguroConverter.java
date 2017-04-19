@@ -6,7 +6,7 @@
 package Converters;
 
 import Controlador.ManagedBeanSeguro;
-import be.Seguro;
+import modelo.Seguro;
 import javax.el.ValueExpression;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
