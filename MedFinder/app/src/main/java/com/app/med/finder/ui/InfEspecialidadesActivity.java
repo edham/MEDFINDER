@@ -34,7 +34,7 @@ public class InfEspecialidadesActivity extends Activity {
     private ListView list;
     private List<clsEspecialidad> listEspecialidades;   
     private Adaptador adaptador;
-    
+
     
     @Override
     public void onCreate(Bundle icicle) {
@@ -44,14 +44,14 @@ public class InfEspecialidadesActivity extends Activity {
         
        
         
-        list = (ListView)findViewById(R.id.list);     
-        
+        list = (ListView)findViewById(R.id.list);
+
         Buscar();
 
     }
     
      public void Buscar()
-  {    
+  {
 
 
       listEspecialidades=clsEspecialidadDAO.Listar(this);
@@ -60,7 +60,7 @@ public class InfEspecialidadesActivity extends Activity {
       {
       adaptador = new Adaptador(this);   
       list.setAdapter(adaptador);
-    
+
       }
   }
          

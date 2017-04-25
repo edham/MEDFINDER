@@ -95,7 +95,7 @@ public class LoginActivity extends Activity
 
 								ActualizarDataHTTP actualizar = new ActualizarDataHTTP();
 								actualizar.execute(objUsuario.getInt_id_usuario());
-								JSONObject actualizarJSON = new JSONObject(login.get());
+								JSONObject actualizarJSON = new JSONObject(actualizar.get());
 								if(actualizarJSON.getInt("rpta")==1) {
 									validador = true;
 									if (validador) {
@@ -108,8 +108,49 @@ public class LoginActivity extends Activity
 												if (!clsEspecialidadDAO.AgregarLogin(LoginActivity.this, actualizarJSON.optString("listEspecialidadJSON"), true))
 													validador = false;
 												if (validador) {
-													if (!clsEspecialidadDAO.AgregarLogin(LoginActivity.this, actualizarJSON.optString("listDetalleClinicaEspecialidadJSON"), true))
+													if (!clsClinicaEspecialidadDAO.AgregarLogin(LoginActivity.this, actualizarJSON.optString("listDetalleClinicaEspecialidadJSON"), true))
 														validador = false;
+													if (validador) {
+														if (!clsClinicaDAO.AgregarLogin(LoginActivity.this, actualizarJSON.optString("listClinicaJSON"), true))
+															validador = false;
+														if (validador) {
+															if (!clsClinicaSeguroDAO.AgregarLogin(LoginActivity.this, actualizarJSON.optString("listDetalleClinicaSeguroJSON"), true))
+																validador = false;
+															if (validador) {
+																if (!clsDoctorDAO.AgregarLogin(LoginActivity.this, actualizarJSON.optString("listDoctorJSON"), true))
+																	validador = false;
+																if (validador) {
+																	if (!clsDoctorDAO.FavoritoLogin(LoginActivity.this, entidadJSON.optString("listFavoritosJSON")))
+																		validador = false;
+																	if (validador) {
+																		if (!clsSeguroDAO.AgregarLogin(LoginActivity.this, actualizarJSON.optString("listSeguroJSON"),true))
+																			validador = false;
+																		if (validador) {
+																			if (!clsCasosSaludDAO.AgregarLogin(LoginActivity.this, actualizarJSON.optString("listCasosSaludJSON"),true))
+																				validador = false;
+																			if (validador) {
+																				if (!clsRespuestaCasosSaludDAO.AgregarLogin(LoginActivity.this, actualizarJSON.optString("listRespuestaCasosSaludJSON"),true))
+																					validador = false;
+																				if (validador) {
+																					if (!clsRespuestaCasosSaludDAO.FavoritoLogin(LoginActivity.this, entidadJSON.optString("listRespuestaCasosSaludVotosJSON")))
+																						validador = false;
+																					if (validador) {
+																						if (!clsCitaPacienteDAO.AgregarLogin(LoginActivity.this, entidadJSON.optString("listCitaPacienteJSON"),true))
+																							validador = false;
+																						if (validador) {
+																							if (!clsRespuestaPreguntaPacienteDAO.AgregarLogin(LoginActivity.this, entidadJSON.optString("listRespuestaPreguntaPacienteJSON"),true))
+																								validador = false;
+																						}
+																					}
+																				}
+																			}
+																		}
+																	}
+																}
+
+															}
+														}
+													}
 												}
 											}
 										}
@@ -128,93 +169,9 @@ public class LoginActivity extends Activity
 						} catch (JSONException e) {
 							e.printStackTrace();
 						}
-			  /*
 
 
-	      //            
-			    if(!datos[13].trim().equals("0"))
-			    {
-				 String [] entidad = datos[13].trim().split("\\<+entidad+>");
-				 for(int i=0;i<entidad.length;i++)
-				     clsClinicaDAO.Agregar(LoginActivity.this,new clsClinica(entidad[i]));
-			    }
 
-			    if(!datos[14].trim().equals("0"))
-			    {
-				 String [] entidad = datos[14].trim().split("\\<+entidad+>");
-				 for(int i=0;i<entidad.length;i++)
-				    clsDoctorDAO.Agregar(LoginActivity.this, new clsDoctor(entidad[i]));
-			    }
-
-			    if(!datos[15].trim().equals("0"))
-			    {
-				 String [] entidad = datos[15].trim().split("\\<+entidad+>");
-				 for(int i=0;i<entidad.length;i++)
-				    clsClinicaEspecialidadDAO.Agregar(LoginActivity.this, new clsClinicaEspecialidad(entidad[i]));
-			    }
-	      //            
-			    if(!datos[16].trim().equals("0"))
-			    {
-				 String [] entidad = datos[16].trim().split("\\<+entidad+>");
-				 for(int i=0;i<entidad.length;i++)
-				     clsSeguroDAO.Agregar(LoginActivity.this,new clsSeguro(entidad[i]) );
-			    }
-	      //            
-			    if(!datos[17].trim().equals("0"))
-			    {
-				 String [] entidad = datos[17].trim().split("\\<+entidad+>");
-				 for(int i=0;i<entidad.length;i++)
-				     clsClinicaSeguroDAO.Agregar(LoginActivity.this,new clsClinicaSeguro(entidad[i]) );
-			    }
-
-			    if(!datos[18].trim().equals("0"))
-			    {
-				 String [] entidad = datos[18].trim().split("\\<+entidad+>");
-				 for(int i=0;i<entidad.length;i++)
-				     clsDoctorDAO.Favorito(LoginActivity.this,Integer.parseInt(entidad[i].trim()),true);
-			    }
-
-			    if(!datos[19].trim().equals("0"))
-			    {
-				 String [] entidad = datos[19].trim().split("\\<+entidad+>");
-				 for(int i=0;i<entidad.length;i++)
-				     clsCasosSaludDAO.Agregar(LoginActivity.this,new clsCasosSalud(entidad[i]));
-			    }
-
-			     if(!datos[20].trim().equals("0"))
-			    {
-				 String [] entidad = datos[20].trim().split("\\<+entidad+>");
-				 for(int i=0;i<entidad.length;i++)
-				     clsRespuestaCasosSaludDAO.Agregar(LoginActivity.this,new clsRespuestaCasosSalud(entidad[i]));
-			    }
-                             
-                            if(!datos[21].trim().equals("0"))
-			    {
-				 String [] entidad = datos[21].trim().split("\\<+entidad+>");
-				 for(int i=0;i<entidad.length;i++)
-				     clsRespuestaCasosSaludDAO.Favorito(LoginActivity.this,Integer.parseInt(entidad[i].trim()),true);
-			    }
-                            
-                             if(!datos[22].trim().equals("0"))
-			    {
-				 String [] entidad = datos[22].trim().split("\\<+entidad+>");
-				 for(int i=0;i<entidad.length;i++)
-				     clsCitaPacienteDAO.Agregar(LoginActivity.this,new clsCitaPaciente(entidad[i]));
-			    }
-                            if(!datos[23].trim().equals("0"))
-			    {
-				 String [] entidad = datos[23].trim().split("\\<+entidad+>");
-				 for(int i=0;i<entidad.length;i++)
-				     clsPreguntaPacienteDAO.Agregar(LoginActivity.this,new clsPreguntaPaciente(entidad[i]));
-			    }
-                            if(!datos[24].trim().equals("0"))
-			    {
-				 String [] entidad = datos[24].trim().split("\\<+entidad+>");
-				 for(int i=0;i<entidad.length;i++)
-				     clsRespuestaPreguntaPacienteDAO.Agregar(LoginActivity.this,new clsRespuestaPreguntaPaciente(entidad[i]));
-			    }
-                    
-			  */
 
                           handler.sendEmptyMessage(0);
                     }
@@ -231,9 +188,12 @@ public class LoginActivity extends Activity
         public void handleMessage(Message msg) {
             //update UI here depending on what message is received.
             super.handleMessage(msg);
-            pd.dismiss();             
-          //  Intent i=new Intent(LoginActivity.this,MenuActivity.class);
-           // startActivity(i);
+            pd.dismiss();
+			if(validador) {
+				clsUsuarioDAO.Agregar(LoginActivity.this,objUsuario);
+				Intent i = new Intent(LoginActivity.this, MenuActivity.class);
+				startActivity(i);
+			}
        
        
         }
