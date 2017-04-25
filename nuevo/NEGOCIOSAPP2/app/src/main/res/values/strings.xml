@@ -1,0 +1,368 @@
+<resources>
+
+    <string name="app_name">SEGURIDAD APP</string>
+
+    <string name="inicio_item">INICIO</string>
+    <string name="cintas_item">CITAS</string>
+    <string name="casos_item">CASOS DE SALUD</string>
+    <string name="favoritos_item">FAVORITOS</string>
+    <string name="informacion_item">ESPECIALIDADES</string>
+    <string name="familiares_item">FAMILIARES</string>
+    <string name="clinicas_item">CLINICAS CERCANAS</string>
+    <string name="consulta_item">CONSULTA</string>
+
+    <string name="buscar_item">BUSCAR</string>
+
+    <string name="solicitar_cinta_item">SOLICITAR CITA</string>
+
+    <string name="str_puntaje">PUNTAJE</string>
+    <string name="str_especialidad">ESPECIALIDAD</string>
+    <string name="str_especialidades">ESPECIALIDADES</string>
+    <string name="str_ncolegiatura">N° COLEGIATURA</string>
+    <string name="str_dni">DNI</string>
+    <string name="str_telefono">TELEFONO</string>
+    <string name="str_direccion">DIRECCIÓN</string>
+    <string name="str_detdir">DET. DIR.</string>
+    <string name="str_datos">DATOS</string>
+    <string name="str_doctor">DOCTOR</string>
+    <string name="str_ubicacion">UBICACIÓN</string>
+    <string name="str_modo">MODO</string>
+
+
+    <string name="str_cuadrante">CUANDRANTE</string>
+
+    <string name="str_cuadrante_fuera">FUERA DEL CUANDRANTE</string>
+
+    <string name="str_seleccione_unidad_vigilancia">SELECCIONE UNIDAD DE VIGILANCIA</string>
+    <string name="str_seleccione_cuadrante">SELECCIONE CUANDRANTE</string>
+
+    <string name="str_caminando">CAMINANDO</string>
+    <string name="str_conduciendo">CONDUCIENDO</string>
+    <string name="str_descripcion">DESCRIPCIÓN</string>
+    <string name="str_datencio">DIAS DE ATEN.</string>
+    <string name="str_hora_inicio">HORA INICIO</string>
+    <string name="str_hora_fin">HORA FIN</string>
+    <string name="str_atencion">ATENCIÓN</string>
+    <string name="str_seguros">SEGUROS</string>
+    <string name="str_fecha_inicio">FECHA INICIO</string>
+    <string name="str_fecha_fin">FECHA FIN</string>
+
+    <string name="str_fecha">FECHA</string>
+    <string name="str_hora">HORA</string>
+
+
+
+    <string name="str_favorito_on">¿DESEA AGREGAR A FAVORITO?</string>
+    <string name="str_favorito_off">¿DESEA QUITAR DE FAVORITO?</string>
+    <string name="str_solicitar_cita">¿DESEA SOLICITAR CITA?</string>
+
+
+    <string name="str_salir">¿ESTÁ SEGURO QUE DESEA SALIR?</string>
+
+
+    <string name="str_ingrese_calificacion">POR FAVOR, INGRESE UNA CALIFICACIÓN</string>
+
+
+    <string name="str_marca">MARCA</string>
+    <string name="str_tipo">TIPO</string>
+    <string name="str_clase">CLASE</string>
+    <string name="str_placa">PLACA</string>
+
+    <string name="str_cerrar_sesion">¿CERRAR SESIÓN?</string>
+
+
+
+
+
+
+
+    <string name="action_settings">Settings</string>
+    <string name="action_mas">Tomar Foto</string>
+    <string name="action_menos">-</string>
+
+    <string name="action_adelante">Adelante</string>
+    <string name="action_atraz">Atraz</string>
+    <!--INICIO DRAWER -->
+    <string name="app_mimp">MINISTERIO DE LA MUJER Y POBLACIONES VULNERABLESMINISTERIO</string>
+    <string name="app_oti">(c) Elaborado por la Oficina de Técnologia de la Información</string>
+
+    <string name="inscripcion_item">INSCRIPCIÓN</string>
+    <string name="visita_item">VISITA</string>
+    <string name="acreditacion_item">ACREDITACIÓN</string>
+    <string name="monitoreo_item">MONITOREO</string>
+    <string name="actualizar_item">ACTUALIZAR</string>
+    <string name="ayuda_item">AYUDA</string>
+    <string name="cerrar_item">CERRAR SESIÓN</string>
+    <string name="configuracion_item">CONFIGURACIÓN</string>
+    <string name="copia_item">COPIA DE SEGURIDAD</string>
+
+    <string name="inisio_sesion_mimp">INICIAR SESION</string>
+    <string name="credenciales_minp">INGRESAR CREDENCIALES</string>
+    <string name="usuario_minp">USUARIO</string>
+    <string name="contrasenna_minp">CONTRASEÑA</string>
+
+
+    <string name="ingrese_alert">INGRESE</string>
+    <!--FIN DRAWER -->
+
+    <string name="btn_calificar">CALIFICAR</string>
+    <string name="btn_ubicar">UBICAR</string>
+    <string name="btn_agregar">AGREGAR</string>
+    <string name="btn_aceptar">ACEPTAR</string>
+    <string name="btn_actualizar">ACTUALIZAR</string>
+    <string name="btn_cancelar">CANCELAR</string>
+    <string name="btn_consulta">REALIZAR COSNULTA</string>
+    <string name="btn_eliminarr">ELIMINAR</string>
+    <string name="btn_grabar">GRABAR</string>
+    <string name="btn_finalizar">FINALIZAR</string>
+    <string name="btn_siguiente">SIGUIENTE</string>
+    <string name="btn_ir">IR</string>
+    <string name="btn_ficha">GENERAR FICHA</string>
+    <string name="btn_enviar">ENVIAR</string>
+    <string name="btn_nuevo">NUEVO</string>
+    <string name="btn_ver">VER</string>
+    <string name="btn_ocultar">OCULTAR</string>
+
+    <string name="alert_retroceder">¿DESEA RETROCEDER?</string>
+    <string name="spinner_seleccione">SELECCIONE</string>
+    <string name="spinner_vacio">VACIO</string>
+
+    <string name="anexo_1">ANEXO N° 1</string>
+    <string name="anexo_2">ANEXO N° 2</string>
+    <string name="anexo_3">ANEXO N° 3</string>
+    <string name="anexo_4">ANEXO N° 4</string>
+
+    <string name="hint_numero">--</string>
+    <string name="hint_digitos">--</string>
+    <string name="hint_texto">--</string>
+    <!--INICIO INSCRIPCION -->
+    <string name="inscripcion_ficha">SOLICITUD - FICHA DE INSCRIPCIÓN</string>
+        <!--INICIO INSCRIPCION ANEXO1 -->
+        <string name="titulo_inscripcion_anexo_1">FICHA INSCRIPCIÓN DE INSTITUCION</string>
+        <string name="datos_generales_inscripcion_anexo_1">DATOS GENERALES</string>
+        <string name="nidentificacion_inscripcion_anexo_1">N° DE IDENTIFICACIÓN</string>
+        <string name="fec_solicitud_inscripcion_anexo_1">FECHA DE SOLICITUD</string>
+        <string name="fec_creacion_inscripcion_anexo_1">FECHA DE CREACIÓN</string>
+        <string name="ninstitucion_inscripcion_anexo_1">NOM. INSTITUCIÓN</string>
+        <string name="siglas_inscripcion_anexo_1">SIGLAS</string>
+        <string name="catinstitucion_inscripcion_anexo_1">CAT. INSTITUCIONAL</string>
+        <string name="nruc_inscripcion_anexo_1">N° DE R.U.C.</string>
+        <string name="datos_responsable_inscripcion_anexo_1">DATOS DEL RESPONSABLE</string>
+        <string name="ape_paterno_inscripcion_anexo_1">APE. PATERNO</string>
+        <string name="ape_materno_inscripcion_anexo_1">APE. MATERNO</string>
+        <string name="nombres_inscripcion_anexo_1">NOMBRES</string>
+        <string name="cargo_inscripcion_anexo_1">CARGO</string>
+        <string name="telefono_inscripcion_anexo_1">TELEFONO</string>
+        <string name="ubi_fisica_inscripcion_anexo_1">UBICACIÓN FISICA</string>
+        <string name="dir_sede_inscripcion_anexo_1">DIR. SEDE PRINCIPAL (URB/AV/JR/ETC)</string>
+         <string name="ubi_sede_inscripcion_anexo_1">DEPA/PROVI/DIST</string>
+        <string name="via_inscripcion_anexo_1">VIA</string>
+        <string name="fono_sede_inscripcion_anexo_1">TELEFONO</string>
+        <string name="fax_sede_inscripcion_anexo_1">FAX</string>
+        <string name="web_sede_inscripcion_anexo_1">DIR. WEB</string>
+        <string name="email_sede_inscripcion_anexo_1">E-MAIL</string>
+        <string name="hor_atencion_inscripcion_anexo_1">HORARIOS DE ATENCIÓN</string>
+        <string name="tip_local_inscripcion_anexo_1">EL LOCAL ES</string>
+        <string name="inf_tecnica_inscripcion_anexo_1">INFORMACIÓN TÉCNICA</string>
+        <string name="obj_principal_inscripcion_anexo_1">OBJETIVO PRINCIPAL</string>
+        <string name="pro_ejecutados_inscripcion_anexo_1">PROGRAMAS EJECUTADOS EN FORMA CONJUNTA CON OTRAS INTITUCIONES</string>
+        <string name="tiem_duracion_inscripcion_anexo_1">TIEMPO DE DURACIÓN</string>
+        <string name="int_responsable_inscripcion_anexo_1">INTITUCIÓN RESPONSABLE</string>
+        <string name="pre_fuentes_inscripcion_anexo_1">PRESUPUESTO Y FUENTES DE FINACIAMIENTO</string>
+        <string name="rubros_inscripcion_anexo_1">RUBROS</string>
+        <string name="valor_inscripcion_anexo_1">VALOR</string>
+
+        <string name="operativo_inscripcion_anexo_1">OPERATIVO O ADMINISTRATIVO</string>
+        <string name="programas_inscripcion_anexo_1">PROGRAMAS</string>
+        <string name="inversion_inscripcion_anexo_1">INVERSIÓN</string>
+        <string name="total_inscripcion_anexo_1">TOTAL</string>
+
+    <string name="tipo_inscripcion_anexo_1">TIPO</string>
+    <string name="sub_tipo_inscripcion_anexo_1">SUB TIPO</string>
+    <string name="sub_sub_tipo_inscripcion_anexo_1">SUB SUB TIPO</string>
+
+    <string name="fuen_principal_inscripcion_anexo_1">FUENTE PRINCIPAL DE FINANCIAMIENTO</string>
+        <string name="obeservaciones_inscripcion_anexo_1">OBSERVACIONES</string>
+
+        <string name="sel_ubicacion_inscripcion_anexo_1">SELECCIONE UNA UBICACIÓN</string>
+        <!--FIN INSCRIPCION ANEXO1 -->
+
+        <!--INICIO INSCRIPCION ANEXO2 -->
+        <string name="titulo_inscripcion_anexo_2">REGISTRO PROGRAMAS, PROYECTOS, ALBERGUES U HOGARES</string>
+        <string name="datos_generales_inscripcion_anexo_2">DATOS GENERALES DEL PROGRAMA, PROYECTO, ALBERGUE U HOGAR</string>
+        <!--FIN INSCRIPCION ANEXO2 -->
+    <string name="personal_trabaja_inripcion">PERSONAL QUE TRABAJA EN LA INSTITUCIÓN.</string>
+    <string name="plan_trabajo_inripcion">ESQUEMA DE PLAN DE TRABAJO.</string>
+    <string name="cuadro_resumen_inripcion">CUADRO DE RESUMEN</string>
+    <string name="sexo_inripcion">SEXO</string>
+    <string name="edad_inripcion">EDAD</string>
+    <string name="profesion_inripcion">PROFESIÓN</string>
+
+    <string name="actividad_inripcion">ACTIVIDAD</string>
+    <string name="meta_inripcion">META</string>
+    <string name="cronograma_inripcion">CRONOGRAMA</string>
+    <string name="responsable_inripcion">RESPONSABLE</string>
+    <string name="objetivo_inripcion">OBJETIVO</string>
+    <!--FIN INSCRIPCION -->
+
+    <!-- <string name="bandeja">ACTIVIDADES REALIZADAS</string>-->
+     <string name="nro_bandeja">N°</string>
+     <string name="ver_bandeja">VER</string>
+     <string name="oraganismo_bandeja">ORGANISMO</string>
+     <string name="integrante_bandeja">INTEGRANTE</string>
+     <string name="actividad_bandeja">ACTIVIDAD</string>
+     <string name="fecha_bandeja">FECHA</string>
+     <string name="estado_bandeja">ESTADO</string>
+     <string name="seleccion_bandeja">SELECCIÓN</string>
+
+
+     <string name="eliminar_dialog">¿DESEA ELIMINAR?</string>
+     <string name="nt_camas_ficha">N° TOTAL DE CAMAS</string>
+     <string name="nt_cunas_ficha">N° TOTAL DE CUNAS</string>
+     <string name="at_disponible_ficha">ÁREA TOTAL DISPONIBLE (M^2)</string>
+     <string name="at_construida_ficha">ÁREA TOTAL CONSTRUIDA (M^2)</string>
+     <string name="a_libre_ficha">ÁREA LIBRE</string>
+     <string name="a_libre_det_ficha">(INCLUYE INTALACIONES DEPORTIVAS, HUERTOS Y JARDINES, M^2)</string>
+     <string name="descripcion_actividad_ficha">DESCRIPCIÓN</string>
+     <string name="codigo_actividad_ficha">CÓDIGO</string>
+     <string name="rango_edad_ficha">RANGO DE EDAD</string>
+     <!--INICIO ACREDITACION -->
+    <string name="zona_influenciaficha">ZONA DE INFLUENCIA</string>
+    <string name="poblacion_obejetivo_ficha">POBLACIÓN OBJETIVO</string>
+    <string name="modalidad_ingreso_ficha">MODALIDAD DE INGRESO</string>
+    <string name="modalidad_ficha">MODALIDAD</string>
+    <string name="resolucion_judicial_ficha">RESOL. JUDICIAL</string>
+    <string name="institucion_ficha">NOMBRE DE LA INSTITUCIÓN RESPONSABLE</string>
+    <string name="lineas_actividad_ficha">LÍNEAS DE ACTIVIDAD</string>
+    <string name="car_modalidad_ficha">MODALIDAD DE ATENCIÓN</string>
+    <string name="car_nombre_ficha">NOMBRE</string>
+
+    <string name="servicios_ficha">SERVICIOS</string>
+    <string name="infraestructura_ficha">INFRAESTRUCTURA</string>
+    <string name="ambito_ficha">ÁMBITO DE ACCIÓN</string>
+    <string name="ambito_urbano_ficha">URBANO</string>
+    <string name="ambito_rural_ficha">RURAL</string>
+    <string name="ambito_marginal_ficha">URB. MARGINAL</string>
+    <string name="inicio_ficha">FECHA DE INICIO</string>
+    <string name="culminacion_ficha">FECHA DE CULMINACIÓN</string>
+    <string name="recursos_humanos_ficha">RECURSOS HUMANOS</string>
+    <string name="cantidad_ficha">CANTIDAD</string>
+    <string name="cant_ficha">CANT.</string>
+    <string name="nombres_ficha">NOMBRES Y APELLIDOS</string>
+    <string name="pagina_ficha">PAGINA</string>
+
+
+    <string name="distrito_ficha">DISTRITO</string>
+    <string name="provincia_ficha">PROVINCIA</string>
+    <string name="departamento_ficha">DEPARTAMENTO</string>
+
+    <string name="personal_ficha">PERSONAL</string>
+    <string name="de_ficha">DE</string>
+
+        <!--INICIO ACREDITACION ANEXO1 -->
+        <string name="centro_atencion_ficha">FICHA ACREDITACIÓN CENTRO DE ATENCIÓN RESIDENCIAL</string>
+    <string name="acreditacion_ficha">SOLICITUD - FICHA DE ACREDITACIÓN</string>
+
+    <string name="supervision_ficha">FICHA DE SUPERVISIÓN</string>
+    <!--INICIO INSCRIPCION ANEXO1 -->
+          <!--FIN ACREDITACION ANEXO1 -->
+    <!--FIN ACREDITACION -->
+
+
+    <string name="lbl_observacion">Observación</string>
+
+
+
+    <string name="datos_entrevistado">DATOS DEL ENTREVISTADO</string>
+
+
+
+    <string name="lbl_numero">Número</string>
+    <string name="lbl_seleccion">SELECCIONE</string>
+    <string name="institucion">INSTITUCIÓN</string>
+    <string name="car">CAR</string>
+    <string-array name="array_tipo">
+        <item >INSTITUCIÓN</item>
+        <item >CAR</item>
+    </string-array>
+
+    <string-array name="array_sexo">
+        <item >SELECCIONE</item>
+        <item >HOMBRE</item>
+        <item >MUJER</item>
+    </string-array>
+
+    <string-array name="array_valor">
+        <item >Seleccione</item>
+        <item >Si</item>
+        <item >No</item>
+    </string-array>
+
+
+    <string name="lbl_actualizando">Actualizando</string>
+    <string name="lbl_actualizar">¿ESTÁ SEGURO QUE DESEA ACTUALIZAR?</string>
+
+    <string name="lbl_puntaje">PUNTAJE</string>
+    <string name="lbl_condicion1">No aprueba</string>
+    <string name="lbl_condicion2">En Proceso con plazo para subsanar</string>
+    <string name="lbl_condicion3">Aprobado nivel Inermedio</string>
+    <string name="lbl_condicion4">Aprobado nivel Óptimo</string>
+    <string name="lbl_condicion">CONDICIÓN</string>
+
+
+    <string name="lbl_cargando_datos">Cargando</string>
+    <string name="lbl_enviando_datos">Enviando</string>
+    <string name="lbl_espere_momento">Espere un momento</string>
+
+
+    <string name="lbl_envio">Por favor, seleccione un estado y active la casilla de envió.</string>
+
+    <string name="lbl_grupo_poblacion">GRUPO POBLACIONAL</string>
+    <string name="lbl_grupo_varones">VARONES</string>
+    <string name="lbl_grupo_mujeres">MUJERES</string>
+    <string name="lbl_grupo_mental">DEFICIENCIA MENTAL</string>
+    <string name="lbl_grupo_fisica">DEFICIENCIA FÍSICA</string>
+    <string name="seleccion_opcion">SELECCIONE UNA OPCIÓN</string>
+
+    <string name="datos_institucion">DATOS DE LA INSTITUCIÓN</string>
+    <string name="datos_residentes">DATOS DE LOS RESIDENTES</string>
+    <string name="acreditacion_registro">Acreditada ante el Registro Central de Instituciones</string>
+    <string name="posee">Posee</string>
+    <string name="certificado_licencias">CERTIFICADOS Y LICENCIAS</string>
+
+    <string name="cuenta_certificado">Cuenta con Certificados de Defensa Civil</string>
+    <string name="cuenta_licencia">Cuenta con Licencia de funcionamientol</string>
+    <string name="cuenta_constancias">Cuenta con Constancias de Acreditación ante el Registro Central de Instituciones</string>
+    <string name="cuenta_fumigacion">Cuenta con Certificado de fumigación</string>
+    <string name="n_constancias">N° de Constancias</string>
+    <string name="fec_acreditacion">Fecha de Acreditación</string>
+    <string name="fec_renovacion">Fecha de Renovación</string>
+
+    <string name="fec_emision">Fecha de Emisión</string>
+    <string name="fec_caducidad">Fecha de Caducidad</string>
+
+    <string name="documentacion">DOCUMENTACIÓN CON LA QUE CUENTA EL CAR (el profesional deberá hacer la revisión documental)</string>
+
+    <string name="lbl_supervision">FICHA DE SUPEVISIÓN</string>
+    <string-array name="array_imagen">
+        <item >VER IMAGEN</item>
+        <item >ELIMINAR IMAGEN</item>
+    </string-array>
+
+
+    <string name="dlg_copia">¿QUIERE REALIZAR UNA COPIA DE SEGURIDAD?</string>
+    <string name="dlg_copia_confirmacion">LA COPIA DE SEGURIDAD SE REALIZÓ CON ÉXITO</string>
+    <string name="dlg_copia_error">ERROR AL GENERAR COPIA DE SEGURIDAD, POR FAVOR COMUNÍQUESE CON EL ADMINISTRADOR.</string>
+
+    <string name="dlg_restaruar">¿QUIERE REALIZAR UNA RESTAURACIÓN?</string>
+    <string name="dlg_restaruar_confirmacion">LA RESTAURACIÓN SE REALIZÓ CON ÉXITO</string>
+    <string name="dlg_restaruar_error">ERROR AL RESTAURAR, POR FAVOR COMUNÍQUESE CON EL ADMINISTRADOR.</string>
+
+    <string name="dlg_actualizar_error">ERROR AL ACTUALIZAR, POR FAVOR COMUNÍQUESE CON EL ADMINISTRADOR.</string>
+    <string name="dlg_actualizar_vacio">NO SE ENCONTRARON NUEVAS SUPERVISIONES ASIGNADAS.</string>
+
+
+    <string name="dlg_crear">¿QUIERE CREAR UN NUEVO CAR?</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
