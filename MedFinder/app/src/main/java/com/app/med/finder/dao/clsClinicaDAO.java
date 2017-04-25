@@ -11,13 +11,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Base64;
-
 import com.app.med.finder.entidades.clsClinica;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -32,51 +26,6 @@ import java.util.List;
 public class clsClinicaDAO {
     
     private static String NOMBRE_TABLA="CLINICA";
-    public static boolean AgregarLogin(Context context,String data,boolean login)
-    {
-        boolean retorno=true;
-        int id;
-        bdSQLite admin=new bdSQLite(context, null);
-        SQLiteDatabase bd=admin.getWritableDatabase();
-        try
-        {
-            if(login)
-                bd.delete(NOMBRE_TABLA, null, null);
-            JSONArray listEmpresaJSON = new JSONArray(data);
-            for(int i=0;i<listEmpresaJSON.length();i++){
-                JSONObject json_data = listEmpresaJSON.getJSONObject(i);
-                ContentValues registro = new ContentValues();
-                registro.put("int_id_clinica", json_data.getInt("clinicaId"));
-                registro.put("str_nombre", json_data.getString("clinicaNombre"));
-                registro.put("str_slogan",json_data.getString("clinicaSlogan"));
-                registro.put("str_direccion",json_data.getString("clinicaDireccion"));
-                registro.put("str_descripcion",json_data.getString("clinicaDescripcion"));
-                registro.put("dat_hora_inicio",json_data.getLong("clinicaHorarioInicio"));
-                registro.put("dat_hora_fin",json_data.getLong("clinicaHorarioFin"));
-                registro.put("str_clinica_atencion",json_data.getString("clinicaDetalleAtencion"));
-                registro.put("str_telefono",json_data.getString("clinicaTelefono"));
-                registro.put("str_detalle_atencion",json_data.getString("clinicaDetalleAtencion"));
-                registro.put("dou_longitud",json_data.getDouble("clinicaLongitud"));
-                registro.put("dou_latitud", json_data.getDouble("clinicaLatitud"));
-                registro.put("int_estado", json_data.getString("clinicaEstado"));
-
-                if(!json_data.getString("clinicaLogo").equals(""))
-                 registro.put("byte_logo", Base64.decode(json_data.getString("clinicaLogo"), Base64.NO_WRAP | Base64.URL_SAFE));
-
-                id = (int) bd.insert(NOMBRE_TABLA, null, registro);
-                if(id==0)
-                {
-                    retorno=false;
-                }
-            }
-        }
-        catch (Exception e)
-        {
-            retorno=false;
-        }
-        bd.close();
-        return retorno;
-    }
      public static int Agregar(Context context,clsClinica entidad)
     {
         int id = 0;
