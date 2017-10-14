@@ -28,8 +28,8 @@
     </target>
     <target name="wsimport-client-medico" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/medico"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/medico" destdir="${build.generated.dir}/jax-wsCache/medico" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/medico/wsdl/45.55.188.187/MedicoServicio/medico.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://45.55.188.187/MedicoServicio/medico?WSDL" xnocompile="true" xendorsed="true" package="servicio">
-            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/medico/wsdl/45.55.188.187/MedicoServicio/medico.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/medico" destdir="${build.generated.dir}/jax-wsCache/medico" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/medico/wsdl/170.239.86.92/MedSevis/medico.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://170.239.86.92/MedSevis/medico?wsdl" xnocompile="true" xendorsed="true" package="servicio">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/medico/wsdl/170.239.86.92/MedSevis/medico.wsdl"/>
             <produces dir="${build.generated.dir}/jax-wsCache/medico"/>
         </wsimport>
         <copy todir="${build.generated.sources.dir}/jax-ws">

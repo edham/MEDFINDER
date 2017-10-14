@@ -11,10 +11,8 @@ import Utilidades.Utilidades;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 import javax.xml.ws.WebServiceRef;
 import org.primefaces.event.SelectEvent;
 import servicio.Detalle;
@@ -30,9 +28,8 @@ import servicio.Medico_Service;
 @ManagedBean
 @SessionScoped
 public class ManagedBeanServicioDoctor implements Serializable {
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/45.55.188.187/MedicoServicio/medico.wsdl")
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/170.239.86.92/MedSevis/medico.wsdl")
     private Medico_Service service;
-    
     private List<Doctor> listDoctor;
     private Doctor objetoDoctor;
     private Detalle objetoDetalle;
@@ -74,6 +71,8 @@ public class ManagedBeanServicioDoctor implements Serializable {
             
         }
     }
+    
+    
     public void buscarCodigo(String cmp)
     {
         if(cmp.length()==6)
@@ -179,7 +178,8 @@ public class ManagedBeanServicioDoctor implements Serializable {
                 }catch (Exception e) {e.printStackTrace();}
             }catch (Exception e) {e.printStackTrace();}
     }
- 
+
+    
     
       
 }

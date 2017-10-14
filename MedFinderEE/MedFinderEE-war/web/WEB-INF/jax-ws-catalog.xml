@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
-    <system systemId="http://45.55.188.187/MedicoServicio/medico?WSDL" uri="wsdl/45.55.188.187/MedicoServicio/medico.wsdl"/>
-    <system systemId="http://45.55.188.187:80/MedicoServicio/medico?xsd=1" uri="wsdl/45.55.188.187_80/MedicoServicio/medico.xsd_1.xsd"/>
+    <system systemId="http://170.239.86.92/MedSevis/medico?wsdl" uri="wsdl/170.239.86.92/MedSevis/medico.wsdl"/>
+    <system systemId="http://170.239.86.92:80/MedSevis/medico?xsd=1" uri="wsdl/170.239.86.92_80/MedSevis/medico.xsd_1.xsd"/>
 </catalog>
