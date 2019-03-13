@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author EdHam
+ * @author Edham
  */
 @Entity
 @Table(name = "respuesta_caso_salud")
@@ -173,7 +173,7 @@ public class RespuestaCasoSalud implements Serializable {
 
     @Override
     public String toString() {
-        return "be.RespuestaCasoSalud[ pKId=" + pKId + " ]";
+        return "modelo.RespuestaCasoSalud[ pKId=" + pKId + " ]";
     }
     
 }

@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+	<h:body >
+        <ui:composition template="/WEB-INF/templates/default.xhtml">
+            <ui:define name="content">
+            	<p:growl id="mensajes" showDetail="true" />
+            	<h1>GESTIÓN DE USUARIOS</h1>
+
+                <h:form id="form">
+                            <p:growl id="msgs" showDetail="true" />
+                    <div class="innerLR">
+                        <!-- Widget -->
+                        <!-- Widget -->
+                        <div class="widget">
+                            <h:panelGrid columns="1">
+                              <p:dataTable  id="lista" widgetVar="lista" var="item" value="#{managedBeanUsuario.listaobjUsuario}" rows="10" scrollable="true" scrollHeight="180"
+                                              paginator="true" rowStyleClass="#{item.estado eq 0 ? 'colored' : null}" rowIndexVar="rowIndex" 
+                                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                         rowsPerPageTemplate="5,10,15">
+
+
+                                                 <f:facet name="header">
+
+                                                    LISTA DE USUARIOS
+                                                </f:facet>
+                                                 <p:column headerText="N°" style="width:15px; text-align: center">
+                                                       <p:outputLabel value="#{rowIndex + 1}" />
+                                                </p:column>
+                                                <p:column style="width:40px;text-align: center">
+                                                   <p:commandButton icon="ui-icon-pencil" update=":frm_usuario :form:msgs" value=""  title="Editar" oncomplete="PF('dlgusuario').show();"  actionListener="#{managedBeanUsuario.actualizar(item)}"/>  
+                                                </p:column>
+                                                <p:column headerText="DNI" filterBy="#{item.persona.dni}" style="text-align: center">
+                                                   <p:outputLabel value="#{item.persona.dni}" />
+                                                </p:column>
+                                              
+                                               
+                                                <p:column headerText="A. PATERNO" filterBy="#{item.persona.apellidoPaterno}" style="text-align: center">
+                                                   <p:outputLabel value="#{item.persona.apellidoPaterno}" />
+                                                </p:column>
+                                                <p:column headerText="A. MATERNO" filterBy="#{item.persona.apellidoMaterno}" style="text-align: center">
+                                                   <p:outputLabel value="#{item.persona.apellidoMaterno}" />
+                                                </p:column>
+                                               <p:column headerText="NOMBRE" filterBy="#{item.persona.nombre}" style="text-align: center">
+                                                   <p:outputLabel value="#{item.persona.nombre}" />
+                                                </p:column>
+                                                <p:column headerText="SEXO" style="width:60px; text-align: center" filterBy="#{item.persona.sexo}" filterMatchMode="contains">
+                                                        <f:facet name="filter">
+                                                                                <p:selectOneMenu onchange="PF('lista').filter()" >
+                                                                                    <f:selectItem itemLabel="TODOS" itemValue="#{null}" noSelectionOption="true" />
+                                                                                    <f:selectItem itemLabel="HOMBRE" itemValue="true" />
+                                                                                    <f:selectItem itemLabel="MUJER" itemValue="false" />
+                                                                                </p:selectOneMenu>
+                                                                            </f:facet>
+                                                <p:outputLabel value="#{item.persona.sexo eq true ?'HOMBRE':'MUJER'}" >
+                                                        <f:converter converterId="javax.faces.Character" />                                    
+                                                    </p:outputLabel>
+                                                </p:column>   
+                                                <p:column headerText="DOCTOR" filterBy="#{item.persona.doctorList.size() eq 0?'NO':'SI'}" style="width:60px; text-align: center">
+                                                                    <f:facet name="filter">
+                                                                                <p:selectOneMenu onchange="PF('lista').filter()" >
+                                                                                    <f:selectItem itemLabel="TODOS" itemValue="#{null}" noSelectionOption="true" />
+                                                                                    <f:selectItem itemLabel="SI" itemValue="SI" />
+                                                                                    <f:selectItem itemLabel="NO" itemValue="NO" />
+                                                                                </p:selectOneMenu>
+                                                                            </f:facet>
+                                                    
+                                                    <p:outputLabel value="#{item.persona.doctorList.size() eq 0?'NO':'SI'}" />
+                                                </p:column>
+                                                <p:column headerText="MOVIL" filterBy="#{item.persona.pacienteList.size() eq 0?'NO':'SI'}" style="width:60px; text-align: center">
+                                                                    <f:facet name="filter">
+                                                                                <p:selectOneMenu onchange="PF('lista').filter()" >
+                                                                                    <f:selectItem itemLabel="TODOS" itemValue="#{null}" noSelectionOption="true" />
+                                                                                    <f:selectItem itemLabel="SI" itemValue="SI" />
+                                                                                    <f:selectItem itemLabel="NO" itemValue="NO" />
+                                                                                </p:selectOneMenu>
+                                                                            </f:facet>
+                                                    
+                                                    <p:outputLabel value="#{item.persona.pacienteList.size() eq 0?'NO':'SI'}" />
+                                                </p:column>
+                                                <p:column headerText="ESTADO" style="width:60px; text-align: center" filterBy="#{item.estado}" filterMatchMode="contains">
+                                                                            <f:facet name="filter">
+                                                                                <p:selectOneMenu onchange="PF('lista').filter()" >
+                                                                                    <f:selectItem itemLabel="TODOS" itemValue="#{null}" noSelectionOption="true" />
+                                                                                    <f:selectItem itemLabel="ACTIVO" itemValue="1" />
+                                                                                    <f:selectItem itemLabel="DESACTIVO" itemValue="0" />
+                                                                                </p:selectOneMenu>
+                                                                            </f:facet>
+                                                      <p:outputLabel value="#{item.estado eq 1 ?'ACTIVO':'DESACTIVO'}" >
+                                                        <f:converter converterId="javax.faces.Character" />                                    
+                                                    </p:outputLabel>
+                                                </p:column>   
+                                               
+
+                                </p:dataTable>	
+                            </h:panelGrid>
+                            
+                        </div>
+                       
+                        <!-- // Widget END -->
+                    </div>	
+                 
+                </h:form> 
+
+                
+                <h:form id="frm_usuario" >
+                        
+                    <p:growl id="messages" showDetail="true" />
+                    
+                    <p:dialog header="#{managedBeanUsuario.nuevoTitulo}" closable="true" resizable="false" widgetVar="dlgusuario" showEffect="explode" height="320" width="950">
+                        <p:panel id="datos" style="margin-bottom:10px;">
+                                  <h:panelGrid  style="vertical-align: top" columns="4">
+                                    <p:panel  header="DATOS PERSONA">
+                                    <h:panelGrid style="vertical-align: top;" columns="4">
+                                        <p:outputLabel for="paterno" value="A. PATERNO"/>   
+                                        <p:inputText id="paterno"  required="true" value="#{managedBeanUsuario.objPersona.apellidoPaterno}"/>
+                                        <p:outputLabel for="materno" value="A. MATERNO"/>   
+                                        <p:inputText id="materno" required="true" value="#{managedBeanUsuario.objPersona.apellidoMaterno}"/>
+                                        <p:outputLabel for="nombres" value="NOMBRES"/>   
+                                        <p:inputText id="nombres" required="true" value="#{managedBeanUsuario.objPersona.nombre}"/>
+                                        <p:outputLabel for="dni" value="DNI"/>   
+                                        <p:inputText id="dni" required="true"  value="#{managedBeanUsuario.objPersona.dni}"/>
+                                        <p:outputLabel for="nac" value="FEC. NAC."/>   
+                                        <p:calendar id="nac" required="true" value="#{managedBeanUsuario.objPersona.fechaNacimiento}" locale="es" navigator="true" pattern="dd/MM/yyyy" maxdate="#{managedBeanDoctor.maxDate}"  />
+                                        
+                                        <p:outputLabel for="sexo" value="SEXO"/>
+                                        <p:selectOneRadio id="sexo" required="true" value="#{managedBeanUsuario.objPersona.sexo}">
+                                                                        <f:selectItem itemLabel="HOMBRE" itemValue="true" />
+                                                                        <f:selectItem itemLabel="MUJER" itemValue="false" />
+                                        </p:selectOneRadio>
+                                         
+                                         <p:outputLabel value="DEPARTAMENTO"/>
+                                          <p:selectOneMenu filter="true" widgetVar="departamento" filterMatchMode="contains" value="#{managedBeanDistrito.objDepartamento}" converter="departamentoConverter">
+                                            <f:selectItem itemLabel="#{managedBeanDepartamento.objDepartamentoVacio.nombre}" itemValue="#{managedBeanDistrito.objDepartamento}" noSelectionOption="false" />
+                                            <f:selectItems   value="#{managedBeanDepartamento.objDepartamentoItems}"/>	                                        
+                                            <p:ajax  update=":frm_usuario:provincia " /> 
+                                        </p:selectOneMenu>
+                                          <p:outputLabel value="PROVNCIA"/>
+                                          <p:selectOneMenu id="provincia" widgetVar="provincia"  filter="true" filterMatchMode="contains" value="#{managedBeanDistrito.objProvincia}" converter="provinciaConverter">
+                                              <f:selectItem itemLabel="#{managedBeanProvincia.objProvinciaVacio.nombre}" itemValue="#{managedBeanDistrito.objProvincia}" noSelectionOption="false" />
+                                              <f:selectItems   value="#{managedBeanDistrito.objProvinciaItems}"/>	                                        
+                                          <p:ajax  update=":frm_usuario:distrito" /> 
+                                        </p:selectOneMenu>
+                                          <p:outputLabel for="distrito" value="DISTRITO"/>
+                                        <p:selectOneMenu id="distrito" required="true" validatorMessage="SELECCIONE DISTRITO" widgetVar="distrito"  filter="true" filterMatchMode="contains" value="#{managedBeanUsuario.objPersona.distrito}"  onchange="geocodeClick()" converter="distritoConverter">
+                                            <f:selectItem itemLabel="#{managedBeanDistrito.objDistritoVacio.nombre}" itemValue="#{managedBeanUsuario.objPersona.distrito}" />
+                                              <f:selectItems   value="#{managedBeanDistrito.objDistritoItems}"/>	                                        
+                                              
+                                        </p:selectOneMenu>
+                                          <p:outputLabel for="domi" value="DIR. DOMICILIO"/>
+                                          <p:inputTextarea rows="2" id="domi" required="true" value="#{managedBeanUsuario.objPersona.direccion}"/>
+                                          <p:outputLabel for="tele" value="TELEFONO"/>   
+                                          <p:inputText id="tele" required="true" value="#{managedBeanUsuario.objPersona.telefono}"/>
+                                          <p:outputLabel for="correo" value="CORREO"/>   
+                                          <p:inputText id="correo" required="true" value="#{managedBeanUsuario.objPersona.email}"/>
+                                        
+                                    </h:panelGrid>
+                                   </p:panel>  
+                                    
+                                  <h:panelGrid style="vertical-align: top;" columns="1">
+                                      <p:panel  id="image" header="DATOS USUARIO">
+                                           <h:panelGrid style="vertical-align: top;height:200px" columns="2">
+                                                <p:outputLabel value="USUARIO"/>   
+                                                <p:outputLabel value="#{managedBeanUsuario.objUsuario.usuario}"/>   
+                                                <p:outputLabel for="clave" value="CLAVE"/>   
+                                                <p:inputText id="clave" required="true" value="#{managedBeanUsuario.objUsuario.clave}"/>
+                                                <p:outputLabel for="estado" value="ESTADO"/>
+                                                <p:selectOneRadio id="estado" required="true" value="#{managedBeanUsuario.objUsuario.estado}">
+                                                                                <f:selectItem itemLabel="ACTIVO" itemValue="1" />
+                                                                                <f:selectItem itemLabel="DESACTIVO" itemValue="0" />
+                                                </p:selectOneRadio>
+                                                <p:graphicImage   value="#{managedBeanUsuario.imagen}" width="80" cache="false"  id="grpImage" height="80"/>
+                                                    
+                                                <p:fileUpload  fileUploadListener="#{managedBeanUsuario.subirImagen}" mode="advanced"  skinSimple="true"
+                                                    update=":frm_usuario:image :frm_usuario:messages" auto="true"  sizeLimit="100000000" allowTypes="/(\.|\/)(jpeg|png)$/"
+                                                    label="SUBIR IMAGEN" />    
+                                           </h:panelGrid>
+                                      </p:panel>
+                                  
+                              
+                                  </h:panelGrid>
+                                  </h:panelGrid>
+                                        <p:separator />
+                                           <p:commandButton value="ACEPTAR" update=":frm_usuario:datos :form :form:msgs" oncomplete="if (!args.validationFailed) PF('dlgusuario').hide()" actionListener="#{managedBeanUsuario.crear()}"/>
+                                           <p:commandButton value="CERRAR" update=":form :form:msgs"  oncomplete="PF('dlgusuario').hide();"    actionListener="#{managedBeanUsuario.limpiar(true)}"/>  
+                                        </p:panel>
+   
+                    </p:dialog>
+                </h:form>
+                
+             
+            </ui:define>
+            
+        </ui:composition>
+        
+    </h:body>
+    
+</html>

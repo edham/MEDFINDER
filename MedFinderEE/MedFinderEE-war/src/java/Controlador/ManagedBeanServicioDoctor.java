@@ -75,6 +75,7 @@ public class ManagedBeanServicioDoctor implements Serializable {
     
     public void buscarCodigo(String cmp)
     {
+        System.out.println("buscarCodigo "+cmp);
         if(cmp.length()==6)
         {
             limpiar();

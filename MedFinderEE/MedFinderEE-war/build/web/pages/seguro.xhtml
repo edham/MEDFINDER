@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+	<h:body >
+        <ui:composition template="/WEB-INF/templates/default.xhtml">
+            <ui:define name="content">
+            	<p:growl id="mensajes" showDetail="true" />
+            	<h1>MANTENIMIENTO DE SEGUROS</h1>
+
+                <h:form id="form">
+                            <p:growl id="msgs" showDetail="true" />
+                    <div class="innerLR">
+                        <!-- Widget -->
+                        <!-- Widget -->
+                        <div class="widget">
+                            <h:panelGrid columns="2">
+                                  <p:panel id="nuevo" header="#{managedBeanSeguro.nuevoTitulo}" style="margin-bottom:10px;">
+
+                                <h:panelGrid style="vertical-align: top; height: 230px;" columns="2">
+                                    <h:outputLabel for="nombre" value="NOMBRE"/>
+                                    <h:inputText required="true" id="nombre" value="#{managedBeanSeguro.objSeguro.nombre}" />
+
+
+                                    <h:outputText value="IMAGEN"/>
+                                    <p:graphicImage   value="#{managedBeanSeguro.imagen}" width="80" cache="false"  id="grpImage" height="80"/>
+
+                                    <h:outputText value="SELECIONAR"/>
+                                    <p:fileUpload  fileUploadListener="#{managedBeanSeguro.subirImagen}" mode="advanced"  skinSimple="true"
+                                        update=":form:nuevo :form:msgs" auto="true"  sizeLimit="100000000" allowTypes="/(\.|\/)(jpeg|png)$/"
+                                        label="SUBIR IMAGEN" />
+
+
+
+                                    <h:outputText value="ESTADO"/>
+                                    <p:selectOneRadio  value="#{managedBeanSeguro.objSeguro.estado}">
+                                                                    <f:selectItem itemLabel="ACTIVO" itemValue="1" />
+                                                                    <f:selectItem itemLabel="DESACTIVO" itemValue="0" />
+                                    </p:selectOneRadio>
+
+                                </h:panelGrid>
+                                  <p:separator />
+                                       <p:commandButton value="ACEPTAR" update=":form :form:msgs"  actionListener="#{managedBeanSeguro.crear()}"/>
+                                       <p:commandButton value="LIMPIAR" immediate="true" process="@this" update=":form :form:msgs"  actionListener="#{managedBeanSeguro.limpiar()}"/>  
+                            </p:panel>
+                                
+                                                <p:dataTable widgetVar="lista"  id="lista" var="item" value="#{managedBeanSeguro.listaobjSeguro}" rows="10" scrollable="true" scrollHeight="180"
+                                                          paginator="true" rowStyleClass="#{item.estado eq 0 ? 'colored' : null}" rowIndexVar="rowIndex" 
+                                                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                                     rowsPerPageTemplate="5,10,15">
+
+
+                                                             <f:facet name="header">
+
+                                                                LISTA DE SEGURO
+                                                            </f:facet>
+                                                             <p:column headerText="N°" style="width:15px; text-align: center">
+                                                                   <h:outputText value="#{rowIndex + 1}" />
+                                                            </p:column>
+                                                            <p:column style="width:40px;text-align: center">
+                                                                <p:commandButton immediate="true" process="@this" icon="ui-icon-pencil" update=":form :form:msgs" value=""  title="Editar"  actionListener="#{managedBeanSeguro.actualizar(item)}"/>  
+                                                           
+                                                            </p:column>
+                                                            <p:column headerText="NOMBRE" filterBy="#{item.nombre}" style="text-align: center">
+                                                                <h:outputText value="#{item.nombre}" />
+                                                             </p:column>
+
+                                                           <p:column headerText="ESTADO" style="width:95px; text-align: center" filterBy="#{item.estado}" filterMatchMode="contains">
+                                                                <f:facet name="filter">
+                                                                                        <p:selectOneMenu onchange="PF('lista').filter()" >
+                                                                                            <f:selectItem itemLabel="TODOS" itemValue="#{null}" noSelectionOption="true" />
+                                                                                            <f:selectItem itemLabel="ACTIVO" itemValue="1" />
+                                                                                            <f:selectItem itemLabel="DESACTIVO" itemValue="0" />
+                                                                                        </p:selectOneMenu>
+                                                                                    </f:facet>
+                                                              <h:outputText value="#{item.estado eq 1 ?'ACTIVO':'DESACTIVO'}" >
+                                                                <f:converter converterId="javax.faces.Character" />                                    
+                                                            </h:outputText>
+                                                        </p:column>   
+
+                                            </p:dataTable>
+					
+                            </h:panelGrid>
+                            
+                        </div>
+                       
+                        <!-- // Widget END -->
+                    </div>	
+                 
+                </h:form> 
+
+                
+            </ui:define>
+            
+        </ui:composition>
+        
+    </h:body>
+    
+</html>

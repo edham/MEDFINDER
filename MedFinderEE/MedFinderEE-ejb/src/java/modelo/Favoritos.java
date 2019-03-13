@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author EdHam
+ * @author Edham
  */
 @Entity
 @Table(name = "favoritos")
@@ -135,7 +135,7 @@ public class Favoritos implements Serializable {
 
     @Override
     public String toString() {
-        return "be.Favoritos[ pKId=" + pKId + " ]";
+        return "modelo.Favoritos[ pKId=" + pKId + " ]";
     }
     
 }

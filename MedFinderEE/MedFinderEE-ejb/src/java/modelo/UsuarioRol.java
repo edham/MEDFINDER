@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author EdHam
+ * @author Edham
  */
 @Entity
 @Table(name = "usuario_rol")
@@ -135,7 +135,7 @@ public class UsuarioRol implements Serializable {
 
     @Override
     public String toString() {
-        return "be.UsuarioRol[ pkId=" + pkId + " ]";
+        return "modelo.UsuarioRol[ pkId=" + pkId + " ]";
     }
     
 }

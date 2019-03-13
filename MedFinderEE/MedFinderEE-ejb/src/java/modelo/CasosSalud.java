@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author EdHam
+ * @author Edham
  */
 @Entity
 @Table(name = "casos_salud")
@@ -162,7 +162,7 @@ public class CasosSalud implements Serializable {
 
     @Override
     public String toString() {
-        return "be.CasosSalud[ pKId=" + pKId + " ]";
+        return "modelo.CasosSalud[ pKId=" + pKId + " ]";
     }
     
 }

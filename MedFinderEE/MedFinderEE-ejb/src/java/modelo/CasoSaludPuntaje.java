@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author EdHam
+ * @author Edham
  */
 @Entity
 @Table(name = "caso_salud_puntaje")
@@ -134,7 +134,7 @@ public class CasoSaludPuntaje implements Serializable {
 
     @Override
     public String toString() {
-        return "be.CasoSaludPuntaje[ pKId=" + pKId + " ]";
+        return "modelo.CasoSaludPuntaje[ pKId=" + pKId + " ]";
     }
     
 }

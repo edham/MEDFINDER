@@ -338,7 +338,7 @@
                                                 <p:outputLabel value="PATERNO"/> 
                                                 <p:inputText style="width: 110px"  value="#{managedBeanServicioDoctor.apellidos}" />
                                                 <p:commandButton icon="ui-icon-search"  onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"
-                                                                 update=":frm_validar:doctores :form:msgs" value=""  title="BUSCAR"  actionListener="#{managedBeanServicioDoctor.buscarNombres(managedBeanServicioDoctor.apellidos, managedBeanServicioDoctor.nombres)}"/>  
+                                                                 update=":frm_validar:doctores :form:msgs" value="" process="@this" title="BUSCAR"  actionListener="#{managedBeanServicioDoctor.buscarNombres(managedBeanServicioDoctor.apellidos, managedBeanServicioDoctor.nombres)}"/>  
                                                 <p:outputLabel value="MATERNO"/> 
                                                 <p:inputText style="width: 110px"  value="#{managedBeanServicioDoctor.nombres}" />
                                                 <p:commandButton icon="ui-icon-refresh"  onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"

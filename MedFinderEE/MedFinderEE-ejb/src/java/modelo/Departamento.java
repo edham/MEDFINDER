@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author EdHam
+ * @author Edham
  */
 @Entity
 @Table(name = "departamento")
@@ -137,7 +137,7 @@ public class Departamento implements Serializable {
 
     @Override
     public String toString() {
-        return "be.Departamento[ pKId=" + pKId + " ]";
+        return "modelo.Departamento[ pKId=" + pKId + " ]";
     }
     
 }

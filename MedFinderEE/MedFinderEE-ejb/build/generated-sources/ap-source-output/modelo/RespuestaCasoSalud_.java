@@ -1,0 +1,26 @@
+package modelo;
+
+import java.util.Date;
+import javax.annotation.Generated;
+import javax.persistence.metamodel.ListAttribute;
+import javax.persistence.metamodel.SingularAttribute;
+import javax.persistence.metamodel.StaticMetamodel;
+import modelo.CasoSaludPuntaje;
+import modelo.CasosSalud;
+import modelo.Doctor;
+
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2017-10-14T14:31:13")
+@StaticMetamodel(RespuestaCasoSalud.class)
+public class RespuestaCasoSalud_ { 
+
+    public static volatile SingularAttribute<RespuestaCasoSalud, String> descripcion;
+    public static volatile SingularAttribute<RespuestaCasoSalud, Doctor> doctor;
+    public static volatile SingularAttribute<RespuestaCasoSalud, Integer> puntajeTotal;
+    public static volatile SingularAttribute<RespuestaCasoSalud, Integer> pKId;
+    public static volatile SingularAttribute<RespuestaCasoSalud, Integer> estado;
+    public static volatile SingularAttribute<RespuestaCasoSalud, Date> fechaModificacion;
+    public static volatile SingularAttribute<RespuestaCasoSalud, Date> fechaRegistro;
+    public static volatile SingularAttribute<RespuestaCasoSalud, CasosSalud> casosSalud;
+    public static volatile ListAttribute<RespuestaCasoSalud, CasoSaludPuntaje> casoSaludPuntajeList;
+
+}

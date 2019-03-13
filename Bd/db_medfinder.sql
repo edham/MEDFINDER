@@ -1,10 +1,9 @@
--- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
--- Host: localhost    Database: bd_medfinder
+-- Host: 192.168.1.69    Database: bd_medfinder
 -- ------------------------------------------------------
--- Server version	5.6.20
-create database bd_medfinder;
-use bd_medfinder;
+-- Server version	5.5.54-log
+
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -198,8 +197,8 @@ CREATE TABLE `detalle_clinica_especialidad` (
   PRIMARY KEY (`PK_Id`),
   KEY `fk_Detalle_Clinica_Clinica_idx` (`FK_Clinica`),
   KEY `fk_Detalle_Clinica_Especialidad_idx` (`FK_Especialidad`),
-  CONSTRAINT `fk_Detalle_Clinica_Clinica` FOREIGN KEY (`FK_Clinica`) REFERENCES `clinica` (`PK_Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_detalle_ clinica_especialidad` FOREIGN KEY (`FK_Especialidad`) REFERENCES `especialidad` (`PK_Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_detalle_ clinica_especialidad` FOREIGN KEY (`FK_Especialidad`) REFERENCES `especialidad` (`PK_Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Detalle_Clinica_Clinica` FOREIGN KEY (`FK_Clinica`) REFERENCES `clinica` (`PK_Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -604,7 +603,7 @@ CREATE TABLE `roles` (
   `FechaRegistro` datetime DEFAULT NULL,
   `Estado` int(11) DEFAULT NULL,
   PRIMARY KEY (`Pk_Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -613,7 +612,7 @@ CREATE TABLE `roles` (
 
 LOCK TABLES `roles` WRITE;
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-INSERT INTO `roles` VALUES (1,'Administrador','Administrador','2015-12-26 23:59:59','2015-12-26 23:59:59',1),(2,'Usuario','Usuario','2015-12-27 00:00:19','2015-12-27 00:00:19',1);
+INSERT INTO `roles` VALUES (1,'Administrador','Administrador','2015-12-26 23:59:59','2015-12-26 23:59:59',1),(2,'Usuario','Usuario','2015-12-27 00:00:19','2015-12-27 00:00:19',1),(3,'Doctor','Doctor','2015-12-27 00:00:19','2015-12-27 00:00:19',1);
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -696,7 +695,7 @@ CREATE TABLE `usuario_rol` (
   KEY `fk_usuario_rol_roles_idx` (`FK_Roles`),
   CONSTRAINT `fk_usuario_rol_roles` FOREIGN KEY (`FK_Roles`) REFERENCES `roles` (`Pk_Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_usuario_rol_usuario` FOREIGN KEY (`FK_Usuario`) REFERENCES `usuario` (`PK_Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -705,7 +704,7 @@ CREATE TABLE `usuario_rol` (
 
 LOCK TABLES `usuario_rol` WRITE;
 /*!40000 ALTER TABLE `usuario_rol` DISABLE KEYS */;
-INSERT INTO `usuario_rol` VALUES (1,'2015-10-24 23:01:16','2015-10-24 23:01:16',1,9,1);
+INSERT INTO `usuario_rol` VALUES (1,'2015-10-24 23:01:16','2015-10-24 23:01:16',1,9,1),(2,'2015-10-24 23:01:16','2015-10-24 23:01:16',1,35,3);
 /*!40000 ALTER TABLE `usuario_rol` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -750,4 +749,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-05-23  0:56:37
+-- Dump completed on 2019-03-12 22:13:30

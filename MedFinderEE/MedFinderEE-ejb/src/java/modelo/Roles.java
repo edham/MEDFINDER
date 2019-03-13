@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author EdHam
+ * @author Edham
  */
 @Entity
 @Table(name = "roles")
@@ -150,7 +150,7 @@ public class Roles implements Serializable {
 
     @Override
     public String toString() {
-        return "be.Roles[ pkId=" + pkId + " ]";
+        return "modelo.Roles[ pkId=" + pkId + " ]";
     }
     
 }

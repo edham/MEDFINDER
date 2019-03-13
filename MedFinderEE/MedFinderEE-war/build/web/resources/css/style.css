@@ -1,0 +1,28 @@
+body {
+    font-size: 75% !important;
+
+}
+
+.ui-widget,.ui-widget-header,.ui-widget-content,.ui-widget-header .ui-widget-header,.ui-widget-content .ui-widget-content,.ui-widget input,.ui-widget select,.ui-widget textarea,.ui-widget button
+{
+    font-size: 100% !important;
+}
+
+
+.colored {
+ background: #C9C5C5  !important ;
+}
+.colored1 {
+ background: #A52E2E  !important ;
+}
+
+.ui-datatable-odd {
+    background: #ffffff;
+}
+
+.ui-datatable-even {
+    background: #FFDFE2;
+}
+.pnoborder > .ui-panelgrid-content {
+  border: none !important;
+}

@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author EdHam
+ * @author Edham
  */
 @Entity
 @Table(name = "respuesta_pregunta_paciente")
@@ -159,7 +159,7 @@ public class RespuestaPreguntaPaciente implements Serializable {
 
     @Override
     public String toString() {
-        return "be.RespuestaPreguntaPaciente[ pKId=" + pKId + " ]";
+        return "modelo.RespuestaPreguntaPaciente[ pKId=" + pKId + " ]";
     }
     
 }

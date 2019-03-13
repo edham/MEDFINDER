@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author EdHam
+ * @author Edham
  */
 @Entity
 @Table(name = "distrito")
@@ -161,7 +161,7 @@ public class Distrito implements Serializable {
 
     @Override
     public String toString() {
-        return "be.Distrito[ pKId=" + pKId + " ]";
+        return "modelo.Distrito[ pKId=" + pKId + " ]";
     }
     
 }
