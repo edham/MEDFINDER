@@ -1,0 +1,174 @@
+<resources>
+
+    <string name="app_name">MedFinder APP</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+
+    <string name="nav_inicio">INICIO</string>
+    <string name="nav_citas">CITAS</string>
+    <string name="nav_casos">CASOS DE SALUD</string>
+    <string name="nav_favoritos">FAVORITOS</string>
+    <string name="nav_especialidades">ESPECIALIDADES</string>
+    <string name="nav_familiares">FAMILIARES</string>
+    <string name="nav_clinicas">CLINICAS CERCANAS</string>
+    <string name="nav_consulta">CONSULTA</string>
+    <string name="nav_cerrar">CERRAR SESIÓN</string>
+
+    <string name="str_puntaje">PUNTAJE</string>
+    <string name="str_especialidad">ESPECIALIDAD</string>
+    <string name="str_especialidades">ESPECIALIDADES</string>
+    <string name="str_ncolegiatura">N° COLEGIATURA</string>
+    <string name="str_dni">DNI</string>
+    <string name="str_telefono">TELEFONO</string>
+    <string name="str_direccion">DIRECCIÓN</string>
+    <string name="str_detdir">DET. DIR.</string>
+    <string name="str_datos">DATOS</string>
+    <string name="str_doctor">DOCTOR</string>
+    <string name="str_paciente">PACIENTE</string>
+    <string name="str_ubicacion">UBICACIÓN</string>
+    <string name="str_modo">MODO</string>
+    <string name="str_detalle">DETALLE</string>
+
+    <string name="str_caminando">CAMINANDO</string>
+    <string name="str_conduciendo">CONDUCIENDO</string>
+    <string name="str_descripcion">DESCRIPCIÓN</string>
+    <string name="str_datencio">DIAS DE ATEN.</string>
+    <string name="str_hora_inicio">HORA INICIO</string>
+    <string name="str_hora_fin">HORA FIN</string>
+    <string name="str_atencion">ATENCIÓN</string>
+    <string name="str_seguros">SEGUROS</string>
+    <string name="str_fecha_inicio">FECHA INICIO</string>
+    <string name="str_fecha_fin">FECHA FIN</string>
+
+    <string name="str_fecha">FECHA</string>
+    <string name="str_hora">HORA</string>
+
+    <string name="str_sexo">SEXO</string>
+    <string name="str_edad">EDAD</string>
+    <string name="str_hombre">HOMBRE</string>
+    <string name="str_mujer">MUJER</string>
+
+    <string name="str_ingrese_calificacion">POR FAVOR, INGRESE UNA CALIFICACIÓN</string>
+
+
+    <string name="alert_imagen">Desea Eliminar esta imagen?</string>
+
+    <string name="mi_herramientas">HERRAMIENTAS</string>
+
+    <string name="mi_inicio">Consulta Stock</string>
+    <string name="mi_panel">Panel Informativo</string>
+
+    <string name="mi_sincr">Sincronizar</string>
+    <string name="mi_config">CONFIGURACIÓN</string>
+    <string name="app_edsoft">(c) Elaborado por EdSoft Perú E.I.R.L.</string>
+    <string name="web"><![CDATA[<a href="http://www.edsoftperu.com/">EdSoft Perú © 2018</a>]]></string>
+
+
+    <string name="str_titulo">Med Finder</string>
+    <string name="str_tema">TEMA</string>
+
+
+    <string name="str_hizo">Power by EdSoft</string>
+
+    <string name="str_ingrese_fecnac">Ingrese Fecha de Nac.</string>
+    <string name="str_ingrese_estatura">Ingrese Estatura(cm.)</string>
+    <string name="str_ingrese_usuario">Ingrese Usuario</string>
+    <string name="str_ingrese_contrasenna">Ingrese Contraseña</string>
+    <string name="str_repita_contrasenna">Repita Contraseña</string>
+    <string name="str_actual_contrasenna">Actual Contraseña</string>
+    <string name="str_nueva_contrasenna">Nueva Contraseña</string>
+    <string name="str_escriba_contra">INGRESE CONTRASEÑA</string>
+    <string name="str_realizar_consulta">REALIZAR CONSULTA</string>
+
+
+    <string name="str_ingrese_dni">Ingrese DNI</string>
+    <string name="str_ingrese_nombres">Ingrese Nombres</string>
+    <string name="str_ingrese_paterno">Ingrese Apellido Paterno</string>
+    <string name="str_ingrese_materno">Ingrese Apellido Materno</string>
+    <string name="alert_salir">Desea Salir?</string>
+    <string name="alert_cerrar">Desea Cerrar Sesión?</string>
+
+
+    <string name="str_ingrese_asunto">Ingrese un Asunto</string>
+    <string name="str_ingrese_sintomas">Ingrese Sintomas</string>
+
+    <string name="str_seleccione_especialidad">Seleccione una Especialidade</string>
+    <string name="str_seleccione_paciente">Seleccione un Paciente</string>
+
+
+    <string name="msg_espere_momento">procesando consulta</string>
+    <string name="msg_cargando_datos">Estableciendo Conexión</string>
+
+    <string name="str_bienvenido">BIENVENIDO</string>
+    <string name="str_favorito_on">¿Desea Agregar a favorito?</string>
+    <string name="str_favorito_off">¿Desea quitar favorito?</string>
+
+    <string name="str_registro_familiar">REGISTRO DE FAMILIAR</string>
+    <string name="str_editar_familiar">EDITAR FAMILIAR</string>
+
+    <string name="str_nombres">NOMBRES</string>
+
+    <string name="str_cardio">CARDIOVASCULAR</string>
+    <string name="str_alcohol">ALCOHOL</string>
+    <string name="str_ant_med">ANTECEDENTES MÉDICOS</string>
+    <string name="str_ant_pato">PATOLÓGICOS</string>
+    <string name="str_ant_perso">PERSONALES</string>
+
+    <string name="str_musculares">MUSCULARES</string>
+    <string name="str_tabaquismo">TABAQUISMO</string>
+
+    <string name="str_digestivos">DIGESTIVOS</string>
+    <string name="str_drogas">DROGAS</string>
+
+    <string name="str_alergico">ALÉRGICO</string>
+    <string name="str_psicologico">PSICOLÓGICO</string>
+
+
+
+    <string name="app_login">INICIO DE SESIÓN</string>
+    <string name="app_registro">REGISTRO DE USUARIO</string>
+
+    <string name="btn_cerrar">CERRAR</string>
+    <string name="btn_ubicar">UBICAR</string>
+    <string name="btn_agregar">AGREGAR</string>
+    <string name="btn_calificar">CALIFICAR</string>
+    <string name="btn_foto">TOMAR FOTO</string>
+    <string name="btn_aceptar">ACEPTAR</string>
+    <string name="btn_actualizar">ACTUALIZAR</string>
+    <string name="btn_registrarme">REGISTRARME</string>
+    <string name="btn_cancelar">CANCELAR</string>
+    <string name="btn_eliminar">ELIMINAR</string>
+    <string name="btn_elimpiar">LIMPIAR</string>
+    <string name="btn_grabar">GRABAR</string>
+    <string name="btn_consultar">CONSULTAR</string>
+    <string name="btn_nueva">NUEVA</string>
+    <string name="btn_inicio">INICIO</string>
+    <string name="btn_finalizar">FINALIZAR</string>
+    <string name="btn_siguiente">SIGUIENTE</string>
+    <string name="btn_atras">ATRAS</string>
+
+
+    <string name="alert_credenciales">Credenciales Incorrectas.</string>
+
+    <string name="buscar_item">BUSCAR</string>
+    <string name="solicitar_cinta_item">SOLICITAR CITA</string>
+    <string name="favoritos_item">FAVORITOS</string>
+
+    <string name="lbl_pd_cargando_ruta">Cargando ruta..</string>
+
+    <string name="font_myraid_bold">myraidbold</string>
+    <string name="font_myraid_italic">myraiditalic</string>
+    <string name="font_myraid_roman">myraidroman</string>
+    <string name="font_greatvibes_regular">greatvibes_regular</string>
+    <string name="font_led">led</string>
+
+    <string name="str_distancia">Busqueda por Distancia:</string>
+    <string-array name="array_distancia">
+        <item >Todos</item>
+        <item >1 Kilometro</item>
+        <item >5 Kilometros</item>
+        <item >10 Kilometros</item>
+    </string-array>
+
+</resources>

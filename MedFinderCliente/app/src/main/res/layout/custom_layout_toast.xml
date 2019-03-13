@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+ android:id="@+id/toast_layout_root"
+ android:orientation="horizontal"
+ android:layout_width="fill_parent"
+ android:layout_height="fill_parent"
+ android:padding="8dp"
+ android:background="?attr/colorPrimaryDark"
+ android:gravity="center">
+
+<ImageView
+
+android:src="@drawable/ic_logo"
+ android:layout_width="35dp"
+ android:layout_height="35dp"
+ android:layout_gravity="center"
+ android:layout_marginRight="8dp" />
+ <TextView
+
+android:id="@+id/text_toast"
+ android:layout_width="fill_parent"
+ android:layout_height="wrap_content"
+     android:textColor="@color/theme_window_background"
+ android:text="texto a mostrar"
+ android:gravity="center"
+  android:textStyle="bold"
+ android:textSize="14dp"/>
+</LinearLayout>

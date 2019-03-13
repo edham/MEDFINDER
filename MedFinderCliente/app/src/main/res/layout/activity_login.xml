@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:float="http://schemas.android.com/tools"
+    android:background="@drawable/fondo_veder"
+    android:orientation="vertical"
+    android:focusable="false"
+    android:focusableInTouchMode="false"
+    android:gravity="center">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center|bottom"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/dimen_12"
+                    android:layout_height="@dimen/dimen_12"
+                    android:src="@drawable/logo" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/margin_2"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:gravity="center|bottom"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"
+                    android:gravity="center"
+                    android:orientation="vertical">
+                    <com.med.finder.cliente.utilidades.CustomFontTextView
+                        style="@style/TextAppearance.AppCompat.Title"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dimen_1"
+                        android:gravity="center"
+                        android:text="@string/app_login"
+                        android:textColor="@color/fourty_text"
+                        android:textSize="@dimen/text_4"
+                        app:fontAttr="@string/font_myraid_bold" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_marginBottom="@dimen/line_2"
+                        android:layout_marginLeft="@dimen/line_2"
+                        android:layout_marginRight="@dimen/line_2"
+                        android:background="@drawable/border_blanco"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="@dimen/dimen_1"
+                        android:paddingBottom="@dimen/dimen_1">
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <EditText
+                                android:id="@+id/txtUsuario"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:ellipsize="start"
+                                android:ems="10"
+                                android:gravity="center_horizontal"
+                                android:hint="@string/str_ingrese_usuario"
+                                android:textSize="@dimen/text_2" />
+                        </android.support.design.widget.TextInputLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <EditText
+                                android:id="@+id/txtClave"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:ellipsize="start"
+                                android:ems="10"
+                                android:gravity="center_horizontal"
+                                android:hint="@string/str_ingrese_contrasenna"
+                                android:inputType="textPassword"
+                                android:textSize="@dimen/text_2" />
+                        </android.support.design.widget.TextInputLayout>
+
+
+                        <Button
+                            android:id="@+id/btnAceptar"
+                            android:layout_width="fill_parent"
+                            android:layout_height="@dimen/dimen_5"
+                            android:layout_marginLeft="@dimen/dimen_1"
+                            android:layout_marginRight="@dimen/dimen_1"
+                            android:layout_marginTop="@dimen/dimen_1"
+                            android:text="@string/btn_aceptar"
+                            android:textColor="?android:colorBackground"
+                            android:textSize="@dimen/text_3"
+                            android:textStyle="bold"
+                            android:theme="@style/MyButton" />
+                        <Button
+                            android:id="@+id/btnRegistrarme"
+                            android:layout_width="fill_parent"
+                            android:layout_height="@dimen/dimen_5"
+                            android:layout_marginBottom="@dimen/dimen_1"
+                            android:layout_marginLeft="@dimen/dimen_1"
+                            android:layout_marginRight="@dimen/dimen_1"
+                            android:layout_marginTop="@dimen/dimen_1"
+                            android:text="@string/btn_registrarme"
+                            android:textColor="?android:colorBackground"
+                            android:textSize="@dimen/text_3"
+                            android:textStyle="bold"
+                            android:theme="@style/MyButton" />
+
+                        <com.med.finder.cliente.utilidades.CustomFontTextView
+                            android:id="@+id/lblLink"
+                            android:layout_marginTop="@dimen/margin_1"
+                            style="@style/TextAppearance.AppCompat.Title"
+                            android:textSize="@dimen/text_3"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            app:fontAttr="@string/font_myraid_roman"/>
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <com.med.finder.cliente.utilidades.CustomFontTextView
+                    android:layout_marginTop="@dimen/margin_3"
+                    style="@style/TextAppearance.AppCompat.Title"
+                    android:textSize="@dimen/text_3"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/app_edsoft"
+                    android:textColor="@color/fourty_text"
+                    app:fontAttr="@string/font_myraid_roman"/>
+
+
+
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+
+
+
+
+
+
+</LinearLayout>

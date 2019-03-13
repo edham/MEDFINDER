@@ -1,0 +1,76 @@
+<resources>
+    <dimen name="nav_header_height">176dp</dimen>
+    <dimen name="logo_header_height">200dp</dimen>
+    <dimen name="fab_margin">15dp</dimen>
+
+
+    <dimen name="dimen_0">5dp</dimen>
+    <dimen name="dimen_1">10dp</dimen>
+    <dimen name="dimen_2">15dp</dimen>
+    <dimen name="dimen_3">25dp</dimen>
+    <dimen name="dimen_4">35dp</dimen>
+    <dimen name="dimen_5">45dp</dimen>
+    <dimen name="dimen_6">55dp</dimen>
+    <dimen name="dimen_7">65dp</dimen>
+    <dimen name="dimen_8">75dp</dimen>
+    <dimen name="dimen_9">85dp</dimen>
+    <dimen name="dimen_10">95dp</dimen>
+    <dimen name="dimen_11">120dp</dimen>
+    <dimen name="dimen_12">140dp</dimen>
+    <dimen name="dimen_15">160dp</dimen>
+    <dimen name="dimen_16">180dp</dimen>
+    <dimen name="dimen_17">200dp</dimen>
+    <dimen name="dimen_20">220dp</dimen>
+
+
+    <dimen name="dimen_22">260dp</dimen>
+
+    <dimen name="dimen_30">320dp</dimen>
+    <dimen name="dimen_40">420dp</dimen>
+    <dimen name="dimen_50">520dp</dimen>
+    <dimen name="dimen_60">620dp</dimen>
+    <dimen name="dimen_100">1020dp</dimen>
+    <dimen name="margin_1">5dp</dimen>
+    <dimen name="margin_2">10dp</dimen>
+    <dimen name="margin_3">30dp</dimen>
+    <dimen name="margin_4">40dp</dimen>
+    <dimen name="margin_5">50dp</dimen>
+    <dimen name="margin_6">60dp</dimen>
+    <dimen name="margin_7">70dp</dimen>
+    <dimen name="margin_8">80dp</dimen>
+    <dimen name="margin_9">90dp</dimen>
+    <dimen name="margin_10">100dp</dimen>
+
+
+    <dimen name="text">10dp</dimen>
+    <dimen name="text_0">12dp</dimen>
+    <dimen name="text_1">14dp</dimen>
+    <dimen name="text_2">16dp</dimen>
+    <dimen name="text_3">18dp</dimen>
+    <dimen name="text_4">20dp</dimen>
+    <dimen name="text_5">22dp</dimen>
+    <dimen name="text_6">24dp</dimen>
+    <dimen name="text_7">28dp</dimen>
+    <dimen name="text_8">32dp</dimen>
+    <dimen name="text_9">34dp</dimen>
+
+    <dimen name="text_led">60dp</dimen>
+
+    <dimen name="text_baner">40dp</dimen>
+
+    <dimen name="line_0">0.3dp</dimen>
+    <dimen name="line_1">0.5dp</dimen>
+    <dimen name="line_2">1dp</dimen>
+    <dimen name="line_3">2dp</dimen>
+    <dimen name="line_4">4dp</dimen>
+
+
+    <dimen name="dimen_titulo">175dp</dimen>
+    <dimen name="dimen_titulo_amcho">30dp</dimen>
+
+    <dimen name="dimen_mapa">280dp</dimen>
+
+    <dimen name="btn_normal">30dp</dimen>
+
+    <dimen name="rating">32dp</dimen>
+</resources>
