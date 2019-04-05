@@ -21,19 +21,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
-
 import com.med.finder.doctor.R;
-import com.med.finder.doctor.dao.clsUsuarioDAO;
-import com.med.finder.doctor.entidades.clsUsuario;
+import com.med.finder.doctor.dao.clsDoctorDAO;
+import com.med.finder.doctor.entidades.clsDoctor;
 import com.med.finder.doctor.fragment.CasosSaludFragment;
 import com.med.finder.doctor.fragment.CitasFragment;
 import com.med.finder.doctor.fragment.ConsultasFragment;
-import com.med.finder.doctor.fragment.EspecialidadesFragment;
-import com.med.finder.doctor.fragment.FamiliaresFragment;
 import com.med.finder.doctor.fragment.InicioFragment;
-import com.med.finder.doctor.fragment.RealizarConsultasFragment;
 import com.med.finder.doctor.utilidades.CustomFontTextView;
-import com.med.finder.doctor.utilidades.ImagenArchivo;
 import com.med.finder.doctor.utilidades.Utilidades;
 
 import java.util.List;
@@ -42,16 +37,15 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    public clsUsuario objUsuario;
+    public clsDoctor objDoctor;
     public int posFragmnet=0;
     public int posConsulta=0;
-    private FloatingActionButton btnConsulta;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Utilidades.hideKeyboard(this);
-        objUsuario= clsUsuarioDAO.Buscar(this);
+        objDoctor= clsDoctorDAO.Buscar(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -65,69 +59,36 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         Bitmap perfil = null;
-        if(objUsuario.getByte_foto()!=null)
+        if(objDoctor.getByte_foto()!=null)
         {
-            perfil= Utilidades.getBitmap(objUsuario.getByte_foto());
+            perfil= Utilidades.getBitmap(objDoctor.getByte_foto());
         }
         View headerView = navigationView.getHeaderView(0);
         CircleImageView imvPerfil = (CircleImageView) headerView.findViewById(R.id.imvPerfil);
         TextView lblUsuario = (TextView) headerView.findViewById(R.id.lblUsuario);
         TextView lblNombre = (TextView) headerView.findViewById(R.id.lblNombre);
-        lblUsuario.setText(objUsuario.getStr_usuario());
-        lblNombre.setText(objUsuario.toString().toUpperCase());
+        lblUsuario.setText(objDoctor.getObjEspecialidad().getStr_nombre());
+        lblNombre.setText(objDoctor.toString().toUpperCase());
         imvPerfil.setImageBitmap(perfil);
 
-        btnConsulta = (FloatingActionButton) findViewById(R.id.fab);
-        btnConsulta.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("RestrictedApi")
-            @Override
-            public void onClick(View view) {
-                setFragment(new RealizarConsultasFragment());
-            }
-        });
-
         navigationView.getMenu().getItem(0).setChecked(true);
-       setTitle(navigationView.getMenu().getItem(0).getTitle());
-        setFragment(new InicioFragment());
+        setTitle(navigationView.getMenu().getItem(0).getTitle());
+
+        InicioFragment newFragment = new InicioFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("dato",getIntent().getExtras().getInt("dato"));
+        newFragment.setArguments(bundle);
+
+        setFragment(newFragment);
         Utilidades.checkPermissions(this);
+        Utilidades.addListaBlanca(this);
+        Utilidades.scheduleChargingReminder(this);
+
+
+
 
     }
 
-    @SuppressLint("RestrictedApi")
-    public void verTitulo(int titulo)
-    {
-        setTitle(getString(R.string.str_realizar_consulta));
-        btnConsulta.setVisibility(View.GONE);
-
-        if(titulo==1)
-        {
-            setTitle(getString(R.string.nav_inicio));
-        }else if(titulo==2)
-        {
-            setTitle(getString(R.string.nav_consulta));
-        }else if(titulo==3)
-        {
-            setTitle(getString(R.string.nav_clinicas));
-        }else if(titulo==4)
-        {
-            setTitle(getString(R.string.nav_familiares));
-        }else if(titulo==5)
-        {
-            setTitle(getString(R.string.nav_citas));
-        }else if(titulo==6)
-        {
-            setTitle(getString(R.string.nav_casos));
-        }else if(titulo==7)
-        {
-            setTitle(getString(R.string.nav_especialidades));
-        }
-
-        if(titulo>0)
-        {
-            posConsulta=titulo;
-            btnConsulta.setVisibility(View.VISIBLE);
-        }
-    }
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -158,20 +119,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_consulta:
                 setFragment(new ConsultasFragment());
                 break;
-            case R.id.nav_clinicas:
-                //setFragment(new ClinicasFragment());
-                break;
-            case R.id.nav_familiares:
-                setFragment(new FamiliaresFragment());
-                break;
             case R.id.nav_citas:
                 setFragment(new CitasFragment());
                 break;
             case R.id.nav_casos:
-                setFragment(new CasosSaludFragment());
-                break;
-            case R.id.nav_especialidades:
-                setFragment(new EspecialidadesFragment());
+               setFragment(new CasosSaludFragment());
                 break;
             case R.id.nav_cerrar:
                 final Dialog dialog = new Dialog(this);
@@ -186,6 +138,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 btnAceptar.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        Utilidades.cancelAll(MainActivity.this);
                         Utilidades.BorrarDatos(MainActivity.this);
                         Intent i=new Intent(MainActivity.this,LoginActivity.class);
                         startActivity(i);
@@ -233,14 +186,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 switch (currentFrag.getClass().getSimpleName())
                 {
 
-                    case "InicioFragment":
                     case "ConsultasFragment":
                     case "CasosSaludFragment":
-                    case "EspecialidadesFragment":
-                    case "FavoritosFragment":
                     case "CitasFragment":
-                    case "FamiliaresFragment":
-                    case "ClinicasFragment":
                         final Dialog dialog = new Dialog(this);
                         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
@@ -268,28 +216,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                         break;
 
-                    case "ClinicaInfoFragment":
-                        if(posFragmnet==1) {
-
-                            setFragment(new InicioFragment());
-                        }
-                        else if(posFragmnet==2) {
-                          //  setFragment(new ClinicasFragment());
-                        }
-                        break;
-                    case "DoctorInfoFragment":
-                        if(posFragmnet==1) {
-
-                            setFragment(new InicioFragment());
-                        }
-                        else if(posFragmnet==2) {
-                            //setFragment(new FavoritosFragment());
-                        }
-                        else if(posFragmnet==3) {
-                            setFragment(new CitasFragment());
-                        }
-                        break;
-
                     case "RespuestaConsultaFragment":
                         setFragment(new ConsultasFragment());
                         break;
@@ -297,7 +223,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     case "RespuestaCasosSaludFragment":
                         setFragment(new CasosSaludFragment());
                         break;
-
                     default:
                         break;
                 }
@@ -316,11 +241,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             List<Fragment> fragments = getSupportFragmentManager().getFragments();
             if (fragments != null) {
                 for (Fragment fragment : fragments) {
+                  /*
                     if(fragment instanceof RealizarConsultasFragment) {
                         ImagenArchivo.resizedImage();
                         ((RealizarConsultasFragment) fragment).cargarFoto();
                     }
-
+*/
                 }
             }
         }

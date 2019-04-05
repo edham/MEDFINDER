@@ -52,6 +52,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Clinica.findByFechaModificacion", query = "SELECT c FROM Clinica c WHERE c.fechaModificacion = :fechaModificacion"),
     @NamedQuery(name = "Clinica.findByEstado", query = "SELECT c FROM Clinica c WHERE c.estado = :estado")})
 public class Clinica implements Serializable {
+    @Lob
+    @Column(name = "Logo")
+    private byte[] logo;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -79,9 +82,6 @@ public class Clinica implements Serializable {
     @Size(max = 45)
     @Column(name = "DetalleAtencion")
     private String detalleAtencion;
-    @Lob
-    @Column(name = "Logo")
-    private byte[] logo;
     @Size(max = 20)
     @Column(name = "Telefono")
     private String telefono;
@@ -177,13 +177,6 @@ public class Clinica implements Serializable {
         this.detalleAtencion = detalleAtencion;
     }
 
-    public byte[] getLogo() {
-        return logo;
-    }
-
-    public void setLogo(byte[] logo) {
-        this.logo = logo;
-    }
 
     public String getTelefono() {
         return telefono;
@@ -282,6 +275,14 @@ public class Clinica implements Serializable {
     @Override
     public String toString() {
         return "modelo.Clinica[ pKId=" + pKId + " ]";
+    }
+
+    public byte[] getLogo() {
+        return logo;
+    }
+
+    public void setLogo(byte[] logo) {
+        this.logo = logo;
     }
     
 }

@@ -14,9 +14,15 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.med.finder.doctor.R;
-import com.med.finder.doctor.conexion.ActualizarDataHTTP;
 import com.med.finder.doctor.conexion.LoginHTTP;
-import com.med.finder.doctor.dao.*;
+import com.med.finder.doctor.dao.clsCasosSaludDAO;
+import com.med.finder.doctor.dao.clsCitaPacienteDAO;
+import com.med.finder.doctor.dao.clsDoctorDAO;
+import com.med.finder.doctor.dao.clsEspecialidadDAO;
+import com.med.finder.doctor.dao.clsPacienteDAO;
+import com.med.finder.doctor.dao.clsPreguntaPacienteDAO;
+import com.med.finder.doctor.dao.clsRespuestaCasosSaludDAO;
+import com.med.finder.doctor.dao.clsRespuestaPreguntaPacienteDAO;
 import com.med.finder.doctor.entidades.*;
 import com.med.finder.doctor.utilidades.CustomFontTextView;
 import com.med.finder.doctor.utilidades.Utilidades;
@@ -32,9 +38,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText txtUsuario;
     private EditText txtClave;
 
-    private clsUsuario objUsuario;
+    private clsDoctor objDoctor;
     public ProgressDialog pd;
-    private boolean validador;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });;
 
-        txtUsuario.setText("12345678");
+        txtUsuario.setText("22222222");
         txtClave.setText("123456");
         CustomFontTextView lblLink = (CustomFontTextView)findViewById(R.id.lblLink);
         lblLink.setText(Html.fromHtml(getString(R.string.web)));
@@ -60,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void btnAceptar() {
 
-        if ( Utilidades.checkPermissions(this))
+        if ( Utilidades.checkPermissions(this) && Utilidades.addListaBlanca(this))
         {
            if (txtUsuario.getText().toString().trim().length()>4) {
                pd = new ProgressDialog(this);
@@ -70,83 +75,42 @@ public class LoginActivity extends AppCompatActivity {
                pd.show();
                new Thread() {
                    public void run() {
+                       Message message = handlerCargar.obtainMessage();
+                       Bundle bundle = new Bundle();
+                       boolean validador = true;
+                       String doctor="";
+                       int rpta=0;
                        try {
-                           validador = false;
+
                            LoginHTTP login = new LoginHTTP();
                            login.execute(txtUsuario.getText().toString(), txtClave.getText().toString());
-                           JSONObject entidadJSON = new JSONObject(login.get());
-                           if(entidadJSON.getInt("rpta")==1) {
-                               objUsuario = new clsUsuario();
-                               objUsuario.setInt_id_usuario(entidadJSON.getInt("usuarioId"));
-                               objUsuario.setStr_nombres(entidadJSON.getString("personaNombre"));
-                               objUsuario.setStr_apellido_paterno(entidadJSON.getString("personaApellidoPaterno"));
-                               objUsuario.setStr_apellido_materno(entidadJSON.getString("personaApellidoMaterno"));
-                               objUsuario.setStr_email(entidadJSON.getString("personaEmail"));
-                               objUsuario.setStr_dni(entidadJSON.getString("personaDni"));
-                               objUsuario.setBol_sexo(entidadJSON.getBoolean("personaSexo"));
-                               objUsuario.setStr_direccion(entidadJSON.getString("personaDireccion"));
-                               objUsuario.setStr_telefono(entidadJSON.getString("personaTelefono"));
-                               objUsuario.setInt_id_persona(entidadJSON.getInt("personaId"));
-                               if (!entidadJSON.getString("personaFoto").equals(""))
-                                   objUsuario.setByte_foto(Base64.decode(entidadJSON.getString("personaFoto"), Base64.NO_WRAP | Base64.URL_SAFE));
-                               objUsuario.setStr_usuario(txtUsuario.getText().toString());
-                               objUsuario.setStr_clave(txtClave.getText().toString());
-
-                               ActualizarDataHTTP actualizar = new ActualizarDataHTTP();
-                               actualizar.execute(objUsuario.getInt_id_usuario());
-                               JSONObject actualizarJSON = new JSONObject(actualizar.get());
-                               if(actualizarJSON.getInt("rpta")==1) {
-                                   validador = true;
+                           String result=login.get();
+                           if(result!=null && result!="") {
+                               JSONObject entidadJSON = new JSONObject(result);
+                               if (entidadJSON.getInt("rpta") == 1) {
+                                   rpta=1;
+                                   doctor=entidadJSON.getString("doctorJSON");
                                    if (validador) {
-                                       if (!clsPacienteDAO.AgregarLogin(LoginActivity.this, entidadJSON.optString("listPacienteJSON"), true))
+                                       if (!clsPreguntaPacienteDAO.AgregarLogin(LoginActivity.this, entidadJSON.optString("listPreguntaPacienteJSON"), true))
                                            validador = false;
                                        if (validador) {
-                                           if (!clsPreguntaPacienteDAO.AgregarLogin(LoginActivity.this, entidadJSON.optString("listPreguntaPacienteJSON"), true))
+                                           if (!clsCasosSaludDAO.AgregarLogin(LoginActivity.this, entidadJSON.optString("listCasosSaludJSON"), true))
                                                validador = false;
                                            if (validador) {
-                                               if (!clsEspecialidadDAO.AgregarLogin(LoginActivity.this, actualizarJSON.optString("listEspecialidadJSON"), true))
+                                               if (!clsRespuestaCasosSaludDAO.AgregarLogin(LoginActivity.this,entidadJSON.optString("listRespuestaCasosSaludJSON"), true))
                                                    validador = false;
                                                if (validador) {
-                                                   if (!clsClinicaEspecialidadDAO.AgregarLogin(LoginActivity.this, actualizarJSON.optString("listDetalleClinicaEspecialidadJSON"), true))
+                                                   if (!clsPacienteDAO.AgregarLogin(LoginActivity.this, entidadJSON.optString("listPacienteJSON"), true))
                                                        validador = false;
                                                    if (validador) {
-                                                       if (!clsClinicaDAO.AgregarLogin(LoginActivity.this, actualizarJSON.optString("listClinicaJSON"), true))
+                                                       if (!clsCitaPacienteDAO.AgregarLogin(LoginActivity.this, entidadJSON.optString("listCitaPacienteJSON"), true))
                                                            validador = false;
                                                        if (validador) {
-                                                           if (!clsClinicaSeguroDAO.AgregarLogin(LoginActivity.this, actualizarJSON.optString("listDetalleClinicaSeguroJSON"), true))
+                                                           if (!clsRespuestaPreguntaPacienteDAO.AgregarLogin(LoginActivity.this, entidadJSON.optString("listRespuestaPreguntaPacienteJSON"), true))
                                                                validador = false;
                                                            if (validador) {
-                                                               if (!clsDoctorDAO.AgregarLogin(LoginActivity.this, actualizarJSON.optString("listDoctorJSON"), true))
+                                                               if (!clsEspecialidadDAO.AgregarLogin(LoginActivity.this, entidadJSON.optString("listEspecialidadJSON"), true))
                                                                    validador = false;
-                                                               if (validador) {
-                                                                   if (!clsDoctorDAO.FavoritoLogin(LoginActivity.this, entidadJSON.optString("listFavoritosJSON")))
-                                                                       validador = false;
-                                                                   if (validador) {
-                                                                       if (!clsSeguroDAO.AgregarLogin(LoginActivity.this, actualizarJSON.optString("listSeguroJSON"), true))
-                                                                           validador = false;
-                                                                       if (validador) {
-                                                                           if (!clsCasosSaludDAO.AgregarLogin(LoginActivity.this, actualizarJSON.optString("listCasosSaludJSON"), true))
-                                                                               validador = false;
-                                                                           if (validador) {
-                                                                               if (!clsRespuestaCasosSaludDAO.AgregarLogin(LoginActivity.this, actualizarJSON.optString("listRespuestaCasosSaludJSON"), true))
-                                                                                   validador = false;
-                                                                               if (validador) {
-                                                                                   if (!clsRespuestaCasosSaludDAO.FavoritoLogin(LoginActivity.this, entidadJSON.optString("listRespuestaCasosSaludVotosJSON")))
-                                                                                       validador = false;
-                                                                                   if (validador) {
-                                                                                       if (!clsCitaPacienteDAO.AgregarLogin(LoginActivity.this, entidadJSON.optString("listCitaPacienteJSON"), true))
-                                                                                           validador = false;
-                                                                                       if (validador) {
-                                                                                           if (!clsRespuestaPreguntaPacienteDAO.AgregarLogin(LoginActivity.this, entidadJSON.optString("listRespuestaPreguntaPacienteJSON"), true))
-                                                                                               validador = false;
-                                                                                       }
-                                                                                   }
-                                                                               }
-                                                                           }
-                                                                       }
-                                                                   }
-                                                               }
-
                                                            }
                                                        }
                                                    }
@@ -155,7 +119,6 @@ public class LoginActivity extends AppCompatActivity {
                                        }
                                    }
                                }
-
                            }
                        } catch (InterruptedException e) {
                            e.printStackTrace();
@@ -164,7 +127,15 @@ public class LoginActivity extends AppCompatActivity {
                        } catch (JSONException e) {
                            e.printStackTrace();
                        }
-                       handlerCargar.sendEmptyMessage(0);
+                       if(!validador)
+                       {
+                           rpta=-1;
+                       }
+                       bundle.putInt("rpta",rpta);
+                       bundle.putString("doctor",doctor);
+
+                       message.setData(bundle);
+                       handlerCargar.sendMessage(message);
                    }
                }.start();
            }
@@ -178,10 +149,18 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public void handleMessage(Message msg) {
             pd.dismiss();
-            if(validador) {
-                clsUsuarioDAO.Agregar(LoginActivity.this, objUsuario);
-                Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(i);
+            Bundle bundle = msg.getData();
+            if(bundle.getInt("rpta")==1){
+                if(clsDoctorDAO.AgregarLogin(LoginActivity.this,bundle.getString("doctor")))
+                {
+                    Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                    i.putExtra("dato", 0);
+                    startActivity(i);
+                }else
+                {
+                    Utilidades.alert(LoginActivity.this, getString(R.string.str_error_registrar));
+                }
+
             }else
             {
                 Utilidades.alert(LoginActivity.this, getString(R.string.alert_credenciales));

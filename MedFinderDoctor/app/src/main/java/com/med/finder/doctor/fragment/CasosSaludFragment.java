@@ -58,7 +58,8 @@ public class CasosSaludFragment extends Fragment {
             public void afterTextChanged(Editable s) {
             }
         });
-        ((MainActivity) getActivity()).verTitulo(6);
+        ((MainActivity) getActivity()).setTitle(getString(R.string.nav_casos));
+
         Buscar("");
         return view;
     }

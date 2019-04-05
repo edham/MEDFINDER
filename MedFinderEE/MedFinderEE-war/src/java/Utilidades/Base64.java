@@ -1,3 +1,5 @@
+package Utilidades;
+
 /*
  * Copyright (C) 2010 The Android Open Source Project
  *
@@ -14,10 +16,7 @@
  * limitations under the License.
  */
 
-package Utilidades;
-
 import java.io.UnsupportedEncodingException;
-
 
 /**
  * Utilities for encoding and decoding the Base64 representation of

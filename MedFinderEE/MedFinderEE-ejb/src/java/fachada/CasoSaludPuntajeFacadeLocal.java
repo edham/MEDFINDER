@@ -29,6 +29,9 @@ public interface CasoSaludPuntajeFacadeLocal {
 
     List<CasoSaludPuntaje> findRange(int[] range);
     List<CasoSaludPuntaje> listaXUsuarios(Usuario obejto);
+    
+    List<CasoSaludPuntaje> listarXObjeto(String atributo, Object obejto, boolean orden, String atributoOrden, boolean todos);
+
     int count();
     
 }

@@ -1,10 +1,14 @@
 package com.med.finder.cliente.fragment;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -24,6 +28,7 @@ import com.github.chrisbanes.photoview.PhotoView;
 import com.med.finder.cliente.BuildConfig;
 import com.med.finder.cliente.R;
 import com.med.finder.cliente.activity.MainActivity;
+import com.med.finder.cliente.conexion.InsertarPreguntaPacienteHTTP;
 import com.med.finder.cliente.dao.clsEspecialidadDAO;
 import com.med.finder.cliente.dao.clsPacienteDAO;
 import com.med.finder.cliente.dao.clsPreguntaPacienteDAO;
@@ -34,7 +39,11 @@ import com.med.finder.cliente.utilidades.CustomFontTextView;
 import com.med.finder.cliente.utilidades.ImagenArchivo;
 import com.med.finder.cliente.utilidades.Utilidades;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class RealizarConsultasFragment extends Fragment {
 
@@ -45,6 +54,10 @@ public class RealizarConsultasFragment extends Fragment {
     private View viewImgFoto;
     private EditText txtSintomas;
     private EditText txtAsunto;
+    private Bitmap bitmap;
+    private ProgressDialog pd;
+    private clsPreguntaPaciente entidad;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -82,9 +95,6 @@ public class RealizarConsultasFragment extends Fragment {
                 btnCancelar();
             }
         });
-
-
-
         ComboEspecialidad = (Spinner)view.findViewById(R.id.ComboEspecialidad);
         EspecialidadDDL();
         ComboPaciente = (Spinner)view.findViewById(R.id.ComboPaciente);
@@ -93,6 +103,7 @@ public class RealizarConsultasFragment extends Fragment {
         viewImgFoto.setVisibility(View.GONE);
 
         ((MainActivity) getActivity()).verTitulo(0);
+        bitmap=null;
         return view;
     }
 
@@ -150,7 +161,8 @@ public class RealizarConsultasFragment extends Fragment {
     public void cargarFoto()
     {
         viewImgFoto.setVisibility(View.VISIBLE);
-        imgFoto.setImageBitmap(ImagenArchivo.getImagen());
+        bitmap=ImagenArchivo.getImagen();
+        imgFoto.setImageBitmap(bitmap);
     }
     public void imgFoto()
     {
@@ -222,24 +234,13 @@ public class RealizarConsultasFragment extends Fragment {
                 {
                     if(!txtAsunto.getText().toString().equals("") &&  txtAsunto.getText().toString()!=null )
                     {
-                        clsPreguntaPaciente entidad = new clsPreguntaPaciente();
+                        entidad = new clsPreguntaPaciente();
                         entidad.setObjPaciente((clsPaciente)ComboPaciente.getSelectedItem());
                         entidad.setObjEspecialidad((clsEspecialidad)ComboEspecialidad.getSelectedItem());
                         entidad.setStr_asunto(txtAsunto.getText().toString());
                         entidad.setStr_paciente_detalle(txtSintomas.getText().toString());
-                        /*
-                        if(bp!=null)
-                            entidad.setByte_imagen(Funciones.getByte(bp));
-
-                        String cadena= http.insertarPreguntaPacuente(entidad);
-                        if(!cadena.trim().equals("0"))
-                        {
-                            entidad.setInt_id_pregunta_paciente(Integer.parseInt(cadena));
-                            clsPreguntaPacienteDAO.Agregar(this.getActivity(), entidad);
-                            //Toast.makeText(this,"Su consulta se envio Satisfactoriamente", Toast.LENGTH_SHORT).show();
-
-                        }
-                        */
+                        entidad.setByte_imagen(ImagenArchivo.getImagenByte(bitmap));
+                        registrar();
                     }
                     else
                         Utilidades.alert(this.getActivity(), getString(R.string.str_ingrese_asunto));
@@ -286,4 +287,67 @@ public class RealizarConsultasFragment extends Fragment {
                 break;
         }
     }
+
+
+
+    public void registrar(){
+        if ( Utilidades.checkPermissions(this.getActivity())) {
+            pd = new ProgressDialog(this.getActivity());
+            pd.setTitle("Cargando Datos");
+            pd.setMessage("Espere un momento");
+            pd.setCancelable(false);
+            pd.show();
+            new Thread() {
+                public void run() {
+                    Message message = handlerCargar.obtainMessage();
+                    Bundle bundle = new Bundle();
+                    int rpta=0;
+                    try {
+
+                        InsertarPreguntaPacienteHTTP http = new InsertarPreguntaPacienteHTTP();
+
+                        http.execute(entidad);
+                        String result = http.get();
+                        if (!result.equals("")) {
+                            JSONObject entidadJSON = new JSONObject(result);
+                            if (entidadJSON.getInt("rpta") == 1) {
+                                rpta=1;
+                                entidad.setInt_id_pregunta_paciente(entidadJSON.getInt("preguntaPacienteId"));
+                            }
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    bundle.putInt("rpta",rpta);
+                    message.setData(bundle);
+                    handlerCargar.sendMessage(message);
+                }
+            }.start();
+        }
+    }
+
+    final Handler handlerCargar=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            pd.dismiss();
+            Bundle bundle = msg.getData();
+            if(bundle.getInt("rpta")==1)
+            {
+                Utilidades.alert(RealizarConsultasFragment.this.getActivity(), getString(R.string. str_registro_correcto));
+                clsPreguntaPacienteDAO.Agregar(RealizarConsultasFragment.this.getActivity(), entidad);
+                cancelar();
+
+            }else
+            {
+                Utilidades.alert(RealizarConsultasFragment.this.getActivity(), getString(R.string. str_error_registrar));
+
+            }
+        }
+    };
+
 }

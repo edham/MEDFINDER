@@ -40,6 +40,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "CitaPaciente.findByFechaModificacion", query = "SELECT c FROM CitaPaciente c WHERE c.fechaModificacion = :fechaModificacion"),
     @NamedQuery(name = "CitaPaciente.findByEstado", query = "SELECT c FROM CitaPaciente c WHERE c.estado = :estado")})
 public class CitaPaciente implements Serializable {
+    @Column(name = "Tipo")
+    private Integer tipo;
+    @Size(max = 200)
+    @Column(name = "respuesta_doctor")
+    private String respuestaDoctor;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -161,6 +166,22 @@ public class CitaPaciente implements Serializable {
     @Override
     public String toString() {
         return "modelo.CitaPaciente[ pKId=" + pKId + " ]";
+    }
+
+    public Integer getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(Integer tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getRespuestaDoctor() {
+        return respuestaDoctor;
+    }
+
+    public void setRespuestaDoctor(String respuestaDoctor) {
+        this.respuestaDoctor = respuestaDoctor;
     }
     
 }

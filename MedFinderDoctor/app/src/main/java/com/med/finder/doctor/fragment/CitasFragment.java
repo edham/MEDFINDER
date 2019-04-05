@@ -24,8 +24,6 @@ import com.med.finder.doctor.dao.clsEspecialidadDAO;
 import com.med.finder.doctor.entidades.clsCitaPaciente;
 import com.med.finder.doctor.entidades.clsDoctor;
 import com.med.finder.doctor.utilidades.Utilidades;
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -38,10 +36,12 @@ public class CitasFragment extends Fragment {
     private Adaptador adaptador;
     private ListView list;
     private EditText txtFiltro;
+    private  clsDoctor doctor;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_familiares, container, false);
+        doctor= clsDoctorDAO.Buscar(this.getContext());
 
         list = (ListView)view.findViewById(R.id.list);
 
@@ -77,7 +77,8 @@ public class CitasFragment extends Fragment {
             public void afterTextChanged(Editable s) {
             }
         });
-        ((MainActivity) getActivity()).verTitulo(5);
+        ((MainActivity) getActivity()).setTitle(getString(R.string.nav_citas));
+
         Buscar("");
         return view;
     }
@@ -119,7 +120,6 @@ public class CitasFragment extends Fragment {
             LayoutInflater inflater = context.getLayoutInflater();
             View item = inflater.inflate(R.layout.list_citas, null);
 
-            final clsDoctor doctor= clsDoctorDAO.Buscar(context, listCasosTemp.get(position).getObjDoctor().getInt_id_doctor());
             TextView lblNombre = (TextView)item.findViewById(R.id.lblNombre);
             lblNombre.setText("Dr. "+doctor.getStr_apellido_paterno()+" "+doctor.getStr_apellido_materno()+" "+doctor.getStr_nombres());
 
@@ -146,22 +146,14 @@ public class CitasFragment extends Fragment {
             ImageView image = (ImageView)item.findViewById(R.id.image);
             if(doctor.getByte_foto()!=null) {
                 image.setImageBitmap(Utilidades.getBitmap(doctor.getByte_foto()));
-                if(!doctor.isBol_favorito())
-                {
-                    ImageView imageFavorito = (ImageView) item.findViewById(R.id.imageFavorito);
-                    imageFavorito.setVisibility(View.GONE);
 
-                }
             }
 //
-            SimpleDateFormat fecha=new SimpleDateFormat("dd/MM/yyyy");
-            SimpleDateFormat hora=new SimpleDateFormat("h:mm a");
-
             TextView lblFecha = (TextView)item.findViewById(R.id.lblFecha);
-            lblFecha.setText(fecha.format(listCasosTemp.get(position).getDat_atencion()));
+            lblFecha.setText(Utilidades.dateFormatter.format(listCasosTemp.get(position).getDat_atencion()));
 
             TextView lblHora = (TextView)item.findViewById(R.id.lblHora);
-            lblHora.setText(hora.format(listCasosTemp.get(position).getDat_atencion()));
+            lblHora.setText(Utilidades.hourFormatter.format(listCasosTemp.get(position).getDat_atencion()));
 
 
 
@@ -174,18 +166,7 @@ public class CitasFragment extends Fragment {
                 }
             });
 
-            Button btnAceptar = (Button)item.findViewById(R.id.btnAceptar);
-            btnAceptar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    ((MainActivity) getActivity()).posFragmnet=3;
-                    Bundle args = new Bundle();
-                    args.putInt("id", doctor.getInt_id_doctor());
-                   // Fragment fragment = new DoctorInfoFragment();
-                    //fragment.setArguments(args);
-                    //((MainActivity) getActivity()).setFragment(fragment);
-                }
-            });
+
             return(item);
         }
     }

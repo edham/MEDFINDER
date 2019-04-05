@@ -2,8 +2,11 @@ package com.med.finder.doctor.fragment;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -25,7 +28,11 @@ import com.med.finder.doctor.entidades.clsDoctor;
 import com.med.finder.doctor.entidades.clsRespuestaCasosSalud;
 import com.med.finder.doctor.utilidades.Utilidades;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 
 public class RespuestaCasosSaludFragment extends Fragment {
@@ -35,12 +42,15 @@ public class RespuestaCasosSaludFragment extends Fragment {
     private Adaptador adaptador;
     private ListView list;
     private int idCasoSalud=0;
+    public ProgressDialog pd;
+    private  clsDoctor doctor;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_respuesta_casos_salud, container, false);
         idCasoSalud=getArguments().getInt("id");
+        doctor= clsDoctorDAO.Buscar(this.getContext());
         list = (ListView)view.findViewById(R.id.list);
         TextView lblTitulo = (TextView)view.findViewById(R.id.lblTitulo);
         lblTitulo.setText(clsCasosSaludDAO.Buscar(this.getActivity(), idCasoSalud).getStr_tema());
@@ -86,7 +96,7 @@ public class RespuestaCasosSaludFragment extends Fragment {
             TextView lblTema = (TextView)item.findViewById(R.id.lblTema);
             lblTema.setText(listCasos.get(position).getStr_descripcion());
 
-            clsDoctor doctor= clsDoctorDAO.Buscar(context, listCasos.get(position).getInt_id_doctor());
+
 
             TextView lblDoctor = (TextView)item.findViewById(R.id.lblDoctor);
             lblDoctor.setText("Dr. "+doctor.getStr_apellido_paterno()+" "+doctor.getStr_apellido_materno()+" "+doctor.getStr_nombres());
@@ -98,73 +108,15 @@ public class RespuestaCasosSaludFragment extends Fragment {
             if(doctor.getByte_foto()!=null)
                 image.setImageBitmap(Utilidades.getBitmap(doctor.getByte_foto()));
 
-            if(!doctor.isBol_favorito())
-            {
-                ImageView imageFavorito = (ImageView) item.findViewById(R.id.imageFavorito);
-                imageFavorito.setVisibility(View.GONE);
-
-            }
-
-            Button btnCalificar = (Button)item.findViewById(R.id.btnCalificar);
-            btnCalificar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    getDialogo(listCasos.get(posicion));
-                }
-            });
             if(listCasos.get(position).getInt_puntaje()>0)
             {
-                View viewCalificar = (View)item.findViewById(R.id.viewCalificar);
-                viewCalificar.setVisibility(View.GONE);
+                //View viewCalificar = (View)item.findViewById(R.id.viewCalificar);
+               // viewCalificar.setVisibility(View.GONE);
 
             }
             return(item);
         }
     }
-    public void getDialogo(clsRespuestaCasosSalud entidad)
-    {
-
-        final int id=entidad.getInt_id_respuesta_casos_salud();
-        final Dialog dialog = new Dialog(this.getActivity());
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        dialog.setCancelable(false);
-        dialog.setContentView(R.layout.dialog_califcar_respuesta);
-        final RatingBar rtbPuntos = (RatingBar) dialog.findViewById(R.id.rtbPuntos);
-
-        FloatingActionButton btnAceptar = (FloatingActionButton) dialog.findViewById(R.id.btnAceptar);
-        btnAceptar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(rtbPuntos.getRating()>0)
-                {
-                    setCalificar((int)rtbPuntos.getRating(),id);
-                    dialog.dismiss();
-                }
-                else
-                    Utilidades.alert(RespuestaCasosSaludFragment.this.getActivity(), getString(R.string.str_ingrese_calificacion));
-            }
-        });
-        FloatingActionButton btnCancelar = (FloatingActionButton) dialog.findViewById(R.id.btnCancelar);
-        btnCancelar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-
-        dialog.show();
-    }
 
 
-    public void setCalificar(int puntaje,int id)
-    {/*
-        String cadena= http.insertarVotoRespuestaCasosSalud(clsUsuarioDAO.Buscar(this.getActivity()).getInt_id_usuario(), id, puntaje);
-        if(!cadena.trim().equals("0"))
-        {
-            clsRespuestaCasosSaludDAO.Favorito(this.getActivity(), id, true);
-            Buscar(idCasoSalud); ;
-
-        }*/
-    }
 }

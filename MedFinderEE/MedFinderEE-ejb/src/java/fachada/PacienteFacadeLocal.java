@@ -27,6 +27,8 @@ public interface PacienteFacadeLocal {
     List<Paciente> findAll();
 
     List<Paciente> findRange(int[] range);
+    
+     List<Paciente> listarXObjeto(String atributo, Object obejto, boolean orden, String atributoOrden, boolean todos);
 
     int count();
     

@@ -64,7 +64,7 @@ public class clsRespuestaPreguntaPacienteDAO {
         bd.close();
         return retorno;
     }
-     public static int Agregar(Context context,clsRespuestaPreguntaPaciente entidad)
+     public static int Agregar(Context context, clsRespuestaPreguntaPaciente entidad)
     {
         int id = 0;
         bdSQLite admin=new bdSQLite(context,null);

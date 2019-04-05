@@ -28,35 +28,11 @@ public class clsDoctor {
     private clsEspecialidad objEspecialidad;
     private int int_puntuje;
     private byte[] byte_foto;
-    private boolean bol_favorito;
 
     public clsDoctor() {
-        this.bol_favorito = false;
+
     }
 
-    public clsDoctor(String entidad) {
-        String [] parametro = entidad.split("\\<+atributo+>");   
-        this.int_id_doctor = Integer.parseInt(parametro[0].trim());
-        this.str_nombres = parametro[1].trim();
-        this.str_apellido_paterno = parametro[2].trim();
-        this.str_apellido_materno = parametro[3].trim();
-        this.str_dni = parametro[4].trim();
-        this.str_codigo_colegiatura = parametro[5].trim();
-        this.str_direccion = parametro[6].trim();
-        this.str_direccion_detalle = parametro[7].trim();
-        this.str_telefono = parametro[8].trim();
-        this.dou_longitud = Double.parseDouble(parametro[9].trim());
-        this.dou_latitud = Double.parseDouble(parametro[10].trim());
-        this.int_puntuje = Integer.parseInt(parametro[11].trim());
-        this.objEspecialidad = new clsEspecialidad(Integer.parseInt(parametro[12].trim()));
-        if(parametro[13].trim().equals("0"))
-            this.byte_foto = null;
-        else
-            this.byte_foto = Base64.decode(parametro[13].trim(),Base64.NO_WRAP|Base64.URL_SAFE);        
-        this.bol_favorito = false;
-    }
-
-    
     public clsDoctor(int int_id_doctor) {
         this.int_id_doctor = int_id_doctor;
     }
@@ -167,14 +143,6 @@ public class clsDoctor {
         this.str_telefono = str_telefono;
     }
 
-    public boolean isBol_favorito() {
-        return bol_favorito;
-    }
-
-    public void setBol_favorito(boolean bol_favorito) {
-        this.bol_favorito = bol_favorito;
-    }
-
     public clsEspecialidad getObjEspecialidad() {
         return objEspecialidad;
     }
@@ -183,6 +151,12 @@ public class clsDoctor {
         this.objEspecialidad = objEspecialidad;
     }
 
-   
+
+
+    @Override
+    public String toString() {
+        return ((str_apellido_paterno!=null)?str_apellido_paterno + " " :"")+ ((str_apellido_materno!=null)?str_apellido_materno + ", " :"")+((str_nombres!=null)?str_nombres:"");
+
+    }
 
 }

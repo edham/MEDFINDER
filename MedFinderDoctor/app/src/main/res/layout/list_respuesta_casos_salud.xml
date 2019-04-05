@@ -39,14 +39,7 @@
                     android:scaleType="centerCrop"
                     app:border_color="@color/colorPrimary"
                     app:border_width="1dp" />
-                <ImageView
-                    android:id="@+id/imageFavorito"
-                    android:layout_width="@dimen/dimen_3"
-                    android:layout_height="@dimen/dimen_3"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentBottom="true"
-                    android:clickable="false"
-                    app:srcCompat="@drawable/ic_favorito_on" />
+
 
             </RelativeLayout>
 
@@ -121,38 +114,6 @@
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/text_1"
                 app:fontAttr="@string/font_myraid_roman" />
-        </LinearLayout>
-
-
-
-
-
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/line_4"
-            android:id="@+id/viewCalificar"
-            android:gravity="center|right"
-            android:orientation="horizontal">
-                android:orientation="horizontal">
-                <com.med.finder.doctor.utilidades.CustomFontTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
-                    android:minHeight="@dimen/dimen_3"
-                    android:text="@string/btn_calificar"
-                    android:gravity="center"
-                    android:textColor="@android:color/black"
-                    android:textSize="@dimen/text_1"
-                    app:fontAttr="@string/font_myraid_bold" />
-                <Button
-                    android:id="@+id/btnCalificar"
-                    android:layout_width="@dimen/rating"
-                    android:layout_height="@dimen/rating"
-                    android:layout_margin="@dimen/margin_1"
-
-                    android:background="@drawable/button_corazon" />
-
         </LinearLayout>
 
 

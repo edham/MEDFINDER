@@ -31,19 +31,16 @@ public class clsDoctorDAO {
     
     private static String NOMBRE_TABLA="DOCTOR";
 
-    public static boolean AgregarLogin(Context context,String data,boolean login)
+    public static boolean AgregarLogin(Context context,String data)
     {
         boolean retorno=true;
         int id;
         bdSQLite admin=new bdSQLite(context, null);
         SQLiteDatabase bd=admin.getWritableDatabase();
-        try
-        {
-            if(login)
+        try{
                 bd.delete(NOMBRE_TABLA, null, null);
-            JSONArray listEmpresaJSON = new JSONArray(data);
-            for(int i=0;i<listEmpresaJSON.length();i++){
-                JSONObject json_data = listEmpresaJSON.getJSONObject(i);
+
+                JSONObject json_data = new JSONObject(data);
                 ContentValues registro = new ContentValues();
                 registro.put("int_id_doctor",json_data.getInt("doctorId"));
                 registro.put("str_nombres",json_data.getString("personaNombre"));
@@ -61,16 +58,16 @@ public class clsDoctorDAO {
 
                 if(!json_data.getString("personaFoto").equals(""))
                     registro.put("byte_foto",Base64.decode(json_data.getString("personaFoto"), Base64.NO_WRAP | Base64.URL_SAFE));
-
-                registro.put("bol_favorito",0);
-
+/*+
+            + "str_usuario text,"
+            + "str_clave text,"
+ */
 
                 id = (int) bd.insert(NOMBRE_TABLA, null, registro);
-                if(id==0)
+                if(id<1)
                 {
                     retorno=false;
                 }
-            }
         }
         catch (Exception e)
         {
@@ -80,34 +77,6 @@ public class clsDoctorDAO {
         return retorno;
     }
 
-    public static boolean FavoritoLogin(Context context,String data)
-    {
-        boolean retorno=true;
-        int id;
-        bdSQLite admin=new bdSQLite(context, null);
-        SQLiteDatabase bd=admin.getWritableDatabase();
-        try{
-            JSONArray listEmpresaJSON = new JSONArray(data);
-            for(int i=0;i<listEmpresaJSON.length();i++){
-                JSONObject json_data = listEmpresaJSON.getJSONObject(i);
-                ContentValues registro = new ContentValues();
-                    registro.put("bol_favorito",1);
-
-                id = bd.update(NOMBRE_TABLA, registro, "int_id_doctor="+json_data.getInt("doctorId"), null);
-                if(id==0)
-                {
-                    retorno=false;
-                }
-            }
-        }
-        catch (Exception e)
-        {
-            retorno=false;
-        }
-        bd.close();
-        return retorno;
-    }
-    
      public static int Agregar(Context context,clsDoctor entidad)
     {
         int id = 0;
@@ -158,12 +127,6 @@ public class clsDoctorDAO {
         registro.put("int_puntuje",entidad.getInt_puntuje());
         registro.put("str_apellido_materno",entidad.getStr_apellido_materno());
         registro.put("int_id_especialidad",entidad.getObjEspecialidad().getInt_id_especialidad());
-        
-         if(entidad.isBol_favorito())
-        registro.put("bol_favorito",1);
-        else
-        registro.put("bol_favorito",0);
-        
         if(entidad.getByte_foto()!=null)
         registro.put("byte_foto",entidad.getByte_foto());
         
@@ -175,37 +138,19 @@ public class clsDoctorDAO {
             return false;
        
     }  
-     
-      public  static boolean Favorito(Context context,int Id,boolean estado) 
-     {
-        bdSQLite admin=new bdSQLite(context,null);
-        SQLiteDatabase bd = admin.getWritableDatabase();
-        ContentValues registro = new ContentValues();
-        if(estado)
-        registro.put("bol_favorito",1);
-        else
-            registro.put("bol_favorito",0);
-        
-        int cant = bd.update(NOMBRE_TABLA, registro, "int_id_doctor="+Id, null);
-        bd.close();
-        if(cant==1)
-            return true;
-        else
-            return false;
-       
-    }  
-     
-     public static  clsDoctor Buscar(Context context,int id)
+
+     public static  clsDoctor Buscar(Context context)
      {
         clsDoctor  entidad=null;
         bdSQLite admin=new bdSQLite(context,null);
         SQLiteDatabase bd=admin.getWritableDatabase();
          if(bd!=null)
          {
-            String query="select int_id_doctor,str_nombres,str_apellido_paterno,str_dni,"
-                    + "str_codigo_colegiatura,str_direccion,str_direccion_detalle,"
-                    + "str_telefono,dou_longitud,dou_latitud,int_puntuje,str_apellido_materno,"
-                    + "byte_foto,bol_favorito,int_id_especialidad from "+NOMBRE_TABLA+" where int_id_doctor="+id;
+            String query="select doc.int_id_doctor,doc.str_nombres,doc.str_apellido_paterno,doc.str_dni,"
+                    + "doc.str_codigo_colegiatura,doc.str_direccion,doc.str_direccion_detalle,"
+                    + "doc.str_telefono,doc.dou_longitud,doc.dou_latitud,doc.int_puntuje,doc.str_apellido_materno,"
+                    + "doc.byte_foto,doc.int_id_especialidad,esp.str_nombre from "+NOMBRE_TABLA+" as doc inner join ESPECIALIDAD esp "
+                    + "on doc.int_id_especialidad=esp.int_id_especialidad";
             
 
 
@@ -226,127 +171,13 @@ public class clsDoctorDAO {
                 entidad.setInt_puntuje(fila.getInt(10));
                 entidad.setStr_apellido_materno(fila.getString(11));
                 entidad.setByte_foto(fila.getBlob(12));
-                if(fila.getInt(13)==1)                
-                entidad.setBol_favorito(true);
-                else
-                entidad.setBol_favorito(false);
-                
-                entidad.setObjEspecialidad(new clsEspecialidad(fila.getInt(14)));
+                entidad.setObjEspecialidad(new clsEspecialidad(fila.getInt(13),fila.getString(14)));
             }
         }
         bd.close();   
         return entidad;
      }
-     
-     public static  List<clsDoctor> Listar(Context context,int IdEspecialidad,boolean favorito)
-     {
-        List<clsDoctor> list=new ArrayList<clsDoctor>();
-        bdSQLite admin=new bdSQLite(context,null);
-        SQLiteDatabase bd=admin.getWritableDatabase();
-         if(bd!=null)
-         {
-            String query="select int_id_doctor,str_nombres,str_apellido_paterno,str_dni,"
-                    + "str_codigo_colegiatura,str_direccion,str_direccion_detalle,"
-                    + "str_telefono,dou_longitud,dou_latitud,int_puntuje,str_apellido_materno,"
-                    + "byte_foto,bol_favorito,int_id_especialidad from "+NOMBRE_TABLA;
-	     if(IdEspecialidad>0 || favorito)
-         {
-             query+=" where ";
-             if(IdEspecialidad>0)
-             {
-                 query+=" int_id_especialidad="+IdEspecialidad;
-             }
-             if(favorito)
-             {
-                 query+=((IdEspecialidad>0)?" and ":"")+" bol_favorito=1";
-             }
 
-         }
-
-
-            Cursor fila=bd.rawQuery(query,null);
-            int numRows = fila.getCount();   
-            fila.moveToFirst();   
-                for (int i = 0; i < numRows; ++i) 
-                {   
-                    clsDoctor entidad= new clsDoctor();            
-                    entidad.setInt_id_doctor(fila.getInt(0));
-                    entidad.setStr_nombres(fila.getString(1));
-                    entidad.setStr_apellido_paterno(fila.getString(2));
-                    entidad.setStr_dni(fila.getString(3));
-                    entidad.setStr_codigo_colegiatura(fila.getString(4));
-                    entidad.setStr_direccion(fila.getString(5));
-                    entidad.setStr_direccion_detalle(fila.getString(6));
-                    entidad.setStr_telefono(fila.getString(7));
-                    entidad.setDou_longitud(fila.getDouble(8));
-                    entidad.setDou_latitud(fila.getDouble(9));
-                    entidad.setInt_puntuje(fila.getInt(10));
-                    entidad.setStr_apellido_materno(fila.getString(11));
-                    entidad.setByte_foto(fila.getBlob(12));
-                    if(fila.getInt(13)==1)                
-                    entidad.setBol_favorito(true);
-                    else
-                    entidad.setBol_favorito(false);
-                    
-                    entidad.setObjEspecialidad(new clsEspecialidad(fila.getInt(14)));
-                    
-                    list.add(entidad);
-                       
-                    fila.moveToNext();   
-                }   
-         }
-        bd.close();   
-        return list;
-     }
-     
-     public static  List<clsDoctor> ListarFavoritos(Context context)
-     {
-        List<clsDoctor> list=new ArrayList<clsDoctor>();
-        bdSQLite admin=new bdSQLite(context,null);
-        SQLiteDatabase bd=admin.getWritableDatabase();
-         if(bd!=null)
-         {
-            String query="select int_id_doctor,str_nombres,str_apellido_paterno,str_dni,"
-                    + "str_codigo_colegiatura,str_direccion,str_direccion_detalle,"
-                    + "str_telefono,dou_longitud,dou_latitud,int_puntuje,str_apellido_materno,"
-                    + "byte_foto,bol_favorito,int_id_especialidad from "+NOMBRE_TABLA+" where bol_favorito=1";
-
-            Cursor fila=bd.rawQuery(query,null);
-            int numRows = fila.getCount();   
-            fila.moveToFirst();   
-                for (int i = 0; i < numRows; ++i) 
-                {   
-                    clsDoctor entidad= new clsDoctor();            
-                    entidad.setInt_id_doctor(fila.getInt(0));
-                    entidad.setStr_nombres(fila.getString(1));
-                    entidad.setStr_apellido_paterno(fila.getString(2));
-                    entidad.setStr_dni(fila.getString(3));
-                    entidad.setStr_codigo_colegiatura(fila.getString(4));
-                    entidad.setStr_direccion(fila.getString(5));
-                    entidad.setStr_direccion_detalle(fila.getString(6));
-                    entidad.setStr_telefono(fila.getString(7));
-                    entidad.setDou_longitud(fila.getDouble(8));
-                    entidad.setDou_latitud(fila.getDouble(9));
-                    entidad.setInt_puntuje(fila.getInt(10));
-                    entidad.setStr_apellido_materno(fila.getString(11));
-                    entidad.setByte_foto(fila.getBlob(12));
-                    if(fila.getInt(13)==1)                
-                    entidad.setBol_favorito(true);
-                    else
-                    entidad.setBol_favorito(false);
-                    
-                    entidad.setObjEspecialidad(new clsEspecialidad(fila.getInt(14)));
-                    
-                    list.add(entidad);
-                       
-                    fila.moveToNext();   
-                }   
-         }
-        bd.close();   
-        return list;
-     }
-
-        
      public static void Borrar(Context context) {
      bdSQLite admin=new bdSQLite(context,null);
      SQLiteDatabase bd=admin.getWritableDatabase();

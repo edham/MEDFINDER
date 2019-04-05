@@ -41,6 +41,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Seguro.findByFechaModificacion", query = "SELECT s FROM Seguro s WHERE s.fechaModificacion = :fechaModificacion"),
     @NamedQuery(name = "Seguro.findByEstado", query = "SELECT s FROM Seguro s WHERE s.estado = :estado")})
 public class Seguro implements Serializable {
+    @Lob
+    @Column(name = "Logo")
+    private byte[] logo;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,9 +53,6 @@ public class Seguro implements Serializable {
     @Size(max = 45)
     @Column(name = "Nombre")
     private String nombre;
-    @Lob
-    @Column(name = "Logo")
-    private byte[] logo;
     @Column(name = "FechaRegistro")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaRegistro;
@@ -87,13 +87,6 @@ public class Seguro implements Serializable {
         this.nombre = nombre;
     }
 
-    public byte[] getLogo() {
-        return logo;
-    }
-
-    public void setLogo(byte[] logo) {
-        this.logo = logo;
-    }
 
     public Date getFechaRegistro() {
         return fechaRegistro;
@@ -151,6 +144,14 @@ public class Seguro implements Serializable {
     @Override
     public String toString() {
         return "modelo.Seguro[ pKId=" + pKId + " ]";
+    }
+
+    public byte[] getLogo() {
+        return logo;
+    }
+
+    public void setLogo(byte[] logo) {
+        this.logo = logo;
     }
     
 }

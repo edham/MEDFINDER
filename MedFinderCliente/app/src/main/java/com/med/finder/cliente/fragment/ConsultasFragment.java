@@ -20,6 +20,7 @@ import com.med.finder.cliente.entidades.clsPreguntaPaciente;
 import com.med.finder.cliente.utilidades.CustomFontTextView;
 import com.med.finder.cliente.utilidades.Utilidades;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class ConsultasFragment extends Fragment {
@@ -51,12 +52,16 @@ public class ConsultasFragment extends Fragment {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int posicion, long id) {
-
-                Bundle args = new Bundle();
-                args.putInt("id", listPreguntaPaciente.get(posicion).getInt_id_pregunta_paciente());
-                Fragment fragment = new RespuestaConsultaFragment();
-                fragment.setArguments(args);
-                ((MainActivity) getActivity()).setFragment(fragment);
+                if(listPreguntaPaciente.get(posicion).getInt_respuestas()>0) {
+                    Bundle args = new Bundle();
+                    args.putSerializable("entidad", (Serializable)listPreguntaPaciente.get(posicion));
+                    Fragment fragment = new RespuestaConsultaFragment();
+                    fragment.setArguments(args);
+                    ((MainActivity) getActivity()).setFragment(fragment);
+                }else
+                {
+                    Utilidades.alert(ConsultasFragment.this.getActivity(), getString(R.string.str_respuesta));
+                }
 
             }
         });
@@ -105,6 +110,12 @@ public class ConsultasFragment extends Fragment {
 
             CustomFontTextView lblHora = (CustomFontTextView)item.findViewById(R.id.lblHora);
             lblHora.setText(Utilidades.hora.format(listPreguntaPaciente.get(position).getDat_inicio()));
+
+            CustomFontTextView lblEstado = (CustomFontTextView)item.findViewById(R.id.lblEstado);
+            lblEstado.setText((listPreguntaPaciente.get(position).getInt_estado()==2)?getString(R.string.str_finalizada):getString(R.string.str_pendiente));
+
+            CustomFontTextView lblRespuestas = (CustomFontTextView)item.findViewById(R.id.lblRespuestas);
+            lblRespuestas.setText(""+listPreguntaPaciente.get(position).getInt_respuestas());
 
 
             return(item);

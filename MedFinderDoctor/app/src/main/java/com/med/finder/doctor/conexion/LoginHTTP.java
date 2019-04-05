@@ -38,7 +38,7 @@ public class LoginHTTP extends AsyncTask<Object, Integer, String>
 
         try {
             List<NameValuePair> Value = new ArrayList<NameValuePair>();
-            Value.add(new BasicNameValuePair("IdServicio","3"));
+            Value.add(new BasicNameValuePair("IdServicio","0"));
             Value.add(new BasicNameValuePair("usuario",usuario));
             Value.add(new BasicNameValuePair("clave",clave));
 

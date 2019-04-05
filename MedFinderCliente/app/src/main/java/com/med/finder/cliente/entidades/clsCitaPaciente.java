@@ -17,6 +17,7 @@ public class clsCitaPaciente {
     private clsDoctor objDoctor;
     private clsPaciente objPaciente;
     private String str_detalle;
+    private String str_respuesta;
     private Date dat_creacion;
     private Date dat_atencion;
     private int int_estado;
@@ -28,7 +29,7 @@ public class clsCitaPaciente {
     }
 
     public clsCitaPaciente(String entidad) {
-        String [] parametro = entidad.split("\\<+atributo+>");   
+        String [] parametro = entidad.split("\\<+atributo+>");
         this.int_id_cita_paciente = Integer.parseInt(parametro[0].trim());
         this.objDoctor = new clsDoctor(Integer.parseInt(parametro[1].trim()));
         this.objPaciente = new clsPaciente(Integer.parseInt(parametro[2].trim()));
@@ -96,4 +97,11 @@ public class clsCitaPaciente {
         this.int_estado = int_estado;
     }
 
+    public String getStr_respuesta() {
+        return str_respuesta;
+    }
+
+    public void setStr_respuesta(String str_respuesta) {
+        this.str_respuesta = str_respuesta;
+    }
 }

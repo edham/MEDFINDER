@@ -33,6 +33,7 @@ public class clsPaciente {
     private int int_estado;
     private int int_id_persona;   
     private clsUsuario objUsuario;
+    private clsDistrito objDistrito;
 
 
     public clsPaciente() {
@@ -191,6 +192,14 @@ public class clsPaciente {
 
     public void setBol_tipo(boolean bol_tipo) {
         this.bol_tipo = bol_tipo;
+    }
+
+    public clsDistrito getObjDistrito() {
+        return objDistrito;
+    }
+
+    public void setObjDistrito(clsDistrito objDistrito) {
+        this.objDistrito = objDistrito;
     }
 
     @Override

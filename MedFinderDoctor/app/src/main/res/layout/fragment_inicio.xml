@@ -3,56 +3,109 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <LinearLayout android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <Spinner
-            android:id="@+id/ComboEspecialidad"
-            android:background="@drawable/border_blanco_negro"
-            android:layout_margin="@dimen/dimen_0"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <Spinner
-            android:id="@+id/ComboBusqueda"
-            android:background="@drawable/border_blanco_negro"
-            android:layout_marginLeft="@dimen/dimen_0"
-            android:layout_marginRight="@dimen/dimen_0"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_0"
-            android:layout_marginRight="@dimen/dimen_0"
-            android:id="@+id/viewFavoritos"
-            android:gravity="center|right"
-            android:orientation="horizontal">
-            android:orientation="horizontal">
-            <CheckBox
-                android:id="@+id/chbFavoritos"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/border_blanco_negro"
-                android:paddingRight="@dimen/dimen_1"
-                android:textStyle="bold"
-                android:button="@drawable/checkbox_favorito"
-                android:gravity="center"
-                android:textSize="@dimen/text_0"
-                android:textColor="@color/colorPrimary"
-                android:text="@string/nav_favoritos"/>
 
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="7"
+        android:layout_marginLeft="@dimen/margin_2"
+        android:layout_marginRight="@dimen/margin_2"
+        android:orientation="vertical">
+
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_1"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:paddingLeft="@dimen/line_2"
+                android:paddingTop="@dimen/line_2"
+                android:paddingRight="@dimen/line_2"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:minHeight="@dimen/dimen_3"
+                    android:textColor="@color/colorAccent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+                    <com.med.finder.doctor.utilidades.CustomFontTextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/dimen_3"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/str_filtros"
+                        android:textColor="@color/theme_window_background"
+                        android:textSize="@dimen/text_1"
+                        app:fontAttr="@string/font_myraid_bold" />
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:padding="@dimen/line_2"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:minHeight="@dimen/dimen_3"
+                    android:layout_weight="1"
+                    android:background="@color/theme_window_background"
+                    android:gravity="center"
+                    android:orientation="vertical">
+                    <CheckBox
+                        android:id="@+id/chbConsulta"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:checked="true"
+                        android:textSize="@dimen/text_0"
+                        android:textColor="@color/colorPrimary"
+                        android:text="@string/str_responder_consulta"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:minHeight="@dimen/dimen_3"
+                    android:layout_marginLeft="@dimen/line_2"
+                    android:layout_weight="1"
+                    android:background="@color/theme_window_background"
+                    android:gravity="center"
+                    android:orientation="vertical">
+                    <CheckBox
+                        android:id="@+id/chbCita"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:checked="true"
+                        android:textSize="@dimen/text_0"
+                        android:textColor="@color/colorPrimary"
+                        android:text="@string/str_aprobar_cita"/>
+                </LinearLayout>
+
+            </LinearLayout>
         </LinearLayout>
 
-
+        <ListView
+            android:id="@+id/list"
+            android:layout_marginTop="@dimen/margin_2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
-
-    <ListView
-        android:id="@+id/list"
-        android:layout_margin="@dimen/dimen_0"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"/>
-
 
 </LinearLayout>

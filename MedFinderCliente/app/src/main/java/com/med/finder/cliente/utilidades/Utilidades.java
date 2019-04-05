@@ -17,6 +17,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
+import android.os.PowerManager;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.util.Base64;
 import android.util.DisplayMetrics;
@@ -50,9 +53,33 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import com.firebase.jobdispatcher.Constraint;
+import com.firebase.jobdispatcher.Driver;
+import com.firebase.jobdispatcher.FirebaseJobDispatcher;
+import com.firebase.jobdispatcher.GooglePlayDriver;
+import com.firebase.jobdispatcher.Job;
+import com.firebase.jobdispatcher.Lifetime;
+import com.firebase.jobdispatcher.RetryStrategy;
+import com.firebase.jobdispatcher.Trigger;
+import com.med.finder.cliente.dao.clsCasosSaludDAO;
+import com.med.finder.cliente.dao.clsCitaPacienteDAO;
+import com.med.finder.cliente.dao.clsClinicaDAO;
+import com.med.finder.cliente.dao.clsClinicaEspecialidadDAO;
+import com.med.finder.cliente.dao.clsClinicaSeguroDAO;
+import com.med.finder.cliente.dao.clsDoctorDAO;
+import com.med.finder.cliente.dao.clsEspecialidadDAO;
+import com.med.finder.cliente.dao.clsPacienteDAO;
+import com.med.finder.cliente.dao.clsPreguntaPacienteDAO;
+import com.med.finder.cliente.dao.clsRespuestaCasosSaludDAO;
+import com.med.finder.cliente.dao.clsRespuestaPreguntaPacienteDAO;
+import com.med.finder.cliente.dao.clsSeguroDAO;
 import com.med.finder.cliente.dao.clsUsuarioDAO;
 import com.med.finder.cliente.entidades.clsClinica;
+import com.med.finder.cliente.servicio.MyJobService;
+
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
@@ -61,12 +88,14 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
+import static android.content.Context.POWER_SERVICE;
+
 public class Utilidades {
 
     //public static String url = "http://192.168.1.7:8080/edsoft-war/";
 
 
-    public static String url="http://192.168.1.8:8080/MedFinderEE-war/servicio_usuario";
+    public static String url="http://192.168.1.62:8080/MedFinderEE-war/servicio_usuario";
     public static SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
     public static SimpleDateFormat hora=new SimpleDateFormat("h:mm a");
 
@@ -80,12 +109,25 @@ public class Utilidades {
 
     public static Date getDate(String dateInString)
     {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         try {
-            return formatter.parse(dateInString);
+            return dateFormatter.parse(dateInString);
         } catch (ParseException e) {
             return null;
         }
+    }
+
+    public static boolean isValidEmail(String email)
+    {
+
+        String emailExpression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        CharSequence inputStr = email;
+
+        Pattern pattern = Pattern.compile(emailExpression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(inputStr);
+        if (matcher.matches())
+            return true;
+        else
+            return false;
     }
 
 
@@ -94,15 +136,13 @@ public class Utilidades {
         if (fecha == null)
             return false;
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-
-        if (fecha.trim().length() != dateFormat.toPattern().length())
+        if (fecha.trim().length() != dateFormatter.toPattern().length())
             return false;
 
-        dateFormat.setLenient(false);
+        dateFormatter.setLenient(false);
 
         try {
-            dateFormat.parse(fecha.trim());
+            dateFormatter.parse(fecha.trim());
         }
         catch (ParseException pe) {
             return false;
@@ -173,8 +213,20 @@ public class Utilidades {
     }
 
     public static void BorrarDatos(Context context){
-
         clsUsuarioDAO.Borrar(context);
+        clsCasosSaludDAO.Borrar(context);
+        clsCitaPacienteDAO.Borrar(context);
+        clsClinicaDAO.Borrar(context);
+        clsClinicaEspecialidadDAO.Borrar(context);
+        clsClinicaSeguroDAO.Borrar(context);
+        clsDoctorDAO.Borrar(context);
+        clsEspecialidadDAO.Borrar(context);
+        clsPacienteDAO.Borrar(context);
+        clsPreguntaPacienteDAO.Borrar(context);
+        clsRespuestaCasosSaludDAO.Borrar(context);
+        clsRespuestaPreguntaPacienteDAO.Borrar(context);
+        clsSeguroDAO.Borrar(context);
+
     }
 
     public static boolean iniciarGPS(Context context)
@@ -508,4 +560,60 @@ public class Utilidades {
         });
     }
 
+    public static boolean addListaBlanca(Context ctx){
+        boolean permiso=true;
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Intent intent = new Intent();
+            String packageName = ctx.getPackageName();
+            PowerManager pm = (PowerManager) ctx.getSystemService(POWER_SERVICE);
+            if (!pm.isIgnoringBatteryOptimizations(packageName)) {
+                permiso=false;
+                intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+                intent.setData(Uri.parse("package:" + packageName));
+                ctx.startActivity(intent);
+            }
+        }
+
+        return permiso;
+    }
+
+    private static boolean sInitialized;
+
+    synchronized public static void scheduleChargingReminder(@NonNull final Context context){
+        if (sInitialized) return;
+
+        Driver driver = new GooglePlayDriver(context);
+        FirebaseJobDispatcher dispatcher = new FirebaseJobDispatcher(driver);
+
+        Job constrintReminderJob = dispatcher.newJobBuilder()
+                .setService(MyJobService.class)
+                .setTag(MyJobService.TAG)
+                .setRecurring(true)
+                .setTrigger(Trigger.executionWindow(5, 30))
+                .setLifetime(Lifetime.FOREVER)
+                .setReplaceCurrent(true)
+                .setConstraints(Constraint.ON_ANY_NETWORK)
+                .setRetryStrategy(RetryStrategy.DEFAULT_LINEAR)
+                .build();
+        dispatcher.schedule(constrintReminderJob);
+/*
+
+          .setService(MyJobService.class)
+                .setTag(JOB_TAG)
+                .setRecurring(true)
+                .setTrigger(Trigger.executionWindow(0, 30))
+                .setLifetime(Lifetime.FOREVER)
+                .setReplaceCurrent(false)
+                .setConstraints(Constraint.ON_ANY_NETWORK)
+                .setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL)
+                .build();
+          */
+        sInitialized = true;
+    }
+
+    synchronized public static void cancelAll(@NonNull final Context context){
+        Driver driver = new GooglePlayDriver(context);
+        FirebaseJobDispatcher dispatcher = new FirebaseJobDispatcher(driver);
+        dispatcher.cancelAll();
+    }
 }

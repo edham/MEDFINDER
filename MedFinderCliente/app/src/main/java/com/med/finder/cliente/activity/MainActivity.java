@@ -75,7 +75,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         TextView lblNombre = (TextView) headerView.findViewById(R.id.lblNombre);
         lblUsuario.setText(objUsuario.getStr_usuario());
         lblNombre.setText(objUsuario.toString().toUpperCase());
-        imvPerfil.setImageBitmap(perfil);
+        if(perfil!=null) {
+            imvPerfil.setImageBitmap(perfil);
+        }
 
         btnConsulta = (FloatingActionButton) findViewById(R.id.fab);
         btnConsulta.setOnClickListener(new View.OnClickListener() {
@@ -90,6 +92,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
        setTitle(navigationView.getMenu().getItem(0).getTitle());
         setFragment(new InicioFragment());
         Utilidades.checkPermissions(this);
+        Utilidades.addListaBlanca(this);
+        Utilidades.scheduleChargingReminder(this);
 
     }
 
@@ -186,6 +190,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 btnAceptar.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        Utilidades.cancelAll(MainActivity.this);
                         Utilidades.BorrarDatos(MainActivity.this);
                         Intent i=new Intent(MainActivity.this,LoginActivity.class);
                         startActivity(i);

@@ -14,7 +14,6 @@ import com.med.finder.doctor.entidades.clsRespuestaCasosSalud;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +25,7 @@ import java.util.List;
 public class clsRespuestaCasosSaludDAO {
     
     private static String NOMBRE_TABLA="RESPUESTA_CASOS_SALUD";
-    public static boolean FavoritoLogin(Context context,String data)
+    public static boolean VotosLogin(Context context,String data)
     {
         boolean retorno=true;
         int id;
@@ -38,6 +37,7 @@ public class clsRespuestaCasosSaludDAO {
                 JSONObject json_data = listEmpresaJSON.getJSONObject(i);
                 ContentValues registro = new ContentValues();
                 registro.put("bol_puntaje",1);
+                registro.put("int_puntaje",json_data.getInt("respuestaPuntaje"));
 
                 id = bd.update(NOMBRE_TABLA, registro, "int_id_respuesta_casos_salud="+json_data.getInt("respuestaCasoSaludId"), null);
                 if(id==0)
@@ -71,9 +71,8 @@ public class clsRespuestaCasosSaludDAO {
                 registro.put("int_id_doctor",json_data.getInt("doctorId"));
                 registro.put("int_id_casos_salud",json_data.getInt("casosSaludId"));
                 registro.put("str_descripcion",json_data.getString("respuestaCasosSaludDescripcion"));
-                registro.put("int_puntaje",json_data.getInt("respuestaCasosSaludPuntajeTotal"));
+                registro.put("int_puntaje",0);
                 registro.put("bol_puntaje",0);
-
 
                 id = (int) bd.insert(NOMBRE_TABLA, null, registro);
                 if(id==0)
@@ -89,7 +88,7 @@ public class clsRespuestaCasosSaludDAO {
         bd.close();
         return retorno;
     }
-     public static int Agregar(Context context,clsRespuestaCasosSalud entidad)
+     public static int Agregar(Context context, clsRespuestaCasosSalud entidad)
     {
         int id = 0;
         bdSQLite admin=new bdSQLite(context,null);
@@ -133,15 +132,14 @@ public class clsRespuestaCasosSaludDAO {
        
     }  
 
-     public  static boolean Favorito(Context context,int Id,boolean estado) 
+     public  static boolean Puntaje(Context context,int Id,int puntaje)
      {
         bdSQLite admin=new bdSQLite(context,null);
         SQLiteDatabase bd = admin.getWritableDatabase();
         ContentValues registro = new ContentValues();
-        if(estado)
         registro.put("bol_puntaje",1);
-        else
-            registro.put("bol_puntaje",0);
+
+         registro.put("int_puntaje",puntaje);
         
         int cant = bd.update(NOMBRE_TABLA, registro, "int_id_respuesta_casos_salud="+Id, null);
         bd.close();

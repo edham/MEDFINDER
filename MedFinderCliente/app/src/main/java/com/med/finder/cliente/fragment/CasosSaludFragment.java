@@ -81,11 +81,16 @@ public class CasosSaludFragment extends Fragment {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int posicion, long id) {
-                Bundle args = new Bundle();
-                args.putInt("id", listCasosTemp.get(posicion).getInt_id_casos_salud());
-                Fragment fragment = new RespuestaCasosSaludFragment();
-                fragment.setArguments(args);
-                ((MainActivity) getActivity()).setFragment(fragment);
+                if(listCasosTemp.get(posicion).getInt_respuestas()>0){
+                    Bundle args = new Bundle();
+                    args.putInt("id", listCasosTemp.get(posicion).getInt_id_casos_salud());
+                    Fragment fragment = new RespuestaCasosSaludFragment();
+                    fragment.setArguments(args);
+                    ((MainActivity) getActivity()).setFragment(fragment);
+                }else
+                {
+                    Utilidades.alert(CasosSaludFragment.this.getActivity(), getString(R.string.str_respuesta));
+                }
 
             }
         });
@@ -117,6 +122,11 @@ public class CasosSaludFragment extends Fragment {
             TextView lblFin = (TextView)item.findViewById(R.id.lblFin);
             lblFin.setText(Utilidades.dateFormatter.format(listCasosTemp.get(position).getDat_fin()));
 
+            TextView lblRespuestas = (TextView)item.findViewById(R.id.lblRespuestas);
+            lblRespuestas.setText(""+listCasosTemp.get(position).getInt_respuestas());
+
+            TextView lblCalificadas = (TextView)item.findViewById(R.id.lblCalificadas);
+            lblCalificadas.setText(""+listCasosTemp.get(position).getInt_calificadas());
             return(item);
         }
     }

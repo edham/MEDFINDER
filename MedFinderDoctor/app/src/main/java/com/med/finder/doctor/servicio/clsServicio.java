@@ -7,36 +7,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 
-import com.med.finder.doctor.conexion.ListarRespuestaPreguntaPacienteHTTP;
-import com.med.finder.doctor.dao.clsCasosSaludDAO;
-import com.med.finder.doctor.dao.clsCitaPacienteDAO;
-import com.med.finder.doctor.dao.clsClinicaDAO;
-import com.med.finder.doctor.dao.clsClinicaEspecialidadDAO;
-import com.med.finder.doctor.dao.clsClinicaSeguroDAO;
 import com.med.finder.doctor.dao.clsDoctorDAO;
-import com.med.finder.doctor.dao.clsEspecialidadDAO;
-import com.med.finder.doctor.dao.clsPreguntaPacienteDAO;
-import com.med.finder.doctor.dao.clsRespuestaCasosSaludDAO;
-import com.med.finder.doctor.dao.clsRespuestaPreguntaPacienteDAO;
-import com.med.finder.doctor.dao.clsSeguroDAO;
-import com.med.finder.doctor.dao.clsUsuarioDAO;
-import com.med.finder.doctor.entidades.clsCasosSalud;
-import com.med.finder.doctor.entidades.clsCitaPaciente;
-import com.med.finder.doctor.entidades.clsClinica;
-import com.med.finder.doctor.entidades.clsClinicaEspecialidad;
-import com.med.finder.doctor.entidades.clsClinicaSeguro;
 import com.med.finder.doctor.entidades.clsDoctor;
-import com.med.finder.doctor.entidades.clsEspecialidad;
-import com.med.finder.doctor.entidades.clsPreguntaPaciente;
-import com.med.finder.doctor.entidades.clsRespuestaCasosSalud;
-import com.med.finder.doctor.entidades.clsRespuestaPreguntaPaciente;
-import com.med.finder.doctor.entidades.clsSeguro;
-import com.med.finder.doctor.entidades.clsUsuario;
-import com.med.finder.doctor.utilidades.Utilidades;
 
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.ExecutionException;
 
 public class clsServicio extends Service {
 
@@ -44,7 +19,7 @@ public class clsServicio extends Service {
 	private static final long UPDATE_INTERVAL = 1000*60;// timer cada minuto
 	
         private int contador=1;
-        private clsUsuario objUsuario=null;
+        private clsDoctor objDoctor=null;
 	
         
 	@Override
@@ -54,9 +29,9 @@ public class clsServicio extends Service {
 	
 	@Override
 	public void onCreate() {
-            super.onCreate();         
-            objUsuario=clsUsuarioDAO.Buscar(this.getApplicationContext());            
-            if(objUsuario!=null)
+            super.onCreate();
+            objDoctor=clsDoctorDAO.Buscar(this.getApplicationContext());
+            if(objDoctor!=null)
             {
                    _startService();
             }
@@ -76,7 +51,7 @@ public class clsServicio extends Service {
 		timer.scheduleAtFixedRate(
 			new TimerTask() {
 				public void run() {
-                                    
+                                    /*
                                     clsPreguntaPaciente objPreguntaPaciente =clsPreguntaPacienteDAO.BuscarXEstado(context);
                                     if(objPreguntaPaciente!=null)
                                     {
@@ -230,6 +205,7 @@ public class clsServicio extends Service {
                                     
                                    
                                     contador++;
+                                    */
                                     
 				}
 			},

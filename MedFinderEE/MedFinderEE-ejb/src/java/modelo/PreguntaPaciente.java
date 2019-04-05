@@ -44,6 +44,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "PreguntaPaciente.findByFechaInicio", query = "SELECT p FROM PreguntaPaciente p WHERE p.fechaInicio = :fechaInicio"),
     @NamedQuery(name = "PreguntaPaciente.findByFechaFin", query = "SELECT p FROM PreguntaPaciente p WHERE p.fechaFin = :fechaFin")})
 public class PreguntaPaciente implements Serializable {
+    @Lob
+    @Column(name = "Imagen")
+    private byte[] imagen;
+    @Column(name = "Tipo")
+    private Integer tipo;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,9 +61,6 @@ public class PreguntaPaciente implements Serializable {
     @Size(max = 200)
     @Column(name = "Detalle")
     private String detalle;
-    @Lob
-    @Column(name = "Imagen")
-    private byte[] imagen;
     @Column(name = "Estado")
     private Integer estado;
     @Column(name = "FechaInicio")
@@ -107,13 +109,6 @@ public class PreguntaPaciente implements Serializable {
         this.detalle = detalle;
     }
 
-    public byte[] getImagen() {
-        return imagen;
-    }
-
-    public void setImagen(byte[] imagen) {
-        this.imagen = imagen;
-    }
 
     public Integer getEstado() {
         return estado;
@@ -187,6 +182,22 @@ public class PreguntaPaciente implements Serializable {
     @Override
     public String toString() {
         return "modelo.PreguntaPaciente[ pKId=" + pKId + " ]";
+    }
+
+    public byte[] getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(byte[] imagen) {
+        this.imagen = imagen;
+    }
+
+    public Integer getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(Integer tipo) {
+        this.tipo = tipo;
     }
     
 }

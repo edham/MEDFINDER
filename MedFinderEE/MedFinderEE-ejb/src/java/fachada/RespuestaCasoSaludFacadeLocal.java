@@ -28,6 +28,8 @@ public interface RespuestaCasoSaludFacadeLocal {
 
     List<RespuestaCasoSalud> findRange(int[] range);
     List<RespuestaCasoSalud> lista_activos();
+    List<RespuestaCasoSalud> listarXObjeto(String atributo, Object obejto, boolean orden, String atributoOrden, boolean todos);
+
     int count();
     
 }

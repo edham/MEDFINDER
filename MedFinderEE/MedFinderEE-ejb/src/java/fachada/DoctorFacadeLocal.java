@@ -30,6 +30,9 @@ public interface DoctorFacadeLocal {
     
     Doctor login(String usuario,String clave);
     List<Doctor> lista_activos();
+    
+    List<Doctor> listarXObjeto(String atributo, Object obejto, boolean orden, String atributoOrden, boolean todos);
+
     int count();
     
 }

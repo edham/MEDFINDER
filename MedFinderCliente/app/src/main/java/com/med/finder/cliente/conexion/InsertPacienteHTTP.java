@@ -32,7 +32,7 @@ public class InsertPacienteHTTP extends AsyncTask<Object, Integer, String>
 	{
         clsPaciente entidad= (clsPaciente)params[0];
 
-        String result = null;
+        String result = "";
         client = new DefaultHttpClient();
         HttpPost httppost = new HttpPost(Utilidades.url);
 
@@ -64,7 +64,7 @@ public class InsertPacienteHTTP extends AsyncTask<Object, Integer, String>
             }
         }catch (Exception e)
         {
-        	Log.e(e.getClass().getName(), e.getMessage());
+        	result="";
         }
         return result;
 	}

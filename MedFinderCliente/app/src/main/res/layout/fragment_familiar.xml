@@ -51,7 +51,7 @@
                 android:orientation="vertical">
                 <LinearLayout
                     android:layout_width="fill_parent"
-                    android:layout_height="@dimen/dimen_5"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/line_3"
                     android:background="@color/colorPrimary"
                     android:gravity="center"
@@ -60,8 +60,8 @@
 
                     <LinearLayout
                         android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:minHeight="@dimen/dimen_3"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/dimen_5"
                         android:background="@color/theme_window_background"
                         android:gravity="center"
                         android:orientation="vertical">
@@ -86,7 +86,7 @@
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="fill_parent"
-                    android:layout_height="@dimen/dimen_5"
+                    android:layout_height="wrap_content"
                     android:background="@color/colorPrimary"
                     android:gravity="center"
                     android:layout_marginTop="@dimen/line_3"
@@ -95,8 +95,8 @@
 
                     <LinearLayout
                         android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:minHeight="@dimen/dimen_3"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/dimen_5"
                         android:background="@color/theme_window_background"
                         android:gravity="center"
                         android:orientation="vertical">
@@ -121,7 +121,7 @@
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="fill_parent"
-                    android:layout_height="@dimen/dimen_5"
+                    android:layout_height="wrap_content"
                     android:background="@color/colorPrimary"
                     android:gravity="center"
                     android:layout_marginTop="@dimen/line_3"
@@ -130,8 +130,8 @@
 
                     <LinearLayout
                         android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:minHeight="@dimen/dimen_3"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/dimen_5"
                         android:background="@color/theme_window_background"
                         android:gravity="center"
                         android:orientation="vertical">
@@ -238,7 +238,7 @@
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="fill_parent"
-                    android:layout_height="@dimen/dimen_5"
+                    android:layout_height="wrap_content"
                     android:background="@color/colorPrimary"
                     android:layout_marginTop="@dimen/line_3"
                     android:gravity="center"
@@ -247,8 +247,8 @@
 
                     <LinearLayout
                         android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:minHeight="@dimen/dimen_3"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/dimen_5"
                         android:background="@color/theme_window_background"
                         android:gravity="center"
                         android:orientation="vertical">
@@ -273,7 +273,7 @@
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="fill_parent"
-                    android:layout_height="@dimen/dimen_5"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/line_3"
                     android:background="@color/colorPrimary"
                     android:gravity="center"
@@ -282,8 +282,8 @@
 
                     <LinearLayout
                         android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:minHeight="@dimen/dimen_3"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/dimen_5"
                         android:background="@color/theme_window_background"
                         android:gravity="center"
                         android:orientation="vertical">

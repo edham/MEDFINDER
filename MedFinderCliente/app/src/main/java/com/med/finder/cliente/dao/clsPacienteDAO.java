@@ -58,7 +58,7 @@ public class clsPacienteDAO {
                 else
                     registro.put("bol_sexo",0);
 
-                if(json_data.getInt("pacienteTipo")==1)
+                if(json_data.getBoolean("pacienteTipo"))
                     registro.put("bol_tipo",1);
                 else
                     registro.put("bol_tipo",0);

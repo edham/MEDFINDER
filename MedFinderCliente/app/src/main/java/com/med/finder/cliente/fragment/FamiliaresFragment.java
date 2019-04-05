@@ -41,9 +41,9 @@ public class FamiliaresFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View v, int posicion, long id) {
                 Bundle args = new Bundle();
                 args.putInt("idPaciente", listPacienteTemp.get(posicion).getInt_id_paciente());
-              //  Fragment fragment = new FamiliarFragment();
-              //  fragment.setArguments(args);
-              //  ((MainActivity) getActivity()).setFragment(fragment);
+                Fragment fragment = new FamiliarFragment();
+                fragment.setArguments(args);
+               ((MainActivity) getActivity()).setFragment(fragment);
 
             }
         });

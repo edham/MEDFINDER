@@ -11,7 +11,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.med.finder.doctor.entidades.clsPaciente;
-import com.med.finder.doctor.entidades.clsUsuario;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -48,7 +47,6 @@ public class clsPacienteDAO {
                 registro.put("str_apellido_materno",json_data.getString("personaApellidoMaterno"));
                 registro.put("dat_fecha_nacimiento",new Date(json_data.getLong("personaFechaNacimiento")).getTime());
                 registro.put("int_estatura",json_data.getInt("pacienteEstatura"));
-                registro.put("int_estado",json_data.getInt("pacienteEstado"));
                 registro.put("id_usuario",json_data.getInt("usuarioId"));
                 registro.put("str_dni",json_data.getString("personaDni"));
                 registro.put("int_id_persona",json_data.getInt("personaId"));
@@ -57,11 +55,6 @@ public class clsPacienteDAO {
                     registro.put("bol_sexo",1);
                 else
                     registro.put("bol_sexo",0);
-
-                if(json_data.getInt("pacienteTipo")==1)
-                    registro.put("bol_tipo",1);
-                else
-                    registro.put("bol_tipo",0);
 
 
                 if(json_data.getBoolean("pacienteCardiovascular"))
@@ -103,6 +96,9 @@ public class clsPacienteDAO {
                     registro.put("bol_psocilogicos",1);
                 else
                     registro.put("bol_psocilogicos",0);
+                if(!login){
+                    bd.delete(NOMBRE_TABLA, "int_id_paciente="+json_data.getInt("pacienteId"), null);
+                }
                 id = (int) bd.insert(NOMBRE_TABLA, null, registro);
                 if(id==0)
                 {
@@ -117,7 +113,7 @@ public class clsPacienteDAO {
         bd.close();
         return retorno;
     }
-     public static int Agregar(Context context,clsPaciente entidad)
+     public static int Agregar(Context context, clsPaciente entidad)
     {
         int id = 0;
         bdSQLite admin=new bdSQLite(context,null);
@@ -129,8 +125,7 @@ public class clsPacienteDAO {
         registro.put("str_apellido_materno",entidad.getStr_apellido_materno());
         registro.put("dat_fecha_nacimiento",entidad.getDat_fecha_nacimiento().getTime());
         registro.put("int_estatura",entidad.getInt_estatura());
-        registro.put("int_estado",entidad.getInt_estado());
-        registro.put("id_usuario",entidad.getObjUsuario().getInt_id_usuario());
+        //registro.put("id_usuario",entidad.getObjUsuario().getInt_id_usuario());
         registro.put("str_dni",entidad.getStr_dni());
         registro.put("int_id_persona",entidad.getInt_id_persona());
         
@@ -138,12 +133,7 @@ public class clsPacienteDAO {
         registro.put("bol_sexo",1);
         else
         registro.put("bol_sexo",0);
-        
-        if(entidad.isBol_tipo())
-        registro.put("bol_tipo",1);
-        else
-        registro.put("bol_tipo",0);
-        
+
         
         if(entidad.isBol_cardiovasculares())
         registro.put("bol_cardiovasculares",1);
@@ -200,8 +190,7 @@ public class clsPacienteDAO {
         registro.put("str_apellido_materno",entidad.getStr_apellido_materno());
         registro.put("dat_fecha_nacimiento",entidad.getDat_fecha_nacimiento().getTime());
         registro.put("int_estatura",entidad.getInt_estatura());
-        registro.put("int_estado",entidad.getInt_estado());
-        registro.put("id_usuario",entidad.getObjUsuario().getInt_id_usuario());
+      //  registro.put("id_usuario",entidad.getObjUsuario().getInt_id_usuario());
         registro.put("str_dni",entidad.getStr_dni());
         registro.put("int_id_persona",entidad.getInt_id_persona());
         
@@ -209,12 +198,6 @@ public class clsPacienteDAO {
         registro.put("bol_sexo",1);
         else
         registro.put("bol_sexo",0);
-        
-        if(entidad.isBol_tipo())
-        registro.put("bol_tipo",1);
-        else
-        registro.put("bol_tipo",0);
-        
         
         if(entidad.isBol_cardiovasculares())
         registro.put("bol_cardiovasculares",1);
@@ -274,7 +257,7 @@ public class clsPacienteDAO {
          {
             String query="select int_id_paciente,str_nombres,str_apellido_paterno,"
                     + "str_apellido_materno,dat_fecha_nacimiento,int_estatura,bol_sexo,"
-                    + "bol_tipo,int_estado,bol_cardiovasculares,bol_musculares,bol_digestivos,"
+                    + "bol_cardiovasculares,bol_musculares,bol_digestivos,"
                     + "bol_alergicos,bol_alcohol,bol_tabaquismo,bol_drogas,bol_psocilogicos,id_usuario,"
                     + "str_dni,int_id_persona from "+NOMBRE_TABLA+" where int_id_paciente="+id;
 
@@ -293,155 +276,58 @@ public class clsPacienteDAO {
                 entidad.setBol_sexo(true);
                 else
                 entidad.setBol_sexo(false);
-                
-                if(fila.getInt(7)==1)   
-                entidad.setBol_tipo(true);
-                else
-                entidad.setBol_tipo(false);
-                
-                entidad.setInt_estado(fila.getInt(8));
 
-                if(fila.getInt(9)==1)                
+
+                if(fila.getInt(7)==1)
                 entidad.setBol_cardiovasculares(true);
                 else
                 entidad.setBol_cardiovasculares(false);
 
-                if(fila.getInt(10)==1)                
+                if(fila.getInt(8)==1)
                 entidad.setBol_musculares(true);
                 else
                 entidad.setBol_musculares(false);
 
-                if(fila.getInt(11)==1)                
+                if(fila.getInt(9)==1)
                 entidad.setBol_digestivos(true);
                 else
                 entidad.setBol_digestivos(false);
 
-                if(fila.getInt(12)==1)                
+                if(fila.getInt(10)==1)
                 entidad.setBol_alergicos(true);
                 else
                 entidad.setBol_alergicos(false);
 
-                if(fila.getInt(13)==1)                
+                if(fila.getInt(11)==1)
                 entidad.setBol_alcohol(true);
                 else
                 entidad.setBol_alcohol(false);
 
-                if(fila.getInt(14)==1)                
+                if(fila.getInt(12)==1)
                 entidad.setBol_tabaquismo(true);
                 else
                 entidad.setBol_tabaquismo(false);
 
-                if(fila.getInt(15)==1)                
+                if(fila.getInt(13)==1)
                 entidad.setBol_drogas(true);
                 else
                 entidad.setBol_drogas(false);
 
-                if(fila.getInt(16)==1)                
+                if(fila.getInt(14)==1)
                 entidad.setBol_psicologicos(true);
                 else
                 entidad.setBol_psicologicos(false);
                 
-                entidad.setObjUsuario(new clsUsuario(fila.getInt(17)));
-                entidad.setStr_dni(fila.getString(18));
-                entidad.setInt_id_persona(fila.getInt(19));
+              //  entidad.setObjUsuario(new clsUsuario(fila.getInt(17)));
+                entidad.setStr_dni(fila.getString(16));
+                entidad.setInt_id_persona(fila.getInt(17));
 
             }
         }
         bd.close();   
         return entidad;
      }
-     
-     public static  List<clsPaciente> Listar(Context context)
-     {
-        List<clsPaciente> list=new ArrayList<clsPaciente>();
-        bdSQLite admin=new bdSQLite(context,null);
-        SQLiteDatabase bd=admin.getWritableDatabase();
-         if(bd!=null)
-         {
-        String query="select int_id_paciente,str_nombres,str_apellido_paterno,"
-                    + "str_apellido_materno,dat_fecha_nacimiento,int_estatura,bol_sexo,"
-                    + "bol_tipo,int_estado,bol_cardiovasculares,bol_musculares,bol_digestivos,"
-                    + "bol_alergicos,bol_alcohol,bol_tabaquismo,bol_drogas,bol_psocilogicos,id_usuario,"
-                    + "str_dni,int_id_persona from "+NOMBRE_TABLA;
-        
-        Cursor fila=bd.rawQuery(query,null);
-        int numRows = fila.getCount();   
-        fila.moveToFirst();   
-                for (int i = 0; i < numRows; ++i) 
-                {   
-                    clsPaciente entidad= new clsPaciente();            
-                    entidad.setInt_id_paciente(fila.getInt(0));
-                    entidad.setStr_nombres(fila.getString(1));
-                    entidad.setStr_apellido_paterno(fila.getString(2));
-                    entidad.setStr_apellido_materno(fila.getString(3));
-                    entidad.setDat_fecha_nacimiento(new Date(fila.getLong(4)));
-                    entidad.setInt_estatura(fila.getInt(5));
 
-                    if(fila.getInt(6)==1)                
-                    entidad.setBol_sexo(true);
-                    else
-                    entidad.setBol_sexo(false);
-
-                    if(fila.getInt(7)==1)   
-                    entidad.setBol_tipo(true);
-                    else
-                    entidad.setBol_tipo(false);
-
-                    entidad.setInt_estado(fila.getInt(8));
-
-                    if(fila.getInt(9)==1)                
-                    entidad.setBol_cardiovasculares(true);
-                    else
-                    entidad.setBol_cardiovasculares(false);
-
-                    if(fila.getInt(10)==1)                
-                    entidad.setBol_musculares(true);
-                    else
-                    entidad.setBol_musculares(false);
-
-                    if(fila.getInt(11)==1)                
-                    entidad.setBol_digestivos(true);
-                    else
-                    entidad.setBol_digestivos(false);
-
-                    if(fila.getInt(12)==1)                
-                    entidad.setBol_alergicos(true);
-                    else
-                    entidad.setBol_alergicos(false);
-
-                    if(fila.getInt(13)==1)                
-                    entidad.setBol_alcohol(true);
-                    else
-                    entidad.setBol_alcohol(false);
-
-                    if(fila.getInt(14)==1)                
-                    entidad.setBol_tabaquismo(true);
-                    else
-                    entidad.setBol_tabaquismo(false);
-
-                    if(fila.getInt(15)==1)                
-                    entidad.setBol_drogas(true);
-                    else
-                    entidad.setBol_drogas(false);
-
-                    if(fila.getInt(16)==1)                
-                    entidad.setBol_psicologicos(true);
-                    else
-                    entidad.setBol_psicologicos(false);
-
-                    entidad.setObjUsuario(new clsUsuario(fila.getInt(17)));
-                    entidad.setStr_dni(fila.getString(18));
-                    entidad.setInt_id_persona(fila.getInt(19));
-                    
-                    list.add(entidad);
-                       
-                    fila.moveToNext();   
-                }   
-         }
-        bd.close();   
-        return list;
-     }
-       
         
      public static void Borrar(Context context) {
      bdSQLite admin=new bdSQLite(context,null);

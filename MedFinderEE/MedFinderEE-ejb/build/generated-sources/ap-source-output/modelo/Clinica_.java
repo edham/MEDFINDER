@@ -9,7 +9,7 @@ import modelo.DetalleClinicaEspecialidad;
 import modelo.DetalleClinicaSeguro;
 import modelo.Distrito;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2017-10-14T14:31:13")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2019-04-04T22:06:34")
 @StaticMetamodel(Clinica.class)
 public class Clinica_ { 
 

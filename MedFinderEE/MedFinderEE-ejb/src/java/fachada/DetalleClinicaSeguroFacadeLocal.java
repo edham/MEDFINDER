@@ -29,6 +29,8 @@ public interface DetalleClinicaSeguroFacadeLocal {
     List<DetalleClinicaSeguro> lista_Clinica(Clinica objClinica,boolean activos);
     List<DetalleClinicaSeguro> findRange(int[] range);
     List<DetalleClinicaSeguro> lista_activos();
+    List<DetalleClinicaSeguro> listarXObjeto(String atributo, Object obejto, boolean orden, String atributoOrden, boolean todos);
+
     int count();
     
 }

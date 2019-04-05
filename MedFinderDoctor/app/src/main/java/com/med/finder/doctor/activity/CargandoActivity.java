@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.med.finder.doctor.R;
-import com.med.finder.doctor.dao.clsUsuarioDAO;
+import com.med.finder.doctor.dao.clsDoctorDAO;
 
 public class CargandoActivity extends AppCompatActivity {
 
@@ -18,7 +18,7 @@ public class CargandoActivity extends AppCompatActivity {
 
             setContentView(R.layout.activity_cargando);
 
-        if( clsUsuarioDAO.Buscar(this)!=null)
+        if( clsDoctorDAO.Buscar(this)!=null)
             estado=true;
 
         new AsyncTaskCargaDatos(this).execute();

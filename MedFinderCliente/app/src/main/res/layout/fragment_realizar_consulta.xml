@@ -163,7 +163,7 @@
                                 android:layout_height="@dimen/rating"
                                 android:layout_margin="@dimen/margin_1"
 
-                                android:background="@drawable/button_foto" />
+                                android:background="@drawable/button_tomar_foto" />
 
                         </LinearLayout>
 

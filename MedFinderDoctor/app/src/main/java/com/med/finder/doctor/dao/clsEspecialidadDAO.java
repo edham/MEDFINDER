@@ -43,7 +43,6 @@ public class clsEspecialidadDAO {
                 registro.put("int_id_especialidad",json_data.getInt("especialidadId"));
                 registro.put("str_nombre",json_data.getString("especialidadNombre"));
                 registro.put("str_descripcion",json_data.getString("especialidadDescripcion"));
-                registro.put("int_estado",json_data.getInt("especialidadEstado"));
 
                 id = (int) bd.insert(NOMBRE_TABLA, null, registro);
                 if(id==0)
@@ -59,7 +58,7 @@ public class clsEspecialidadDAO {
         bd.close();
         return retorno;
     }
-     public static int Agregar(Context context,clsEspecialidad entidad)
+     public static int Agregar(Context context, clsEspecialidad entidad)
     {
         int id = 0;
         bdSQLite admin=new bdSQLite(context,null);
@@ -68,7 +67,6 @@ public class clsEspecialidadDAO {
         registro.put("int_id_especialidad",entidad.getInt_id_especialidad());
         registro.put("str_nombre",entidad.getStr_nombre());
         registro.put("str_descripcion",entidad.getStr_descripcion());
-        registro.put("int_estado",entidad.getInt_estado());
         
         id = (int) bd.insert(NOMBRE_TABLA, null, registro);
         bd.close();    
@@ -82,7 +80,6 @@ public class clsEspecialidadDAO {
         ContentValues registro = new ContentValues();
         registro.put("str_nombre",entidad.getStr_nombre());
         registro.put("str_descripcion",entidad.getStr_descripcion());
-        registro.put("int_estado",entidad.getInt_estado());
         
         int cant = bd.update(NOMBRE_TABLA, registro, "int_id_especialidad="+entidad.getInt_id_especialidad(), null);
         bd.close();
@@ -100,8 +97,7 @@ public class clsEspecialidadDAO {
         SQLiteDatabase bd=admin.getWritableDatabase();
          if(bd!=null)
          {
-            String query="select int_id_especialidad,str_nombre,str_descripcion,"
-                    + "int_estado from "+NOMBRE_TABLA+" where int_id_especialidad="+id;
+            String query="select int_id_especialidad,str_nombre,str_descripcion from "+NOMBRE_TABLA+" where int_id_especialidad="+id;
 
             Cursor fila=bd.rawQuery(query,null);
             if (fila.moveToFirst())
@@ -110,8 +106,6 @@ public class clsEspecialidadDAO {
                 entidad.setInt_id_especialidad(fila.getInt(0));
                 entidad.setStr_nombre(fila.getString(1));
                 entidad.setStr_descripcion(fila.getString(2));
-                entidad.setInt_estado(fila.getInt(3));
-                
             }
         }
         bd.close();   
@@ -132,7 +126,7 @@ public class clsEspecialidadDAO {
         SQLiteDatabase bd=admin.getWritableDatabase();
          if(bd!=null)
          {
-            String query="select int_id_especialidad,str_nombre,str_descripcion,int_estado from "+NOMBRE_TABLA+" order by str_nombre";
+            String query="select int_id_especialidad,str_nombre,str_descripcion from "+NOMBRE_TABLA+" order by str_nombre";
 
             Cursor fila=bd.rawQuery(query,null);
             int numRows = fila.getCount();   
@@ -143,8 +137,6 @@ public class clsEspecialidadDAO {
                     entidad.setInt_id_especialidad(fila.getInt(0));
                     entidad.setStr_nombre(fila.getString(1));
                     entidad.setStr_descripcion(fila.getString(2));
-                    entidad.setInt_estado(fila.getInt(3));
-                    
                     list.add(entidad);
                        
                     fila.moveToNext();   

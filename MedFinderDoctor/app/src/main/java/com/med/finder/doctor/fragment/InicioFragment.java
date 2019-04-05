@@ -11,233 +11,157 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RatingBar;
-import android.widget.Spinner;
-
+import android.widget.TextView;
 import com.med.finder.doctor.R;
 import com.med.finder.doctor.activity.MainActivity;
-import com.med.finder.doctor.dao.clsClinicaDAO;
-import com.med.finder.doctor.dao.clsDoctorDAO;
-import com.med.finder.doctor.dao.clsEspecialidadDAO;
-import com.med.finder.doctor.entidades.clsClinica;
-import com.med.finder.doctor.entidades.clsDoctor;
-import com.med.finder.doctor.entidades.clsEspecialidad;
+import com.med.finder.doctor.dao.clsInicioDAO;
+import com.med.finder.doctor.dao.clsPacienteDAO;
+import com.med.finder.doctor.entidades.clsInicio;
+import com.med.finder.doctor.entidades.clsPaciente;
 import com.med.finder.doctor.utilidades.CustomFontTextView;
 import com.med.finder.doctor.utilidades.Utilidades;
-
-import java.util.ArrayList;
 import java.util.List;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-
-
 public class InicioFragment extends Fragment {
-
-    private List<clsDoctor> listDoctores;
-    private List<clsClinica> listClinica;
-    private List<clsEspecialidad> listEspecialidad;
-    private AdaptadorDoctor adaptadorDoctor;
-    private AdaptadorClinica adaptadorClinica;
-
+    private List<clsInicio> listCasosTemp;
+    private Adaptador adaptador;
     private ListView list;
-    private Spinner ComboBusqueda;
-    private Spinner ComboEspecialidad;
-    private boolean busqueda=true;
-    private int idEspecialidad=0;
-    private View viewFavoritos;
-    private CheckBox chbFavoritos;
-
+    private CheckBox chbConsulta;
+    private CheckBox chbCita;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_inicio, container, false);
-
         list = (ListView)view.findViewById(R.id.list);
-        viewFavoritos = (View)view.findViewById(R.id.viewFavoritos);
-        ComboBusqueda = (Spinner)view.findViewById(R.id.ComboBusqueda);
-        ComboEspecialidad = (Spinner)view.findViewById(R.id.ComboEspecialidad);
-        chbFavoritos = (CheckBox)view.findViewById(R.id.chbFavoritos);
-        chbFavoritos .setOnClickListener(new View.OnClickListener() {
+        chbConsulta = (CheckBox)view.findViewById(R.id.chbConsulta);
+        chbConsulta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Buscar("");
+                Buscar();
             }
         });
-        TipoDLL();
-        EspecialidadDDL();
-        Buscar("");
+        chbCita = (CheckBox)view.findViewById(R.id.chbCita);
+        chbCita.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Buscar();
+            }
+        });
+        list = (ListView)view.findViewById(R.id.list);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View v, int posicion, long id) {
+                Bundle args = new Bundle();
+                args.putInt("id", listCasosTemp.get(posicion).getInt_id());
+                  if(listCasosTemp.get(posicion).getInt_tipo()==1)//CITA_PACIENTE
+                  {
+                      Fragment fragment = new CitasAprobarFragment();
+                      fragment.setArguments(args);
+                      ((MainActivity) getActivity()).setFragment(fragment);
 
-        ((MainActivity) getActivity()).verTitulo(1);
+                  }else if(listCasosTemp.get(posicion).getInt_tipo()==2)//PREGUNTA_PACIENTE
+                  {
+                      Fragment fragment = new ConsultasResponderFragment();
+                      fragment.setArguments(args);
+                      ((MainActivity) getActivity()).setFragment(fragment);
+                  }
+
+
+            }
+        });
+        if(this.getArguments()!=null) {
+            int dato= getArguments().getInt("dato");
+            if(dato>0)
+            {
+                if(dato==1){
+                    chbConsulta.setChecked(false);
+                }else if(dato==2){
+                    chbCita.setChecked(false);
+                }
+            }
+        }
+        ((MainActivity) getActivity()).setTitle(getString(R.string.nav_inicio));
+        Buscar();
         return view;
     }
 
 
-    public void EspecialidadDDL (){
-        listEspecialidad= clsEspecialidadDAO.Listar(this.getActivity());
-        listEspecialidad.add(0,new clsEspecialidad(0,"Todas las Especialidades"));
-
-        ArrayAdapter<clsEspecialidad> adapter = new ArrayAdapter<clsEspecialidad>(this.getActivity(),
-                R.layout.spinner,listEspecialidad);
-        adapter.setDropDownViewResource(R.layout.spinner_vista);
-        ComboEspecialidad.setAdapter(adapter);
-        ComboEspecialidad.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                idEspecialidad=listEspecialidad.get(position).getInt_id_especialidad();
-                Buscar("");
-            }
-            public void onNothingSelected(AdapterView<?> parent) {
-                //User selected same item. Nothing to do.
-            }
-        });
-        ComboEspecialidad.setSelection(0);
-    }
-
-    public void TipoDLL (){
-
-        List<String> lista =new ArrayList<String>();
-        lista.add("Doctores");
-        lista.add("Clinicas");
 
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(),R.layout.spinner,lista);
-        adapter.setDropDownViewResource(R.layout.spinner_vista);
-
-
-
-        ComboBusqueda.setAdapter(adapter);
-        ComboBusqueda.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(position==0)
-                {
-                    viewFavoritos.setVisibility(View.VISIBLE);
-                    busqueda=true;
-                    Buscar("");
-
-                }
-                else
-                {
-                    viewFavoritos.setVisibility(View.GONE);
-                    busqueda=false;
-                    Buscar("");
-                }
-            }
-            public void onNothingSelected(AdapterView<?> parent) {
-                //User selected same item. Nothing to do.
-            }
-        });
-        ComboBusqueda.setSelection(0);
-    }
-    public void Buscar(String buscar)
+    public void Buscar()
     {
 
-        if(busqueda)
-        {
-            listDoctores= clsDoctorDAO.Listar(this.getActivity(), idEspecialidad,chbFavoritos.isChecked());
+        listCasosTemp=clsInicioDAO.Listar(this.getActivity(),chbConsulta.isChecked(),chbCita.isChecked());
 
-                adaptadorDoctor = new AdaptadorDoctor(this.getActivity());
+        adaptador = new Adaptador(this.getActivity());
 
-                list.setAdapter(adaptadorDoctor);
-                list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View v, int posicion, long id) {
-                        ((MainActivity) getActivity()).posFragmnet=1;
-                        Bundle args = new Bundle();
-                        args.putInt("id", listDoctores.get(posicion).getInt_id_doctor());
-                      //  Fragment fragment = new DoctorInfoFragment();
-                        //fragment.setArguments(args);
-                     //   ((MainActivity) getActivity()).setFragment(fragment);
-                    }
-                });
-        }
-        else
-        {
-            listClinica= clsClinicaDAO.Listar(this.getActivity(), idEspecialidad);
+        list.setAdapter(adaptador);
 
-                adaptadorClinica = new AdaptadorClinica(this.getActivity());
 
-                list.setAdapter(adaptadorClinica);
-                list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View v, int posicion, long id) {
-                        ((MainActivity) getActivity()).posFragmnet=1;
-                        Bundle args = new Bundle();
-                        args.putInt("id", listClinica.get(posicion).getInt_id_clinica());
-                   //     Fragment fragment = new ClinicaInfoFragment();
-                     //   fragment.setArguments(args);
-                       // ((MainActivity) getActivity()).setFragment(fragment);
-                    }
-                });
-        }
     }
 
 
-    class AdaptadorDoctor extends ArrayAdapter {
+
+
+    class Adaptador extends ArrayAdapter {
 
         Activity context;
 
-        AdaptadorDoctor(Activity context) {
-            super(context, R.layout.list_doctores, listDoctores);
+        Adaptador(Activity context) {
+            super(context,R.layout.list_inicio, listCasosTemp);
             this.context = context;
         }
 
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
 
             LayoutInflater inflater = context.getLayoutInflater();
-            View item = inflater.inflate(R.layout.list_doctores, null);
+            View item = inflater.inflate(R.layout.list_inicio ,null);
 
-            CustomFontTextView lblNombre = (CustomFontTextView)item.findViewById(R.id.lblNombre);
-            lblNombre.setText("Dr. "+listDoctores.get(position).getStr_apellido_paterno()+" "+listDoctores.get(position).getStr_apellido_materno()+" "+listDoctores.get(position).getStr_nombres());
+            ImageView imageView = (ImageView) item.findViewById(R.id.imageView);
 
-            CustomFontTextView lblEspecialidad = (CustomFontTextView)item.findViewById(R.id.lblEspecialidad);
-            lblEspecialidad.setText(clsEspecialidadDAO.Buscar(context,listDoctores.get(position).getObjEspecialidad().getInt_id_especialidad()).getStr_nombre());
-
-            RatingBar rtbPuntos = (RatingBar)item.findViewById(R.id.rtbPuntos);
-            rtbPuntos.setRating(listDoctores.get(position).getInt_puntuje());
-
-            CircleImageView image = (CircleImageView)item.findViewById(R.id.image);
-            if(listDoctores.get(position).getByte_foto()!=null)
-                image.setImageBitmap(Utilidades.getBitmap(listDoctores.get(position).getByte_foto()));
-            if(!listDoctores.get(position).isBol_favorito())
+            CustomFontTextView lblTipo = (CustomFontTextView)item.findViewById(R.id.lblTipo);
+            if(listCasosTemp.get(position).getInt_tipo()==1)
             {
-                ImageView imageFavorito = (ImageView) item.findViewById(R.id.imageFavorito);
-                imageFavorito.setVisibility(View.GONE);
+                lblTipo.setText(getString(R.string.str_aprobar_cita));
+                imageView.setImageResource(R.drawable.ic_citas);
+
+            }else
+            {
+                lblTipo.setText(getString(R.string.str_responder_consulta));
+                imageView.setImageResource(R.drawable.ic_inicio);
+
+            }
+
+
+
+            TextView lblFecha = (TextView)item.findViewById(R.id.lblFecha);
+            lblFecha.setText(Utilidades.dateFormatter.format(listCasosTemp.get(position).getDat_ini()));
+
+            TextView lblHora = (TextView)item.findViewById(R.id.lblHora);
+            lblHora.setText(Utilidades.hourFormatter.format(listCasosTemp.get(position).getDat_ini()));
+            clsPaciente paciente = clsPacienteDAO.Buscar(context,listCasosTemp.get(position).getObjPaciente().getInt_id_paciente());
+            if(paciente!=null)
+            {
+                CustomFontTextView lblNombre = (CustomFontTextView)item.findViewById(R.id.lblNombre);
+                lblNombre.setText(paciente.toString());
+
+                CustomFontTextView lblDNI = (CustomFontTextView)item.findViewById(R.id.lblDNI);
+                lblDNI.setText(paciente.getStr_dni());
+
+                CustomFontTextView lblSexo = (CustomFontTextView)item.findViewById(R.id.lblSexo);
+                lblSexo.setText(((paciente.isBol_sexo()) ? getText(R.string.str_hombre):getText(R.string.str_mujer)));
+
+                CustomFontTextView lblEdad = (CustomFontTextView)item.findViewById(R.id.lblEdad);
+                lblEdad.setText(""+Utilidades.getEdad(paciente.getDat_fecha_nacimiento()));
+
+                CustomFontTextView lblEstatura = (CustomFontTextView)item.findViewById(R.id.lblEstatura);
+                lblEstatura.setText(""+paciente.getInt_estatura());
 
             }
 
             return(item);
         }
     }
-
-
-    class AdaptadorClinica extends ArrayAdapter {
-
-        Activity context;
-
-        AdaptadorClinica(Activity context) {
-            super(context, R.layout.list_clinicas, listClinica);
-            this.context = context;
-        }
-
-        public View getView(int position, View convertView, ViewGroup parent) {
-
-            LayoutInflater inflater = context.getLayoutInflater();
-            View item = inflater.inflate(R.layout.list_clinicas, null);
-
-            CustomFontTextView lblNombre = (CustomFontTextView)item.findViewById(R.id.lblNombre);
-            lblNombre.setText(listClinica.get(position).getStr_nombre());
-
-            CustomFontTextView lblDetalle = (CustomFontTextView)item.findViewById(R.id.lblDetalle);
-            lblDetalle.setText(listClinica.get(position).getStr_slogan());
-
-
-            ImageView image = (ImageView)item.findViewById(R.id.image);
-            if(listClinica.get(position).getByte_logo()!=null)
-                image.setImageBitmap(Utilidades.getBitmap(listClinica.get(position).getByte_logo()));
-
-            return(item);
-        }
-    }
-
 
 }

@@ -9,7 +9,6 @@ import modelo.RespuestaPreguntaPaciente;
 import modelo.Usuario;
 import java.util.List;
 import javax.ejb.Local;
-
 /**
  *
  * @author EdHam
@@ -29,6 +28,9 @@ public interface RespuestaPreguntaPacienteFacadeLocal {
 
     List<RespuestaPreguntaPaciente> findRange(int[] range);
     List<RespuestaPreguntaPaciente> listaXUsuarios(Usuario obejto);
+    
+    List<RespuestaPreguntaPaciente> listarXObjeto(String atributo, Object obejto, boolean orden, String atributoOrden, boolean todos);
+
     int count();
     
 }

@@ -8,7 +8,12 @@ import android.util.Base64;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Date;
 
 public class ImagenArchivo {
@@ -84,6 +89,41 @@ public class ImagenArchivo {
 
     }
 
+    public static String getImagenBase64(Bitmap imagen) {
+        String base64="";
+        if(imagen!=null)
+        {
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            imagen.compress(Bitmap.CompressFormat.JPEG, 80, stream);
+            byte[] Imagen= stream.toByteArray();
+            base64= Base64.encodeToString(Imagen,Base64.NO_WRAP|Base64.URL_SAFE);
+        }
+        return base64;
+
+    }
+
+    public static String getImagenBase64(byte[] Imagen) {
+        String base64="";
+        if(Imagen!=null)
+        {
+            base64= Base64.encodeToString(Imagen,Base64.NO_WRAP|Base64.URL_SAFE);
+        }
+        return base64;
+
+    }
+
+    public static  byte[] getImagenByte(Bitmap imagen) {
+        byte[] imagenByte=null;
+        if(imagen!=null)
+        {
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            imagen.compress(Bitmap.CompressFormat.JPEG, 80, stream);
+            imagenByte= stream.toByteArray();
+        }
+        return imagenByte;
+
+    }
+
 
 
     public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
@@ -138,5 +178,35 @@ public class ImagenArchivo {
         }
     }
 
+
+    public static void moveImage(String iniPath) {
+
+        File imagesFolder = new File(Environment.getExternalStorageDirectory(), fileImage+"temp/");
+        if (!imagesFolder.exists()) {
+            imagesFolder.mkdirs();
+        }
+            try{
+                String finPath = Environment.getExternalStorageDirectory() + "/" +fileImage+"temp/temporal.jpg";
+                imagesFolder.mkdirs();
+                File sourceLocation = new File (iniPath);
+                File targetLocation = new File (finPath);
+                InputStream in = new FileInputStream(sourceLocation);
+                OutputStream out = new FileOutputStream(targetLocation);
+                byte[] buf = new byte[1024];
+                int len;
+
+                while ((len = in.read(buf)) > 0) {
+                    out.write(buf, 0, len);
+                }
+
+                in.close();
+                out.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+    }
 
 }

@@ -9,6 +9,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Base64;
+
 
 import com.med.finder.doctor.entidades.clsEspecialidad;
 import com.med.finder.doctor.entidades.clsPaciente;
@@ -40,6 +42,8 @@ public class clsPreguntaPacienteDAO {
         {
             if(login)
                 bd.delete(NOMBRE_TABLA, null, null);
+            else
+                bd.delete(NOMBRE_TABLA, "int_estado=1", null);
             JSONArray listEmpresaJSON = new JSONArray(data);
             for(int i=0;i<listEmpresaJSON.length();i++){
                 JSONObject json_data = listEmpresaJSON.getJSONObject(i);
@@ -51,6 +55,8 @@ public class clsPreguntaPacienteDAO {
                 registro.put("str_paciente_detalle",json_data.getString("preguntaPacienteDetalle"));
                 registro.put("dat_inicio", new Date(json_data.getLong("preguntaPacienteFechaInicio")).getTime());
                 registro.put("int_estado",json_data.getInt("preguntaPacienteEstado"));
+                if(!json_data.isNull("preguntaPacienteImagen"))
+                    registro.put("byte_imagen", Base64.decode(json_data.getString("preguntaPacienteImagen"), Base64.NO_WRAP | Base64.URL_SAFE));
 
                 id = (int) bd.insert(NOMBRE_TABLA, null, registro);
                 if(id==0)
@@ -66,7 +72,7 @@ public class clsPreguntaPacienteDAO {
         bd.close();
         return retorno;
     }
-     public static int Agregar(Context context,clsPreguntaPaciente entidad)
+     public static int Agregar(Context context, clsPreguntaPaciente entidad)
     {
         int id = 0;
         bdSQLite admin=new bdSQLite(context,null);
@@ -79,6 +85,7 @@ public class clsPreguntaPacienteDAO {
         registro.put("str_paciente_detalle",entidad.getStr_paciente_detalle());
         registro.put("dat_inicio",entidad.getDat_inicio().getTime());
         registro.put("int_estado",entidad.getInt_estado());
+
 
         id = (int) bd.insert(NOMBRE_TABLA, null, registro);
         bd.close();    
@@ -114,21 +121,19 @@ public class clsPreguntaPacienteDAO {
          if(bd!=null)
          {
             String query="select int_id_pregunta_paciente,int_id_paciente,int_id_especialidad,str_asunto,"
-                    + "str_paciente_detalle,dat_inicio,int_estado from "+NOMBRE_TABLA+" where int_id_pregunta_paciente="+id;
+                    + "str_paciente_detalle,dat_inicio,int_estado,byte_imagen from "+NOMBRE_TABLA+" where int_id_pregunta_paciente="+id;
 
             Cursor fila=bd.rawQuery(query,null);
             if (fila.moveToFirst())
             {                    
                 entidad= new clsPreguntaPaciente();
-                entidad.setInt_id_pregunta_paciente(fila.getInt(0));
+                entidad.setInt_id_pregunta_paciente(fila.getInt(0));entidad.setByte_imagen(fila.getBlob(7));
                 entidad.setObjPaciente(new clsPaciente(fila.getInt(1)));
                 entidad.setObjEspecialidad(new clsEspecialidad(fila.getInt(2)));
                 entidad.setStr_asunto(fila.getString(3));
                 entidad.setStr_paciente_detalle(fila.getString(4));
                 entidad.setDat_inicio(new Date(fila.getLong(5)));
                 entidad.setInt_estado(fila.getInt(6));
-                
-              
 
             }
         }
@@ -145,7 +150,7 @@ public class clsPreguntaPacienteDAO {
          if(bd!=null)
          {
             String query="select int_id_pregunta_paciente,int_id_paciente,int_id_especialidad,str_asunto,"
-                    + "str_paciente_detalle,dat_inicio,int_estado from "+NOMBRE_TABLA
+                    + "str_paciente_detalle,dat_inicio,int_estado,byte_imagen from "+NOMBRE_TABLA
                     +" where int_estado=0 order by int_id_pregunta_paciente desc limit 1";
 
             Cursor fila=bd.rawQuery(query,null);
@@ -159,6 +164,7 @@ public class clsPreguntaPacienteDAO {
                 entidad.setStr_paciente_detalle(fila.getString(4));
                 entidad.setDat_inicio(new Date(fila.getLong(5)));
                 entidad.setInt_estado(fila.getInt(6));
+                entidad.setByte_imagen(fila.getBlob(7));
                 
               
 
@@ -176,7 +182,7 @@ public class clsPreguntaPacienteDAO {
          if(bd!=null)
          {
         String query="select int_id_pregunta_paciente,int_id_paciente,int_id_especialidad,str_asunto,"
-                    + "str_paciente_detalle,dat_inicio,int_estado from "+NOMBRE_TABLA+" order by dat_inicio desc";
+                    + "str_paciente_detalle,dat_inicio,int_estado,byte_imagen from "+NOMBRE_TABLA+" order by dat_inicio desc";
         
         Cursor fila=bd.rawQuery(query,null);
         int numRows = fila.getCount();   
@@ -191,6 +197,7 @@ public class clsPreguntaPacienteDAO {
                     entidad.setStr_paciente_detalle(fila.getString(4));
                     entidad.setDat_inicio(new Date(fila.getLong(5)));
                     entidad.setInt_estado(fila.getInt(6));
+                    entidad.setByte_imagen(fila.getBlob(7));
                     
                     list.add(entidad);
                        
@@ -208,5 +215,23 @@ public class clsPreguntaPacienteDAO {
      bd.delete(NOMBRE_TABLA, null, null);
      bd.close();
     }
-   
+
+    public static  int pendienteRespuesta(Context context)
+    {
+        int total=0;
+        bdSQLite admin=new bdSQLite(context,null);
+        SQLiteDatabase bd=admin.getWritableDatabase();
+        if(bd!=null)
+        {
+            String query="select count(*) from "+NOMBRE_TABLA+" where int_estado=1";
+            Cursor fila=bd.rawQuery(query,null);
+            if (fila.moveToFirst())
+            {
+                total=fila.getInt(0);
+            }
+        }
+        bd.close();
+        return total;
+    }
+
 }

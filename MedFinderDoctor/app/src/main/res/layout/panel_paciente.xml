@@ -1,0 +1,582 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border"
+        android:orientation="horizontal">
+        <com.med.finder.doctor.utilidades.CustomFontTextView
+
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/dimen_4"
+            android:gravity="center"
+            android:textSize="@dimen/text_1"
+            android:layout_marginRight="@dimen/margin_1"
+            android:layout_marginLeft="@dimen/margin_1"
+            android:text="@string/str_paciente"
+            android:textColor="@color/theme_window_background"
+            android:textStyle="bold"
+            app:fontAttr="@string/font_myraid_bold" />
+    </LinearLayout>
+
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_blanco_negro"
+            android:layout_marginTop="@dimen/margin_1"
+            android:padding="@dimen/margin_1"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/dimen_3"
+                    android:layout_marginRight="@dimen/line_0"
+                    android:layout_weight="3"
+                    android:background="@drawable/border_blanco"
+                    android:gravity="center"
+                    android:minHeight="@dimen/dimen_0"
+                    android:orientation="vertical">
+
+                    <com.med.finder.doctor.utilidades.CustomFontTextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:gravity="center|left"
+                        android:layout_marginLeft="@dimen/line_4"
+                        android:text="@string/str_nombres"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/text"
+                        app:fontAttr="@string/font_myraid_bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/dimen_3"
+
+                    android:layout_weight="1"
+                    android:background="@drawable/border_blanco_negro"
+                    android:layout_marginLeft="@dimen/line_0"
+                    android:gravity="center"
+                    android:minHeight="@dimen/dimen_0"
+                    android:orientation="vertical">
+                    <com.med.finder.doctor.utilidades.CustomFontTextView
+                        android:id="@+id/lblNombre"
+                        android:layout_width="fill_parent"
+                        android:layout_height="@dimen/dimen_3"
+                        android:minHeight="@dimen/dimen_3"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/text_1"
+                        app:fontAttr="@string/font_myraid_bold" />
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/line_2"
+                android:layout_marginBottom="@dimen/line_2"
+                android:background="@color/theme_window_background"
+                android:gravity="center"
+                android:minHeight="@dimen/dimen_1"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/dimen_3"
+                    android:layout_marginRight="@dimen/line_0"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_blanco"
+                    android:gravity="center"
+                    android:minHeight="@dimen/dimen_0"
+                    android:orientation="vertical">
+
+                    <com.med.finder.doctor.utilidades.CustomFontTextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center|left"
+                        android:layout_marginLeft="@dimen/line_4"
+                        android:text="@string/str_dni"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/text"
+                        app:fontAttr="@string/font_myraid_bold" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/dimen_3"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_blanco_negro"
+                    android:layout_marginLeft="@dimen/line_0"
+                    android:layout_marginRight="@dimen/line_0"
+                    android:gravity="center"
+                    android:minHeight="@dimen/dimen_0"
+                    android:orientation="vertical">
+                    <com.med.finder.doctor.utilidades.CustomFontTextView
+                        android:id="@+id/lblDNI"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:gravity="center"
+                        android:textColor="@color/primary_text"
+                        android:textSize="@dimen/text_1"
+                        app:fontAttr="@string/font_myraid_roman" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/dimen_3"
+                    android:layout_marginRight="@dimen/line_0"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_blanco"
+                    android:gravity="center"
+                    android:minHeight="@dimen/dimen_0"
+                    android:orientation="vertical">
+
+                    <com.med.finder.doctor.utilidades.CustomFontTextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:gravity="center|left"
+                        android:layout_marginLeft="@dimen/line_4"
+                        android:text="@string/str_estatura"
+                        android:textSize="@dimen/text"
+                        android:textColor="@color/colorPrimaryDark"
+                        app:fontAttr="@string/font_myraid_bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/dimen_3"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_blanco_negro"
+                    android:layout_marginLeft="@dimen/line_0"
+                    android:gravity="center"
+                    android:minHeight="@dimen/dimen_0"
+                    android:orientation="vertical">
+                    <com.med.finder.doctor.utilidades.CustomFontTextView
+                        android:id="@+id/lblEstatura"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:gravity="center"
+                        android:textColor="@color/primary_text"
+                        android:textSize="@dimen/text_1"
+                        app:fontAttr="@string/font_myraid_roman" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/line_2"
+                android:layout_marginBottom="@dimen/line_2"
+                android:background="@color/theme_window_background"
+                android:gravity="center"
+                android:minHeight="@dimen/dimen_1"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/dimen_3"
+                    android:layout_marginRight="@dimen/line_0"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_blanco"
+                    android:gravity="center"
+                    android:minHeight="@dimen/dimen_0"
+                    android:orientation="vertical">
+
+                    <com.med.finder.doctor.utilidades.CustomFontTextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center|left"
+                        android:layout_marginLeft="@dimen/line_4"
+                        android:text="@string/str_sexo"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/text"
+                        app:fontAttr="@string/font_myraid_bold" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/dimen_3"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_blanco_negro"
+                    android:layout_marginLeft="@dimen/line_0"
+                    android:layout_marginRight="@dimen/line_0"
+                    android:gravity="center"
+                    android:minHeight="@dimen/dimen_0"
+                    android:orientation="vertical">
+                    <com.med.finder.doctor.utilidades.CustomFontTextView
+                        android:id="@+id/lblSexo"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:gravity="center"
+                        android:textColor="@color/primary_text"
+                        android:textSize="@dimen/text_1"
+                        app:fontAttr="@string/font_myraid_roman" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/dimen_3"
+                    android:layout_marginRight="@dimen/line_0"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_blanco"
+                    android:gravity="center"
+                    android:minHeight="@dimen/dimen_0"
+                    android:orientation="vertical">
+
+                    <com.med.finder.doctor.utilidades.CustomFontTextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:gravity="center|left"
+                        android:layout_marginLeft="@dimen/line_4"
+                        android:text="@string/str_edad"
+                        android:textSize="@dimen/text"
+                        android:textColor="@color/colorPrimaryDark"
+                        app:fontAttr="@string/font_myraid_bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/dimen_3"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_blanco_negro"
+                    android:layout_marginLeft="@dimen/line_0"
+                    android:gravity="center"
+                    android:minHeight="@dimen/dimen_0"
+                    android:orientation="vertical">
+                    <com.med.finder.doctor.utilidades.CustomFontTextView
+                        android:id="@+id/lblEdad"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:gravity="center"
+                        android:textColor="@color/primary_text"
+                        android:textSize="@dimen/text_1"
+                        app:fontAttr="@string/font_myraid_roman" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_1"
+                android:background="@drawable/border"
+                android:orientation="horizontal">
+                <com.med.finder.doctor.utilidades.CustomFontTextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/dimen_4"
+                    android:gravity="center"
+                    android:textSize="@dimen/text_1"
+                    android:layout_marginRight="@dimen/margin_1"
+                    android:layout_marginLeft="@dimen/margin_1"
+                    android:text="@string/str_ant_med"
+                    android:textColor="@color/theme_window_background"
+                    android:textStyle="bold"
+                    app:fontAttr="@string/font_myraid_bold" />
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_blanco_negro"
+                android:layout_marginTop="@dimen/margin_1"
+                android:padding="@dimen/margin_1"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/line_2"
+                    android:paddingTop="@dimen/line_2"
+                    android:paddingRight="@dimen/line_2"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:minHeight="@dimen/dimen_3"
+                        android:layout_weight="1"
+                        android:textColor="@color/colorAccent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        <com.med.finder.doctor.utilidades.CustomFontTextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="@dimen/dimen_3"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="@string/str_ant_pato"
+                            android:textColor="@color/theme_window_background"
+                            android:textSize="@dimen/text_1"
+                            app:fontAttr="@string/font_myraid_bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:minHeight="@dimen/dimen_3"
+                        android:layout_marginLeft="@dimen/line_2"
+                        android:layout_weight="1"
+                        android:textColor="@color/colorAccent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        <com.med.finder.doctor.utilidades.CustomFontTextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="@dimen/dimen_3"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="@string/str_ant_perso"
+                            android:textColor="@color/theme_window_background"
+                            android:textSize="@dimen/text_1"
+                            app:fontAttr="@string/font_myraid_bold" />
+                        android:text="Alcohol"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/line_2"
+                    android:paddingTop="@dimen/line_2"
+                    android:paddingRight="@dimen/line_2"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:minHeight="@dimen/dimen_3"
+                        android:layout_weight="1"
+                        android:background="@color/theme_window_background"
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        <com.med.finder.doctor.utilidades.CustomFontTextView
+                            android:id="@+id/lblCardioVascular"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_marginLeft="@dimen/line_4"
+                            android:text="@string/str_cardio"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/text"
+                            android:drawableLeft="@android:drawable/checkbox_off_background"
+                            app:fontAttr="@string/font_myraid_bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:minHeight="@dimen/dimen_3"
+                        android:layout_marginLeft="@dimen/line_2"
+                        android:layout_weight="1"
+                        android:background="@color/theme_window_background"
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        <com.med.finder.doctor.utilidades.CustomFontTextView
+                            android:id="@+id/lblAlcohol"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_marginLeft="@dimen/line_4"
+                            android:text="@string/str_alcohol"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/text"
+                            android:drawableLeft="@android:drawable/checkbox_off_background"
+                            app:fontAttr="@string/font_myraid_bold" />
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/line_2"
+                    android:paddingTop="@dimen/line_2"
+                    android:paddingRight="@dimen/line_2"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:minHeight="@dimen/dimen_3"
+                        android:layout_weight="1"
+                        android:background="@color/theme_window_background"
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        <com.med.finder.doctor.utilidades.CustomFontTextView
+                            android:id="@+id/lblMusculares"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_marginLeft="@dimen/line_4"
+                            android:text="@string/str_musculares"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/text"
+                            android:drawableLeft="@android:drawable/checkbox_off_background"
+                            app:fontAttr="@string/font_myraid_bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:minHeight="@dimen/dimen_3"
+                        android:layout_marginLeft="@dimen/line_2"
+                        android:layout_weight="1"
+                        android:background="@color/theme_window_background"
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        <com.med.finder.doctor.utilidades.CustomFontTextView
+                            android:id="@+id/lblTabaquismo"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_marginLeft="@dimen/line_4"
+                            android:text="@string/str_tabaquismo"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/text"
+                            android:drawableLeft="@android:drawable/checkbox_off_background"
+                            app:fontAttr="@string/font_myraid_bold" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/line_2"
+                    android:paddingTop="@dimen/line_2"
+                    android:paddingRight="@dimen/line_2"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:minHeight="@dimen/dimen_3"
+                        android:layout_weight="1"
+                        android:background="@color/theme_window_background"
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        <com.med.finder.doctor.utilidades.CustomFontTextView
+                            android:id="@+id/lblDigestivos"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_marginLeft="@dimen/line_4"
+                            android:text="@string/str_digestivos"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/text"
+                            android:drawableLeft="@android:drawable/checkbox_off_background"
+                            app:fontAttr="@string/font_myraid_bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:minHeight="@dimen/dimen_3"
+                        android:layout_marginLeft="@dimen/line_2"
+                        android:layout_weight="1"
+                        android:background="@color/theme_window_background"
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        <com.med.finder.doctor.utilidades.CustomFontTextView
+                            android:id="@+id/lblDrogas"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_marginLeft="@dimen/line_4"
+                            android:text="@string/str_drogas"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/text"
+                            android:drawableLeft="@android:drawable/checkbox_off_background"
+                            app:fontAttr="@string/font_myraid_bold" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary"
+                    android:gravity="center"
+                    android:padding="@dimen/line_2"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:minHeight="@dimen/dimen_3"
+                        android:layout_weight="1"
+                        android:background="@color/theme_window_background"
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        <com.med.finder.doctor.utilidades.CustomFontTextView
+                            android:id="@+id/lblAlergicos"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_marginLeft="@dimen/line_4"
+                            android:text="@string/str_alergico"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/text"
+                            android:drawableLeft="@android:drawable/checkbox_off_background"
+                            app:fontAttr="@string/font_myraid_bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:minHeight="@dimen/dimen_3"
+                        android:layout_marginLeft="@dimen/line_2"
+                        android:layout_weight="1"
+                        android:background="@color/theme_window_background"
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        <com.med.finder.doctor.utilidades.CustomFontTextView
+                            android:id="@+id/lblPsicologicos"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_marginLeft="@dimen/line_4"
+                            android:text="@string/str_psicologico"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/text"
+                            android:drawableLeft="@android:drawable/checkbox_off_background"
+                            app:fontAttr="@string/font_myraid_bold" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+</LinearLayout>

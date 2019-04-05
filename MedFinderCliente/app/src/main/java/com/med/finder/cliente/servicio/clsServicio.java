@@ -122,7 +122,7 @@ public class clsServicio extends Service {
                                         
                                     }
                                     
-                                    clsCitaPaciente objCitaPaciente = clsCitaPacienteDAO.BuscarXEstado(context);
+                                    clsCitaPaciente objCitaPaciente = clsCitaPacienteDAO.BuscarXEstado(context,1);
                                     if(objCitaPaciente!=null)
                                     {
                                         String cita="0";///http.buscarCitaPaciente(objCitaPaciente.getInt_id_cita_paciente());
@@ -168,8 +168,8 @@ public class clsServicio extends Service {
                                                 if(!datos[2].trim().equals("0"))
                                                 {
                                                      String [] entidad = datos[2].trim().split("\\<+entidad+>");
-                                                     for(int i=0;i<entidad.length;i++)
-                                                        clsDoctorDAO.Agregar(context, new clsDoctor(entidad[i]));
+                                                    // for(int i=0;i<entidad.length;i++)
+                                                    //    clsDoctorDAO.Agregar(context, new clsDoctor(entidad[i]));
                                                 }
                                                 clsClinicaEspecialidadDAO.Borrar(context);
                                                 if(!datos[3].trim().equals("0"))
@@ -210,14 +210,14 @@ public class clsServicio extends Service {
                                                 if(!datos[8].trim().equals("0"))
                                                 {
                                                      String [] entidad = datos[8].trim().split("\\<+entidad+>");
-                                                     for(int i=0;i<entidad.length;i++)
-                                                         clsRespuestaCasosSaludDAO.Favorito(context,Integer.parseInt(entidad[i].trim()),true);
+                                                    // for(int i=0;i<entidad.length;i++)
+                                                      //   clsRespuestaCasosSaludDAO.Favorito(context,Integer.parseInt(entidad[i].trim()),true);
                                                 }
                                                  if(!datos[9].trim().equals("0"))
                                                 {
                                                      String [] entidad = datos[9].trim().split("\\<+entidad+>");
-                                                     for(int i=0;i<entidad.length;i++)
-                                                         clsDoctorDAO.Favorito(context, Integer.parseInt(entidad[i].trim()), true);
+                                                   //  for(int i=0;i<entidad.length;i++)
+                                                    //     clsDoctorDAO.Favorito(context, Integer.parseInt(entidad[i].trim()), true);
                                                 }
 
                                                 Notificacion("Actualizacion Completa","Se actualizo Correctamente",0,0);

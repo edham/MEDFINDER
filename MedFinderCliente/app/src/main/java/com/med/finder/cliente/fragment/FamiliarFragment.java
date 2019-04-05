@@ -1,6 +1,9 @@
 package com.med.finder.cliente.fragment;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +19,8 @@ import android.widget.Toast;
 
 import com.med.finder.cliente.R;
 import com.med.finder.cliente.activity.MainActivity;
+import com.med.finder.cliente.conexion.ActualizarPacienteHTTP;
+import com.med.finder.cliente.conexion.InsertPacienteHTTP;
 import com.med.finder.cliente.conexion.http;
 import com.med.finder.cliente.dao.clsPacienteDAO;
 import com.med.finder.cliente.dao.clsUsuarioDAO;
@@ -23,20 +28,22 @@ import com.med.finder.cliente.entidades.clsPaciente;
 import com.med.finder.cliente.utilidades.CustomFontTextView;
 import com.med.finder.cliente.utilidades.Utilidades;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class FamiliarFragment extends Fragment {
 
     private int idPaciente;
     private boolean sexo=true;
-    //private Spinner ComboSexo;
     private EditText txtNombres;
     private EditText txtApellidoPaterno;
     private EditText txtApellidoMaterno;
-    private EditText txtFNacimiento;
     private EditText txtEstatura;
     private EditText txtDNI;
 
@@ -54,7 +61,7 @@ public class FamiliarFragment extends Fragment {
     private CheckBox chbMujer;
     private CustomFontTextView lblFecNac;
     private Date fecNac;
-
+    public ProgressDialog pd;
 
 
 
@@ -68,6 +75,7 @@ public class FamiliarFragment extends Fragment {
        // ComboSexo = (Spinner)view.findViewById(R.id.ComboSexo);
         txtNombres = (EditText)view.findViewById(R.id.txtNombres);
         txtApellidoPaterno = (EditText)view.findViewById(R.id.txtApellidoPaterno);
+
         txtDNI = (EditText)view.findViewById(R.id.txtDNI);
         txtApellidoMaterno = (EditText)view.findViewById(R.id.txtApellidoMaterno);
         txtEstatura = (EditText)view.findViewById(R.id.txtEstatura);
@@ -139,21 +147,23 @@ public class FamiliarFragment extends Fragment {
             if(entidad!=null)
             {
                 lblTitulo.setText(getString(R.string.str_editar_familiar));
-                SimpleDateFormat fecha=new SimpleDateFormat("dd/MM/yyyy");
                 txtNombres.setText(entidad.getStr_nombres());
                 txtApellidoPaterno.setText(entidad.getStr_apellido_paterno());
                 txtApellidoMaterno.setText(entidad.getStr_apellido_materno());
-                txtFNacimiento.setText(fecha.format(entidad.getDat_fecha_nacimiento()));
+                fecNac=entidad.getDat_fecha_nacimiento();
+                if(fecNac!=null){
+                    lblFecNac.setText(Utilidades.dateFormatter.format(fecNac));
+                }
                 txtEstatura.setText(""+entidad.getInt_estatura());
                 txtDNI.setText(entidad.getStr_dni());
                 if(entidad.isBol_sexo()) {
-                    chbHombre.setSelected(true);
-                    chbMujer.setSelected(false);
+                    chbHombre.setChecked(true);
+                    chbMujer.setChecked(false);
                 }
                 else
                 {
-                    chbHombre.setSelected(false);
-                    chbMujer.setSelected(true);
+                    chbHombre.setChecked(false);
+                    chbMujer.setChecked(true);
                 }
 
                 chbCardioVascular.setChecked(entidad.isBol_cardiovasculares());
@@ -164,6 +174,11 @@ public class FamiliarFragment extends Fragment {
                 chbDrogas.setChecked(entidad.isBol_drogas());
                 chbAlergicos.setChecked(entidad.isBol_alergicos());
                 chbPsicologicos.setChecked(entidad.isBol_psicologicos());
+
+                if(entidad.isBol_tipo())
+                {
+                    txtDNI.setEnabled(false);
+                }
             }
         }
         else
@@ -171,32 +186,6 @@ public class FamiliarFragment extends Fragment {
         return view;
     }
 
-/*
-
-    public void llenarDDL (){
-
-        List<String> lista =new ArrayList<String>();
-        lista.add("Hombre");
-        lista.add("Mujer");
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getContext(),android.R.layout.simple_spinner_item,lista);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-        ComboSexo.setAdapter(adapter);
-        ComboSexo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(position==0)
-                    sexo=true;
-                else
-                    sexo=false;
-            }
-            public void onNothingSelected(AdapterView<?> parent) {
-                //User selected same item. Nothing to do.
-            }
-        });
-        ComboSexo.setSelection(0);
-    }
-
-*/
     public void btnCancelar()
     {
         ((MainActivity) getActivity()).setFragment(new FamiliaresFragment());
@@ -209,7 +198,7 @@ public class FamiliarFragment extends Fragment {
             {
                 if(!txtApellidoMaterno.getText().toString().equals("") &&  txtApellidoMaterno.getText().toString()!=null )
                 {
-                    if(Utilidades.isDate(txtFNacimiento.getText().toString()))
+                    if(Utilidades.isDate(lblFecNac.getText().toString()))
                     {
                         if(!txtDNI.getText().toString().equals("") &&  txtDNI.getText().toString()!=null  )
                         {
@@ -220,7 +209,7 @@ public class FamiliarFragment extends Fragment {
                                 entidad.setStr_apellido_paterno(txtApellidoPaterno.getText().toString());
                                 entidad.setStr_apellido_materno(txtApellidoMaterno.getText().toString());//
                                 entidad.setBol_sexo(sexo);
-                                entidad.setDat_fecha_nacimiento(Utilidades.getDate(txtFNacimiento.getText().toString()));
+                                entidad.setDat_fecha_nacimiento(Utilidades.getDate(lblFecNac.getText().toString()));
                                 entidad.setBol_cardiovasculares(chbCardioVascular.isChecked());
                                 entidad.setBol_alcohol(chbAlcohol.isChecked());
                                 entidad.setBol_musculares(chbMusculares.isChecked());
@@ -233,8 +222,97 @@ public class FamiliarFragment extends Fragment {
                                 entidad.setBol_tipo(false);
                                 entidad.setInt_estado(0);
                                 entidad.setInt_estatura(Integer.parseInt(txtEstatura.getText().toString()));
+                                enviarData();
 
-                                if(idPaciente>0)
+                            }
+                            else{
+
+                                Utilidades.alert(this.getContext(), getString(R.string.str_ingrese_estatura));
+                            }
+                        }
+                        else{
+
+                            Utilidades.alert(this.getContext(), getString(R.string.str_ingrese_direccion));
+                        }
+                    }
+                    else{
+
+                        Utilidades.alert(this.getContext(), getString(R.string.str_ingrese_fecnac));
+                    }
+                }
+                else{
+
+                    Utilidades.alert(this.getContext(), getString(R.string.str_ingrese_materno));
+                }
+            }
+            else{
+                Utilidades.alert(this.getContext(), getString(R.string.str_ingrese_paterno));
+            }
+        }
+        else{
+
+            Utilidades.alert(this.getContext(), getString(R.string.str_ingrese_nombres));
+        }
+
+    }
+
+
+    public void enviarData(){
+        if ( Utilidades.checkPermissions(this.getContext())) {
+            pd = new ProgressDialog(this.getContext());
+            pd.setTitle("Cargando Datos");
+            pd.setMessage("Espere un momento");
+            pd.setCancelable(false);
+            pd.show();
+            new Thread() {
+                public void run() {
+                    Message message = handlerCargar.obtainMessage();
+                    Bundle bundle = new Bundle();
+                    int rpta=0;
+                    try {
+                        String result;
+                        if(idPaciente>0)
+                        {
+                            ActualizarPacienteHTTP http = new ActualizarPacienteHTTP();
+                            http.execute(entidad);
+                            result = http.get();
+                        }else
+                        {
+                            entidad.setObjUsuario(clsUsuarioDAO.Buscar(FamiliarFragment.this.getContext()));
+                            InsertPacienteHTTP http = new InsertPacienteHTTP();
+                            http.execute(entidad);
+                            result = http.get();
+
+                        }
+
+                        if (!result.equals("")) {
+                            JSONObject entidadJSON = new JSONObject(result);
+                            if (entidadJSON.getInt("rpta") == 1) {
+                                rpta=1;
+                                if(idPaciente==0)
+                                {
+                                    entidad.setInt_id_persona(entidadJSON.getInt("personaId"));
+                                    entidad.setInt_id_paciente(entidadJSON.getInt("pacienteId"));
+                                }
+                            }
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    bundle.putInt("rpta",rpta);
+                    message.setData(bundle);
+                    handlerCargar.sendMessage(message);
+                }
+            }.start();
+        }
+
+        /*
+        if(idPaciente>0)
                                 {
                                     String id= http.actualizarPaciente(entidad);
                                     if(!id.trim().equals("0"))
@@ -266,27 +344,31 @@ public class FamiliarFragment extends Fragment {
                                     else
                                         Toast.makeText(this.getContext(),"Error al Insertar intentelo mas tarde", Toast.LENGTH_SHORT).show();
                                 }
-
-                            }
-                            else
-                                Toast.makeText(this.getContext(),"Ingrese estatura en centimetros.", Toast.LENGTH_SHORT).show();
-                        }
-                        else
-                            Toast.makeText(this.getContext(),"Ingrese Documento de Indentidad", Toast.LENGTH_SHORT).show();
-                    }
-                    else
-                        Toast.makeText(this.getContext(),"Ingrese una fecha en formato dd/mm/yyyy", Toast.LENGTH_SHORT).show();
-                }
-                else
-                    Toast.makeText(this.getContext(),"Ingrese Apellido Materno", Toast.LENGTH_SHORT).show();
-            }
-            else
-                Toast.makeText(this.getContext(),"Ingrese Apellido Paterno", Toast.LENGTH_SHORT).show();
-        }
-        else
-            Toast.makeText(this.getContext(),"Ingrese Nombres", Toast.LENGTH_SHORT).show();
-
+         */
     }
+
+    final Handler handlerCargar=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            pd.dismiss();
+            Bundle bundle = msg.getData();
+            if(bundle.getInt("rpta")==1)
+            {
+                if(idPaciente>0){
+                    clsPacienteDAO.Actualizar(FamiliarFragment.this.getContext(), entidad);
+                }else{
+                    clsPacienteDAO.Agregar(FamiliarFragment.this.getContext(), entidad);
+                }
+                Utilidades.alert(FamiliarFragment.this.getContext(), getString(R.string. str_registro_correcto));
+                ((MainActivity) getActivity()).setFragment(new FamiliaresFragment());
+            }else
+            {
+                Utilidades.alert(FamiliarFragment.this.getContext(), getString(R.string. str_error_registrar));
+
+            }
+
+        }
+    };
 
 
 

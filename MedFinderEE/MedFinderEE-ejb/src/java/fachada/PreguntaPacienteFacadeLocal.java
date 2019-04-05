@@ -9,6 +9,8 @@ import modelo.PreguntaPaciente;
 import modelo.Usuario;
 import java.util.List;
 import javax.ejb.Local;
+import modelo.Especialidad;
+import util.ParametroNodo;
 
 /**
  *
@@ -29,6 +31,9 @@ public interface PreguntaPacienteFacadeLocal {
 
     List<PreguntaPaciente> findRange(int[] range);
     List<PreguntaPaciente> listaXUsuarios(Usuario obejto);
+    List<PreguntaPaciente> listarXObjeto(String atributo, Object obejto, boolean orden, String atributoOrden, boolean todos);
+    List<PreguntaPaciente> obtenerObjetosPorParametros(ParametroNodo parametros, boolean orden, String atributoOrden, boolean todos, boolean operador);    
+    List<PreguntaPaciente> listaXEspecialidadTipo(Especialidad especialidad,int tipo);
     int count();
     
 }

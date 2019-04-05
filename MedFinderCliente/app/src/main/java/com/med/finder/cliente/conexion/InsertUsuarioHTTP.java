@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.med.finder.cliente.entidades.clsPaciente;
+import com.med.finder.cliente.utilidades.ImagenArchivo;
 import com.med.finder.cliente.utilidades.Utilidades;
 
 import org.apache.http.HttpEntity;
@@ -32,7 +33,7 @@ public class InsertUsuarioHTTP extends AsyncTask<Object, Integer, String>
 	{
         clsPaciente entidad = (clsPaciente)params[0];
 
-        String result = null;
+        String result = "";
         client = new DefaultHttpClient();
         HttpPost httppost = new HttpPost(Utilidades.url);
 
@@ -40,7 +41,9 @@ public class InsertUsuarioHTTP extends AsyncTask<Object, Integer, String>
             List<NameValuePair> Value = new ArrayList<NameValuePair>();
             Value.add(new BasicNameValuePair("IdServicio","0"));
             Value.add(new BasicNameValuePair("clave",entidad.getObjUsuario().getStr_clave()));
+            Value.add(new BasicNameValuePair("idDistrito",""+entidad.getObjDistrito().getId()));
             Value.add(new BasicNameValuePair("direccion",entidad.getObjUsuario().getStr_direccion()));
+            Value.add(new BasicNameValuePair("imgPerfil", ImagenArchivo.getImagenBase64(entidad.getObjUsuario().getByte_foto())));
             Value.add(new BasicNameValuePair("dni",entidad.getObjUsuario().getStr_dni()));
             Value.add(new BasicNameValuePair("email",entidad.getObjUsuario().getStr_email()));
             Value.add(new BasicNameValuePair("telefono",entidad.getObjUsuario().getStr_telefono()));
@@ -67,7 +70,7 @@ public class InsertUsuarioHTTP extends AsyncTask<Object, Integer, String>
             }
         }catch (Exception e)
         {
-        	Log.e(e.getClass().getName(), e.getMessage());
+            result = "";
         }
         return result;
 	}

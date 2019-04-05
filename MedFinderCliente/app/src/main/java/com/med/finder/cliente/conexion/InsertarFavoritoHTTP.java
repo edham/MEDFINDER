@@ -31,9 +31,9 @@ public class InsertarFavoritoHTTP extends AsyncTask<Object, Integer, String>
 	{
         int idUsuario=(int)params[0];
         int idDoctor=(int)params[1];
-        boolean estado=(boolean)params[2];
+        int idFavoritos=(int)params[2];
 
-        String result = null;
+        String result = "";
         client = new DefaultHttpClient();
         HttpPost httppost = new HttpPost(Utilidades.url);
 
@@ -42,7 +42,7 @@ public class InsertarFavoritoHTTP extends AsyncTask<Object, Integer, String>
             Value.add(new BasicNameValuePair("IdServicio","6"));
             Value.add(new BasicNameValuePair("idUsuario",""+idUsuario));
             Value.add(new BasicNameValuePair("idDoctor",""+idDoctor));
-            Value.add(new BasicNameValuePair("estado",""+estado));
+            Value.add(new BasicNameValuePair("idFavoritos",""+idFavoritos));
 
             httppost.setEntity(new UrlEncodedFormEntity(Value));
             responseGet = client.execute(httppost);
@@ -52,7 +52,7 @@ public class InsertarFavoritoHTTP extends AsyncTask<Object, Integer, String>
             }
         }catch (Exception e)
         {
-        	Log.e(e.getClass().getName(), e.getMessage());
+        	result="";
         }
         return result;
 	}

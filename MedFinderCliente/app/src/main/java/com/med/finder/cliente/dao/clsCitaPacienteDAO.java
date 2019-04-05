@@ -51,8 +51,8 @@ public class clsCitaPacienteDAO {
                 registro.put("dat_atencion",json_data.getLong("citaPacienteAtencion"));
                 registro.put("int_estado",json_data.getInt("citaPacienteEstado"));
                 registro.put("int_id_paciente",json_data.getInt("pacienteId"));
-
-
+                if(!json_data.isNull("citaPacienteRespuesta"))
+                registro.put("str_respuesta",json_data.getString("citaPacienteRespuesta"));
 
                 id = (int) bd.insert(NOMBRE_TABLA, null, registro);
                 if(id==0)
@@ -81,6 +81,8 @@ public class clsCitaPacienteDAO {
         registro.put("dat_atencion",entidad.getDat_atencion().getTime());
         registro.put("int_estado",entidad.getInt_estado());
         registro.put("int_id_paciente",entidad.getObjPaciente().getInt_id_paciente());
+        registro.put("str_respuesta",entidad.getStr_respuesta());
+
 
         id = (int) bd.insert(NOMBRE_TABLA, null, registro);
         bd.close();    
@@ -99,8 +101,9 @@ public class clsCitaPacienteDAO {
         registro.put("dat_atencion",entidad.getDat_atencion().getTime());
         registro.put("int_estado",entidad.getInt_estado());
         registro.put("int_id_paciente",entidad.getObjPaciente().getInt_id_paciente());
-        
-        int cant = bd.update(NOMBRE_TABLA, registro, "int_id_cita_paciente="+entidad.getInt_id_cita_paciente(), null);
+        registro.put("str_respuesta",entidad.getStr_respuesta());
+
+         int cant = bd.update(NOMBRE_TABLA, registro, "int_id_cita_paciente="+entidad.getInt_id_cita_paciente(), null);
         bd.close();
         if(cant==1)
             return true;
@@ -117,7 +120,7 @@ public class clsCitaPacienteDAO {
          if(bd!=null)
          {
             String query="select int_id_cita_paciente,int_id_doctor,str_detalle,dat_creacion,dat_atencion,int_estado,"
-                    + "int_id_paciente from "+NOMBRE_TABLA+" where int_id_cita_paciente="+id;
+                    + "int_id_paciente,str_respuesta from "+NOMBRE_TABLA+" where int_id_cita_paciente="+id;
             
 
 
@@ -132,13 +135,14 @@ public class clsCitaPacienteDAO {
                 entidad.setDat_atencion(new Date(fila.getLong(4)));
                 entidad.setInt_estado(fila.getInt(5));
                 entidad.setObjPaciente(new clsPaciente(fila.getInt(6)));
+                entidad.setStr_respuesta(fila.getString(7));
             }
         }
         bd.close();   
         return entidad;
      }
      
-      public static clsCitaPaciente BuscarXEstado(Context context)
+      public static clsCitaPaciente BuscarXEstado(Context context,int idDoctor)
      {
         clsCitaPaciente entidad=null;
         bdSQLite admin=new bdSQLite(context,null);
@@ -146,8 +150,8 @@ public class clsCitaPacienteDAO {
          if(bd!=null)
          {
             String query="select int_id_cita_paciente,int_id_doctor,str_detalle,dat_creacion,dat_atencion,int_estado,"
-                    + "int_id_paciente from "+NOMBRE_TABLA
-                    +" where int_estado=0 order by int_id_cita_paciente desc limit 1";
+                    + "int_id_paciente,str_respuesta from "+NOMBRE_TABLA
+                    +" where int_estado=0 and int_id_doctor="+idDoctor+" order by int_id_cita_paciente desc limit 1";
             
 
 
@@ -162,6 +166,7 @@ public class clsCitaPacienteDAO {
                 entidad.setDat_atencion(new Date(fila.getLong(4)));
                 entidad.setInt_estado(fila.getInt(5));
                 entidad.setObjPaciente(new clsPaciente(fila.getInt(6)));
+                entidad.setStr_respuesta(fila.getString(7));
             }
         }
         bd.close();   
@@ -176,7 +181,7 @@ public class clsCitaPacienteDAO {
          if(bd!=null)
          {
             String query="select int_id_cita_paciente,int_id_doctor,str_detalle,dat_creacion,dat_atencion,int_estado,"
-                    + "int_id_paciente from "+NOMBRE_TABLA+" order by dat_atencion desc";
+                    + "int_id_paciente,str_respuesta from "+NOMBRE_TABLA+" order by dat_atencion desc";
 
 
             Cursor fila=bd.rawQuery(query,null);
@@ -192,6 +197,7 @@ public class clsCitaPacienteDAO {
                     entidad.setDat_atencion(new Date(fila.getLong(4)));
                     entidad.setInt_estado(fila.getInt(5));
                     entidad.setObjPaciente(new clsPaciente(fila.getInt(6)));
+                    entidad.setStr_respuesta(fila.getString(7));
                     
                     list.add(entidad);
                        

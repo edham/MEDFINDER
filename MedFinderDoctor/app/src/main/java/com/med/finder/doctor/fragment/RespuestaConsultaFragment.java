@@ -35,17 +35,17 @@ public class RespuestaConsultaFragment extends Fragment {
     private Adaptador adaptador;
     private ListView list;
     private int idConsultas=0;
-
+    private clsDoctor doctor;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_respuesta_casos_salud, container, false);
         idConsultas=getArguments().getInt("id");
+        doctor= clsDoctorDAO.Buscar(this.getActivity());
+
         list = (ListView)view.findViewById(R.id.list);
         TextView lblTitulo = (TextView)view.findViewById(R.id.lblTitulo);
         lblTitulo.setText(clsPreguntaPacienteDAO.Buscar(this.getActivity(), idConsultas).getStr_asunto());
-
-
         Buscar(idConsultas);
         return view;
     }
@@ -85,14 +85,6 @@ public class RespuestaConsultaFragment extends Fragment {
             TextView lblTema = (TextView)item.findViewById(R.id.lblTema);
             lblTema.setText(listCasos.get(position).getStr_detalle());
 
-            clsDoctor doctor= clsDoctorDAO.Buscar(context, listCasos.get(position).getObjDoctor().getInt_id_doctor());
-            if(!doctor.isBol_favorito())
-            {
-                ImageView imageFavorito = (ImageView) item.findViewById(R.id.imageFavorito);
-                imageFavorito.setVisibility(View.GONE);
-
-            }
-
             TextView lblDoctor = (TextView)item.findViewById(R.id.lblDoctor);
             lblDoctor.setText("Dr. "+doctor.getStr_apellido_paterno()+" "+doctor.getStr_apellido_materno()+" "+doctor.getStr_nombres());
 
@@ -104,72 +96,7 @@ public class RespuestaConsultaFragment extends Fragment {
                 image.setImageBitmap(Utilidades.getBitmap(doctor.getByte_foto()));
 
 
-
-            Button btnCalificar = (Button)item.findViewById(R.id.btnCalificar);
-            btnCalificar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    getDialogo(listCasos.get(posicion));
-                }
-            });
-            if(listCasos.get(position).getInt_puntaje()>0)
-            {
-                View viewCalificar = (View)item.findViewById(R.id.viewCalificar);
-                viewCalificar.setVisibility(View.GONE);
-
-            }
-
-
-
             return(item);
         }
     }
-
-    public void getDialogo(clsRespuestaPreguntaPaciente entidad)
-    {
-        final clsRespuestaPreguntaPaciente objeto=entidad;
-        final Dialog dialog = new Dialog(this.getActivity());
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        dialog.setCancelable(false);
-        dialog.setContentView(R.layout.dialog_califcar_respuesta);
-        final RatingBar rtbPuntos = (RatingBar) dialog.findViewById(R.id.rtbPuntos);
-
-        FloatingActionButton btnAceptar = (FloatingActionButton) dialog.findViewById(R.id.btnAceptar);
-        btnAceptar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(rtbPuntos.getRating()>0)
-                {
-                    setCalificar((int)rtbPuntos.getRating(),objeto);
-                    dialog.dismiss();
-                }
-                else
-                    Utilidades.alert(RespuestaConsultaFragment.this.getActivity(), getString(R.string.str_ingrese_calificacion));
-            }
-        });
-        FloatingActionButton btnCancelar = (FloatingActionButton) dialog.findViewById(R.id.btnCancelar);
-        btnCancelar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-        dialog.show();
-    }
-
-
-    public void setCalificar(int puntaje,clsRespuestaPreguntaPaciente entidad)
-    {
-        /*
-        String cadena= http.puntajeRespuestaPreguntaPaciente(entidad.getInt_id_respuesta_pregunta_paciente(), puntaje);
-        if(!cadena.trim().equals("0"))
-        {
-            entidad.setInt_puntaje(puntaje);
-            clsRespuestaPreguntaPacienteDAO.Actualizar(this, entidad);
-            Buscar(idConsultas); ;
-
-        }*/
-    }
-
 }

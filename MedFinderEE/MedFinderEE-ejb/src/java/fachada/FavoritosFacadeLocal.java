@@ -30,6 +30,9 @@ public interface FavoritosFacadeLocal {
     List<Favoritos> findRange(int[] range);
     List<Favoritos> lista_activos();
     List<Favoritos> listaXUsuarios(Usuario obejto);
+    
+     List<Favoritos> listarXObjeto(String atributo, Object obejto, boolean orden, String atributoOrden, boolean todos);
+
     int count();
     
 }

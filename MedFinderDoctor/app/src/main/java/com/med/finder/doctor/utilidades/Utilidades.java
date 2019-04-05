@@ -3,13 +3,20 @@ package com.med.finder.doctor.utilidades;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
+import android.os.Build;
+import android.os.PowerManager;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.util.Base64;
 import android.util.DisplayMetrics;
@@ -21,10 +28,19 @@ import android.widget.DatePicker;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.med.finder.doctor.dao.clsUsuarioDAO;
-import com.med.finder.doctor.entidades.clsClinica;
+import com.firebase.jobdispatcher.Constraint;
+import com.firebase.jobdispatcher.Driver;
+import com.firebase.jobdispatcher.FirebaseJobDispatcher;
+import com.firebase.jobdispatcher.GooglePlayDriver;
+import com.firebase.jobdispatcher.Job;
+import com.firebase.jobdispatcher.Lifetime;
+import com.firebase.jobdispatcher.RetryStrategy;
+import com.firebase.jobdispatcher.Trigger;
+import com.med.finder.doctor.dao.clsDoctorDAO;
+import com.med.finder.doctor.servicio.MyJobService;
 
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidAlgorithmParameterException;
@@ -50,18 +66,17 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
+import static android.content.Context.POWER_SERVICE;
+
 public class Utilidades {
 
     //public static String url = "http://192.168.1.7:8080/edsoft-war/";
 
 
-    public static String url="http://192.168.1.8:8080/MedFinderEE-war/servicio_usuario";
+    public static String url="http://192.168.1.62:8080/MedFinderEE-war/servicio_doctor";
     public static SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
-    public static SimpleDateFormat hora=new SimpleDateFormat("h:mm a");
-
-
-    public static SimpleDateFormat datedayFormatter = new SimpleDateFormat("dd/MM/yyyy HH:mm a");
-    public static SimpleDateFormat horaFormatter = new SimpleDateFormat("HH:mm a");
+    public static SimpleDateFormat datehourFormatter = new SimpleDateFormat("dd/MM/yyyy hh:mm a");
+    public static SimpleDateFormat hourFormatter = new SimpleDateFormat("hh:mm a");
 
     public static Bitmap getBitmap(byte[] imageBytes) {
         return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
@@ -69,9 +84,16 @@ public class Utilidades {
 
     public static Date getDate(String dateInString)
     {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         try {
-            return formatter.parse(dateInString);
+            return dateFormatter.parse(dateInString);
+        } catch (ParseException e) {
+            return null;
+        }
+    }
+    public static Date getDateHour(String dateInString)
+    {
+        try {
+            return datehourFormatter.parse(dateInString);
         } catch (ParseException e) {
             return null;
         }
@@ -163,7 +185,7 @@ public class Utilidades {
 
     public static void BorrarDatos(Context context){
 
-        clsUsuarioDAO.Borrar(context);
+        clsDoctorDAO.Borrar(context);
     }
 
     public static boolean iniciarGPS(Context context)
@@ -400,33 +422,7 @@ public class Utilidades {
         listView.requestLayout();
     }
 
-    public static List<clsClinica> getDistanciaMapa(Location location, int tipo, List<clsClinica> lista)
-    {
-        int Radius = 6371000; //Radio de la tierra
-        List<clsClinica> getLista=new ArrayList<clsClinica>();
-        int distancia=0;
-        if(tipo==0 || location==null)
-            return lista;
-        if(tipo==1)
-            distancia=1000;
-        else if(tipo==2)
-            distancia=5000;
-        else if(tipo==3)
-            distancia=10000;
 
-
-        for(clsClinica entidad:lista)
-        {
-            double dLat = Math.toRadians(entidad.getDou_latitud()-location.getLatitude());
-            double dLon = Math.toRadians(entidad.getDou_longitud()-location.getLongitude());
-            double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(Math.toRadians(location.getLatitude())) * Math.cos(Math.toRadians(entidad.getDou_longitud())) * Math.sin(dLon /2) * Math.sin(dLon/2);
-            double c = 2 * Math.asin(Math.sqrt(a));
-            int metros= (int) (Radius * c);
-            if(distancia>=metros)
-                getLista.add(entidad);
-        }
-        return getLista;
-    }
 
     public static int getEdad(Date pNacio){
 
@@ -496,5 +492,86 @@ public class Utilidades {
             }
         });
     }
+    private static boolean sInitialized;
 
+    synchronized public static void scheduleChargingReminder(@NonNull final Context context){
+        if (sInitialized) return;
+
+        Driver driver = new GooglePlayDriver(context);
+        FirebaseJobDispatcher dispatcher = new FirebaseJobDispatcher(driver);
+
+        Job constrintReminderJob = dispatcher.newJobBuilder()
+                .setService(MyJobService.class)
+                .setTag(MyJobService.TAG)
+                .setRecurring(true)
+                .setTrigger(Trigger.executionWindow(5, 30))
+                .setLifetime(Lifetime.FOREVER)
+                .setReplaceCurrent(true)
+                .setConstraints(Constraint.ON_ANY_NETWORK)
+                .setRetryStrategy(RetryStrategy.DEFAULT_LINEAR)
+                .build();
+        dispatcher.schedule(constrintReminderJob);
+/*
+
+          .setService(MyJobService.class)
+                .setTag(JOB_TAG)
+                .setRecurring(true)
+                .setTrigger(Trigger.executionWindow(0, 30))
+                .setLifetime(Lifetime.FOREVER)
+                .setReplaceCurrent(false)
+                .setConstraints(Constraint.ON_ANY_NETWORK)
+                .setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL)
+                .build();
+          */
+        sInitialized = true;
+    }
+
+    synchronized public static void cancelAll(@NonNull final Context context){
+        Driver driver = new GooglePlayDriver(context);
+        FirebaseJobDispatcher dispatcher = new FirebaseJobDispatcher(driver);
+        dispatcher.cancelAll();
+    }
+
+    public static boolean addListaBlanca(Context ctx){
+        boolean permiso=true;
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Intent intent = new Intent();
+            String packageName = ctx.getPackageName();
+            PowerManager pm = (PowerManager) ctx.getSystemService(POWER_SERVICE);
+            if (!pm.isIgnoringBatteryOptimizations(packageName)) {
+                permiso=false;
+                intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+                intent.setData(Uri.parse("package:" + packageName));
+                ctx.startActivity(intent);
+            }
+        }
+
+        return permiso;
+    }
+
+    public static void setTimer(Context context, final TextView lblCalendar)
+    {
+        final Calendar newCalendar = Calendar.getInstance();
+       final TimePickerDialog timePickerDialog = new TimePickerDialog(context,AlertDialog.THEME_HOLO_LIGHT,
+               new TimePickerDialog.OnTimeSetListener() {
+
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay,
+                                          int minute) {
+                        Calendar newDate = Calendar.getInstance();
+                        newDate.set(newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH),hourOfDay,minute);
+
+                        lblCalendar.setText(hourFormatter.format(newDate.getTime()));
+                    }
+                },newCalendar.get(Calendar.HOUR),newCalendar.get(Calendar.MINUTE), false);
+        timePickerDialog.show();
+
+
+        lblCalendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                timePickerDialog.show();
+            }
+        });
+    }
 }

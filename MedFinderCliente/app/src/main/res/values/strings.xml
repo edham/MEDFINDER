@@ -29,7 +29,7 @@
     <string name="str_ubicacion">UBICACIÓN</string>
     <string name="str_modo">MODO</string>
     <string name="str_detalle">DETALLE</string>
-
+    <string name="str_datos_aplicacion">DATOS DE LA APLICACIÓN</string>
     <string name="str_caminando">CAMINANDO</string>
     <string name="str_conduciendo">CONDUCIENDO</string>
     <string name="str_descripcion">DESCRIPCIÓN</string>
@@ -44,12 +44,17 @@
     <string name="str_fecha">FECHA</string>
     <string name="str_hora">HORA</string>
 
+    <string name="str_respuestas">RESPUESTAS</string>
+
+
     <string name="str_sexo">SEXO</string>
     <string name="str_edad">EDAD</string>
     <string name="str_hombre">HOMBRE</string>
     <string name="str_mujer">MUJER</string>
 
     <string name="str_ingrese_calificacion">POR FAVOR, INGRESE UNA CALIFICACIÓN</string>
+
+    <string name="str_calificadas">CALIFICADAS</string>
 
 
     <string name="alert_imagen">Desea Eliminar esta imagen?</string>
@@ -71,27 +76,37 @@
 
     <string name="str_hizo">Power by EdSoft</string>
 
-    <string name="str_ingrese_fecnac">Ingrese Fecha de Nac.</string>
-    <string name="str_ingrese_estatura">Ingrese Estatura(cm.)</string>
-    <string name="str_ingrese_usuario">Ingrese Usuario</string>
-    <string name="str_ingrese_contrasenna">Ingrese Contraseña</string>
-    <string name="str_repita_contrasenna">Repita Contraseña</string>
-    <string name="str_actual_contrasenna">Actual Contraseña</string>
-    <string name="str_nueva_contrasenna">Nueva Contraseña</string>
-    <string name="str_escriba_contra">INGRESE CONTRASEÑA</string>
+    <string name="str_estado">ESTADO</string>
+    <string name="str_ingrese_fecnac">INGRESE FECHA DE NAC.</string>
+    <string name="str_ingrese_estatura">INGRESE ESTATURA(cm.)</string>
+    <string name="str_ingrese_usuario">INGRESE USUARIO</string>
+    <string name="str_ingrese_contrasenna">INGRESE CONTRASEÑA</string>
+    <string name="str_repita_contrasenna">REPITA CONTRASEÑA</string>
+    <string name="str_actual_contrasenna">ACTUAL CONTRASEÑA</string>
+    <string name="str_nueva_contrasenna">NUEVA CONTRASEÑA</string>
     <string name="str_realizar_consulta">REALIZAR CONSULTA</string>
 
 
-    <string name="str_ingrese_dni">Ingrese DNI</string>
-    <string name="str_ingrese_nombres">Ingrese Nombres</string>
-    <string name="str_ingrese_paterno">Ingrese Apellido Paterno</string>
-    <string name="str_ingrese_materno">Ingrese Apellido Materno</string>
+    <string name="str_ingrese_dni">INGRESE DNI</string>
+    <string name="str_ingrese_nombres">INGRESE NOMBRES</string>
+    <string name="str_ingrese_paterno">INGRESE APELLIDO PATERNO</string>
+    <string name="str_ingrese_materno">INGRESE APELLIDO MATERNO</string>
     <string name="alert_salir">Desea Salir?</string>
     <string name="alert_cerrar">Desea Cerrar Sesión?</string>
 
+    <string name="str_error_registrar">ERROR AL REGISTRAR INTENTELO MAS TARDE</string>
+    <string name="str_registro_correcto">SE REGISTRO CORRECTAMENTO</string>
 
-    <string name="str_ingrese_asunto">Ingrese un Asunto</string>
-    <string name="str_ingrese_sintomas">Ingrese Sintomas</string>
+    <string name="str_esperando_cita">Tiene una Cita Esperando en espera de respuesta</string>
+
+    <string name="str_pendiente">PENDIENTE</string>
+    <string name="str_finalizada">FINALIZADA</string>
+
+
+    <string name="str_ingrese_asunto">INGRESE UN ASUNTO</string>
+    <string name="str_ingrese_sintomas">INGRESE SINTOMAS</string>
+
+    <string name="str_respuesta">No tiene respuestas</string>
 
     <string name="str_seleccione_especialidad">Seleccione una Especialidade</string>
     <string name="str_seleccione_paciente">Seleccione un Paciente</string>
@@ -107,7 +122,19 @@
     <string name="str_registro_familiar">REGISTRO DE FAMILIAR</string>
     <string name="str_editar_familiar">EDITAR FAMILIAR</string>
 
+    <string name="str_ingrese_telefono">INGRESE N° TELEFONICO</string>
+
+    <string name="str_seleccionar_departamento">SELECCIONAR DEPARTAMENTO</string>
+    <string name="str_seleccionar_provincia">SELECCIONAR PROVINCIA</string>
+    <string name="str_seleccionar_distrito">SELECCIONAR DISTRITO</string>
+
+    <string name="str_ingrese_email">INGRESE CORREO ELECTRONICO</string>
+    <string name="str_ingrese_direccion">INGRESE UNA DIRECCION</string>
+
+    <string name="str_registro_usuario">REGISTRO DE USUARIO</string>
+
     <string name="str_nombres">NOMBRES</string>
+    <string name="str_terminos_condiciones">ACEPTO LOS TERMINOS Y CONDICIONES DE USO</string>
 
     <string name="str_cardio">CARDIOVASCULAR</string>
     <string name="str_alcohol">ALCOHOL</string>

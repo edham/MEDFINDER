@@ -10,14 +10,14 @@ import modelo.Persona;
 import modelo.PreguntaPaciente;
 import modelo.Usuario;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2017-10-14T14:31:13")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2019-04-04T22:06:34")
 @StaticMetamodel(Paciente.class)
 public class Paciente_ { 
 
     public static volatile SingularAttribute<Paciente, Boolean> alcohol;
     public static volatile ListAttribute<Paciente, PreguntaPaciente> preguntaPacienteList;
     public static volatile SingularAttribute<Paciente, Integer> pKId;
-    public static volatile SingularAttribute<Paciente, Integer> tipo;
+    public static volatile SingularAttribute<Paciente, Boolean> tipo;
     public static volatile SingularAttribute<Paciente, Integer> estado;
     public static volatile SingularAttribute<Paciente, Date> fechaModificacion;
     public static volatile SingularAttribute<Paciente, Persona> persona;

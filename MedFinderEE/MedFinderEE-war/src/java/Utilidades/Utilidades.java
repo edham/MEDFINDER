@@ -31,6 +31,8 @@ import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.imageio.ImageIO;
+import modelo.Especialidad;
+import modelo.Paciente;
 
 /**
  *
@@ -106,6 +108,15 @@ public class Utilidades {
         return ListRespuestaPreguntaPaciente;
    }
    
+   public static List<Paciente> clearListPaciente (List<Paciente> ListPaciente)
+   {
+       
+        Set<Paciente> linkedHashSet = new LinkedHashSet<Paciente>();
+        linkedHashSet.addAll(ListPaciente);                
+        ListPaciente.clear();
+        ListPaciente.addAll(linkedHashSet);
+        return ListPaciente;
+   }
    
    public static List<CitaPaciente> clearListCitaPaciente (List<CitaPaciente> ListCitaPaciente)
    {
@@ -178,5 +189,14 @@ public class Utilidades {
         ListRespuestaCasoSalud.clear();
         ListRespuestaCasoSalud.addAll(linkedHashSet);
         return ListRespuestaCasoSalud;
+   }
+   
+   public static List<Especialidad> clearListEspecialidad(List<Especialidad> ListEspecialidad)
+   {
+        Set<Especialidad> linkedHashSet = new LinkedHashSet<Especialidad>();
+        linkedHashSet.addAll(ListEspecialidad);                
+        ListEspecialidad.clear();
+        ListEspecialidad.addAll(linkedHashSet);
+        return ListEspecialidad;
    }
 }

@@ -32,9 +32,10 @@ public class LoginHTTP extends AsyncTask<Object, Integer, String>
         String usuario = params[0].toString();
         String clave =  params[1].toString();
 
-        String result = null;
+        String result = "";
         client = new DefaultHttpClient();
         HttpPost httppost = new HttpPost(Utilidades.url);
+       // httppost.setHeader("Content-Type", "text/plain; charset=UTF-8");
 
         try {
             List<NameValuePair> Value = new ArrayList<NameValuePair>();
@@ -50,7 +51,7 @@ public class LoginHTTP extends AsyncTask<Object, Integer, String>
             }
         }catch (Exception e)
         {
-        	Log.e(e.getClass().getName(), e.getMessage());
+            result="";
         }
         return result;
 	}

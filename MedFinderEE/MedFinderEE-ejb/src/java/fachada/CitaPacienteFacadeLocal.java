@@ -9,6 +9,7 @@ import modelo.CitaPaciente;
 import modelo.Usuario;
 import java.util.List;
 import javax.ejb.Local;
+import modelo.Doctor;
 
 /**
  *
@@ -29,6 +30,10 @@ public interface CitaPacienteFacadeLocal {
 
     List<CitaPaciente> findRange(int[] range);
     List<CitaPaciente> listaXUsuarios(Usuario obejto);
+    
+    List<CitaPaciente> listarXObjeto(String atributo, Object obejto, boolean orden, String atributoOrden, boolean todos);
+
+    List<CitaPaciente> listaXDoctorTipo(Doctor doctor,int tipo);
     int count();
     
 }

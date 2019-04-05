@@ -20,7 +20,6 @@ public class clsPaciente {
     private String str_dni;
     private Date dat_fecha_nacimiento;
     private boolean bol_sexo;
-    private boolean bol_tipo;
     private int int_estatura;
     private boolean bol_cardiovasculares;
     private boolean bol_musculares;
@@ -30,9 +29,7 @@ public class clsPaciente {
     private boolean bol_tabaquismo;
     private boolean bol_drogas;
     private boolean bol_psicologicos;
-    private int int_estado;
-    private int int_id_persona;   
-    private clsUsuario objUsuario;
+    private int int_id_persona;
 
 
     public clsPaciente() {
@@ -167,30 +164,6 @@ public class clsPaciente {
 
     public void setInt_estatura(int int_estatura) {
         this.int_estatura = int_estatura;
-    }
-
-    public int getInt_estado() {
-        return int_estado;
-    }
-
-    public void setInt_estado(int int_estado) {
-        this.int_estado = int_estado;
-    }
-
-    public clsUsuario getObjUsuario() {
-        return objUsuario;
-    }
-
-    public void setObjUsuario(clsUsuario objUsuario) {
-        this.objUsuario = objUsuario;
-    }
-
-    public boolean isBol_tipo() {
-        return bol_tipo;
-    }
-
-    public void setBol_tipo(boolean bol_tipo) {
-        this.bol_tipo = bol_tipo;
     }
 
     @Override

@@ -7,17 +7,19 @@ import javax.persistence.metamodel.StaticMetamodel;
 import modelo.Doctor;
 import modelo.Paciente;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2017-10-14T14:31:12")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2019-04-04T22:06:34")
 @StaticMetamodel(CitaPaciente.class)
 public class CitaPaciente_ { 
 
     public static volatile SingularAttribute<CitaPaciente, Doctor> doctor;
+    public static volatile SingularAttribute<CitaPaciente, Integer> tipo;
     public static volatile SingularAttribute<CitaPaciente, Integer> pKId;
     public static volatile SingularAttribute<CitaPaciente, Integer> estado;
     public static volatile SingularAttribute<CitaPaciente, Date> fechaModificacion;
     public static volatile SingularAttribute<CitaPaciente, Date> fechaRegistro;
     public static volatile SingularAttribute<CitaPaciente, Paciente> paciente;
     public static volatile SingularAttribute<CitaPaciente, Date> atencion;
+    public static volatile SingularAttribute<CitaPaciente, String> respuestaDoctor;
     public static volatile SingularAttribute<CitaPaciente, String> detalle;
 
 }

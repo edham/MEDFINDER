@@ -59,7 +59,7 @@ public class Paciente implements Serializable {
     @Column(name = "Estatura")
     private Integer estatura;
     @Column(name = "Tipo")
-    private Integer tipo;
+    private Boolean tipo;
     @Column(name = "Cardiovascular")
     private Boolean cardiovascular;
     @Column(name = "Musculares")
@@ -118,11 +118,11 @@ public class Paciente implements Serializable {
         this.estatura = estatura;
     }
 
-    public Integer getTipo() {
+    public Boolean getTipo() {
         return tipo;
     }
 
-    public void setTipo(Integer tipo) {
+    public void setTipo(Boolean tipo) {
         this.tipo = tipo;
     }
 

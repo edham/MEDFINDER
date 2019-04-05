@@ -44,6 +44,7 @@
             android:scaleType="centerCrop"
             android:layout_margin="@dimen/dimen_2"
             android:layout_centerHorizontal="true"
+            android:src="@drawable/ic_usuario"
             app:border_color="@android:color/white"
             app:border_width="1dp" />
         <LinearLayout

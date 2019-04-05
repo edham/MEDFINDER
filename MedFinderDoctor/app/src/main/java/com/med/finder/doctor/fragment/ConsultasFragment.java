@@ -36,7 +36,7 @@ public class ConsultasFragment extends Fragment {
         list = (ListView)view.findViewById(R.id.list);
         View viewButtom = (View)view.findViewById(R.id.viewButtom);
         viewButtom.setVisibility(View.GONE);
-        ((MainActivity) getActivity()).verTitulo(2);
+        ((MainActivity) getActivity()).setTitle(getString(R.string.nav_consulta));
         Buscar();
         return view;
     }
@@ -96,15 +96,14 @@ public class ConsultasFragment extends Fragment {
 
             clsPaciente objPaciente= clsPacienteDAO.Buscar(context, listPreguntaPaciente.get(position).getObjPaciente().getInt_id_paciente());
 
-            lblNombre.setText(objPaciente.getStr_apellido_paterno()
-                    +" "+objPaciente.getStr_apellido_materno()+" "+
-                    objPaciente.getStr_nombres());
+            if(objPaciente!=null)
+            lblNombre.setText(objPaciente.toString());
 
             CustomFontTextView lblFecha = (CustomFontTextView)item.findViewById(R.id.lblFecha);
             lblFecha.setText(Utilidades.dateFormatter.format(listPreguntaPaciente.get(position).getDat_inicio()));
 
             CustomFontTextView lblHora = (CustomFontTextView)item.findViewById(R.id.lblHora);
-            lblHora.setText(Utilidades.hora.format(listPreguntaPaciente.get(position).getDat_inicio()));
+            lblHora.setText(Utilidades.hourFormatter.format(listPreguntaPaciente.get(position).getDat_inicio()));
 
 
             return(item);

@@ -1,9 +1,11 @@
 package com.med.finder.cliente.fragment;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
+import android.app.ProgressDialog;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -15,11 +17,9 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Spinner;
-
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -31,17 +31,24 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.med.finder.cliente.R;
+import com.med.finder.cliente.conexion.InsertCitaPacienteHTTP;
+import com.med.finder.cliente.conexion.InsertarFavoritoHTTP;
 import com.med.finder.cliente.dao.clsCitaPacienteDAO;
 import com.med.finder.cliente.dao.clsDoctorDAO;
 import com.med.finder.cliente.dao.clsEspecialidadDAO;
 import com.med.finder.cliente.dao.clsPacienteDAO;
+import com.med.finder.cliente.dao.clsUsuarioDAO;
 import com.med.finder.cliente.entidades.clsCitaPaciente;
 import com.med.finder.cliente.entidades.clsDoctor;
 import com.med.finder.cliente.entidades.clsPaciente;
 import com.med.finder.cliente.utilidades.CustomFontTextView;
 import com.med.finder.cliente.utilidades.Utilidades;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -59,6 +66,8 @@ public class DoctorInfoFragment extends Fragment{
     private int Id;
     MapView mapView;
     private GoogleMap googleMap;
+    public ProgressDialog pd;
+    private clsCitaPaciente objCitaPaciente;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -149,18 +158,6 @@ public class DoctorInfoFragment extends Fragment{
         }
         setHasOptionsMenu(true);
 
-/*
-        if(objDoctor.isBol_favorito())
-        {
-            btn_Favorito.setBackgroundResource(R.drawable.favorito_on);
-
-            titulo="Quitar de Favoritos";
-        }
-        else
-        {
-            btn_Favorito.setBackgroundResource(R.drawable.favorito_off);
-            titulo="Agregar a Favoritos";
-        }*/
         return view;
     }
     @Override
@@ -243,14 +240,7 @@ public class DoctorInfoFragment extends Fragment{
                 btnAceptar.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if(objDoctor.isBol_favorito()) {
-                            someMenuItem.setIcon(R.drawable.action_favorito_off);
-                            objDoctor.setBol_favorito(false);
-                        }
-                        else {
-                            someMenuItem.setIcon(R.drawable.action_favorito_on);
-                            objDoctor.setBol_favorito(true);
-                        }
+                        registrarFavorito();
                         dialog.dismiss();
                     }
                 });
@@ -285,7 +275,7 @@ public class DoctorInfoFragment extends Fragment{
     public void btnCita()
     {
 
-        if(clsCitaPacienteDAO.BuscarXEstado(this.getActivity())==null)
+        if(clsCitaPacienteDAO.BuscarXEstado(this.getActivity(),objDoctor.getInt_id_doctor())==null)
         {
             final Dialog dialog = new Dialog(this.getActivity());
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -295,21 +285,13 @@ public class DoctorInfoFragment extends Fragment{
             final EditText txtDetalle = (EditText) dialog.findViewById(R.id.txtDetalle);
             txtDetalle.setText("");
 
-            Spinner ComboPaciente = (Spinner)dialog.findViewById(R.id.ComboPaciente);
+            final Spinner ComboPaciente = (Spinner)dialog.findViewById(R.id.ComboPaciente);
             final List<clsPaciente> lista = clsPacienteDAO.Listar(this.getActivity());
             lista.add(0,new clsPaciente(0,getString(R.string.str_seleccione_paciente)));
 
             ArrayAdapter<clsPaciente> adapter = new ArrayAdapter<clsPaciente>(this.getActivity(),R.layout.spinner,lista);
             adapter.setDropDownViewResource(R.layout.spinner_vista);
             ComboPaciente.setAdapter(adapter);
-            ComboPaciente.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    //objPaciente=lista.get(position);
-                }
-                public void onNothingSelected(AdapterView<?> parent) {
-                    //User selected same item. Nothing to do.
-                }
-            });
             ComboPaciente.setSelection(0);
 //
             FloatingActionButton btnAceptar = (FloatingActionButton) dialog.findViewById(R.id.btnAceptar);
@@ -317,28 +299,15 @@ public class DoctorInfoFragment extends Fragment{
                 @Override
                 public void onClick(View v) {
                     if(!txtDetalle.getText().toString().equals("")) {
-                        clsCitaPaciente entidad = new clsCitaPaciente();
-                        //entidad.setObjPaciente(objPaciente);
-                        entidad.setObjDoctor(objDoctor);
-                        entidad.setStr_detalle(txtDetalle.getText().toString());
-
-/*
-                        String id = http.insertarCitaPaciente(entidad);
-                        if (!id.trim().equals("0")) {
-                            entidad.setInt_id_cita_paciente(Integer.parseInt(id));
-                            clsCitaPacienteDAO.Agregar(InfDoctorTabActivity.this, entidad);
-                            Toast.makeText(InfDoctorTabActivity.this, "Se Registro Correctamente", Toast.LENGTH_SHORT).show();
-                            Intent i = new Intent(InfDoctorTabActivity.this, MenuActivity.class);
-                            startActivity(i);
-                        } else
-                        {
-                            //Toast.makeText(InfDoctorTabActivity.this, "Error al Insertar intentelo mas tarde", Toast.LENGTH_SHORT).show();
-                        }
-                        */
+                        objCitaPaciente = new clsCitaPaciente();
+                        objCitaPaciente.setObjPaciente((clsPaciente)ComboPaciente.getSelectedItem());
+                        objCitaPaciente.setObjDoctor(objDoctor);
+                        objCitaPaciente.setStr_detalle(txtDetalle.getText().toString());
+                        registrasCita();
                         dialog.dismiss();
                     }
                     else {
-                      //  Toast.makeText(InfDoctorTabActivity.this, "Ingrese un Motivo", Toast.LENGTH_SHORT).show();
+                        Utilidades.alert(DoctorInfoFragment.this.getContext(), getString(R.string.str_ingrese_asunto));
                     }
                 }
             });
@@ -353,7 +322,7 @@ public class DoctorInfoFragment extends Fragment{
 
         }
         else {
-          //  Toast.makeText(this, "Tiene una Cita Esperando en espera de respuesta", Toast.LENGTH_SHORT).show();
+            Utilidades.alert(DoctorInfoFragment.this.getContext(), getString(R.string.str_esperando_cita));
         }
 
 
@@ -361,4 +330,131 @@ public class DoctorInfoFragment extends Fragment{
 
     }
 
+
+
+    public void registrarFavorito(){
+        if ( Utilidades.checkPermissions(this.getContext())) {
+            pd = new ProgressDialog(this.getContext());
+            pd.setTitle("Cargando Datos");
+            pd.setMessage("Espere un momento");
+            pd.setCancelable(false);
+            pd.show();
+            new Thread() {
+                public void run() {
+                    Message message = handlerFavorito.obtainMessage();
+                    Bundle bundle = new Bundle();
+                    int rpta=0;
+                    try {
+                        String result;
+                        InsertarFavoritoHTTP http = new InsertarFavoritoHTTP();
+                        http.execute(clsUsuarioDAO.Buscar(DoctorInfoFragment.this.getContext()).getInt_id_usuario(),objDoctor.getInt_id_doctor(),objDoctor.getInt_id_favorito());
+                        result = http.get();
+                        if (!result.equals("")) {
+                            JSONObject entidadJSON = new JSONObject(result);
+                            if (entidadJSON.getInt("rpta") == 1) {
+                                rpta=1;
+                                objDoctor.setInt_id_favorito(entidadJSON.getInt("favoritosId"));
+                            }
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    bundle.putInt("rpta",rpta);
+                    message.setData(bundle);
+                    handlerFavorito.sendMessage(message);
+                }
+            }.start();
+        }
+    }
+
+    final Handler handlerFavorito =new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            pd.dismiss();
+            Bundle bundle = msg.getData();
+            if(bundle.getInt("rpta")==1)
+            {
+                clsDoctorDAO.Favorito(DoctorInfoFragment.this.getActivity(),objDoctor.getInt_id_doctor(),objDoctor.getInt_id_favorito());
+                if(objDoctor.isBol_favorito()) {
+                    someMenuItem.setIcon(R.drawable.action_favorito_off);
+                    objDoctor.setBol_favorito(false);
+                }
+                else {
+                    someMenuItem.setIcon(R.drawable.action_favorito_on);
+                    objDoctor.setBol_favorito(true);
+                }
+                Utilidades.alert(DoctorInfoFragment.this.getContext(), getString(R.string. str_registro_correcto));
+
+            }else
+            {
+                Utilidades.alert(DoctorInfoFragment.this.getContext(), getString(R.string. str_error_registrar));
+
+            }
+        }
+    };
+
+
+    public void registrasCita(){
+        if ( Utilidades.checkPermissions(this.getContext())) {
+            pd = new ProgressDialog(this.getContext());
+            pd.setTitle("Cargando Datos");
+            pd.setMessage("Espere un momento");
+            pd.setCancelable(false);
+            pd.show();
+            new Thread() {
+                public void run() {
+                    Message message = handlerCita.obtainMessage();
+                    Bundle bundle = new Bundle();
+                    int rpta=0;
+                    try {
+                        String result;
+                        InsertCitaPacienteHTTP http = new InsertCitaPacienteHTTP();
+                        http.execute(objCitaPaciente);
+                        result = http.get();
+                        if (!result.equals("")) {
+                            JSONObject entidadJSON = new JSONObject(result);
+                            if (entidadJSON.getInt("rpta") == 1) {
+                                rpta=1;
+                                objCitaPaciente.setInt_id_cita_paciente(entidadJSON.getInt("citaPacienteId"));
+                            }
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    bundle.putInt("rpta",rpta);
+                    message.setData(bundle);
+                    handlerCita.sendMessage(message);
+                }
+            }.start();
+        }
+    }
+
+    final Handler handlerCita =new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            pd.dismiss();
+            Bundle bundle = msg.getData();
+            if(bundle.getInt("rpta")==1)
+            {
+
+                clsCitaPacienteDAO.Agregar(DoctorInfoFragment.this.getContext(), objCitaPaciente);
+                Utilidades.alert(DoctorInfoFragment.this.getContext(), getString(R.string. str_registro_correcto));
+
+            }else
+            {
+                Utilidades.alert(DoctorInfoFragment.this.getContext(), getString(R.string. str_error_registrar));
+
+            }
+        }
+    };
 }

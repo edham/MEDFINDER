@@ -127,7 +127,7 @@ public class clsPreguntaPacienteDAO {
                 entidad.setStr_paciente_detalle(fila.getString(4));
                 entidad.setDat_inicio(new Date(fila.getLong(5)));
                 entidad.setInt_estado(fila.getInt(6));
-                
+
               
 
             }
@@ -175,8 +175,8 @@ public class clsPreguntaPacienteDAO {
         SQLiteDatabase bd=admin.getWritableDatabase();
          if(bd!=null)
          {
-        String query="select int_id_pregunta_paciente,int_id_paciente,int_id_especialidad,str_asunto,"
-                    + "str_paciente_detalle,dat_inicio,int_estado from "+NOMBRE_TABLA+" order by dat_inicio desc";
+        String query="select pre.int_id_pregunta_paciente,pre.int_id_paciente,pre.int_id_especialidad,pre.str_asunto,"
+                    + "pre.str_paciente_detalle,pre.dat_inicio,pre.int_estado,(select count(*) from RESPUESTA_PREGUNTA_PACIENTE where int_id_pregunta_paciente=pre.int_id_pregunta_paciente) from "+NOMBRE_TABLA+" as pre order by pre.dat_inicio desc";
         
         Cursor fila=bd.rawQuery(query,null);
         int numRows = fila.getCount();   
@@ -191,7 +191,9 @@ public class clsPreguntaPacienteDAO {
                     entidad.setStr_paciente_detalle(fila.getString(4));
                     entidad.setDat_inicio(new Date(fila.getLong(5)));
                     entidad.setInt_estado(fila.getInt(6));
-                    
+                    entidad.setInt_respuestas(fila.getInt(7));
+
+
                     list.add(entidad);
                        
                     fila.moveToNext();   

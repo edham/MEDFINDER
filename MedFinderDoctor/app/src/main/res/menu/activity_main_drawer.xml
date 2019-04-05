@@ -13,15 +13,6 @@
             android:icon="@drawable/ic_inicio"
             android:title="@string/nav_consulta" />
 
-        <item
-            android:id="@+id/nav_clinicas"
-            android:icon="@drawable/ic_clinicas"
-            android:title="@string/nav_clinicas" />
-
-        <item
-            android:id="@+id/nav_familiares"
-            android:icon="@drawable/ic_familiares"
-            android:title="@string/nav_familiares" />
 
         <item
             android:id="@+id/nav_citas"
@@ -32,10 +23,6 @@
             android:id="@+id/nav_casos"
             android:icon="@drawable/ic_casos"
             android:title="@string/nav_casos" />
-        <item
-            android:id="@+id/nav_especialidades"
-            android:icon="@drawable/ic_especialidad"
-            android:title="@string/nav_especialidades" />
     </group>
 
     <item android:title="@string/mi_herramientas">

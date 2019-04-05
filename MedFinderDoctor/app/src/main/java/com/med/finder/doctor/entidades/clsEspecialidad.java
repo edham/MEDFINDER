@@ -14,17 +14,8 @@ public class clsEspecialidad {
     private int int_id_especialidad;
     private String str_nombre;
     private String str_descripcion;
-    private int int_estado;
 
     public clsEspecialidad() {
-    }
-
-    public clsEspecialidad(String entidad) {
-        String [] parametro = entidad.split("\\<+atributo+>");   
-        this.int_id_especialidad = Integer.parseInt(parametro[0].trim());
-        this.str_nombre = parametro[1].trim();;
-        this.str_descripcion = parametro[2].trim();
-        this.int_estado = Integer.parseInt(parametro[3].trim());
     }
 
     public clsEspecialidad(int int_id_especialidad, String str_nombre) {
@@ -35,6 +26,7 @@ public class clsEspecialidad {
     public clsEspecialidad(int int_id_especialidad) {
         this.int_id_especialidad = int_id_especialidad;
     }
+
 
     public int getInt_id_especialidad() {
         return int_id_especialidad;
@@ -58,14 +50,6 @@ public class clsEspecialidad {
 
     public void setStr_descripcion(String str_descripcion) {
         this.str_descripcion = str_descripcion;
-    }
-
-    public int getInt_estado() {
-        return int_estado;
-    }
-
-    public void setInt_estado(int int_estado) {
-        this.int_estado = int_estado;
     }
     
     @Override

@@ -6,13 +6,14 @@
 
 package com.med.finder.cliente.entidades;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author Toditos
  */
-public class clsPreguntaPaciente {
+public class clsPreguntaPaciente  implements Serializable {
     private int int_id_pregunta_paciente;
     private clsPaciente objPaciente;
     private clsEspecialidad objEspecialidad;
@@ -22,6 +23,7 @@ public class clsPreguntaPaciente {
     private int int_estado;
     private Date dat_inicio;
     private Date dat_fin;
+    private int int_respuestas;
 
     public clsPreguntaPaciente() {
        this.byte_imagen=null;
@@ -115,6 +117,12 @@ public class clsPreguntaPaciente {
     public void setDat_fin(Date dat_fin) {
         this.dat_fin = dat_fin;
     }
-    
-    
+
+    public int getInt_respuestas() {
+        return int_respuestas;
+    }
+
+    public void setInt_respuestas(int int_respuestas) {
+        this.int_respuestas = int_respuestas;
+    }
 }
