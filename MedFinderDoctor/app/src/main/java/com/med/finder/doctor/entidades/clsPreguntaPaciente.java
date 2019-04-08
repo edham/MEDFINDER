@@ -22,10 +22,14 @@ public class clsPreguntaPaciente {
     private int int_estado;
     private Date dat_inicio;
     private Date dat_fin;
+    private String str_respuesta;
+    private int int_puntos;
+
 
     public clsPreguntaPaciente() {
        this.byte_imagen=null;
        this.int_estado=0;
+       this.int_puntos=0;
        this.dat_inicio=new Date();
     }
 
@@ -115,6 +119,20 @@ public class clsPreguntaPaciente {
     public void setDat_fin(Date dat_fin) {
         this.dat_fin = dat_fin;
     }
-    
-    
+
+    public void setStr_respuesta(String str_respuesta) {
+        this.str_respuesta = str_respuesta;
+    }
+
+    public void setInt_puntos(int int_puntos) {
+        this.int_puntos = int_puntos;
+    }
+
+    public String getStr_respuesta() {
+        return str_respuesta;
+    }
+
+    public int getInt_puntos() {
+        return int_puntos;
+    }
 }

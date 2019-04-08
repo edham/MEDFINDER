@@ -14,7 +14,21 @@ import android.util.Log;
 import com.firebase.jobdispatcher.JobParameters;
 import com.firebase.jobdispatcher.JobService;
 import com.med.finder.cliente.R;
+import com.med.finder.cliente.activity.LoginActivity;
 import com.med.finder.cliente.activity.MainActivity;
+import com.med.finder.cliente.conexion.ActualizarDataHTTP;
+import com.med.finder.cliente.dao.clsCasosSaludDAO;
+import com.med.finder.cliente.dao.clsCitaPacienteDAO;
+import com.med.finder.cliente.dao.clsClinicaDAO;
+import com.med.finder.cliente.dao.clsClinicaEspecialidadDAO;
+import com.med.finder.cliente.dao.clsClinicaSeguroDAO;
+import com.med.finder.cliente.dao.clsDoctorDAO;
+import com.med.finder.cliente.dao.clsEspecialidadDAO;
+import com.med.finder.cliente.dao.clsPacienteDAO;
+import com.med.finder.cliente.dao.clsPreguntaPacienteDAO;
+import com.med.finder.cliente.dao.clsRespuestaCasosSaludDAO;
+import com.med.finder.cliente.dao.clsRespuestaPreguntaPacienteDAO;
+import com.med.finder.cliente.dao.clsSeguroDAO;
 import com.med.finder.cliente.dao.clsUsuarioDAO;
 import com.med.finder.cliente.entidades.clsUsuario;
 import com.med.finder.cliente.utilidades.Utilidades;
@@ -49,50 +63,36 @@ public class MyJobService extends JobService {
             public void run() {
                 Log.e("servicio","---------------------------------------------------");
                 clsUsuario usuario = clsUsuarioDAO.Buscar(MyJobService.this.getApplication());
-                if (usuario!=null && Utilidades.verificaConexion(MyJobService.this.getApplication()))
-                {
-                    int totalPreguntas=0;
-                    int totalCitas=0;
-                    /*
+                if (usuario!=null && Utilidades.verificaConexion(MyJobService.this.getApplication())) {
                     try {
 
-                        ActualizarHTTP login = new ActualizarHTTP();
-                        login.execute(usuario.getInt_id_doctor());
-                        String result=login.get();
-                        if(result!=null && result!="") {
-                            JSONObject entidadJSON  = new JSONObject(result);
-                                if (entidadJSON.getInt("rpta") == 1) {
-                                    clsPacienteDAO.AgregarLogin(MyJobService.this.getApplication(), entidadJSON.optString("listPacienteJSON"), true);
-
-                                    if (clsPreguntaPacienteDAO.AgregarLogin(MyJobService.this.getApplication(), entidadJSON.optString("listPreguntaPacienteJSON"), false))
-                                    {
-                                        totalPreguntas=clsPreguntaPacienteDAO.pendienteRespuesta(MyJobService.this.getApplication());
-                                        if(totalPreguntas>0)
-                                        {
-                                            NotificacionConsulta(totalPreguntas);
-                                        }
-
-                                    }
-                                    if (clsCitaPacienteDAO.AgregarLogin(MyJobService.this.getApplication(), entidadJSON.optString("listCitaPacienteJSON"), false))
-                                    {
-                                        totalCitas=clsCitaPacienteDAO.pendienteRespuesta(MyJobService.this.getApplication());
-                                        if(totalCitas>0)
-                                        {
-                                            NotificacionCitas(totalCitas);
-                                        }
-                                    }
-
-                                }
+                        ActualizarDataHTTP actualizar = new ActualizarDataHTTP();
+                        actualizar.execute(usuario.getInt_id_usuario());
+                        JSONObject actualizarJSON = new JSONObject(actualizar.get());
+                        if (actualizarJSON.getInt("rpta") == 1) {
+                            clsEspecialidadDAO.AgregarLogin(MyJobService.this.getApplication(), actualizarJSON.optString("listEspecialidadJSON"), true);
+                            clsClinicaEspecialidadDAO.AgregarLogin(MyJobService.this.getApplication(), actualizarJSON.optString("listDetalleClinicaEspecialidadJSON"), true);
+                            clsClinicaDAO.AgregarLogin(MyJobService.this.getApplication(), actualizarJSON.optString("listClinicaJSON"), true);
+                            clsClinicaSeguroDAO.AgregarLogin(MyJobService.this.getApplication(), actualizarJSON.optString("listDetalleClinicaSeguroJSON"), true);
+                            clsDoctorDAO.AgregarLogin(MyJobService.this.getApplication(), actualizarJSON.optString("listDoctorJSON"), true);
+                            clsSeguroDAO.AgregarLogin(MyJobService.this.getApplication(), actualizarJSON.optString("listSeguroJSON"), true);
+                            clsCasosSaludDAO.AgregarLogin(MyJobService.this.getApplication(), actualizarJSON.optString("listCasosSaludJSON"), true);
+                            clsRespuestaCasosSaludDAO.AgregarLogin(MyJobService.this.getApplication(), actualizarJSON.optString("listRespuestaCasosSaludJSON"), true);
+                            clsCitaPacienteDAO.AgregarLogin(MyJobService.this.getApplication(), actualizarJSON.optString("listCitaPacienteJSON"), true);
+                            clsRespuestaPreguntaPacienteDAO.AgregarLogin(MyJobService.this.getApplication(), actualizarJSON.optString("listRespuestaPreguntaPacienteJSON"), true);
+                            clsPreguntaPacienteDAO.AgregarLogin(MyJobService.this.getApplication(), actualizarJSON.optString("listPreguntaPacienteJSON"), true);
+                            clsRespuestaCasosSaludDAO.VotosLogin(MyJobService.this.getApplication(),actualizarJSON.optString("listRespuestaCasosSaludVotosJSON"));
 
                         }
+
                     } catch (JSONException e) {
+                        e.printStackTrace();
                         e.printStackTrace();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     } catch (ExecutionException e) {
                         e.printStackTrace();
                     }
-                    */
                 }
             }
         }.start();

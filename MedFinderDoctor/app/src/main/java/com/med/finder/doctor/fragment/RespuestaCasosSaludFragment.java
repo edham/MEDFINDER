@@ -15,15 +15,19 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.med.finder.doctor.R;
+import com.med.finder.doctor.conexion.ResponderCasoSaludHTTP;
 import com.med.finder.doctor.dao.clsCasosSaludDAO;
 import com.med.finder.doctor.dao.clsDoctorDAO;
 import com.med.finder.doctor.dao.clsRespuestaCasosSaludDAO;
+import com.med.finder.doctor.entidades.clsCasosSalud;
 import com.med.finder.doctor.entidades.clsDoctor;
 import com.med.finder.doctor.entidades.clsRespuestaCasosSalud;
 import com.med.finder.doctor.utilidades.Utilidades;
@@ -41,7 +45,8 @@ public class RespuestaCasosSaludFragment extends Fragment {
     private List<clsRespuestaCasosSalud> listCasos;
     private Adaptador adaptador;
     private ListView list;
-    private int idCasoSalud=0;
+    private clsCasosSalud casosSalud;
+    private clsRespuestaCasosSalud respuestaCasosSalud;
     public ProgressDialog pd;
     private  clsDoctor doctor;
 
@@ -49,23 +54,31 @@ public class RespuestaCasosSaludFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_respuesta_casos_salud, container, false);
-        idCasoSalud=getArguments().getInt("id");
+        casosSalud=clsCasosSaludDAO.Buscar(this.getActivity(),getArguments().getInt("id"));
         doctor= clsDoctorDAO.Buscar(this.getContext());
         list = (ListView)view.findViewById(R.id.list);
         TextView lblTitulo = (TextView)view.findViewById(R.id.lblTitulo);
-        lblTitulo.setText(clsCasosSaludDAO.Buscar(this.getActivity(), idCasoSalud).getStr_tema());
+        lblTitulo.setText(casosSalud.getStr_tema());
 
+        Button btnAgregar = (Button)view.findViewById(R.id.btnAgregar);
+        btnAgregar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                btnAgregar();
+//
+            }
+        });
 
-        Buscar(idCasoSalud);
+        Buscar();
         return view;
     }
 
 
-    public void Buscar(int id)
+    public void Buscar()
     {
 
 
-        listCasos= clsRespuestaCasosSaludDAO.ListarXCasoSalud(this.getActivity(), id);
+        listCasos= clsRespuestaCasosSaludDAO.ListarXCasoSalud(this.getActivity(), casosSalud.getInt_id_casos_salud());
 
         if(listCasos!=null && listCasos.size()>0)
         {
@@ -86,37 +99,120 @@ public class RespuestaCasosSaludFragment extends Fragment {
             this.context = context;
         }
 
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
 
-            final int posicion=position;
             LayoutInflater inflater = context.getLayoutInflater();
             View item = inflater.inflate(R.layout.list_respuesta_casos_salud, null);
-
 
             TextView lblTema = (TextView)item.findViewById(R.id.lblTema);
             lblTema.setText(listCasos.get(position).getStr_descripcion());
 
-
-
-            TextView lblDoctor = (TextView)item.findViewById(R.id.lblDoctor);
-            lblDoctor.setText("Dr. "+doctor.getStr_apellido_paterno()+" "+doctor.getStr_apellido_materno()+" "+doctor.getStr_nombres());
-
             RatingBar rtbPuntos = (RatingBar)item.findViewById(R.id.rtbPuntos);
             rtbPuntos.setRating( listCasos.get(position).getInt_puntaje());
-
-            ImageView image = (ImageView)item.findViewById(R.id.image);
-            if(doctor.getByte_foto()!=null)
-                image.setImageBitmap(Utilidades.getBitmap(doctor.getByte_foto()));
-
-            if(listCasos.get(position).getInt_puntaje()>0)
-            {
-                //View viewCalificar = (View)item.findViewById(R.id.viewCalificar);
-               // viewCalificar.setVisibility(View.GONE);
-
-            }
             return(item);
         }
     }
 
+    public void btnAgregar(){
+            final Dialog dialog = new Dialog(this.getActivity());
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+            dialog.setContentView(R.layout.dialog_responder_caso_salud);
+            dialog.setCancelable(false);
+            TextView lblCasoSalud = (TextView)dialog.findViewById(R.id.lblCasoSalud);
+            lblCasoSalud.setText(casosSalud.getStr_tema());
+            final EditText txtDetalle = (EditText) dialog.findViewById(R.id.txtDetalle);
+            txtDetalle.setText("");
+
+
+//
+            FloatingActionButton btnAceptar = (FloatingActionButton) dialog.findViewById(R.id.btnAceptar);
+            btnAceptar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(!txtDetalle.getText().toString().equals("")) {
+
+                        respuestaCasosSalud =new clsRespuestaCasosSalud();
+                        respuestaCasosSalud.setInt_id_casos_salud(casosSalud.getInt_id_casos_salud());
+                        respuestaCasosSalud.setInt_id_doctor(doctor.getInt_id_doctor());
+                        respuestaCasosSalud.setStr_descripcion(txtDetalle.getText().toString());
+                        registrar();
+                        dialog.dismiss();
+                    }
+                    else {
+                        Utilidades.alert(RespuestaCasosSaludFragment.this.getContext(), getString(R.string.str_ingrese_asunto));
+                    }
+                }
+            });
+            FloatingActionButton btnCancelar = (FloatingActionButton) dialog.findViewById(R.id.btnCancelar);
+            btnCancelar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+            dialog.show();
+    }
+
+    public void registrar()
+    {
+        if ( Utilidades.checkPermissions(this.getContext())) {
+            pd = new ProgressDialog(this.getContext());
+            pd.setTitle("Cargando Datos");
+            pd.setMessage("Espere un momento");
+            pd.setCancelable(false);
+            pd.show();
+            new Thread() {
+                public void run() {
+                    Message message = handlerCargar.obtainMessage();
+                    Bundle bundle = new Bundle();
+                    int rpta=0;
+                    try {
+                        ResponderCasoSaludHTTP http = new ResponderCasoSaludHTTP();
+                        http.execute(respuestaCasosSalud);
+                        String result = http.get();
+                        if (!result.equals("")) {
+                            JSONObject entidadJSON = new JSONObject(result);
+                            if (entidadJSON.getInt("rpta") == 1) {
+
+                                respuestaCasosSalud.setInt_id_respuesta_casos_salud(entidadJSON.getInt("respuestaCasoSaludId"));
+                                rpta=1;
+                            }
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    bundle.putInt("rpta",rpta);
+                    message.setData(bundle);
+                    handlerCargar.sendMessage(message);
+                }
+            }.start();
+        }
+    }
+
+    final Handler handlerCargar=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            pd.dismiss();
+            Bundle bundle = msg.getData();
+            if(bundle.getInt("rpta")==1)
+            {
+                Utilidades.alert(RespuestaCasosSaludFragment.this.getContext(), getString(R.string. str_registro_correcto));
+                clsRespuestaCasosSaludDAO.Agregar(RespuestaCasosSaludFragment.this.getActivity(),respuestaCasosSalud);
+                Buscar();
+
+            }else
+            {
+                Utilidades.alert(RespuestaCasosSaludFragment.this.getContext(), getString(R.string. str_error_registrar));
+
+            }
+
+        }
+    };
 
 }

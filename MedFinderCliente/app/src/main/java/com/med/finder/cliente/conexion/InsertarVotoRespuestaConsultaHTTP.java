@@ -4,6 +4,7 @@ package com.med.finder.cliente.conexion;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.med.finder.cliente.entidades.clsRespuestaPreguntaPaciente;
 import com.med.finder.cliente.utilidades.Utilidades;
 
 import org.apache.http.HttpEntity;
@@ -29,19 +30,16 @@ public class InsertarVotoRespuestaConsultaHTTP extends AsyncTask<Object, Integer
 	@Override
 	protected String doInBackground(Object... params)
 	{
-        int idUsuario=(int)params[0];
-        int idRespuestaCasosSalud=(int)params[1];
-        int Puntaje=(int)params[2];
+        clsRespuestaPreguntaPaciente respuestaPreguntaPaciente=(clsRespuestaPreguntaPaciente)params[0];
         String result = null;
         client = new DefaultHttpClient();
         HttpPost httppost = new HttpPost(Utilidades.url);
 
         try {
             List<NameValuePair> Value = new ArrayList<NameValuePair>();
-            Value.add(new BasicNameValuePair("IdServicio","5"));
-            Value.add(new BasicNameValuePair("idUsuario",""+idUsuario));
-            Value.add(new BasicNameValuePair("idRespuestaCasosSalud",""+idRespuestaCasosSalud));
-            Value.add(new BasicNameValuePair("puntaje",""+Puntaje));
+            Value.add(new BasicNameValuePair("IdServicio","9"));
+            Value.add(new BasicNameValuePair("idRespuesta",""+respuestaPreguntaPaciente.getInt_id_respuesta_pregunta_paciente()));
+            Value.add(new BasicNameValuePair("puntaje",""+respuestaPreguntaPaciente.getInt_puntaje()));
 
             httppost.setEntity(new UrlEncodedFormEntity(Value));
             responseGet = client.execute(httppost);

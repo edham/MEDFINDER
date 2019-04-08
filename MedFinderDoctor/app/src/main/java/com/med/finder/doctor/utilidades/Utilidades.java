@@ -73,7 +73,7 @@ public class Utilidades {
     //public static String url = "http://192.168.1.7:8080/edsoft-war/";
 
 
-    public static String url="http://192.168.1.62:8080/MedFinderEE-war/servicio_doctor";
+    public static String url="http://192.168.1.61:8080/MedFinderEE-war/servicio_doctor";
     public static SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
     public static SimpleDateFormat datehourFormatter = new SimpleDateFormat("dd/MM/yyyy hh:mm a");
     public static SimpleDateFormat hourFormatter = new SimpleDateFormat("hh:mm a");

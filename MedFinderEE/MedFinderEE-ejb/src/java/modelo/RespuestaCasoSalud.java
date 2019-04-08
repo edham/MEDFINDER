@@ -43,6 +43,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "RespuestaCasoSalud.findByFechaModificacion", query = "SELECT r FROM RespuestaCasoSalud r WHERE r.fechaModificacion = :fechaModificacion"),
     @NamedQuery(name = "RespuestaCasoSalud.findByEstado", query = "SELECT r FROM RespuestaCasoSalud r WHERE r.estado = :estado")})
 public class RespuestaCasoSalud implements Serializable {
+    @Column(name = "TotalCalificaciones")
+    private Integer totalCalificaciones;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -174,6 +176,14 @@ public class RespuestaCasoSalud implements Serializable {
     @Override
     public String toString() {
         return "modelo.RespuestaCasoSalud[ pKId=" + pKId + " ]";
+    }
+
+    public Integer getTotalCalificaciones() {
+        return totalCalificaciones;
+    }
+
+    public void setTotalCalificaciones(Integer totalCalificaciones) {
+        this.totalCalificaciones = totalCalificaciones;
     }
     
 }

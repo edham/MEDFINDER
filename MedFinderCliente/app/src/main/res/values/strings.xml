@@ -46,7 +46,8 @@
 
     <string name="str_respuestas">RESPUESTAS</string>
 
-
+    <string name="str_cancelar_cita">CANCELAR CITA</string>
+    <string name="str_ingrese_comentario">Ingrese un comentario</string>
     <string name="str_sexo">SEXO</string>
     <string name="str_edad">EDAD</string>
     <string name="str_hombre">HOMBRE</string>

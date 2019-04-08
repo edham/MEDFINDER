@@ -160,7 +160,8 @@ public class CitasAprobarFragment extends Fragment {
             Utilidades.alert(this.getActivity(), getString(R.string.str_seleccione_hora));
             return;
         }
-        if(chbCancelar.isChecked() || txtComentario.getText().toString().length()==0) {
+
+        if(!chbCancelar.isChecked() && txtComentario.getText().toString().length()==0) {
 
             Utilidades.alert(this.getActivity(), getString(R.string.str_ingrese_comentario));
             return;

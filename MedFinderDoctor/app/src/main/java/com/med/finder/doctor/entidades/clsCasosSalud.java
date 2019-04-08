@@ -17,22 +17,24 @@ public class clsCasosSalud {
     private String str_tema;
     private Date dat_inicio;
     private Date dat_fin;
+    private int int_respuestas;
+    private int int_calificadas;
 
 
 
-    
+
     public clsCasosSalud() {
     }
 
     public clsCasosSalud(String entidad) {
-         String [] parametro = entidad.split("\\<+atributo+>");   
+        String [] parametro = entidad.split("\\<+atributo+>");
         this.int_id_casos_salud = Integer.parseInt(parametro[0].trim());
         this.str_tema = parametro[1].trim();
         this.dat_inicio = new Date(Long.parseLong(parametro[2].trim()));
         this.dat_fin = new Date(Long.parseLong(parametro[3].trim()));
     }
 
-    
+
     public int getInt_id_casos_salud() {
         return int_id_casos_salud;
     }
@@ -65,5 +67,19 @@ public class clsCasosSalud {
         this.dat_fin = dat_fin;
     }
 
-   
+    public int getInt_respuestas() {
+        return int_respuestas;
+    }
+
+    public void setInt_respuestas(int int_respuestas) {
+        this.int_respuestas = int_respuestas;
+    }
+
+    public int getInt_calificadas() {
+        return int_calificadas;
+    }
+
+    public void setInt_calificadas(int int_calificadas) {
+        this.int_calificadas = int_calificadas;
+    }
 }

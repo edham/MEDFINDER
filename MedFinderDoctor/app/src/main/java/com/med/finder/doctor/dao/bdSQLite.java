@@ -95,7 +95,7 @@ public class bdSQLite extends SQLiteOpenHelper {
             + "int_id_casos_salud integer,"
             + "str_descripcion text,"
             + "int_puntaje integer,"
-            + "bol_puntaje integer)";
+            + "int_total integer)";
 
     @Override
     public void onConfigure(SQLiteDatabase db) {

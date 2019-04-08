@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -108,7 +109,6 @@ public class CasosSaludFragment extends Fragment {
 
             LayoutInflater inflater = context.getLayoutInflater();
             View item = inflater.inflate(R.layout.list_casos_salud, null);
-
             TextView lblNombre = (TextView)item.findViewById(R.id.lblNombre);
             lblNombre.setText(listCasosTemp.get(position).getStr_tema());
 
@@ -118,6 +118,11 @@ public class CasosSaludFragment extends Fragment {
             TextView lblFin = (TextView)item.findViewById(R.id.lblFin);
             lblFin.setText(Utilidades.dateFormatter.format(listCasosTemp.get(position).getDat_fin()));
 
+            TextView lblRespuestas = (TextView)item.findViewById(R.id.lblRespuestas);
+            lblRespuestas.setText(""+listCasosTemp.get(position).getInt_respuestas());
+
+            TextView lblCalificadas = (TextView)item.findViewById(R.id.lblCalificadas);
+            lblCalificadas.setText(""+listCasosTemp.get(position).getInt_calificadas());
             return(item);
         }
     }

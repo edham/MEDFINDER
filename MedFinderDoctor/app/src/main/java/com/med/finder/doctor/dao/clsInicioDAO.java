@@ -34,7 +34,8 @@ public class clsInicioDAO {
                 String query = "select ini.id,ini.tipo,ini.dat_ini,ini.id_paciente from (" +
                         "select int_id_cita_paciente as id,1 as tipo,dat_creacion as dat_ini,int_id_paciente as id_paciente from CITA_PACIENTE where int_estado=0 " +
                         "union " +
-                        "select int_id_pregunta_paciente as id,2 as tipo,dat_inicio as dat_ini,int_id_paciente as id_paciente from PREGUNTA_PACIENTE where int_estado=1) " +
+                        "select pre.int_id_pregunta_paciente as id,2 as tipo,pre.dat_inicio as dat_ini,pre.int_id_paciente as id_paciente from PREGUNTA_PACIENTE as pre where pre.int_estado=1 " +
+                        "and (select count(*) from RESPUESTA_PREGUNTA_PACIENTE where int_id_pregunta_paciente=pre.int_id_pregunta_paciente)=0) " +
                         "ini";
                 if (consultas && !citas) {
                     query += " where ini.tipo=2";

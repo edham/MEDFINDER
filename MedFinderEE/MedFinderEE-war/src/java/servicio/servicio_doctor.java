@@ -149,10 +149,8 @@ public class servicio_doctor extends HttpServlet {
                         }
                         obj.put("listPreguntaPacienteJSON", listPreguntaPacienteJSON);
 
-                        List<RespuestaCasoSalud> listRespuestaCasosSalud = new ArrayList<RespuestaCasoSalud>();
                         JSONArray listCasosSaludJSON = new JSONArray();
                         for (CasosSalud objCasosSalud : casosSaludFacade.lista_activos()) {
-                            listRespuestaCasosSalud.addAll(respuestaCasoSaludFacade.listarXObjeto("doctor", objDoctor, true, "pKId", false));
                             JSONObject entidadJSON = new JSONObject();
                             entidadJSON.put("casosSaludId", objCasosSalud.getPKId());
                             entidadJSON.put("casosSaludTema", objCasosSalud.getTema());
@@ -160,17 +158,18 @@ public class servicio_doctor extends HttpServlet {
                             entidadJSON.put("casosSaludFechaFin", objCasosSalud.getFechaFin().getTime());
                             listCasosSaludJSON.put(entidadJSON);
                         }
-                        obj.put("listCasosSaludJSON", listCasosSaludJSON);
-
-                        listRespuestaCasosSalud = Utilidades.clearListRespuestaCasoSalud(listRespuestaCasosSalud);
+                        obj.put("listCasosSaludJSON", listCasosSaludJSON);                       
+                        
                         JSONArray listRespuestaCasosSaludJSON = new JSONArray();
-                        for (RespuestaCasoSalud objRespuestaCasosSalud : listRespuestaCasosSalud) {
+                        for (RespuestaCasoSalud objRespuestaCasosSalud : respuestaCasoSaludFacade.listarXObjeto("doctor", objDoctor, true, "pKId", false)) {
                             JSONObject entidadJSON = new JSONObject();
                             entidadJSON.put("respuestaCasosSaludId", objRespuestaCasosSalud.getPKId());
                             entidadJSON.put("doctorId", objRespuestaCasosSalud.getDoctor().getPKId());
                             entidadJSON.put("casosSaludId", objRespuestaCasosSalud.getCasosSalud().getPKId());
                             entidadJSON.put("respuestaCasosSaludDescripcion", objRespuestaCasosSalud.getDescripcion());
                             entidadJSON.put("respuestaCasosSaludPuntajeTotal", objRespuestaCasosSalud.getPuntajeTotal());
+                            entidadJSON.put("respuestaCasosSaludCali", objRespuestaCasosSalud.getTotalCalificaciones());
+                            
                             listRespuestaCasosSaludJSON.put(entidadJSON);
                         }
                         obj.put("listRespuestaCasosSaludJSON", listRespuestaCasosSaludJSON);
@@ -246,7 +245,7 @@ public class servicio_doctor extends HttpServlet {
                         obj.put("listPreguntaPacienteJSON", listPreguntaPacienteJSON);
 
                         JSONArray listCitaPacienteJSON = new JSONArray();
-                        for (CitaPaciente objCitaPaciente : citaPacienteFacade.listaXDoctorTipo(doctor, 0)) {
+                        for (CitaPaciente objCitaPaciente : citaPacienteFacade.listarXObjeto("doctor", doctor, true, "pKId", true)) {
                             listaPaciente.add(objCitaPaciente.getPaciente());
                             JSONObject entidadJSON = new JSONObject();
                             entidadJSON.put("citaPacienteId", objCitaPaciente.getPKId());
@@ -298,6 +297,17 @@ public class servicio_doctor extends HttpServlet {
                             listCasosSaludJSON.put(entidadJSON);
                         }
                         obj.put("listCasosSaludJSON", listCasosSaludJSON);
+                        
+                        JSONArray listRespuestaCasosSaludJSON = new JSONArray();
+                        for (RespuestaCasoSalud objRespuestaCasosSalud : respuestaCasoSaludFacade.listarXObjeto("doctor", doctor, true, "pKId", false)) {
+                            JSONObject entidadJSON = new JSONObject();
+                            entidadJSON.put("respuestaCasosSaludId", objRespuestaCasosSalud.getPKId());
+                            entidadJSON.put("respuestaCasosSaludPuntajeTotal", objRespuestaCasosSalud.getPuntajeTotal());
+                            entidadJSON.put("respuestaCasosSaludCali", objRespuestaCasosSalud.getTotalCalificaciones());
+                            
+                            listRespuestaCasosSaludJSON.put(entidadJSON);
+                        }
+                        obj.put("listRespuestaCasosSaludJSON", listRespuestaCasosSaludJSON);
 
                         obj.put("rpta", 1);
                     } else {
@@ -343,16 +353,35 @@ public class servicio_doctor extends HttpServlet {
                     if (citaPaciente != null) {
                         citaPaciente.setTipo(Integer.parseInt(request.getParameter("tipo")));
                         citaPaciente.setFechaModificacion(new Date());
-                        
-                        if(citaPaciente.getTipo()==1 && request.getParameter("fecha") != null && request.getParameter("fecha") != "")                        
+
+                        if (citaPaciente.getTipo() == 1 && request.getParameter("fecha") != null && request.getParameter("fecha") != "") {
                             citaPaciente.setAtencion(new Date(Long.parseLong(request.getParameter("fecha"))));
-                        if(request.getParameter("comentario") != null && request.getParameter("comentario") != "")
+                        }
+                        if (request.getParameter("comentario") != null && request.getParameter("comentario") != "") {
                             citaPaciente.setRespuestaDoctor(request.getParameter("comentario"));
+                        }
                         citaPacienteFacade.edit(citaPaciente);
                         obj.put("rpta", 1);
                     } else {
                         obj.put("rpta", 0);
                     }
+                } else if (idServicio == 4 && request.getParameter("IdDoctor") != null && request.getParameter("IdDoctor") != ""
+                        && request.getParameter("IdCaso") != null && request.getParameter("IdCaso") != ""
+                        && request.getParameter("respuesta") != null && request.getParameter("respuesta") != "") {
+
+                    RespuestaCasoSalud respuestaCasoSalud = new RespuestaCasoSalud();
+                    respuestaCasoSalud.setEstado(1);
+                    respuestaCasoSalud.setPuntajeTotal(0);
+                    respuestaCasoSalud.setTotalCalificaciones(0);
+                    respuestaCasoSalud.setFechaRegistro(new Date());
+                    respuestaCasoSalud.setFechaModificacion(new Date());
+                    respuestaCasoSalud.setDescripcion(request.getParameter("respuesta"));
+                    respuestaCasoSalud.setCasosSalud(new CasosSalud(Integer.parseInt(request.getParameter("IdCaso"))));
+                    respuestaCasoSalud.setDoctor(new modelo.Doctor(Integer.parseInt(request.getParameter("IdDoctor"))));
+                    respuestaCasoSaludFacade.create(respuestaCasoSalud);
+                    obj.put("rpta", 1);
+                    obj.put("respuestaCasoSaludId", respuestaCasoSalud.getPKId());
+
                 } else {
                     obj.put("rpta", 0);
                 }

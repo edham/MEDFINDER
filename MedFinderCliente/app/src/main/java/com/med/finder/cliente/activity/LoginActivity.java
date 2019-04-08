@@ -113,7 +113,7 @@ public class LoginActivity extends AppCompatActivity {
                                            if (!clsPacienteDAO.AgregarLogin(LoginActivity.this, entidadJSON.optString("listPacienteJSON"), true))
                                                validador = false;
                                            if (validador) {
-                                               if (!clsPreguntaPacienteDAO.AgregarLogin(LoginActivity.this, entidadJSON.optString("listPreguntaPacienteJSON"), true))
+                                               if (!clsPreguntaPacienteDAO.AgregarLogin(LoginActivity.this, actualizarJSON.optString("listPreguntaPacienteJSON"), true))
                                                    validador = false;
                                                if (validador) {
                                                    if (!clsEspecialidadDAO.AgregarLogin(LoginActivity.this, actualizarJSON.optString("listEspecialidadJSON"), true))
@@ -143,13 +143,13 @@ public class LoginActivity extends AppCompatActivity {
                                                                                    if (!clsRespuestaCasosSaludDAO.AgregarLogin(LoginActivity.this, actualizarJSON.optString("listRespuestaCasosSaludJSON"), true))
                                                                                        validador = false;
                                                                                    if (validador) {
-                                                                                       if (!clsRespuestaCasosSaludDAO.VotosLogin(LoginActivity.this, entidadJSON.optString("listRespuestaCasosSaludVotosJSON")))
+                                                                                       if (!clsRespuestaCasosSaludDAO.VotosLogin(LoginActivity.this,actualizarJSON.optString("listRespuestaCasosSaludVotosJSON")))
                                                                                            validador = false;
                                                                                        if (validador) {
-                                                                                           if (!clsCitaPacienteDAO.AgregarLogin(LoginActivity.this, entidadJSON.optString("listCitaPacienteJSON"), true))
+                                                                                           if (!clsCitaPacienteDAO.AgregarLogin(LoginActivity.this, actualizarJSON.optString("listCitaPacienteJSON"), true))
                                                                                                validador = false;
                                                                                            if (validador) {
-                                                                                               if (!clsRespuestaPreguntaPacienteDAO.AgregarLogin(LoginActivity.this, entidadJSON.optString("listRespuestaPreguntaPacienteJSON"), true))
+                                                                                               if (!clsRespuestaPreguntaPacienteDAO.AgregarLogin(LoginActivity.this, actualizarJSON.optString("listRespuestaPreguntaPacienteJSON"), true))
                                                                                                    validador = false;
                                                                                            }
                                                                                        }

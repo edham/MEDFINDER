@@ -20,10 +20,12 @@ import com.med.finder.doctor.activity.LoginActivity;
 import com.med.finder.doctor.activity.MainActivity;
 import com.med.finder.doctor.conexion.ActualizarHTTP;
 import com.med.finder.doctor.conexion.LoginHTTP;
+import com.med.finder.doctor.dao.clsCasosSaludDAO;
 import com.med.finder.doctor.dao.clsCitaPacienteDAO;
 import com.med.finder.doctor.dao.clsDoctorDAO;
 import com.med.finder.doctor.dao.clsPacienteDAO;
 import com.med.finder.doctor.dao.clsPreguntaPacienteDAO;
+import com.med.finder.doctor.dao.clsRespuestaCasosSaludDAO;
 import com.med.finder.doctor.entidades.clsDoctor;
 import com.med.finder.doctor.utilidades.Utilidades;
 
@@ -68,8 +70,9 @@ public class MyJobService extends JobService {
                         if(result!=null && result!="") {
                             JSONObject entidadJSON  = new JSONObject(result);
                                 if (entidadJSON.getInt("rpta") == 1) {
-                                    clsPacienteDAO.AgregarLogin(MyJobService.this.getApplication(), entidadJSON.optString("listPacienteJSON"), true);
-
+                                    clsPacienteDAO.AgregarLogin(MyJobService.this.getApplication(), entidadJSON.optString("listPacienteJSON"), false);
+                                    clsCasosSaludDAO.AgregarLogin(MyJobService.this.getApplication(), entidadJSON.optString("listCasosSaludJSON"), true);
+                                    clsRespuestaCasosSaludDAO.ActualizarPuntaje(MyJobService.this.getApplication(), entidadJSON.optString("listRespuestaCasosSaludJSON"));
                                     if (clsPreguntaPacienteDAO.AgregarLogin(MyJobService.this.getApplication(), entidadJSON.optString("listPreguntaPacienteJSON"), false))
                                     {
                                         totalPreguntas=clsPreguntaPacienteDAO.pendienteRespuesta(MyJobService.this.getApplication());
@@ -82,7 +85,7 @@ public class MyJobService extends JobService {
                                         }
 
                                     }
-                                    if (clsCitaPacienteDAO.AgregarLogin(MyJobService.this.getApplication(), entidadJSON.optString("listCitaPacienteJSON"), false))
+                                    if (clsCitaPacienteDAO.AgregarLogin(MyJobService.this.getApplication(), entidadJSON.optString("listCitaPacienteJSON"), true))
                                     {
                                         totalCitas=clsCitaPacienteDAO.pendienteRespuesta(MyJobService.this.getApplication());
                                         if(totalCitas>0)
@@ -104,65 +107,6 @@ public class MyJobService extends JobService {
                     } catch (ExecutionException e) {
                         e.printStackTrace();
                     }
-                    /*
-                    if(flag)
-                        try{
-
-                            PostHTTP post = new PostHTTP();
-                            JSONObject json = new JSONObject();
-                            json.put("id", "6");
-                            int pk_mensajes = clsMensajeSQL.getUltimoPk(MyJobService.this.getApplication());
-
-                            int pk_sintesis = clsSintesisSQL.getUltimoPk(MyJobService.this.getApplication());
-
-                            JSONObject consulta = new JSONObject();
-                            consulta.put("pk_mensajes",pk_mensajes);
-                            consulta.put("pk_sintesis",pk_sintesis);
-                            consulta.put("tipo",0);
-                            consulta.put("longitud",(usuario.getLongitud()!=longitud)?longitud:0d);
-                            consulta.put("latitud",(usuario.getLatitud()!=latitud)?latitud:0d);
-                            consulta.put("track_id",track_id);
-                            Log.e("startService","longitud "+longitud+" - latitud "+latitud);
-                            String data = Utilidades.enviaData(MyJobService.this.getApplicationContext(), consulta.toString());
-                            JSONObject jsonData = new JSONObject();
-                            jsonData.put("idUsuario",usuario.getPk_id());
-                            jsonData.put("data",  data);
-                            json.put("data", Utilidades.enviaLogin(MyJobService.this.getApplicationContext(),jsonData.toString()));
-                            post.execute(json.toString());
-                            JSONObject objeto = new JSONObject(post.get());
-                            if(objeto.getInt("estado")>0) {
-                                JSONObject recibe = new JSONObject(Utilidades.recibeData(MyJobService.this.getApplicationContext(), objeto.getString("data")));
-
-                                if(!recibe.isNull("clave")) {
-                                    clsUsuarioDAO.getCambioClave(MyJobService.this.getApplicationContext(), recibe.getString("clave"));
-                                }
-                                if(!recibe.isNull("track_id")) {
-                                    track_id=recibe.getInt("track_id");
-                                }
-                                clsUsuarioDAO.setCordenadas(MyJobService.this.getApplication(),track_id,latitud,longitud);
-                                Log.e("startService",recibe.toString());
-                                int totalSMS=clsMensajeSQL.Agregar(MyJobService.this.getApplicationContext(),recibe.getString("jsonListTid"));
-
-                                int totalNinf=clsSintesisSQL.Agregar(MyJobService.this.getApplicationContext(),recibe.getString("jsonListNotasInformativas"));
-
-                                clsUsuarioDAO.getPerfil(MyJobService.this.getApplication(),recibe.getString("listPerfil"));
-                                clsTipoSintesisSQL.Agregar(MyJobService.this.getApplication(),recibe.getString("listTipoSintesis"));
-                                if(totalSMS>0){
-                                    NotificacionSms(totalSMS);
-                                }
-                                if(totalNinf>0){
-                                    NotificacionNinf(totalNinf);
-                                }
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        } catch (ExecutionException e) {
-                            e.printStackTrace();
-                        }
-                        */
                 }
             }
         }.start();

@@ -6,13 +6,14 @@
 
 package com.med.finder.cliente.entidades;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author Toditos
  */
-public class clsCasosSalud {
+public class clsCasosSalud implements Serializable {
     private int int_id_casos_salud;
     private String str_tema;
     private Date dat_inicio;

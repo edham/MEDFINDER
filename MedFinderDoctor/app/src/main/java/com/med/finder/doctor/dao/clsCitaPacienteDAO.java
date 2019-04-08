@@ -101,7 +101,13 @@ public class clsCitaPacienteDAO {
         registro.put("int_id_doctor",entidad.getObjDoctor().getInt_id_doctor());
         registro.put("str_detalle",entidad.getStr_detalle());
         registro.put("dat_creacion",entidad.getDat_creacion().getTime());
-        registro.put("dat_atencion",entidad.getDat_atencion().getTime());
+        if(entidad.getDat_creacion()!=null) {
+            registro.put("dat_atencion", entidad.getDat_atencion().getTime());
+        }
+        else
+        {
+            registro.put("dat_atencion",(new Date()).getTime());
+        }
         registro.put("int_estado",entidad.getInt_estado());
         registro.put("int_id_paciente",entidad.getObjPaciente().getInt_id_paciente());
         registro.put("str_respuesta",entidad.getStr_respuesta());
@@ -184,7 +190,7 @@ public class clsCitaPacienteDAO {
          if(bd!=null)
          {
             String query="select int_id_cita_paciente,int_id_doctor,str_detalle,dat_creacion,dat_atencion,int_estado,"
-                    + "int_id_paciente,str_respuesta from "+NOMBRE_TABLA+" order by dat_atencion desc";
+                    + "int_id_paciente,str_respuesta from "+NOMBRE_TABLA+" where int_estado>0 order by dat_atencion asc";
 
 
             Cursor fila=bd.rawQuery(query,null);

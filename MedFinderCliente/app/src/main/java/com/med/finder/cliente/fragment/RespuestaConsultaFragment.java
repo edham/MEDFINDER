@@ -54,7 +54,7 @@ public class RespuestaConsultaFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_respuesta_casos_salud, container, false);
+        View view = inflater.inflate(R.layout.fragment_respuesta_consulta, container, false);
         entidad=(clsPreguntaPaciente) getArguments().getSerializable("entidad");
         list = (ListView)view.findViewById(R.id.list);
 
@@ -170,7 +170,7 @@ public class RespuestaConsultaFragment extends Fragment {
                 if(rtbPuntos.getRating()>0)
                 {
                     respuestaPreguntaPaciente.setInt_puntaje((int)rtbPuntos.getRating());
-                    //setCalificar(respuestaPreguntaPaciente);
+                    setCalificar(respuestaPreguntaPaciente);
                     dialog.dismiss();
                 }
                 else
@@ -205,7 +205,7 @@ public class RespuestaConsultaFragment extends Fragment {
                     int rpta=0;
                     try {
                         InsertarVotoRespuestaConsultaHTTP http = new InsertarVotoRespuestaConsultaHTTP();
-                        http.execute(clsUsuarioDAO.Buscar(RespuestaConsultaFragment.this.getContext()).getInt_id_usuario(),respuestaPreguntaPaciente);
+                        http.execute(respuestaPreguntaPaciente);
                         String result = http.get();
                         if (!result.equals("")) {
                             JSONObject entidadJSON = new JSONObject(result);
@@ -222,8 +222,8 @@ public class RespuestaConsultaFragment extends Fragment {
                     }
 
                     bundle.putInt("rpta",rpta);
-                  //  bundle.putInt("id",id);
-                 //   bundle.putInt("puntaje",puntaje);
+                     bundle.putInt("id",respuestaPreguntaPaciente.getInt_id_respuesta_pregunta_paciente());
+                    bundle.putInt("puntaje",respuestaPreguntaPaciente.getInt_puntaje());
                     message.setData(bundle);
                     handlerCargar.sendMessage(message);
                 }
@@ -239,7 +239,7 @@ public class RespuestaConsultaFragment extends Fragment {
             if(bundle.getInt("rpta")==1)
             {
                 Utilidades.alert(RespuestaConsultaFragment.this.getContext(), getString(R.string. str_registro_correcto));
-                clsRespuestaCasosSaludDAO.Puntaje(RespuestaConsultaFragment.this.getActivity(),bundle.getInt("id"), bundle.getInt("puntaje"));
+                clsRespuestaPreguntaPacienteDAO.Puntaje(RespuestaConsultaFragment.this.getActivity(),bundle.getInt("id"), bundle.getInt("puntaje"));
                 buscar();
             }else
             {

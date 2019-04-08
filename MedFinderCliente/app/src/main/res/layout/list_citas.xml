@@ -270,32 +270,31 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginRight="@dimen/line_4"
+            android:id="@+id/viewCancelar"
+            android:visibility="gone"
+            android:gravity="center|right"
             android:orientation="horizontal">
-
-            <LinearLayout
-                android:id="@+id/view"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <com.med.finder.cliente.utilidades.CustomFontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:minHeight="@dimen/dimen_3"
+                android:text="@string/str_cancelar_cita"
                 android:gravity="center"
-                android:layout_marginRight="2dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
-                <Button
-                    android:id="@+id/btnCancelar"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Cancelar"
-                    android:textSize="15dp"
-                    android:textStyle="bold"/>
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/text_1"
+                app:fontAttr="@string/font_myraid_bold" />
+            <Button
+                android:id="@+id/btnCancelar"
+                android:layout_width="@dimen/rating"
+                android:layout_height="@dimen/rating"
+                android:layout_margin="@dimen/margin_1"
 
-            </LinearLayout>
-
+                android:background="@drawable/button_cancel" />
 
         </LinearLayout>
+
 
 
     </LinearLayout>

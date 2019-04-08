@@ -37,11 +37,26 @@ public class CasosSaludFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_familiares, container, false);
 
         list = (ListView)view.findViewById(R.id.list);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View v, int posicion, long id) {
+                if(listCasosTemp.get(posicion).getInt_respuestas()>0){
+                    Bundle args = new Bundle();
+                    args.putInt("id", listCasosTemp.get(posicion).getInt_id_casos_salud());
+                    Fragment fragment = new RespuestaCasosSaludFragment();
+                    fragment.setArguments(args);
+                    ((MainActivity) getActivity()).setFragment(fragment);
+                }else
+                {
+                    Utilidades.alert(CasosSaludFragment.this.getActivity(), getString(R.string.str_respuesta));
+                }
 
-        list = (ListView)view.findViewById(R.id.list);
+            }
+        });
         View viewButtom= (View)view.findViewById(R.id.viewButtom);
         viewButtom.setVisibility(View.GONE);
         listCasos= clsCasosSaludDAO.Listar(this.getActivity());
+
         txtFiltro = (EditText)view.findViewById(R.id.txtFiltro);
         txtFiltro.addTextChangedListener(new TextWatcher() {
 
@@ -78,22 +93,7 @@ public class CasosSaludFragment extends Fragment {
         adaptador = new Adaptador(this.getActivity());
 
         list.setAdapter(adaptador);
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View v, int posicion, long id) {
-                if(listCasosTemp.get(posicion).getInt_respuestas()>0){
-                    Bundle args = new Bundle();
-                    args.putInt("id", listCasosTemp.get(posicion).getInt_id_casos_salud());
-                    Fragment fragment = new RespuestaCasosSaludFragment();
-                    fragment.setArguments(args);
-                    ((MainActivity) getActivity()).setFragment(fragment);
-                }else
-                {
-                    Utilidades.alert(CasosSaludFragment.this.getActivity(), getString(R.string.str_respuesta));
-                }
 
-            }
-        });
 
     }
 

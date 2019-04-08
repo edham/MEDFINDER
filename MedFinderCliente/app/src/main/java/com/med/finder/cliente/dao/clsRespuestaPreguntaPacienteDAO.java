@@ -25,7 +25,8 @@ import java.util.List;
  *
  * @author Toditos
  */
-public class clsRespuestaPreguntaPacienteDAO {
+public class
+clsRespuestaPreguntaPacienteDAO {
     
     private static String NOMBRE_TABLA="RESPUESTA_PREGUNTA_PACIENTE";
     public static boolean AgregarLogin(Context context,String data,boolean login)
@@ -150,9 +151,23 @@ public class clsRespuestaPreguntaPacienteDAO {
         bd.close();   
         return list;
      }
-       
-        
-     public static void Borrar(Context context) {
+
+    public  static boolean Puntaje(Context context,int Id,int puntaje)
+    {
+        bdSQLite admin=new bdSQLite(context,null);
+        SQLiteDatabase bd = admin.getWritableDatabase();
+        ContentValues registro = new ContentValues();
+        registro.put("int_puntaje",puntaje);
+
+        int cant = bd.update(NOMBRE_TABLA, registro, "int_id_respuesta_pregunta_paciente="+Id, null);
+        bd.close();
+        if(cant==1)
+            return true;
+        else
+            return false;
+
+    }
+    public static void Borrar(Context context) {
      bdSQLite admin=new bdSQLite(context,null);
      SQLiteDatabase bd=admin.getWritableDatabase();
      bd.delete(NOMBRE_TABLA, null, null);

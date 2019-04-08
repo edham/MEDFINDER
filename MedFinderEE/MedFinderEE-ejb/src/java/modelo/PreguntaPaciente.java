@@ -184,13 +184,6 @@ public class PreguntaPaciente implements Serializable {
         return "modelo.PreguntaPaciente[ pKId=" + pKId + " ]";
     }
 
-    public byte[] getImagen() {
-        return imagen;
-    }
-
-    public void setImagen(byte[] imagen) {
-        this.imagen = imagen;
-    }
 
     public Integer getTipo() {
         return tipo;
@@ -198,6 +191,14 @@ public class PreguntaPaciente implements Serializable {
 
     public void setTipo(Integer tipo) {
         this.tipo = tipo;
+    }
+
+    public byte[] getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(byte[] imagen) {
+        this.imagen = imagen;
     }
     
 }

@@ -129,7 +129,10 @@ public class clsCasosSaludDAO {
         SQLiteDatabase bd=admin.getWritableDatabase();
          if(bd!=null)
          {
-            String query="select int_id_casos_salud,str_tema,dat_inicio,dat_fin from "+NOMBRE_TABLA;
+             String query="select cas.int_id_casos_salud,cas.str_tema,cas.dat_inicio,cas.dat_fin," +
+                     "(select count(*) from RESPUESTA_CASOS_SALUD where int_id_casos_salud=cas.int_id_casos_salud)," +
+                     "(select sum(int_total) from RESPUESTA_CASOS_SALUD where int_id_casos_salud=cas.int_id_casos_salud)" +
+                     "from "+NOMBRE_TABLA+" as cas";
 
             Cursor fila=bd.rawQuery(query,null);
             int numRows = fila.getCount();   
@@ -141,6 +144,8 @@ public class clsCasosSaludDAO {
                     entidad.setStr_tema(fila.getString(1));
                     entidad.setDat_inicio(new Date(fila.getLong(2)));
                     entidad.setDat_fin(new Date(fila.getLong(3)));
+                    entidad.setInt_respuestas(fila.getInt(4));
+                    entidad.setInt_calificadas(fila.getInt(5));
                     
                     list.add(entidad);
                        

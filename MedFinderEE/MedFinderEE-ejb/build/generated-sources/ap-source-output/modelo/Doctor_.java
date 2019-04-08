@@ -12,7 +12,7 @@ import modelo.Persona;
 import modelo.RespuestaCasoSalud;
 import modelo.RespuestaPreguntaPaciente;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2019-04-04T22:06:34")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2019-04-07T15:52:33")
 @StaticMetamodel(Doctor.class)
 public class Doctor_ { 
 

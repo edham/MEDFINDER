@@ -150,8 +150,10 @@ public class clsRespuestaPreguntaPacienteDAO {
         bd.close();   
         return list;
      }
-       
-        
+
+
+
+
      public static void Borrar(Context context) {
      bdSQLite admin=new bdSQLite(context,null);
      SQLiteDatabase bd=admin.getWritableDatabase();

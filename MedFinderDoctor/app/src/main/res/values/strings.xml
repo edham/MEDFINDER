@@ -18,6 +18,7 @@
 
     <string name="str_aprobar_cita">APROBAR CITA</string>
     <string name="str_responder_consulta">RESPONDER CONSULTA</string>
+    <string name="str_respuesta">RESPUESTA</string>
 
     <string name="str_puntaje">PUNTAJE</string>
     <string name="str_especialidad">ESPECIALIDAD</string>
@@ -45,6 +46,11 @@
     <string name="str_seguros">SEGUROS</string>
     <string name="str_fecha_inicio">FECHA INICIO</string>
     <string name="str_fecha_fin">FECHA FIN</string>
+
+    <string name="str_calificadas">CALIFICADAS</string>
+    <string name="str_respuestas">RESPUESTAS</string>
+
+    <string name="str_calificacion">CALIFICACION</string>
 
     <string name="str_fecha">FECHA</string>
     <string name="str_seleccione_fecha">Selecciones una fecha</string>
@@ -107,6 +113,8 @@
     <string name="str_seleccione_especialidad">Seleccione una Especialidade</string>
     <string name="str_seleccione_opcion">Seleccione una Opción</string>
     <string name="str_seleccione_paciente">Seleccione un Paciente</string>
+
+    <string name="str_cancelar_cita">CANCELAR CITA</string>
 
 
     <string name="msg_espere_momento">procesando consulta</string>
