@@ -5,21 +5,16 @@ package Controlador;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
 import Utilidades.Utilidades;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.xml.ws.WebServiceRef;
 import org.primefaces.event.SelectEvent;
-import servicio.Detalle;
-import servicio.Doctor;
-import servicio.Especialidad;
-import servicio.Medico;
-import servicio.Medico_Service;
+import servicio.WsDetalle;
+import servicio.WsDoctor;
+import servicio.WsEspecialidad;
 
 /**
  *
@@ -28,117 +23,107 @@ import servicio.Medico_Service;
 @ManagedBean
 @SessionScoped
 public class ManagedBeanServicioDoctor implements Serializable {
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/170.239.86.92/MedSevis/medico.wsdl")
-    private Medico_Service service;
-    private List<Doctor> listDoctor;
-    private Doctor objetoDoctor;
-    private Detalle objetoDetalle;
-    private List<Especialidad> listEspecialidad;
+
+    private List<WsDoctor> listDoctor;
+    private WsDoctor objetoDoctor;
+    private WsDetalle objetoDetalle;
+    private List<WsEspecialidad> listEspecialidad;
     private String cmp;
     private String nombres;
-    private String apellidos;
-    
+    private String paterno;
+    private String materno;
+
     public ManagedBeanServicioDoctor() {
-        limpiar();   
-        
-    }
-     public void limpiarTodo()
-    {
-        cmp="";
-        nombres="";
-        apellidos="";
-        limpiar();   
-    }
-    
-    public void limpiar()
-    {
-        
-        objetoDoctor = new Doctor();
-        listDoctor = new ArrayList<Doctor>();
-        objetoDetalle = new Detalle();
-        listEspecialidad = new ArrayList<Especialidad>();
-    }
-
-    public void buscarNombres(String paterno, String materno)
-    {
         limpiar();
-        try
-        {
-            Medico port = service.getMedicoPort();
-            listDoctor= port.consultaDoctor("", paterno, materno);
-        }
-        catch (Exception e) {
-            
+
+    }
+
+    public void limpiarTodo() {
+        cmp = "";
+        nombres = "";
+        paterno = "";
+        materno = "";
+        limpiar();
+    }
+
+    public void limpiar() {
+
+        objetoDoctor = new WsDoctor();
+        listDoctor = new ArrayList<WsDoctor>();
+        objetoDetalle = new WsDetalle();
+        listEspecialidad = new ArrayList<WsEspecialidad>();
+    }
+
+    public void buscarNombres() {
+        limpiar();
+        System.out.println(paterno + " - " + materno + " - " + nombres);
+        if (paterno.length() > 0 || materno.length() > 0 || nombres.length() > 0) {
+            try {
+                listDoctor = Utilidades.consultaDoctor("", paterno, materno, nombres);
+            } catch (Exception e) {
+
+            }
+        } else {
+            Utilidades.Error("DEBE INGRESAR ALGUN DATO");
         }
     }
-    
-    
-    public void buscarCodigo(String cmp)
-    {
-        System.out.println("buscarCodigo "+cmp);
-        if(cmp.length()==6)
-        {
-            limpiar();
-            Medico port = service.getMedicoPort();
-            try{
-                listDoctor= port.consultaDoctor(cmp, "", "");
-                System.out.println("listDoctor "+listDoctor.size());
-                if(listDoctor!=null && listDoctor.size()>0)
-                {
-                    objetoDoctor=listDoctor.get(0);
-                    listDoctor = new ArrayList<Doctor>();
-                      try{
-                        objetoDetalle= port.consultaDetalle(cmp);
-                    }catch (Exception e) {e.printStackTrace();}
 
-                   try{
-                       listEspecialidad= port.consultaEspecialidad(cmp);
-                    }catch (Exception e) {e.printStackTrace();}
-                }else
-                {
+    public void buscarCodigo() {
+        System.out.println("buscarCodigo " + cmp);
+        if (cmp.length() == 6) {
+            limpiar();
+            try {
+                listDoctor = Utilidades.consultaDoctor(cmp, "", "", "");
+                System.out.println("listDoctor " + listDoctor.size());
+                if (listDoctor != null && listDoctor.size() > 0) {
+                    objetoDoctor = listDoctor.get(0);
+                    listDoctor = new ArrayList<WsDoctor>();
+                    try {
+                        objetoDetalle = Utilidades.consultaDetalle(cmp);
+                        listEspecialidad=objetoDetalle.getEspecialidad();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
                     Utilidades.Error("DOCTOR NO ENCONTRADO");
                 }
-            }catch (Exception e) {e.printStackTrace();}
-        }
-        else
-        {
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
             Utilidades.Error("CMP DEBE TENER 6 DIGITOS");
         }
     }
-    
-    
 
-
-    public List<Doctor> getListDoctor() {
+    public List<WsDoctor> getListDoctor() {
         return listDoctor;
     }
 
-    public void setListDoctor(List<Doctor> listDoctor) {
+    public void setListDoctor(List<WsDoctor> listDoctor) {
         this.listDoctor = listDoctor;
     }
 
-    public Detalle getObjetoDetalle() {
+    public WsDetalle getObjetoDetalle() {
         return objetoDetalle;
     }
 
-    public void setObjetoDetalle(Detalle objetoDetalle) {
+    public void setObjetoDetalle(WsDetalle objetoDetalle) {
         this.objetoDetalle = objetoDetalle;
     }
 
-    public List<Especialidad> getListEspecialidad() {
+    public List<WsEspecialidad> getListEspecialidad() {
         return listEspecialidad;
     }
 
-    public void setListEspecialidad(List<Especialidad> listEspecialidad) {
+    public void setListEspecialidad(List<WsEspecialidad> listEspecialidad) {
         this.listEspecialidad = listEspecialidad;
     }
 
-
-    public Doctor getObjetoDoctor() {
+    public WsDoctor getObjetoDoctor() {
         return objetoDoctor;
     }
 
-    public void setObjetoDoctor(Doctor objetoDoctor) {
+    public void setObjetoDoctor(WsDoctor objetoDoctor) {
         this.objetoDoctor = objetoDoctor;
     }
 
@@ -158,29 +143,34 @@ public class ManagedBeanServicioDoctor implements Serializable {
         this.nombres = nombres;
     }
 
-    public String getApellidos() {
-        return apellidos;
+    public String getPaterno() {
+        return paterno;
     }
 
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
+    public void setPaterno(String paterno) {
+        this.paterno = paterno;
     }
+
+    public String getMaterno() {
+        return materno;
+    }
+
+    public void setMaterno(String materno) {
+        this.materno = materno;
+    }
+
     public void onRowSelect(SelectEvent event) {
-        Medico port = service.getMedicoPort();
-            try{ 
-                objetoDoctor=((Doctor) event.getObject());
-                      
-                try{
-                    objetoDetalle= port.consultaDetalle(objetoDoctor.getCmp());
-                }catch (Exception e) {e.printStackTrace();}
+        try {
+            objetoDoctor = ((WsDoctor) event.getObject());
 
-                try{
-                    listEspecialidad= port.consultaEspecialidad(objetoDoctor.getCmp());
-                }catch (Exception e) {e.printStackTrace();}
-            }catch (Exception e) {e.printStackTrace();}
+            try {
+                objetoDetalle = Utilidades.consultaDetalle(objetoDoctor.getCmp());
+                listEspecialidad=objetoDetalle.getEspecialidad();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-
-    
-    
-      
 }

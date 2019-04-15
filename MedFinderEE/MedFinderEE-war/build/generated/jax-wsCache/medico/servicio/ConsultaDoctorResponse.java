@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="return" type="{http://servicio/}doctor" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="return" type="{http://servicio/}wsDoctor" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlType;
 public class ConsultaDoctorResponse {
 
     @XmlElement(name = "return")
-    protected List<Doctor> _return;
+    protected List<WsDoctor> _return;
 
     /**
      * Gets the value of the return property.
@@ -55,13 +55,13 @@ public class ConsultaDoctorResponse {
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link Doctor }
+     * {@link WsDoctor }
      * 
      * 
      */
-    public List<Doctor> getReturn() {
+    public List<WsDoctor> getReturn() {
         if (_return == null) {
-            _return = new ArrayList<Doctor>();
+            _return = new ArrayList<WsDoctor>();
         }
         return this._return;
     }

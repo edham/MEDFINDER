@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="return" type="{http://servicio/}detalle" minOccurs="0"/>
+ *         &lt;element name="return" type="{http://servicio/}wsDetalle" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -33,17 +33,17 @@ import javax.xml.bind.annotation.XmlType;
 public class ConsultaDetalleResponse {
 
     @XmlElement(name = "return")
-    protected Detalle _return;
+    protected WsDetalle _return;
 
     /**
      * Obtiene el valor de la propiedad return.
      * 
      * @return
      *     possible object is
-     *     {@link Detalle }
+     *     {@link WsDetalle }
      *     
      */
-    public Detalle getReturn() {
+    public WsDetalle getReturn() {
         return _return;
     }
 
@@ -52,10 +52,10 @@ public class ConsultaDetalleResponse {
      * 
      * @param value
      *     allowed object is
-     *     {@link Detalle }
+     *     {@link WsDetalle }
      *     
      */
-    public void setReturn(Detalle value) {
+    public void setReturn(WsDetalle value) {
         this._return = value;
     }
 

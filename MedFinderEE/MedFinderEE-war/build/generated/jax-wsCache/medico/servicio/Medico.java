@@ -27,53 +27,41 @@ public interface Medico {
 
     /**
      * 
-     * @param materno
-     * @param paterno
      * @param cmp
      * @return
-     *     returns java.util.List<servicio.Doctor>
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "consultaDoctor", targetNamespace = "http://servicio/", className = "servicio.ConsultaDoctor")
-    @ResponseWrapper(localName = "consultaDoctorResponse", targetNamespace = "http://servicio/", className = "servicio.ConsultaDoctorResponse")
-    @Action(input = "http://servicio/medico/consultaDoctorRequest", output = "http://servicio/medico/consultaDoctorResponse")
-    public List<Doctor> consultaDoctor(
-        @WebParam(name = "cmp", targetNamespace = "")
-        String cmp,
-        @WebParam(name = "paterno", targetNamespace = "")
-        String paterno,
-        @WebParam(name = "materno", targetNamespace = "")
-        String materno);
-
-    /**
-     * 
-     * @param cmp
-     * @return
-     *     returns java.util.List<servicio.Especialidad>
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "consultaEspecialidad", targetNamespace = "http://servicio/", className = "servicio.ConsultaEspecialidad")
-    @ResponseWrapper(localName = "consultaEspecialidadResponse", targetNamespace = "http://servicio/", className = "servicio.ConsultaEspecialidadResponse")
-    @Action(input = "http://servicio/medico/consultaEspecialidadRequest", output = "http://servicio/medico/consultaEspecialidadResponse")
-    public List<Especialidad> consultaEspecialidad(
-        @WebParam(name = "cmp", targetNamespace = "")
-        String cmp);
-
-    /**
-     * 
-     * @param cmp
-     * @return
-     *     returns servicio.Detalle
+     *     returns servicio.WsDetalle
      */
     @WebMethod
     @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "consultaDetalle", targetNamespace = "http://servicio/", className = "servicio.ConsultaDetalle")
     @ResponseWrapper(localName = "consultaDetalleResponse", targetNamespace = "http://servicio/", className = "servicio.ConsultaDetalleResponse")
     @Action(input = "http://servicio/medico/consultaDetalleRequest", output = "http://servicio/medico/consultaDetalleResponse")
-    public Detalle consultaDetalle(
+    public WsDetalle consultaDetalle(
         @WebParam(name = "cmp", targetNamespace = "")
         String cmp);
+
+    /**
+     * 
+     * @param materno
+     * @param paterno
+     * @param cmp
+     * @param nombres
+     * @return
+     *     returns java.util.List<servicio.WsDoctor>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "consultaDoctor", targetNamespace = "http://servicio/", className = "servicio.ConsultaDoctor")
+    @ResponseWrapper(localName = "consultaDoctorResponse", targetNamespace = "http://servicio/", className = "servicio.ConsultaDoctorResponse")
+    @Action(input = "http://servicio/medico/consultaDoctorRequest", output = "http://servicio/medico/consultaDoctorResponse")
+    public List<WsDoctor> consultaDoctor(
+        @WebParam(name = "cmp", targetNamespace = "")
+        String cmp,
+        @WebParam(name = "paterno", targetNamespace = "")
+        String paterno,
+        @WebParam(name = "materno", targetNamespace = "")
+        String materno,
+        @WebParam(name = "nombres", targetNamespace = "")
+        String nombres);
 
 }

@@ -33,6 +33,10 @@ import javax.faces.context.FacesContext;
 import javax.imageio.ImageIO;
 import modelo.Especialidad;
 import modelo.Paciente;
+import servicio.Medico;
+import servicio.Medico_Service;
+import servicio.WsDetalle;
+import servicio.WsDoctor;
 
 /**
  *
@@ -199,4 +203,18 @@ public class Utilidades {
         ListEspecialidad.addAll(linkedHashSet);
         return ListEspecialidad;
    }
+
+    public static WsDetalle consultaDetalle(String cmp) {
+        Medico_Service service = new Medico_Service();
+        Medico port = service.getMedicoPort();
+        return port.consultaDetalle(cmp);
+    }
+
+    public static List<WsDoctor> consultaDoctor(String cmp,String paterno,String materno,String nombres) {
+        Medico_Service service = new Medico_Service();
+        Medico port = service.getMedicoPort();
+        return port.consultaDoctor(cmp, paterno, materno, nombres);
+    }
+   
+   
 }

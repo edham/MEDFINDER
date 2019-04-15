@@ -25,10 +25,8 @@ import javax.xml.namespace.QName;
 public class ObjectFactory {
 
     private final static QName _ConsultaDetalle_QNAME = new QName("http://servicio/", "consultaDetalle");
-    private final static QName _ConsultaEspecialidadResponse_QNAME = new QName("http://servicio/", "consultaEspecialidadResponse");
     private final static QName _ConsultaDoctor_QNAME = new QName("http://servicio/", "consultaDoctor");
     private final static QName _ConsultaDoctorResponse_QNAME = new QName("http://servicio/", "consultaDoctorResponse");
-    private final static QName _ConsultaEspecialidad_QNAME = new QName("http://servicio/", "consultaEspecialidad");
     private final static QName _ConsultaDetalleResponse_QNAME = new QName("http://servicio/", "consultaDetalleResponse");
 
     /**
@@ -39,27 +37,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ConsultaEspecialidadResponse }
-     * 
-     */
-    public ConsultaEspecialidadResponse createConsultaEspecialidadResponse() {
-        return new ConsultaEspecialidadResponse();
-    }
-
-    /**
      * Create an instance of {@link ConsultaDetalle }
      * 
      */
     public ConsultaDetalle createConsultaDetalle() {
         return new ConsultaDetalle();
-    }
-
-    /**
-     * Create an instance of {@link ConsultaEspecialidad }
-     * 
-     */
-    public ConsultaEspecialidad createConsultaEspecialidad() {
-        return new ConsultaEspecialidad();
     }
 
     /**
@@ -87,27 +69,27 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Doctor }
+     * Create an instance of {@link WsEspecialidad }
      * 
      */
-    public Doctor createDoctor() {
-        return new Doctor();
+    public WsEspecialidad createWsEspecialidad() {
+        return new WsEspecialidad();
     }
 
     /**
-     * Create an instance of {@link Especialidad }
+     * Create an instance of {@link WsDetalle }
      * 
      */
-    public Especialidad createEspecialidad() {
-        return new Especialidad();
+    public WsDetalle createWsDetalle() {
+        return new WsDetalle();
     }
 
     /**
-     * Create an instance of {@link Detalle }
+     * Create an instance of {@link WsDoctor }
      * 
      */
-    public Detalle createDetalle() {
-        return new Detalle();
+    public WsDoctor createWsDoctor() {
+        return new WsDoctor();
     }
 
     /**
@@ -117,15 +99,6 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://servicio/", name = "consultaDetalle")
     public JAXBElement<ConsultaDetalle> createConsultaDetalle(ConsultaDetalle value) {
         return new JAXBElement<ConsultaDetalle>(_ConsultaDetalle_QNAME, ConsultaDetalle.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ConsultaEspecialidadResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://servicio/", name = "consultaEspecialidadResponse")
-    public JAXBElement<ConsultaEspecialidadResponse> createConsultaEspecialidadResponse(ConsultaEspecialidadResponse value) {
-        return new JAXBElement<ConsultaEspecialidadResponse>(_ConsultaEspecialidadResponse_QNAME, ConsultaEspecialidadResponse.class, null, value);
     }
 
     /**
@@ -144,15 +117,6 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://servicio/", name = "consultaDoctorResponse")
     public JAXBElement<ConsultaDoctorResponse> createConsultaDoctorResponse(ConsultaDoctorResponse value) {
         return new JAXBElement<ConsultaDoctorResponse>(_ConsultaDoctorResponse_QNAME, ConsultaDoctorResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ConsultaEspecialidad }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://servicio/", name = "consultaEspecialidad")
-    public JAXBElement<ConsultaEspecialidad> createConsultaEspecialidad(ConsultaEspecialidad value) {
-        return new JAXBElement<ConsultaEspecialidad>(_ConsultaEspecialidad_QNAME, ConsultaEspecialidad.class, null, value);
     }
 
     /**

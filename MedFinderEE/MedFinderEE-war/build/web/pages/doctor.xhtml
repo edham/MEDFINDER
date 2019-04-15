@@ -6,10 +6,10 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui">
 
-	<h:body >
+    <h:body >
         <ui:composition template="/WEB-INF/templates/default.xhtml">
             <ui:define name="content">
-            	<h1>GESTIÓN DE DOCTORES</h1>
+                <h1>GESTIÓN DE DOCTORES</h1>
 
                 <h:form id="form">
                     <p:growl id="msgs" showDetail="true" />
@@ -17,8 +17,8 @@
                         <!-- Widget -->
                         <!-- Widget -->
                         <div class="widget">
-                             <p:panelGrid class="pnoborder" layout="grid" columnClasses="ui-grid-col-12"  columns="1">
-                                  <p:panelGrid class="pnoborder" layout="grid" columnClasses="ui-grid-col-1,ui-grid-col-4 center,ui-grid-col-7" columns="3" >
+                            <p:panelGrid class="pnoborder" layout="grid" columnClasses="ui-grid-col-12"  columns="1">
+                                <p:panelGrid class="pnoborder" layout="grid" columnClasses="ui-grid-col-1,ui-grid-col-4 center,ui-grid-col-7" columns="3" >
                                     <p:outputLabel value="BUSCAR"/>
                                     <p:autoComplete 
                                         inputStyle="width: 300px" size="150" scrollHeight="150" var="item_autocomplete" itemLabel="#{item_autocomplete.apellidoPaterno} #{item_autocomplete.apellidoMaterno} "
@@ -26,453 +26,455 @@
                                         converter="personaConverter" id="autoPersonas" minQueryLength="3" value="#{managedBeanDoctor.objPersona}"  completeMethod="#{managedBeanPersona.getListaobjPersonaFilro}" effect="fade" >
                                         <p:ajax event="itemSelect" /> 
                                     </p:autoComplete>
-                                     <p:commandButton update=":frm_doctor :form:msgs" value="AGREGAR"  oncomplete="PF('dlgdoctor').show();" actionListener="#{managedBeanDoctor.limpiar(false)}" /> 
-                               
+                                    <p:commandButton update=":frm_doctor :form:msgs" value="AGREGAR"  oncomplete="PF('dlgdoctor').show();" actionListener="#{managedBeanDoctor.limpiar(false)}" /> 
+
                                 </p:panelGrid>
-                              <p:dataTable  id="lista" widgetVar="lista" var="item" value="#{managedBeanDoctor.listaobjDoctor}" rows="10" scrollable="true" scrollHeight="180"
+                                <p:dataTable  id="lista" widgetVar="lista" var="item" value="#{managedBeanDoctor.listaobjDoctor}" rows="10" scrollable="true" scrollHeight="180"
                                               paginator="true" rowStyleClass="#{item.estado eq 0 ? 'colored' : (item.estado eq 1 ? 'colored1' : null)}" rowIndexVar="rowIndex" 
-                                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                         rowsPerPageTemplate="5,10,15">
+                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                              rowsPerPageTemplate="5,10,15">
 
 
-                                                 <f:facet name="header">
+                                    <f:facet name="header">
 
-                                                    LISTA DE DOCTORES
-                                                </f:facet>
-                                                 <p:column headerText="N°" style="width:15px; text-align: center">
-                                                       <p:outputLabel value="#{rowIndex + 1}" />
-                                                </p:column>
-                                                <p:column style="width:80px;text-align: center">
-                                                   <p:commandButton icon="ui-icon-pencil" onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"
-                                                      update=":frm_doctor :form:msgs" value=""  title="EDITAR" oncomplete="PF('dlgdoctor').show();"  actionListener="#{managedBeanDoctor.actualizar(item)}"/>  
-                                                   <p:commandButton icon="ui-icon-check" onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"
-                                                       update=":frm_validar :form:msgs" value=""  title="VALIDAR" oncomplete="PF('dlgValidar').show();"  actionListener="#{managedBeanDoctor.actualizar(item)}"/>  
-                                                </p:column>
-                                                <p:column headerText="DNI" filterBy="#{item.persona.dni}" style="text-align: center">
-                                                   <p:outputLabel value="#{item.persona.dni}" />
-                                                </p:column>
-                                                <p:column headerText="COLEGIATURA" filterBy="#{item.codigoColegiatura}" style="text-align: center">
-                                                   <p:outputLabel value="#{item.codigoColegiatura}" />
-                                                </p:column>
-                                                <p:column headerText="ESPECIALIDAD" filterBy="#{item.especialidad.nombre}" style="text-align: center">
-                                                   <p:outputLabel value="#{item.especialidad.nombre}" />
-                                                </p:column>
-                                                <p:column headerText="A. PATERNO" filterBy="#{item.persona.apellidoPaterno}" style="text-align: center">
-                                                   <p:outputLabel value="#{item.persona.apellidoPaterno}" />
-                                                </p:column>
-                                                <p:column headerText="A. MATERNO" filterBy="#{item.persona.apellidoMaterno}" style="text-align: center">
-                                                   <p:outputLabel value="#{item.persona.apellidoMaterno}" />
-                                                </p:column>
-                                               <p:column headerText="NOMBRE" filterBy="#{item.persona.nombre}" style="text-align: center">
-                                                   <p:outputLabel value="#{item.persona.nombre}" />
-                                                </p:column>
-                                                <p:column headerText="SEXO" style="width:60px; text-align: center" filterBy="#{item.persona.sexo}" filterMatchMode="contains">
-                                                        <f:facet name="filter">
-                                                                                <p:selectOneMenu onchange="PF('lista').filter()" >
-                                                                                    <f:selectItem itemLabel="TODOS" itemValue="#{null}" noSelectionOption="true" />
-                                                                                    <f:selectItem itemLabel="HOMBRE" itemValue="true" />
-                                                                                    <f:selectItem itemLabel="MUJER" itemValue="false" />
-                                                                                </p:selectOneMenu>
-                                                                            </f:facet>
-                                                <p:outputLabel value="#{item.persona.sexo eq true ?'HOMBRE':'MUJER'}" >
-                                                        <f:converter converterId="javax.faces.Character" />                                    
-                                                    </p:outputLabel>
-                                                </p:column>   
-                                                <p:column headerText="RESPUESTAS"  style="text-align: center">
-                                                 <p:commandLink value="#{item.respuestaCasoSaludList.size()}" update=":frm_respuestas" oncomplete="PF('dlgrespuestas').show();">
-                                                     <f:setPropertyActionListener value="#{item}" target="#{managedBeanDoctor.objDoctor}"/>                                                
-                                                    </p:commandLink>
-                                                </p:column>
-                                                <p:column headerText="ANULADAS"  style="text-align: center">
-                                                 <p:commandLink value="#{managedBeanDoctor.contarRespuestaAnulada(item.respuestaCasoSaludList)}" update=":frm_respuestas" oncomplete="PF('dlgrespuestas').show();">
-                                                     <f:setPropertyActionListener value="#{item}" target="#{managedBeanDoctor.objDoctor}"/>                                                
-                                                    </p:commandLink>
-                                                </p:column>
-                                                <p:column headerText="ESTADO" style="width:60px; text-align: center" filterBy="#{item.estado}" filterMatchMode="contains">
-                                                        <f:facet name="filter">
-                                                                                <p:selectOneMenu onchange="PF('lista').filter()" >
-                                                                                    <f:selectItem itemLabel="TODOS" itemValue="#{null}" noSelectionOption="true" />
-                                                                                      <f:selectItem itemLabel="NUEVO" itemValue="1" />
-                                                                                    <f:selectItem itemLabel="ACTIVO" itemValue="2" />
-                                                                                    <f:selectItem itemLabel="DESACTIVO" itemValue="0" />
-                                                                                </p:selectOneMenu>
-                                                                            </f:facet>
-                                                    <p:outputLabel value="#{item.estado eq 1 ?'NUEVO':(item.estado eq 2 ?'ACTIVO':(item.estado eq 0 ?'DESACTIVO':''))}" >
-                                                        <f:converter converterId="javax.faces.Character" />                                    
-                                                    </p:outputLabel>
-                                                </p:column>   
-                                               
+                                        LISTA DE DOCTORES
+                                    </f:facet>
+                                    <p:column headerText="N°" style="width:15px; text-align: center">
+                                        <p:outputLabel value="#{rowIndex + 1}" />
+                                    </p:column>
+                                    <p:column style="width:80px;text-align: center">
+                                        <p:commandButton icon="ui-icon-pencil" onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"
+                                                         update=":frm_doctor :form:msgs" value=""  title="EDITAR" oncomplete="PF('dlgdoctor').show();"  actionListener="#{managedBeanDoctor.actualizar(item)}"/>  
+                                        <p:commandButton icon="ui-icon-check" onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"
+                                                         update=":frm_validar :form:msgs" value=""  title="VALIDAR" oncomplete="PF('dlgValidar').show();"  actionListener="#{managedBeanDoctor.actualizar(item)}"/>  
+                                    </p:column>
+                                    <p:column headerText="DNI" filterBy="#{item.persona.dni}" style="text-align: center">
+                                        <p:outputLabel value="#{item.persona.dni}" />
+                                    </p:column>
+                                    <p:column headerText="COLEGIATURA" filterBy="#{item.codigoColegiatura}" style="text-align: center">
+                                        <p:outputLabel value="#{item.codigoColegiatura}" />
+                                    </p:column>
+                                    <p:column headerText="ESPECIALIDAD" filterBy="#{item.especialidad.nombre}" style="text-align: center">
+                                        <p:outputLabel value="#{item.especialidad.nombre}" />
+                                    </p:column>
+                                    <p:column headerText="A. PATERNO" filterBy="#{item.persona.apellidoPaterno}" style="text-align: center">
+                                        <p:outputLabel value="#{item.persona.apellidoPaterno}" />
+                                    </p:column>
+                                    <p:column headerText="A. MATERNO" filterBy="#{item.persona.apellidoMaterno}" style="text-align: center">
+                                        <p:outputLabel value="#{item.persona.apellidoMaterno}" />
+                                    </p:column>
+                                    <p:column headerText="NOMBRE" filterBy="#{item.persona.nombre}" style="text-align: center">
+                                        <p:outputLabel value="#{item.persona.nombre}" />
+                                    </p:column>
+                                    <p:column headerText="SEXO" style="width:60px; text-align: center" filterBy="#{item.persona.sexo}" filterMatchMode="contains">
+                                        <f:facet name="filter">
+                                            <p:selectOneMenu onchange="PF('lista').filter()" >
+                                                <f:selectItem itemLabel="TODOS" itemValue="#{null}" noSelectionOption="true" />
+                                                <f:selectItem itemLabel="HOMBRE" itemValue="true" />
+                                                <f:selectItem itemLabel="MUJER" itemValue="false" />
+                                            </p:selectOneMenu>
+                                        </f:facet>
+                                        <p:outputLabel value="#{item.persona.sexo eq true ?'HOMBRE':'MUJER'}" >
+                                            <f:converter converterId="javax.faces.Character" />                                    
+                                        </p:outputLabel>
+                                    </p:column>   
+                                    <p:column headerText="RESPUESTAS"  style="text-align: center">
+                                        <p:commandLink value="#{item.respuestaCasoSaludList.size()}" update=":frm_respuestas" oncomplete="PF('dlgrespuestas').show();">
+                                            <f:setPropertyActionListener value="#{item}" target="#{managedBeanDoctor.objDoctor}"/>                                                
+                                        </p:commandLink>
+                                    </p:column>
+                                    <p:column headerText="ANULADAS"  style="text-align: center">
+                                        <p:commandLink value="#{managedBeanDoctor.contarRespuestaAnulada(item.respuestaCasoSaludList)}" update=":frm_respuestas" oncomplete="PF('dlgrespuestas').show();">
+                                            <f:setPropertyActionListener value="#{item}" target="#{managedBeanDoctor.objDoctor}"/>                                                
+                                        </p:commandLink>
+                                    </p:column>
+                                    <p:column headerText="ESTADO" style="width:60px; text-align: center" filterBy="#{item.estado}" filterMatchMode="contains">
+                                        <f:facet name="filter">
+                                            <p:selectOneMenu onchange="PF('lista').filter()" >
+                                                <f:selectItem itemLabel="TODOS" itemValue="#{null}" noSelectionOption="true" />
+                                                <f:selectItem itemLabel="NUEVO" itemValue="1" />
+                                                <f:selectItem itemLabel="ACTIVO" itemValue="2" />
+                                                <f:selectItem itemLabel="DESACTIVO" itemValue="0" />
+                                            </p:selectOneMenu>
+                                        </f:facet>
+                                        <p:outputLabel value="#{item.estado eq 1 ?'NUEVO':(item.estado eq 2 ?'ACTIVO':(item.estado eq 0 ?'DESACTIVO':''))}" >
+                                            <f:converter converterId="javax.faces.Character" />                                    
+                                        </p:outputLabel>
+                                    </p:column>   
+
 
                                 </p:dataTable>	
                             </p:panelGrid>
-                            
+
                         </div>
-                       
+
                         <!-- // Widget END -->
                     </div>	
-                 
+
                 </h:form> 
 
-                
-                <h:form id="frm_doctor" >
-                    <p:dialog header="#{managedBeanDoctor.nuevoTitulo}"  id="dlgdoctor" closable="true" resizable="false"  widgetVar="dlgdoctor" showEffect="explode" width="1000">
-                    
-                                  <p:panelGrid id="datos" style="vertical-align: top" class="pnoborder" columnClasses="ui-grid-col-4,ui-grid-col-3,ui-grid-col-5"  layout="grid" columns="3">
-                                    <p:panel  header="DATOS PERSONA">
-                                    <p:panelGrid columnClasses="ui-grid-col-5,ui-grid-col-7" class="pnoborder" layout="grid" columns="2">
-                                        <p:outputLabel for="paterno" value="A. PATERNO"/>   
-                                        <p:inputText id="paterno"  required="true" value="#{managedBeanDoctor.objPersona.apellidoPaterno}"/>
-                                        <p:outputLabel for="materno" value="A. MATERNO"/>   
-                                        <p:inputText id="materno" required="true"  value="#{managedBeanDoctor.objPersona.apellidoMaterno}"/>
-                                        <p:outputLabel for="nombres" value="NOMBRES"/>   
-                                        <p:inputText id="nombres" required="true" value="#{managedBeanDoctor.objPersona.nombre}"/>
-                                        <p:outputLabel for="dni" value="DNI"/>   
-                                        <p:inputText id="dni" required="true" value="#{managedBeanDoctor.objPersona.dni}"/>
-                                        <p:outputLabel for="nacimiento" value="FEC. NAC."/>   
-                                        <p:calendar id="nacimiento" required="true" value="#{managedBeanDoctor.objPersona.fechaNacimiento}" locale="es" navigator="true" pattern="dd/MM/yyyy" maxdate="#{managedBeanDoctor.maxDate}"  />
-                                        
-                                        <p:outputLabel for="sexo" value="SEXO"/>
-                                        <p:selectOneRadio id="sexo" required="true" value="#{managedBeanDoctor.objPersona.sexo}">
-                                                                        <f:selectItem itemLabel="HOMBRE" itemValue="true" />
-                                                                        <f:selectItem itemLabel="MUJER" itemValue="false" />
-                                        </p:selectOneRadio>
-                                         
-                                         <p:outputLabel value="DEPARTAMENTO"/>
-                                          <p:selectOneMenu filter="true" widgetVar="departamento" filterMatchMode="contains" value="#{managedBeanDistrito.objDepartamento}" converter="departamentoConverter">
-                                            <f:selectItem itemLabel="#{managedBeanDepartamento.objDepartamentoVacio.nombre}" itemValue="#{managedBeanDistrito.objDepartamento}" noSelectionOption="false" />
-                                            <f:selectItems   value="#{managedBeanDepartamento.objDepartamentoItems}"/>	                                        
-                                            <p:ajax  update=":frm_doctor:provincia " /> 
-                                        </p:selectOneMenu>
-                                          <p:outputLabel value="PROVNCIA"/>
-                                          <p:selectOneMenu id="provincia" widgetVar="provincia"  filter="true" filterMatchMode="contains" value="#{managedBeanDistrito.objProvincia}" converter="provinciaConverter">
-                                              <f:selectItem itemLabel="#{managedBeanProvincia.objProvinciaVacio.nombre}" itemValue="#{managedBeanDistrito.objProvincia}" noSelectionOption="false" />
-                                              <f:selectItems   value="#{managedBeanDistrito.objProvinciaItems}"/>	                                        
-                                          <p:ajax  update=":frm_doctor:distrito" /> 
-                                        </p:selectOneMenu>
-                                          <p:outputLabel for="distrito" value="DISTRITO"/>
-                                          <p:selectOneMenu id="distrito" requiredMessage="SELECCION UN DISTRITO" required="true" widgetVar="distrito"  filter="true" filterMatchMode="contains" value="#{managedBeanDoctor.objPersona.distrito}"  onchange="geocodeClick()" converter="distritoConverter">
-                                            <f:selectItem itemLabel="#{managedBeanDistrito.objDistritoVacio.nombre}" itemValue="#{managedBeanDoctor.objPersona.distrito}" />
-                                              <f:selectItems   value="#{managedBeanDistrito.objDistritoItems}"/>	                                        
-                                              
-                                        </p:selectOneMenu>
-                                          <p:outputLabel for="direccion" value="DIR. DOMICILIO"/>
-                                         <p:inputTextarea id="direccion" required="true" rows="2"  value="#{managedBeanDoctor.objPersona.direccion}"/>
-                                         <p:outputLabel for="telefono" value="TELEFONO"/>   
-                                         <p:inputText id="telefono" required="true" value="#{managedBeanDoctor.objPersona.telefono}"/>
-                                         <p:outputLabel for="correo" value="CORREO"/>   
-                                         <p:inputText id="correo" required="true" value="#{managedBeanDoctor.objPersona.email}"/>
-                                        
-                                    </p:panelGrid>
-                                   </p:panel>  
-                                    <p:panel  header="DATOS UBICACIÓN">
-                                           <p:gmap id="geoGmap" widgetVar="geoMap" center="#{managedBeanDoctor.centerGeoMap}" zoom="15" type="ROADMAP" model="#{managedBeanDoctor.geoModel}" style="width:195px;height:530px">
-                                        <p:ajax event="geocode" listener="#{managedBeanDoctor.onGeocode}" update="@this" />
-                                            <p:ajax event="markerDrag" listener="#{managedBeanDoctor.onMarkerDrag}" update=":form:msgs" />                                        
-                                        </p:gmap>
-                                    </p:panel>  
-                                  
-                                      
-                                   <p:panelGrid class="pnoborder" layout="grid" columnClasses="ui-grid-col-12" style="vertical-align: top" columns="1">
-                                      <p:panel  id="image" header="DATOS USUARIO">
-                                           <p:panelGrid class="pnoborder" layout="grid" columnClasses="ui-grid-col-4,ui-grid-col-8" style="vertical-align: top;"  columns="2">
-                                                <p:outputLabel value="USUARIO"/>   
-                                                <p:outputLabel value="#{managedBeanDoctor.objUsuario.usuario}"/>   
-                                                <p:outputLabel for="clave" value="CLAVE"/>   
-                                                <p:inputText id="clave" required="true"  value="#{managedBeanDoctor.objUsuario.clave}"/>
-                                                <p:graphicImage   value="#{managedBeanDoctor.imagen}" width="80" cache="false"  id="grpImage" height="80"/>
 
-                                                <p:fileUpload  fileUploadListener="#{managedBeanDoctor.subirImagen}" mode="advanced"  skinSimple="true"
-                                                    update=":frm_doctor:image :form:msgs" auto="true"  sizeLimit="100000000" allowTypes="/(\.|\/)(jpeg|png)$/"
-                                                    label="SUBIR IMAGEN" />    
-                                           </p:panelGrid>
-                                      </p:panel>
-                                        <p:panel  header="DATOS DOCTOR">         
+                <h:form id="frm_doctor" >
+                    <p:dialog  header="#{managedBeanDoctor.nuevoTitulo}"  id="dlgdoctor" closable="true" resizable="false"  widgetVar="dlgdoctor" showEffect="explode" width="1000">
+
+                        <p:panelGrid id="datos" style="vertical-align: top" class="pnoborder" columnClasses="ui-grid-col-4,ui-grid-col-3,ui-grid-col-5"  layout="grid" columns="3">
+                            <p:panel  header="DATOS PERSONA">
+                                <p:panelGrid columnClasses="ui-grid-col-5,ui-grid-col-7" class="pnoborder" layout="grid" columns="2">
+                                    <p:outputLabel for="paterno" value="A. PATERNO"/>   
+                                    <p:inputText id="paterno"  required="true" value="#{managedBeanDoctor.objPersona.apellidoPaterno}"/>
+                                    <p:outputLabel for="materno" value="A. MATERNO"/>   
+                                    <p:inputText id="materno" required="true"  value="#{managedBeanDoctor.objPersona.apellidoMaterno}"/>
+                                    <p:outputLabel for="nombres" value="NOMBRES"/>   
+                                    <p:inputText id="nombres" required="true" value="#{managedBeanDoctor.objPersona.nombre}"/>
+                                    <p:outputLabel for="dni" value="DNI"/>   
+                                    <p:inputText id="dni" required="true" value="#{managedBeanDoctor.objPersona.dni}"/>
+                                    <p:outputLabel for="nacimiento" value="FEC. NAC."/>   
+                                    <p:calendar id="nacimiento" required="true" value="#{managedBeanDoctor.objPersona.fechaNacimiento}" locale="es" navigator="true" pattern="dd/MM/yyyy" maxdate="#{managedBeanDoctor.maxDate}"  />
+
+                                    <p:outputLabel for="sexo" value="SEXO"/>
+                                    <p:selectOneRadio id="sexo" required="true" value="#{managedBeanDoctor.objPersona.sexo}">
+                                        <f:selectItem itemLabel="HOMBRE" itemValue="true" />
+                                        <f:selectItem itemLabel="MUJER" itemValue="false" />
+                                    </p:selectOneRadio>
+
+                                    <p:outputLabel value="DEPARTAMENTO"/>
+                                    <p:selectOneMenu filter="true" widgetVar="departamento" filterMatchMode="contains" value="#{managedBeanDistrito.objDepartamento}" converter="departamentoConverter">
+                                        <f:selectItem itemLabel="#{managedBeanDepartamento.objDepartamentoVacio.nombre}" itemValue="#{managedBeanDistrito.objDepartamento}" noSelectionOption="false" />
+                                        <f:selectItems   value="#{managedBeanDepartamento.objDepartamentoItems}"/>	                                        
+                                        <p:ajax  update=":frm_doctor:provincia " /> 
+                                    </p:selectOneMenu>
+                                    <p:outputLabel value="PROVNCIA"/>
+                                    <p:selectOneMenu id="provincia" widgetVar="provincia"  filter="true" filterMatchMode="contains" value="#{managedBeanDistrito.objProvincia}" converter="provinciaConverter">
+                                        <f:selectItem itemLabel="#{managedBeanProvincia.objProvinciaVacio.nombre}" itemValue="#{managedBeanDistrito.objProvincia}" noSelectionOption="false" />
+                                        <f:selectItems   value="#{managedBeanDistrito.objProvinciaItems}"/>	                                        
+                                        <p:ajax  update=":frm_doctor:distrito" /> 
+                                    </p:selectOneMenu>
+                                    <p:outputLabel for="distrito" value="DISTRITO"/>
+                                    <p:selectOneMenu id="distrito" requiredMessage="SELECCION UN DISTRITO" required="true" widgetVar="distrito"  filter="true" filterMatchMode="contains" value="#{managedBeanDoctor.objPersona.distrito}"  onchange="geocodeClick()" converter="distritoConverter">
+                                        <f:selectItem itemLabel="#{managedBeanDistrito.objDistritoVacio.nombre}" itemValue="#{managedBeanDoctor.objPersona.distrito}" />
+                                        <f:selectItems   value="#{managedBeanDistrito.objDistritoItems}"/>	                                        
+
+                                    </p:selectOneMenu>
+                                    <p:outputLabel for="direccion" value="DIR. DOMICILIO"/>
+                                    <p:inputTextarea id="direccion" required="true" rows="2"  value="#{managedBeanDoctor.objPersona.direccion}"/>
+                                    <p:outputLabel for="telefono" value="TELEFONO"/>   
+                                    <p:inputText id="telefono" required="true" value="#{managedBeanDoctor.objPersona.telefono}"/>
+                                    <p:outputLabel for="correo" value="CORREO"/>   
+                                    <p:inputText id="correo" required="true" value="#{managedBeanDoctor.objPersona.email}"/>
+
+                                </p:panelGrid>
+                            </p:panel>  
+                            <p:panel  header="DATOS UBICACIÓN">
+                                <p:gmap id="geoGmap" widgetVar="geoMap" center="#{managedBeanDoctor.centerGeoMap}" zoom="15" type="ROADMAP" model="#{managedBeanDoctor.geoModel}" style="width:195px;height:530px">
+                                    <p:ajax event="geocode" listener="#{managedBeanDoctor.onGeocode}" update="@this" />
+                                    <p:ajax event="markerDrag" listener="#{managedBeanDoctor.onMarkerDrag}" update=":form:msgs" />                                        
+                                </p:gmap>
+                            </p:panel>  
+
+
+                            <p:panelGrid class="pnoborder" layout="grid" columnClasses="ui-grid-col-12" style="vertical-align: top" columns="1">
+                                <p:panel  id="image" header="DATOS USUARIO">
+                                    <p:panelGrid class="pnoborder" layout="grid" columnClasses="ui-grid-col-4,ui-grid-col-8" style="vertical-align: top;"  columns="2">
+                                        <p:outputLabel value="USUARIO"/>   
+                                        <p:outputLabel value="#{managedBeanDoctor.objUsuario.usuario}"/>   
+                                        <p:outputLabel for="clave" value="CLAVE"/>   
+                                        <p:inputText id="clave" required="true"  value="#{managedBeanDoctor.objUsuario.clave}"/>
+                                        <p:graphicImage   value="#{managedBeanDoctor.imagen}" width="80" cache="false"  id="grpImage" height="80"/>
+
+                                        <p:fileUpload  fileUploadListener="#{managedBeanDoctor.subirImagen}" mode="advanced"  skinSimple="true"
+                                                       update=":frm_doctor:image :form:msgs" auto="true"  sizeLimit="100000000" allowTypes="/(\.|\/)(jpeg|png)$/"
+                                                       label="SUBIR IMAGEN" />    
+                                    </p:panelGrid>
+                                </p:panel>
+                                <p:panel  header="DATOS DOCTOR">         
                                     <p:panelGrid class="pnoborder" layout="grid"  columnClasses="ui-grid-col-5,ui-grid-col-7" columns="2">
                                         <p:outputLabel for="especialidad" value="ESPECIALIDAD"/>
                                         <p:selectOneMenu requiredMessage="SELECCIONES ESPECIALIDAD" id="especialidad" required="true" filter="true" filterMatchMode="contains" value="#{managedBeanDoctor.objDoctor.especialidad}"  converter="especialidadConverter">
                                             <f:selectItem itemLabel="#{managedBeanEspecialidad.objEspecialidadVacio.nombre}" itemValue="#{managedBeanDoctor.objDoctor.especialidad}" noSelectionOption="false" />
-                                              <f:selectItems   value="#{managedBeanEspecialidad.objEspecialidadItems}"/>	                                        
-                                              
+                                            <f:selectItems   value="#{managedBeanEspecialidad.objEspecialidadItems}"/>	                                        
+
                                         </p:selectOneMenu>
                                         <p:outputLabel for="colegiatura" value="N° COLEGIATURA"/>
                                         <p:inputText id="colegiatura" required="true" value="#{managedBeanDoctor.objDoctor.codigoColegiatura}"/>
                                         <p:outputLabel for="tele"  value="TELEFONO"/>
-                                         <p:inputText id="tele" required="true" value="#{managedBeanDoctor.objDoctor.telefono}"/>
-                                         <p:outputLabel for="consul" value="DIR. CONSULTORIO"/>
-                                         <p:inputTextarea rows="2" id="consul" required="true" value="#{managedBeanDoctor.objDoctor.direccion}"/>
-                                         <p:outputLabel for="det" value="DETALLE DE DIR."/>
-                                         <p:inputTextarea rows="2" id="det" required="true" value="#{managedBeanDoctor.objDoctor.direccionDetalle}"/>
-                                         <p:outputLabel for="estado" value="ESTADO"/>
+                                        <p:inputText id="tele" required="true" value="#{managedBeanDoctor.objDoctor.telefono}"/>
+                                        <p:outputLabel for="consul" value="DIR. CONSULTORIO"/>
+                                        <p:inputTextarea rows="2" id="consul" required="true" value="#{managedBeanDoctor.objDoctor.direccion}"/>
+                                        <p:outputLabel for="det" value="DETALLE DE DIR."/>
+                                        <p:inputTextarea rows="2" id="det" required="true" value="#{managedBeanDoctor.objDoctor.direccionDetalle}"/>
+                                        <p:outputLabel for="estado" value="ESTADO"/>
                                         <p:selectOneRadio id="estado" required="true" value="#{managedBeanDoctor.objDoctor.estado}">
-                                                                        <f:selectItem itemLabel="ACTIVO" itemValue="2" />
-                                                                        <f:selectItem itemLabel="DESACTIVO" itemValue="0" />
+                                            <f:selectItem itemLabel="ACTIVO" itemValue="2" />
+                                            <f:selectItem itemLabel="DESACTIVO" itemValue="0" />
                                         </p:selectOneRadio>
-                                       
+
                                     </p:panelGrid>
-                                   </p:panel>  
-                                       <p:panelGrid  layout="grid"  columnClasses="ui-grid-col-3,ui-grid-col-9" columns="2">
-                                           <p:commandButton value="ACEPTAR" update=":frm_doctor:datos :form:msgs" 
-                                            oncomplete="if (!args.validationFailed) PF('dlgdoctor').hide()" actionListener="#{managedBeanDoctor.crear()}" />
-                                           <p:commandButton value="CERRAR" update=":frm_doctor:datos :form:msgs" oncomplete="PF('dlgdoctor').hide();"
-                                             immediate="true" process="@this" actionListener="#{managedBeanDoctor.limpiar(true)}"/>  
-                    
-                                       </p:panelGrid>
-                                  
-                                        
-                                  </p:panelGrid>
-                                 
-                                  </p:panelGrid>
-                   </p:dialog>
+                                </p:panel>  
+                                <p:panelGrid  layout="grid"  columnClasses="ui-grid-col-3,ui-grid-col-9" columns="2">
+                                    <p:commandButton value="ACEPTAR" update=":frm_doctor:datos :form:msgs" 
+                                                     oncomplete="if (!args.validationFailed) PF('dlgdoctor').hide()" actionListener="#{managedBeanDoctor.crear()}" />
+                                    <p:commandButton value="CERRAR" update=":frm_doctor:datos :form:msgs" oncomplete="PF('dlgdoctor').hide();"
+                                                     immediate="true" process="@this" actionListener="#{managedBeanDoctor.limpiar(true)}"/>  
+
+                                </p:panelGrid>
+
+
+                            </p:panelGrid>
+
+                        </p:panelGrid>
+                    </p:dialog>
                 </h:form>
-                
-                 <h:form id="frm_respuestas" >
-                     <p:dialog header="RESPUESTAS: #{managedBeanDoctor.objDoctor.persona.apellidoPaterno}"  resizable="false" id="dlgrespuestas" widgetVar="dlgrespuestas" showEffect="explode" height="430" width="900">
-                      
+
+                <h:form id="frm_respuestas" >
+                    <p:dialog header="RESPUESTAS: #{managedBeanDoctor.objDoctor.persona.apellidoPaterno}"  resizable="false" id="dlgrespuestas" widgetVar="dlgrespuestas" showEffect="explode" height="430" width="900">
+
                         <p:panel  style="margin-bottom:10px;">
                             <p:dataTable  id="listaCasos" widgetVar="listaCasos" var="item" value="#{managedBeanDoctor.objDoctor.respuestaCasoSaludList}" rows="10" scrollable="true" scrollHeight="230"
-                                              paginator="true" rowStyleClass="#{item.estado eq 0 ? 'colored' : null}" rowIndexVar="rowIndex" 
-                                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                         rowsPerPageTemplate="5,10,15">
+                                          paginator="true" rowStyleClass="#{item.estado eq 0 ? 'colored' : null}" rowIndexVar="rowIndex" 
+                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                          rowsPerPageTemplate="5,10,15">
 
 
-                                                 <f:facet name="header">
+                                <f:facet name="header">
 
-                                                    LISTA DE RESPUESTA
-                                                </f:facet>
-                                                 <p:column headerText="N°" style="width:15px; text-align: center">
-                                                       <p:outputLabel value="#{rowIndex + 1}" />
-                                                </p:column>
-                                                <p:column style="width:40px;text-align: center">
-                                                    <p:commandButton icon="#{item.estado eq 1 ?'ui-icon-trash':'ui-icon-arrowreturnthick-1-w'}" update=":frm_respuesta_editar" value=""  title="#{item.estado eq 1 ?'ELIMINAR':'RESTAURAR'}" oncomplete="PF('dlgrespuestaeditar').show();"  actionListener="#{managedBeanRespuestaCasosSalud.selecionar(item)}"/>
-                                                     
-                                                </p:column> 
-                                            <p:column headerText="TEMA" filterBy="#{item.casosSalud.tema}" style="text-align: center">
-                                                     <p:outputLabel value="#{item.casosSalud.tema.toUpperCase()}" />
-                                                </p:column>
-                                                <p:column headerText="DESCRIPCION" filterBy="#{item.descripcion}" style="text-align: center">
-                                                     <p:outputLabel value="#{item.descripcion.toUpperCase()}" />
-                                                </p:column>
-                                               
-                                                <p:column headerText="ESTADO" style="width:95px; text-align: center" filterBy="#{item.estado}" filterMatchMode="contains">
-                                                        <f:facet name="filter">
-                                                                                <p:selectOneMenu onchange="PF('listaCasos').filter()" >
-                                                                                    <f:selectItem itemLabel="TODOS" itemValue="#{null}" noSelectionOption="true" />
-                                                                                    <f:selectItem itemLabel="ACTIVO" itemValue="1" />
-                                                                                    <f:selectItem itemLabel="DESACTIVO" itemValue="0" />
-                                                                                </p:selectOneMenu>
-                                                                            </f:facet>
-                                                      <p:outputLabel value="#{item.estado eq 1 ?'ACTIVO':'DESACTIVO'}" >
-                                                        <f:converter converterId="javax.faces.Character" />                                    
-                                                     </p:outputLabel>
-                                                </p:column>   
-                                               
+                                    LISTA DE RESPUESTA
+                                </f:facet>
+                                <p:column headerText="N°" style="width:15px; text-align: center">
+                                    <p:outputLabel value="#{rowIndex + 1}" />
+                                </p:column>
+                                <p:column style="width:40px;text-align: center">
+                                    <p:commandButton icon="#{item.estado eq 1 ?'ui-icon-trash':'ui-icon-arrowreturnthick-1-w'}" update=":frm_respuesta_editar" value=""  title="#{item.estado eq 1 ?'ELIMINAR':'RESTAURAR'}" oncomplete="PF('dlgrespuestaeditar').show();"  actionListener="#{managedBeanRespuestaCasosSalud.selecionar(item)}"/>
 
-                                </p:dataTable>
-                               <p:separator />
-                               <p:commandButton value="CERRAR" oncomplete="PF('dlgrespuestas').hide();"    />  
-                            </p:panel>
-                    
-                      </p:dialog>
-                  </h:form>
-                 <h:form id="frm_respuesta_editar" >
-                     <p:dialog header="#{managedBeanRespuestaCasosSalud.editarRespuesta}" closable="true" resizable="false" widgetVar="dlgrespuestaeditar" id="dlgrespuestaeditar" showEffect="explode" height="30" width="280">
+                                </p:column> 
+                                <p:column headerText="TEMA" filterBy="#{item.casosSalud.tema}" style="text-align: center">
+                                    <p:outputLabel value="#{item.casosSalud.tema.toUpperCase()}" />
+                                </p:column>
+                                <p:column headerText="DESCRIPCION" filterBy="#{item.descripcion}" style="text-align: center">
+                                    <p:outputLabel value="#{item.descripcion.toUpperCase()}" />
+                                </p:column>
+
+                                <p:column headerText="ESTADO" style="width:95px; text-align: center" filterBy="#{item.estado}" filterMatchMode="contains">
+                                    <f:facet name="filter">
+                                        <p:selectOneMenu onchange="PF('listaCasos').filter()" >
+                                            <f:selectItem itemLabel="TODOS" itemValue="#{null}" noSelectionOption="true" />
+                                            <f:selectItem itemLabel="ACTIVO" itemValue="1" />
+                                            <f:selectItem itemLabel="DESACTIVO" itemValue="0" />
+                                        </p:selectOneMenu>
+                                    </f:facet>
+                                    <p:outputLabel value="#{item.estado eq 1 ?'ACTIVO':'DESACTIVO'}" >
+                                        <f:converter converterId="javax.faces.Character" />                                    
+                                    </p:outputLabel>
+                                </p:column>   
+
+
+                            </p:dataTable>
+                            <p:separator />
+                            <p:commandButton value="CERRAR" oncomplete="PF('dlgrespuestas').hide();"    />  
+                        </p:panel>
+
+                    </p:dialog>
+                </h:form>
+                <h:form id="frm_respuesta_editar" >
+                    <p:dialog header="#{managedBeanRespuestaCasosSalud.editarRespuesta}" closable="true" resizable="false" widgetVar="dlgrespuestaeditar" id="dlgrespuestaeditar" showEffect="explode" height="30" width="280">
 
                         <p:commandButton value="ACEPTAR" update=":form :frm_respuestas:listaCasos"   actionListener="#{managedBeanRespuestaCasosSalud.editar()}"  oncomplete="PF('dlgrespuestaeditar').hide();"  />
 
-                         <p:commandButton value="CANCELAR"  styleClass="btn btn-primary" oncomplete="PF('dlgrespuestaeditar').hide();"/>
+                        <p:commandButton value="CANCELAR"  styleClass="btn btn-primary" oncomplete="PF('dlgrespuestaeditar').hide();"/>
                     </p:dialog>
                 </h:form>
-                
-               <h:form id="frm_validar" >
-                    
-                    <p:dialog header="#{managedBeanDoctor.nuevoTitulo}" closable="true" resizable="false" widgetVar="dlgValidar" id="dlgValidar" showEffect="explode" width="1050">
-                          
-                                  <p:panelGrid class="pnoborder" layout="grid" columnClasses="ui-grid-col-4,ui-grid-col-4,ui-grid-col-4" style="vertical-align: top" columns="3">
-                                    <p:panel  header="DATOS PERSONA" >
-                                     <p:panelGrid class="pnoborder" layout="grid" style="vertical-align: top;" columnClasses="ui-grid-col-4,ui-grid-col-8" columns="2">
-                                        
-                                        
-                                        <p:graphicImage  value="#{managedBeanDoctor.imagen}" width="80" cache="false"  id="grpImage" height="80"/>
-                                        <p:panelGrid class="pnoborder" layout="grid" columnClasses="ui-grid-col-4,ui-grid-col-8"  columns="2">
-                                            <p:outputLabel value="PATERNO"/>   
-                                            <p:inputText style="width:100px;" readonly="true"  value="#{managedBeanDoctor.objPersona.apellidoPaterno}"/>
-                                            <p:outputLabel value="MATERNO"/>   
-                                             <p:inputText style="width:100px;"  readonly="true" value="#{managedBeanDoctor.objPersona.apellidoPaterno}"/>
-                                            <p:outputLabel value="NOM"/>   
-                                            <p:inputText style="width:100px;" readonly="true" value="#{managedBeanDoctor.objPersona.nombre}"/>
-                                        </p:panelGrid>
-                                        
-                                        <p:outputLabel value="DNI"/>   
-                                          <p:inputText readonly="true" value="#{managedBeanDoctor.objPersona.dni}"/>
-                                         <p:outputLabel value="FEC. NAC."/>   
-                                         <p:inputText readonly="true" value="#{managedBeanDoctor.objPersona.fechaNacimiento}" >
-                                            <f:convertDateTime pattern="dd/MM/yyyy" />
-                                        </p:inputText>
-                                        <p:outputLabel value="SEXO"/>
-                                         <p:inputText readonly="true" value="#{managedBeanDoctor.objPersona.sexo eq true ? 'HOMBRE':'MUJER'}"/>
-                                         
-                                       
-                                         
-                                         <p:outputLabel value="DEPARTAMENTO"/>
-                                         <p:inputText readonly="true"  value="#{managedBeanDistrito.objDepartamento.nombre}"/>
-                                          
-                                          <p:outputLabel value="PROVNCIA"/>
-                                          <p:inputText readonly="true"  value="#{managedBeanDistrito.objProvincia.nombre}"/>
-                                         
-                                        <p:outputLabel value="DISTRITO"/>
-                                         <p:inputText readonly="true"  value="#{managedBeanDoctor.objPersona.distrito.nombre}"/>
-                                         
-                                          <p:outputLabel value="DOMICILIO"/>
-                                         <p:inputTextarea readonly="true" rows="2"  value="#{managedBeanDoctor.objPersona.direccion}"/>
-                                         <p:outputLabel value="TELEFONO"/>   
-                                          <p:inputText readonly="true" value="#{managedBeanDoctor.objPersona.telefono}"/>
-                                         <p:outputLabel value="CORREO"/>   
-                                         <p:inputText readonly="true"  value="#{managedBeanDoctor.objPersona.email}"/>
-                                        
-                                    </p:panelGrid>
-                                   </p:panel>  
-                                   <p:panelGrid  layout="grid" columnClasses="ui-grid-col-12" class="pnoborder" columns="1">
-                                         <p:panel  header="VALIDAR DOCTOR" >
-                                            <p:panelGrid class="pnoborder" layout="grid" columnClasses="ui-grid-col-4,ui-grid-col-6,ui-grid-col-2"  columns="3">
-                                               
-                                                <p:outputLabel value="PATERNO"/> 
-                                                <p:inputText style="width: 110px"  value="#{managedBeanServicioDoctor.apellidos}" />
-                                                <p:commandButton icon="ui-icon-search"  onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"
-                                                                 update=":frm_validar:doctores :form:msgs" value="" process="@this" title="BUSCAR"  actionListener="#{managedBeanServicioDoctor.buscarNombres(managedBeanServicioDoctor.apellidos, managedBeanServicioDoctor.nombres)}"/>  
-                                                <p:outputLabel value="MATERNO"/> 
-                                                <p:inputText style="width: 110px"  value="#{managedBeanServicioDoctor.nombres}" />
-                                                <p:commandButton icon="ui-icon-refresh"  onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"
-                                                                 update=":frm_validar:doctores :frm_validar:datosDoctor :form:msgs" value="" immediate="true" process="@this" title="LIMPIAR"  actionListener="#{managedBeanServicioDoctor.limpiarTodo()}"/>  
-                                           
-                                           </p:panelGrid>
-                                             
-                                              <p:dataTable  id="doctores" widgetVar="doctores" var="doctor" 
-                                          value="#{managedBeanServicioDoctor.listDoctor}" rows="10" scrollable="true" 
-                                          scrollHeight="110" selectionMode="single" selection="#{managedBeanServicioDoctor.objetoDoctor}"
-                                          rowKey="#{doctor.cmp}"  rowIndexVar="rowIndex" >
-                                                  <p:ajax event="rowSelect" listener="#{managedBeanServicioDoctor.onRowSelect}" onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" update=":frm_validar:datosDoctor :form:msgs" />
-        
-                                                <p:column headerText="CMP"  style="text-align: center; width:40px;">
-                                                   <p:outputLabel value="#{doctor.cmp}" />
-                                                </p:column>
-                                               <p:column headerText="DOCTOR"  style="text-align: center">
-                                                   <p:outputLabel value="#{doctor.apellidos} #{doctor.nombres}" />
-                                                </p:column>                                              
-                                           </p:dataTable>
-                                       </p:panel>
 
-                                    <p:panel  header="DATOS DOCTOR">         
+                <h:form id="frm_validar" >
+
+                    <p:dialog onShow="#{managedBeanServicioDoctor.limpiarTodo()}" header="#{managedBeanDoctor.nuevoTitulo}" closable="true" resizable="false" widgetVar="dlgValidar" id="dlgValidar" showEffect="explode" width="1050">
+
+                        <p:panelGrid class="pnoborder" layout="grid" columnClasses="ui-grid-col-4,ui-grid-col-4,ui-grid-col-4" style="vertical-align: top" columns="3">
+                            <p:panel  header="DATOS PERSONA" >
+                                <p:panelGrid class="pnoborder" layout="grid" style="vertical-align: top;" columnClasses="ui-grid-col-4,ui-grid-col-8" columns="2">
+
+
+                                    <p:graphicImage  value="#{managedBeanDoctor.imagen}" width="80" cache="false"  id="grpImage" height="80"/>
+                                    <p:panelGrid class="pnoborder" layout="grid" columnClasses="ui-grid-col-4,ui-grid-col-8"  columns="2">
+                                        <p:outputLabel value="PATERNO"/>   
+                                        <p:inputText style="width:100px;" readonly="true"  value="#{managedBeanDoctor.objPersona.apellidoPaterno}"/>
+                                        <p:outputLabel value="MATERNO"/>   
+                                        <p:inputText style="width:100px;"  readonly="true" value="#{managedBeanDoctor.objPersona.apellidoPaterno}"/>
+                                        <p:outputLabel value="NOM"/>   
+                                        <p:inputText style="width:100px;" readonly="true" value="#{managedBeanDoctor.objPersona.nombre}"/>
+                                    </p:panelGrid>
+
+                                    <p:outputLabel value="DNI"/>   
+                                    <p:inputText readonly="true" value="#{managedBeanDoctor.objPersona.dni}"/>
+                                    <p:outputLabel value="FEC. NAC."/>   
+                                    <p:inputText readonly="true" value="#{managedBeanDoctor.objPersona.fechaNacimiento}" >
+                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </p:inputText>
+                                    <p:outputLabel value="SEXO"/>
+                                    <p:inputText readonly="true" value="#{managedBeanDoctor.objPersona.sexo eq true ? 'HOMBRE':'MUJER'}"/>
+
+
+
+                                    <p:outputLabel value="DEPARTAMENTO"/>
+                                    <p:inputText readonly="true"  value="#{managedBeanDistrito.objDepartamento.nombre}"/>
+
+                                    <p:outputLabel value="PROVNCIA"/>
+                                    <p:inputText readonly="true"  value="#{managedBeanDistrito.objProvincia.nombre}"/>
+
+                                    <p:outputLabel value="DISTRITO"/>
+                                    <p:inputText readonly="true"  value="#{managedBeanDoctor.objPersona.distrito.nombre}"/>
+
+                                    <p:outputLabel value="DOMICILIO"/>
+                                    <p:inputTextarea readonly="true" rows="2"  value="#{managedBeanDoctor.objPersona.direccion}"/>
+                                    <p:outputLabel value="TELEFONO"/>   
+                                    <p:inputText readonly="true" value="#{managedBeanDoctor.objPersona.telefono}"/>
+                                    <p:outputLabel value="CORREO"/>   
+                                    <p:inputText readonly="true"  value="#{managedBeanDoctor.objPersona.email}"/>
+
+                                </p:panelGrid>
+                            </p:panel>  
+                            <p:panelGrid  layout="grid" columnClasses="ui-grid-col-12" class="pnoborder" columns="1">
+                                <p:panel  header="VALIDAR DOCTOR" >
+                                    <p:panelGrid class="pnoborder" layout="grid" columnClasses="ui-grid-col-4,ui-grid-col-6,ui-grid-col-2" styleClass="panel_servicio" columns="3">
+
+                                        <p:outputLabel value="PATERNO"/> 
+                                        <p:inputText style="width: 110px"  value="#{managedBeanServicioDoctor.paterno}" />
+                                        <p:commandButton icon="ui-icon-search"  onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"
+                                                         update=":frm_validar:doctores :form:msgs" value="" process="@(.panel_servicio)" title="BUSCAR"  actionListener="#{managedBeanServicioDoctor.buscarNombres()}"/>  
+                                        <p:outputLabel value="MATERNO"/> 
+                                        <p:inputText style="width: 110px"  value="#{managedBeanServicioDoctor.materno}" />
+                                        <p:outputLabel value=""/> 
+
+                                        <p:outputLabel value="NOMBRES"/> 
+                                        <p:inputText style="width: 110px"  value="#{managedBeanServicioDoctor.nombres}" />
+                                        <p:commandButton icon="ui-icon-refresh"  onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"
+                                                         update=":frm_validar:doctores :frm_validar:datosDoctor :form:msgs" value="" immediate="true" process="@this" title="LIMPIAR"  actionListener="#{managedBeanServicioDoctor.limpiarTodo()}"/>  
+
+                                    </p:panelGrid>
+
+                                    <p:dataTable  id="doctores" widgetVar="doctores" var="doctor" 
+                                                  value="#{managedBeanServicioDoctor.listDoctor}" rows="10" scrollable="true" 
+                                                  scrollHeight="110" selectionMode="single" selection="#{managedBeanServicioDoctor.objetoDoctor}"
+                                                  rowKey="#{doctor.cmp}"  rowIndexVar="rowIndex" >
+                                        <p:ajax event="rowSelect" listener="#{managedBeanServicioDoctor.onRowSelect}" onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" update=":frm_validar:datosDoctor :form:msgs" />
+
+                                        <p:column headerText="CMP"  style="text-align: center; width:40px;">
+                                            <p:outputLabel value="#{doctor.cmp}" />
+                                        </p:column>
+                                        <p:column headerText="DOCTOR"  style="text-align: center">
+                                            <p:outputLabel value="#{doctor.paterno} #{doctor.materno} #{doctor.nombres}" />
+                                        </p:column>                                              
+                                    </p:dataTable>
+                                </p:panel>
+
+                                <p:panel  header="DATOS DOCTOR">         
                                     <p:panelGrid class="pnoborder" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" style="vertical-align: top" columns="2">
-                                         <p:outputLabel value="ESPECIALIDAD"/>
-                                         <p:selectOneMenu  filter="true" filterMatchMode="contains" value="#{managedBeanDoctor.objDoctor.especialidad}"  converter="especialidadConverter">
+                                        <p:outputLabel value="ESPECIALIDAD"/>
+                                        <p:selectOneMenu  filter="true" filterMatchMode="contains" value="#{managedBeanDoctor.objDoctor.especialidad}"  converter="especialidadConverter">
                                             <f:selectItem itemLabel="#{managedBeanEspecialidad.objEspecialidadVacio.nombre}" itemValue="#{managedBeanDoctor.objDoctor.especialidad}" noSelectionOption="false" />
-                                              <f:selectItems   value="#{managedBeanEspecialidad.objEspecialidadItems}"/>	                                        
-                                              
+                                            <f:selectItems   value="#{managedBeanEspecialidad.objEspecialidadItems}"/>	                                        
+
                                         </p:selectOneMenu>
                                         <p:outputLabel value="N° COLE."/>
-                                       <p:inputText readonly="true"  value="#{managedBeanDoctor.objDoctor.codigoColegiatura}"/>
-                                         <p:outputLabel value="TELEFONO"/>
-                                         <p:inputText readonly="true"  value="#{managedBeanDoctor.objDoctor.telefono}"/>
-                                         <p:outputLabel value="CONSULTORIO"/>
-                                         <p:inputTextarea readonly="true" rows="2"  value="#{managedBeanDoctor.objDoctor.direccion}"/>
-                                         <p:outputLabel value="DET. DIR."/>
-                                         <p:inputTextarea readonly="true" rows="2"  value="#{managedBeanDoctor.objDoctor.direccionDetalle}"/>
-                                       
-                                         <p:outputLabel for="estado" value="ESTADO"/>
-                                         
-                                         <p:selectOneRadio id="estado"  required="true"  value="#{managedBeanDoctor.objDoctor.estado}">
-                                                                        <f:selectItem itemLabel="ACTIVO" itemValue="2" />
-                                                                        <f:selectItem itemLabel="DESACTIVO" itemValue="0" />
+                                        <p:inputText readonly="true"  value="#{managedBeanDoctor.objDoctor.codigoColegiatura}"/>
+                                        <p:outputLabel value="TELEFONO"/>
+                                        <p:inputText readonly="true"  value="#{managedBeanDoctor.objDoctor.telefono}"/>
+                                        <p:outputLabel value="CONSULTORIO"/>
+                                        <p:inputTextarea readonly="true" rows="2"  value="#{managedBeanDoctor.objDoctor.direccion}"/>
+                                        <p:outputLabel value="DET. DIR."/>
+                                        <p:inputTextarea readonly="true" rows="2"  value="#{managedBeanDoctor.objDoctor.direccionDetalle}"/>
+
+                                        <p:outputLabel for="estado" value="ESTADO"/>
+
+                                        <p:selectOneRadio id="estado"  required="true"  value="#{managedBeanDoctor.objDoctor.estado}">
+                                            <f:selectItem itemLabel="ACTIVO" itemValue="2" />
+                                            <f:selectItem itemLabel="DESACTIVO" itemValue="0" />
                                         </p:selectOneRadio>
-                                       
+
                                     </p:panelGrid>
-                                   </p:panel>  
-                                     
-                                 </p:panelGrid>
-                                   <p:panelGrid class="pnoborder" layout="grid" style="vertical-align: top" columns="1">
-                                     
-                                         <p:panel  header="VALIDAR DOCTOR" >
-                                            <p:panelGrid class="pnoborder" layout="grid" columnClasses="ui-grid-col-3,ui-grid-col-5,ui-grid-col-2,ui-grid-col-2"  columns="4">
-                                               
-                                                <p:outputLabel value="BUSCAR"/> 
-                                                <p:inputText style="width: 95px"  value="#{managedBeanServicioDoctor.cmp}" />
-                                                <p:commandButton icon="ui-icon-search"  onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"
-                                                 update=":frm_validar:datosDoctor :form:msgs" value=""  title="BUSCAR"  actionListener="#{managedBeanServicioDoctor.buscarCodigo(managedBeanServicioDoctor.cmp)}"/>  
-                                                <p:commandButton icon="ui-icon-refresh"  onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"
-                                                     update=":frm_validar:doctores :frm_validar:datosDoctor :form:msgs" value="" immediate="true" process="@this" title="LIMPIAR"  actionListener="#{managedBeanServicioDoctor.limpiarTodo()}"/>  
-                                           
-                                           </p:panelGrid>
-                                       </p:panel>
-                                  
-                                       <p:panel id="datosDoctor"  header="VALIDAR DOCTOR" >
-                                            <p:panelGrid class="pnoborder" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" columns="3">
-                                            
-                                               <img width="80" border="1" height="100" src="#{managedBeanServicioDoctor.objetoDetalle.ruta}"/>
-                                             
-                                                 <p:panelGrid class="pnoborder" columnClasses="ui-grid-col-3,ui-grid-col-9" layout="grid" columns="2">
-                                                        <p:outputLabel value="CMP"/> 
-                                                        <p:inputText readonly="true" style="width: 120px;" value="#{managedBeanServicioDoctor.objetoDoctor.cmp}"/>                                               
+                                </p:panel>  
 
-                                                         <p:outputLabel value="NOM"/> 
-                                                        <p:inputText readonly="true" style="width: 120px;" value="#{managedBeanServicioDoctor.objetoDoctor.nombres}"/>
-                                                        
-                                                        <p:outputLabel value="APE"/> 
-                                                        <p:inputText readonly="true" style="width: 120px;" value="#{managedBeanServicioDoctor.objetoDoctor.apellidos}"/>
+                            </p:panelGrid>
+                            <p:panelGrid class="pnoborder" layout="grid" style="vertical-align: top" columns="1">
 
-                                                </p:panelGrid>
-                                           </p:panelGrid>
-                                            <p:panelGrid class="pnoborder" columnClasses="ui-grid-col-5,ui-grid-col-7" layout="grid"  columns="2">
-                                              
-                                              
-                                                <p:outputLabel value="CENTRO L."/> 
-                                                <p:inputText readonly="true" value="#{managedBeanServicioDoctor.objetoDetalle.claboral}"/>
-                                                                                               
-                                                <p:outputLabel value="CONSEJO R."/>                                         
-                                                <p:inputTextarea readonly="true" rows="2"  value="#{managedBeanServicioDoctor.objetoDetalle.cregional}"/>
-                                       
-                                                <p:outputLabel value="EMAIL"/>                                                
-                                                <p:inputText readonly="true" value="#{managedBeanServicioDoctor.objetoDetalle.email}"/>
-                                                
-                                                <p:outputLabel value="ESTADO"/> 
-                                                <p:inputText readonly="true" value="#{managedBeanServicioDoctor.objetoDetalle.estado}"/>
-                                                
-                                                 <p:outputLabel value="WEB"/> 
-                                                <p:inputText readonly="true" value="#{managedBeanServicioDoctor.objetoDetalle.pweb}"/>
-                                               
-                                            </p:panelGrid>
-                                           <p:dataTable  id="especialidad" widgetVar="especialidad" var="especialidad" value="#{managedBeanServicioDoctor.listEspecialidad}" rows="10" scrollable="true" scrollHeight="60"
-                                             rowIndexVar="rowIndex" >
-                                               <p:column headerText="COD."  style="text-align: center; width:40px;">
-                                                   <p:outputLabel value="#{especialidad.rne}" />
-                                                </p:column>
-                                               <p:column headerText="ESPECIALIDAD"  style="text-align: center">
-                                                   <p:outputLabel value="#{especialidad.nombre}" />
-                                                </p:column>                                              
-                                           </p:dataTable>
+                                <p:panel  header="VALIDAR DOCTOR" >
+                                    <p:panelGrid class="pnoborder" styleClass="panel_codigo" layout="grid" columnClasses="ui-grid-col-3,ui-grid-col-5,ui-grid-col-2,ui-grid-col-2"  columns="4">
 
-                                      </p:panel>
-                                  </p:panelGrid>
-                                  </p:panelGrid>
-                                        <p:separator />
-                                           <p:commandButton value="ACEPTAR" update=":frm_validar:estado :form :form:msgs" oncomplete="if (!args.validationFailed) PF('dlgValidar').hide()"  actionListener="#{managedBeanDoctor.crear()}"/>
-                                           <p:commandButton value="CERRAR" update=":form :form:msgs"  oncomplete="PF('dlgValidar').hide();"    actionListener="#{managedBeanDoctor.limpiar(true)}"/>  
-                   </p:dialog>
+                                        <p:outputLabel value="BUSCAR"/> 
+                                        <p:inputText style="width: 95px"  value="#{managedBeanServicioDoctor.cmp}" />
+                                        <p:commandButton icon="ui-icon-search" process="@(.panel_codigo)"  onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"
+                                                         update=":frm_validar:datosDoctor :form:msgs" value=""  title="BUSCAR"  actionListener="#{managedBeanServicioDoctor.buscarCodigo()}"/>  
+                                        <p:commandButton icon="ui-icon-refresh"  onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"
+                                                         update=":frm_validar:doctores :frm_validar:datosDoctor :form:msgs" value="" immediate="true" process="@this" title="LIMPIAR"  actionListener="#{managedBeanServicioDoctor.limpiarTodo()}"/>  
+
+                                    </p:panelGrid>
+                                </p:panel>
+
+                                <p:panel id="datosDoctor"  header="VALIDAR DOCTOR" >
+                                    <p:panelGrid class="pnoborder" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" columns="3">
+
+                                        <img width="80" border="1" height="100" src="#{managedBeanServicioDoctor.objetoDetalle.ruta}"/>
+
+                                        <p:panelGrid class="pnoborder" columnClasses="ui-grid-col-3,ui-grid-col-9" layout="grid" columns="2">
+                                            <p:outputLabel value="CMP"/> 
+                                            <p:inputText readonly="true" style="width: 120px;" value="#{managedBeanServicioDoctor.objetoDoctor.cmp}"/>                                               
+
+                                            <p:outputLabel value="NOM"/> 
+                                            <p:inputText readonly="true" style="width: 120px;" value="#{managedBeanServicioDoctor.objetoDoctor.nombres}"/>
+
+                                            <p:outputLabel value="PAT"/> 
+                                            <p:inputText readonly="true" style="width: 120px;" value="#{managedBeanServicioDoctor.objetoDoctor.paterno}"/>
+                                            <p:outputLabel value="MAT"/> 
+                                            <p:inputText readonly="true" style="width: 120px;" value="#{managedBeanServicioDoctor.objetoDoctor.materno}"/>
+                                        </p:panelGrid>
+                                    </p:panelGrid>
+                                    <p:panelGrid class="pnoborder" columnClasses="ui-grid-col-5,ui-grid-col-7" layout="grid"  columns="2">
+
+
+                                        <p:outputLabel value="CONSEJO R."/>                                         
+                                        <p:inputTextarea readonly="true" rows="2"  value="#{managedBeanServicioDoctor.objetoDetalle.cregional}"/>
+
+                                        <p:outputLabel value="EMAIL"/>                                                
+                                        <p:inputText readonly="true" value="#{managedBeanServicioDoctor.objetoDetalle.email}"/>
+
+                                        <p:outputLabel value="ESTADO"/> 
+                                        <p:inputText readonly="true" value="#{managedBeanServicioDoctor.objetoDetalle.estado}"/>
+
+                                        <p:outputLabel value="DET"/> 
+                                        <p:inputText readonly="true" value="#{managedBeanServicioDoctor.objetoDetalle.meddet}"/>
+
+                                    </p:panelGrid>
+                                    <p:dataTable  id="especialidad" widgetVar="especialidad" var="especialidad" value="#{managedBeanServicioDoctor.listEspecialidad}" rows="10" scrollable="true" scrollHeight="60"
+                                                  rowIndexVar="rowIndex" >
+                                        <p:column headerText="COD."  style="text-align: center; width:40px;">
+                                            <p:outputLabel value="#{especialidad.rne}" />
+                                        </p:column>
+                                        <p:column headerText="ESPECIALIDAD"  style="text-align: center">
+                                            <p:outputLabel value="#{especialidad.especialidad}" />
+                                        </p:column>                                              
+                                    </p:dataTable>
+
+                                </p:panel>
+                            </p:panelGrid>
+                        </p:panelGrid>
+                        <p:separator />
+                        <p:commandButton value="ACEPTAR" update=":frm_validar:estado :form :form:msgs" oncomplete="if (!args.validationFailed) PF('dlgValidar').hide()"  actionListener="#{managedBeanDoctor.crear()}"/>
+                        <p:commandButton value="CERRAR" update=":form :form:msgs"  oncomplete="PF('dlgValidar').hide();"    actionListener="#{managedBeanDoctor.limpiar(true)}"/>  
+                    </p:dialog>
                 </h:form>
-                
-                
-                
-                 <script type="text/javascript">
+
+
+
+                <script type="text/javascript">
                     function geocodeClick() {
-                          PF('geoMap').geocode(PF('departamento').getSelectedLabel()+' '+PF('provincia').getSelectedLabel()+' '+PF('distrito').getSelectedLabel());
+                        PF('geoMap').geocode(PF('departamento').getSelectedLabel() + ' ' + PF('provincia').getSelectedLabel() + ' ' + PF('distrito').getSelectedLabel());
                     }
-                   
+
 
                 </script>
-                
+
             </ui:define>
-            
+
         </ui:composition>
-        
+
     </h:body>
-    
+
 </html>

@@ -19,6 +19,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="cmp" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="paterno" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="materno" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="nombres" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -31,13 +32,15 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "consultaDoctor", propOrder = {
     "cmp",
     "paterno",
-    "materno"
+    "materno",
+    "nombres"
 })
 public class ConsultaDoctor {
 
     protected String cmp;
     protected String paterno;
     protected String materno;
+    protected String nombres;
 
     /**
      * Obtiene el valor de la propiedad cmp.
@@ -109,6 +112,30 @@ public class ConsultaDoctor {
      */
     public void setMaterno(String value) {
         this.materno = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad nombres.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getNombres() {
+        return nombres;
+    }
+
+    /**
+     * Define el valor de la propiedad nombres.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setNombres(String value) {
+        this.nombres = value;
     }
 
 }
