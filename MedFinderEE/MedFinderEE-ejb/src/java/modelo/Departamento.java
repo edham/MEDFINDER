@@ -19,33 +19,30 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Edham
+ * @author hp
  */
 @Entity
 @Table(name = "departamento")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Departamento.findAll", query = "SELECT d FROM Departamento d"),
-    @NamedQuery(name = "Departamento.findByPKId", query = "SELECT d FROM Departamento d WHERE d.pKId = :pKId"),
-    @NamedQuery(name = "Departamento.findByNombre", query = "SELECT d FROM Departamento d WHERE d.nombre = :nombre"),
-    @NamedQuery(name = "Departamento.findByFechaRegistro", query = "SELECT d FROM Departamento d WHERE d.fechaRegistro = :fechaRegistro"),
-    @NamedQuery(name = "Departamento.findByFechaModificacion", query = "SELECT d FROM Departamento d WHERE d.fechaModificacion = :fechaModificacion"),
-    @NamedQuery(name = "Departamento.findByEstado", query = "SELECT d FROM Departamento d WHERE d.estado = :estado")})
+    @NamedQuery(name = "Departamento.findAll", query = "SELECT d FROM Departamento d")
+    , @NamedQuery(name = "Departamento.findByPKId", query = "SELECT d FROM Departamento d WHERE d.pKId = :pKId")
+    , @NamedQuery(name = "Departamento.findByNombre", query = "SELECT d FROM Departamento d WHERE d.nombre = :nombre")
+    , @NamedQuery(name = "Departamento.findByFechaRegistro", query = "SELECT d FROM Departamento d WHERE d.fechaRegistro = :fechaRegistro")
+    , @NamedQuery(name = "Departamento.findByFechaModificacion", query = "SELECT d FROM Departamento d WHERE d.fechaModificacion = :fechaModificacion")
+    , @NamedQuery(name = "Departamento.findByEstado", query = "SELECT d FROM Departamento d WHERE d.estado = :estado")})
 public class Departamento implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @NotNull
     @Column(name = "PK_Id")
     private Integer pKId;
-    @Size(max = 45)
     @Column(name = "Nombre")
     private String nombre;
     @Column(name = "FechaRegistro")

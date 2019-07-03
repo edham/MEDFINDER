@@ -22,37 +22,36 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Edham
+ * @author hp
  */
 @Entity
 @Table(name = "seguro")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Seguro.findAll", query = "SELECT s FROM Seguro s"),
-    @NamedQuery(name = "Seguro.findByPKId", query = "SELECT s FROM Seguro s WHERE s.pKId = :pKId"),
-    @NamedQuery(name = "Seguro.findByNombre", query = "SELECT s FROM Seguro s WHERE s.nombre = :nombre"),
-    @NamedQuery(name = "Seguro.findByFechaRegistro", query = "SELECT s FROM Seguro s WHERE s.fechaRegistro = :fechaRegistro"),
-    @NamedQuery(name = "Seguro.findByFechaModificacion", query = "SELECT s FROM Seguro s WHERE s.fechaModificacion = :fechaModificacion"),
-    @NamedQuery(name = "Seguro.findByEstado", query = "SELECT s FROM Seguro s WHERE s.estado = :estado")})
+    @NamedQuery(name = "Seguro.findAll", query = "SELECT s FROM Seguro s")
+    , @NamedQuery(name = "Seguro.findByPKId", query = "SELECT s FROM Seguro s WHERE s.pKId = :pKId")
+    , @NamedQuery(name = "Seguro.findByNombre", query = "SELECT s FROM Seguro s WHERE s.nombre = :nombre")
+    , @NamedQuery(name = "Seguro.findByFechaRegistro", query = "SELECT s FROM Seguro s WHERE s.fechaRegistro = :fechaRegistro")
+    , @NamedQuery(name = "Seguro.findByFechaModificacion", query = "SELECT s FROM Seguro s WHERE s.fechaModificacion = :fechaModificacion")
+    , @NamedQuery(name = "Seguro.findByEstado", query = "SELECT s FROM Seguro s WHERE s.estado = :estado")})
 public class Seguro implements Serializable {
-    @Lob
-    @Column(name = "Logo")
-    private byte[] logo;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "PK_Id")
     private Integer pKId;
-    @Size(max = 45)
     @Column(name = "Nombre")
     private String nombre;
+    @Lob
+    @Column(name = "Logo")
+    private byte[] logo;
     @Column(name = "FechaRegistro")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaRegistro;
@@ -87,6 +86,13 @@ public class Seguro implements Serializable {
         this.nombre = nombre;
     }
 
+    public byte[] getLogo() {
+        return logo;
+    }
+
+    public void setLogo(byte[] logo) {
+        this.logo = logo;
+    }
 
     public Date getFechaRegistro() {
         return fechaRegistro;
@@ -144,14 +150,6 @@ public class Seguro implements Serializable {
     @Override
     public String toString() {
         return "modelo.Seguro[ pKId=" + pKId + " ]";
-    }
-
-    public byte[] getLogo() {
-        return logo;
-    }
-
-    public void setLogo(byte[] logo) {
-        this.logo = logo;
     }
     
 }

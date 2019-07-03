@@ -33,10 +33,10 @@ import javax.faces.context.FacesContext;
 import javax.imageio.ImageIO;
 import modelo.Especialidad;
 import modelo.Paciente;
-import servicio.Medico;
-import servicio.Medico_Service;
-import servicio.WsDetalle;
-import servicio.WsDoctor;
+import wsdl.Medico;
+import wsdl.Medico_Service;
+import wsdl.WsDetalle;
+import wsdl.WsDoctor;
 
 /**
  *

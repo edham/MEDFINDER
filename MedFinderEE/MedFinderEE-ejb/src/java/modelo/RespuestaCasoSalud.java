@@ -23,35 +23,33 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Edham
+ * @author hp
  */
 @Entity
 @Table(name = "respuesta_caso_salud")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "RespuestaCasoSalud.findAll", query = "SELECT r FROM RespuestaCasoSalud r"),
-    @NamedQuery(name = "RespuestaCasoSalud.findByPKId", query = "SELECT r FROM RespuestaCasoSalud r WHERE r.pKId = :pKId"),
-    @NamedQuery(name = "RespuestaCasoSalud.findByDescripcion", query = "SELECT r FROM RespuestaCasoSalud r WHERE r.descripcion = :descripcion"),
-    @NamedQuery(name = "RespuestaCasoSalud.findByPuntajeTotal", query = "SELECT r FROM RespuestaCasoSalud r WHERE r.puntajeTotal = :puntajeTotal"),
-    @NamedQuery(name = "RespuestaCasoSalud.findByFechaRegistro", query = "SELECT r FROM RespuestaCasoSalud r WHERE r.fechaRegistro = :fechaRegistro"),
-    @NamedQuery(name = "RespuestaCasoSalud.findByFechaModificacion", query = "SELECT r FROM RespuestaCasoSalud r WHERE r.fechaModificacion = :fechaModificacion"),
-    @NamedQuery(name = "RespuestaCasoSalud.findByEstado", query = "SELECT r FROM RespuestaCasoSalud r WHERE r.estado = :estado")})
+    @NamedQuery(name = "RespuestaCasoSalud.findAll", query = "SELECT r FROM RespuestaCasoSalud r")
+    , @NamedQuery(name = "RespuestaCasoSalud.findByPKId", query = "SELECT r FROM RespuestaCasoSalud r WHERE r.pKId = :pKId")
+    , @NamedQuery(name = "RespuestaCasoSalud.findByDescripcion", query = "SELECT r FROM RespuestaCasoSalud r WHERE r.descripcion = :descripcion")
+    , @NamedQuery(name = "RespuestaCasoSalud.findByPuntajeTotal", query = "SELECT r FROM RespuestaCasoSalud r WHERE r.puntajeTotal = :puntajeTotal")
+    , @NamedQuery(name = "RespuestaCasoSalud.findByFechaRegistro", query = "SELECT r FROM RespuestaCasoSalud r WHERE r.fechaRegistro = :fechaRegistro")
+    , @NamedQuery(name = "RespuestaCasoSalud.findByFechaModificacion", query = "SELECT r FROM RespuestaCasoSalud r WHERE r.fechaModificacion = :fechaModificacion")
+    , @NamedQuery(name = "RespuestaCasoSalud.findByEstado", query = "SELECT r FROM RespuestaCasoSalud r WHERE r.estado = :estado")
+    , @NamedQuery(name = "RespuestaCasoSalud.findByTotalCalificaciones", query = "SELECT r FROM RespuestaCasoSalud r WHERE r.totalCalificaciones = :totalCalificaciones")})
 public class RespuestaCasoSalud implements Serializable {
-    @Column(name = "TotalCalificaciones")
-    private Integer totalCalificaciones;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "PK_Id")
     private Integer pKId;
-    @Size(max = 255)
     @Column(name = "Descripcion")
     private String descripcion;
     @Column(name = "PuntajeTotal")
@@ -64,6 +62,8 @@ public class RespuestaCasoSalud implements Serializable {
     private Date fechaModificacion;
     @Column(name = "Estado")
     private Integer estado;
+    @Column(name = "TotalCalificaciones")
+    private Integer totalCalificaciones;
     @JoinColumn(name = "FK_CasosSalud", referencedColumnName = "PK_Id")
     @ManyToOne(fetch = FetchType.LAZY)
     private CasosSalud casosSalud;
@@ -128,6 +128,14 @@ public class RespuestaCasoSalud implements Serializable {
         this.estado = estado;
     }
 
+    public Integer getTotalCalificaciones() {
+        return totalCalificaciones;
+    }
+
+    public void setTotalCalificaciones(Integer totalCalificaciones) {
+        this.totalCalificaciones = totalCalificaciones;
+    }
+
     public CasosSalud getCasosSalud() {
         return casosSalud;
     }
@@ -176,14 +184,6 @@ public class RespuestaCasoSalud implements Serializable {
     @Override
     public String toString() {
         return "modelo.RespuestaCasoSalud[ pKId=" + pKId + " ]";
-    }
-
-    public Integer getTotalCalificaciones() {
-        return totalCalificaciones;
-    }
-
-    public void setTotalCalificaciones(Integer totalCalificaciones) {
-        this.totalCalificaciones = totalCalificaciones;
     }
     
 }

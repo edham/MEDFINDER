@@ -25,18 +25,19 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Edham
+ * @author hp
  */
 @Entity
 @Table(name = "detalle_clinica_seguro")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "DetalleClinicaSeguro.findAll", query = "SELECT d FROM DetalleClinicaSeguro d"),
-    @NamedQuery(name = "DetalleClinicaSeguro.findByPKId", query = "SELECT d FROM DetalleClinicaSeguro d WHERE d.pKId = :pKId"),
-    @NamedQuery(name = "DetalleClinicaSeguro.findByFechaRegistro", query = "SELECT d FROM DetalleClinicaSeguro d WHERE d.fechaRegistro = :fechaRegistro"),
-    @NamedQuery(name = "DetalleClinicaSeguro.findByFechaModificacion", query = "SELECT d FROM DetalleClinicaSeguro d WHERE d.fechaModificacion = :fechaModificacion"),
-    @NamedQuery(name = "DetalleClinicaSeguro.findByEstado", query = "SELECT d FROM DetalleClinicaSeguro d WHERE d.estado = :estado")})
+    @NamedQuery(name = "DetalleClinicaSeguro.findAll", query = "SELECT d FROM DetalleClinicaSeguro d")
+    , @NamedQuery(name = "DetalleClinicaSeguro.findByPKId", query = "SELECT d FROM DetalleClinicaSeguro d WHERE d.pKId = :pKId")
+    , @NamedQuery(name = "DetalleClinicaSeguro.findByFechaRegistro", query = "SELECT d FROM DetalleClinicaSeguro d WHERE d.fechaRegistro = :fechaRegistro")
+    , @NamedQuery(name = "DetalleClinicaSeguro.findByFechaModificacion", query = "SELECT d FROM DetalleClinicaSeguro d WHERE d.fechaModificacion = :fechaModificacion")
+    , @NamedQuery(name = "DetalleClinicaSeguro.findByEstado", query = "SELECT d FROM DetalleClinicaSeguro d WHERE d.estado = :estado")})
 public class DetalleClinicaSeguro implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

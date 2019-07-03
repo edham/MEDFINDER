@@ -24,67 +24,59 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Edham
+ * @author hp
  */
 @Entity
 @Table(name = "persona")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Persona.findAll", query = "SELECT p FROM Persona p"),
-    @NamedQuery(name = "Persona.findByPKId", query = "SELECT p FROM Persona p WHERE p.pKId = :pKId"),
-    @NamedQuery(name = "Persona.findByNombre", query = "SELECT p FROM Persona p WHERE p.nombre = :nombre"),
-    @NamedQuery(name = "Persona.findByApellidoPaterno", query = "SELECT p FROM Persona p WHERE p.apellidoPaterno = :apellidoPaterno"),
-    @NamedQuery(name = "Persona.findByApellidoMaterno", query = "SELECT p FROM Persona p WHERE p.apellidoMaterno = :apellidoMaterno"),
-    @NamedQuery(name = "Persona.findByDni", query = "SELECT p FROM Persona p WHERE p.dni = :dni"),
-    @NamedQuery(name = "Persona.findBySexo", query = "SELECT p FROM Persona p WHERE p.sexo = :sexo"),
-    @NamedQuery(name = "Persona.findByFechaNacimiento", query = "SELECT p FROM Persona p WHERE p.fechaNacimiento = :fechaNacimiento"),
-    @NamedQuery(name = "Persona.findByTelefono", query = "SELECT p FROM Persona p WHERE p.telefono = :telefono"),
-    @NamedQuery(name = "Persona.findByDireccion", query = "SELECT p FROM Persona p WHERE p.direccion = :direccion"),
-    @NamedQuery(name = "Persona.findByEmail", query = "SELECT p FROM Persona p WHERE p.email = :email"),
-    @NamedQuery(name = "Persona.findByFechaRegistro", query = "SELECT p FROM Persona p WHERE p.fechaRegistro = :fechaRegistro"),
-    @NamedQuery(name = "Persona.findByFechaModificacion", query = "SELECT p FROM Persona p WHERE p.fechaModificacion = :fechaModificacion"),
-    @NamedQuery(name = "Persona.findByEstado", query = "SELECT p FROM Persona p WHERE p.estado = :estado")})
+    @NamedQuery(name = "Persona.findAll", query = "SELECT p FROM Persona p")
+    , @NamedQuery(name = "Persona.findByPKId", query = "SELECT p FROM Persona p WHERE p.pKId = :pKId")
+    , @NamedQuery(name = "Persona.findByNombre", query = "SELECT p FROM Persona p WHERE p.nombre = :nombre")
+    , @NamedQuery(name = "Persona.findByApellidoPaterno", query = "SELECT p FROM Persona p WHERE p.apellidoPaterno = :apellidoPaterno")
+    , @NamedQuery(name = "Persona.findByApellidoMaterno", query = "SELECT p FROM Persona p WHERE p.apellidoMaterno = :apellidoMaterno")
+    , @NamedQuery(name = "Persona.findByDni", query = "SELECT p FROM Persona p WHERE p.dni = :dni")
+    , @NamedQuery(name = "Persona.findBySexo", query = "SELECT p FROM Persona p WHERE p.sexo = :sexo")
+    , @NamedQuery(name = "Persona.findByFechaNacimiento", query = "SELECT p FROM Persona p WHERE p.fechaNacimiento = :fechaNacimiento")
+    , @NamedQuery(name = "Persona.findByTelefono", query = "SELECT p FROM Persona p WHERE p.telefono = :telefono")
+    , @NamedQuery(name = "Persona.findByDireccion", query = "SELECT p FROM Persona p WHERE p.direccion = :direccion")
+    , @NamedQuery(name = "Persona.findByEmail", query = "SELECT p FROM Persona p WHERE p.email = :email")
+    , @NamedQuery(name = "Persona.findByFechaRegistro", query = "SELECT p FROM Persona p WHERE p.fechaRegistro = :fechaRegistro")
+    , @NamedQuery(name = "Persona.findByFechaModificacion", query = "SELECT p FROM Persona p WHERE p.fechaModificacion = :fechaModificacion")
+    , @NamedQuery(name = "Persona.findByEstado", query = "SELECT p FROM Persona p WHERE p.estado = :estado")})
 public class Persona implements Serializable {
-    @Lob
-    @Column(name = "Foto")
-    private byte[] foto;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "PK_Id")
     private Integer pKId;
-    @Size(max = 45)
     @Column(name = "Nombre")
     private String nombre;
-    @Size(max = 45)
     @Column(name = "ApellidoPaterno")
     private String apellidoPaterno;
-    @Size(max = 45)
     @Column(name = "ApellidoMaterno")
     private String apellidoMaterno;
-    @Size(max = 45)
     @Column(name = "DNI")
     private String dni;
+    @Lob
+    @Column(name = "Foto")
+    private byte[] foto;
     @Column(name = "Sexo")
     private Boolean sexo;
     @Column(name = "FechaNacimiento")
     @Temporal(TemporalType.DATE)
     private Date fechaNacimiento;
-    @Size(max = 9)
     @Column(name = "Telefono")
     private String telefono;
-    @Size(max = 100)
     @Column(name = "Direccion")
     private String direccion;
-    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
-    @Size(max = 45)
     @Column(name = "Email")
     private String email;
     @Column(name = "FechaRegistro")
@@ -152,6 +144,13 @@ public class Persona implements Serializable {
         this.dni = dni;
     }
 
+    public byte[] getFoto() {
+        return foto;
+    }
+
+    public void setFoto(byte[] foto) {
+        this.foto = foto;
+    }
 
     public Boolean getSexo() {
         return sexo;
@@ -275,14 +274,6 @@ public class Persona implements Serializable {
     @Override
     public String toString() {
         return "modelo.Persona[ pKId=" + pKId + " ]";
-    }
-
-    public byte[] getFoto() {
-        return foto;
-    }
-
-    public void setFoto(byte[] foto) {
-        this.foto = foto;
     }
     
 }

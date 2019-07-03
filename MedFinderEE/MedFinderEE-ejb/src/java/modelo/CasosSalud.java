@@ -21,34 +21,33 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Edham
+ * @author hp
  */
 @Entity
 @Table(name = "casos_salud")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "CasosSalud.findAll", query = "SELECT c FROM CasosSalud c"),
-    @NamedQuery(name = "CasosSalud.findByPKId", query = "SELECT c FROM CasosSalud c WHERE c.pKId = :pKId"),
-    @NamedQuery(name = "CasosSalud.findByTema", query = "SELECT c FROM CasosSalud c WHERE c.tema = :tema"),
-    @NamedQuery(name = "CasosSalud.findByFechaInicio", query = "SELECT c FROM CasosSalud c WHERE c.fechaInicio = :fechaInicio"),
-    @NamedQuery(name = "CasosSalud.findByFechaFin", query = "SELECT c FROM CasosSalud c WHERE c.fechaFin = :fechaFin"),
-    @NamedQuery(name = "CasosSalud.findByFechaRegistro", query = "SELECT c FROM CasosSalud c WHERE c.fechaRegistro = :fechaRegistro"),
-    @NamedQuery(name = "CasosSalud.findByFechaModificacion", query = "SELECT c FROM CasosSalud c WHERE c.fechaModificacion = :fechaModificacion"),
-    @NamedQuery(name = "CasosSalud.findByEstado", query = "SELECT c FROM CasosSalud c WHERE c.estado = :estado")})
+    @NamedQuery(name = "CasosSalud.findAll", query = "SELECT c FROM CasosSalud c")
+    , @NamedQuery(name = "CasosSalud.findByPKId", query = "SELECT c FROM CasosSalud c WHERE c.pKId = :pKId")
+    , @NamedQuery(name = "CasosSalud.findByTema", query = "SELECT c FROM CasosSalud c WHERE c.tema = :tema")
+    , @NamedQuery(name = "CasosSalud.findByFechaInicio", query = "SELECT c FROM CasosSalud c WHERE c.fechaInicio = :fechaInicio")
+    , @NamedQuery(name = "CasosSalud.findByFechaFin", query = "SELECT c FROM CasosSalud c WHERE c.fechaFin = :fechaFin")
+    , @NamedQuery(name = "CasosSalud.findByFechaRegistro", query = "SELECT c FROM CasosSalud c WHERE c.fechaRegistro = :fechaRegistro")
+    , @NamedQuery(name = "CasosSalud.findByFechaModificacion", query = "SELECT c FROM CasosSalud c WHERE c.fechaModificacion = :fechaModificacion")
+    , @NamedQuery(name = "CasosSalud.findByEstado", query = "SELECT c FROM CasosSalud c WHERE c.estado = :estado")})
 public class CasosSalud implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "PK_Id")
     private Integer pKId;
-    @Size(max = 45)
     @Column(name = "Tema")
     private String tema;
     @Column(name = "FechaInicio")

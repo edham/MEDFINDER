@@ -28,28 +28,29 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Edham
+ * @author hp
  */
 @Entity
 @Table(name = "paciente")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Paciente.findAll", query = "SELECT p FROM Paciente p"),
-    @NamedQuery(name = "Paciente.findByPKId", query = "SELECT p FROM Paciente p WHERE p.pKId = :pKId"),
-    @NamedQuery(name = "Paciente.findByEstatura", query = "SELECT p FROM Paciente p WHERE p.estatura = :estatura"),
-    @NamedQuery(name = "Paciente.findByTipo", query = "SELECT p FROM Paciente p WHERE p.tipo = :tipo"),
-    @NamedQuery(name = "Paciente.findByCardiovascular", query = "SELECT p FROM Paciente p WHERE p.cardiovascular = :cardiovascular"),
-    @NamedQuery(name = "Paciente.findByMusculares", query = "SELECT p FROM Paciente p WHERE p.musculares = :musculares"),
-    @NamedQuery(name = "Paciente.findByDigestivos", query = "SELECT p FROM Paciente p WHERE p.digestivos = :digestivos"),
-    @NamedQuery(name = "Paciente.findByAlergicos", query = "SELECT p FROM Paciente p WHERE p.alergicos = :alergicos"),
-    @NamedQuery(name = "Paciente.findByAlcohol", query = "SELECT p FROM Paciente p WHERE p.alcohol = :alcohol"),
-    @NamedQuery(name = "Paciente.findByTabaquismo", query = "SELECT p FROM Paciente p WHERE p.tabaquismo = :tabaquismo"),
-    @NamedQuery(name = "Paciente.findByDrogas", query = "SELECT p FROM Paciente p WHERE p.drogas = :drogas"),
-    @NamedQuery(name = "Paciente.findByPsicologicos", query = "SELECT p FROM Paciente p WHERE p.psicologicos = :psicologicos"),
-    @NamedQuery(name = "Paciente.findByFechaRegistro", query = "SELECT p FROM Paciente p WHERE p.fechaRegistro = :fechaRegistro"),
-    @NamedQuery(name = "Paciente.findByFechaModificacion", query = "SELECT p FROM Paciente p WHERE p.fechaModificacion = :fechaModificacion"),
-    @NamedQuery(name = "Paciente.findByEstado", query = "SELECT p FROM Paciente p WHERE p.estado = :estado")})
+    @NamedQuery(name = "Paciente.findAll", query = "SELECT p FROM Paciente p")
+    , @NamedQuery(name = "Paciente.findByPKId", query = "SELECT p FROM Paciente p WHERE p.pKId = :pKId")
+    , @NamedQuery(name = "Paciente.findByEstatura", query = "SELECT p FROM Paciente p WHERE p.estatura = :estatura")
+    , @NamedQuery(name = "Paciente.findByTipo", query = "SELECT p FROM Paciente p WHERE p.tipo = :tipo")
+    , @NamedQuery(name = "Paciente.findByCardiovascular", query = "SELECT p FROM Paciente p WHERE p.cardiovascular = :cardiovascular")
+    , @NamedQuery(name = "Paciente.findByMusculares", query = "SELECT p FROM Paciente p WHERE p.musculares = :musculares")
+    , @NamedQuery(name = "Paciente.findByDigestivos", query = "SELECT p FROM Paciente p WHERE p.digestivos = :digestivos")
+    , @NamedQuery(name = "Paciente.findByAlergicos", query = "SELECT p FROM Paciente p WHERE p.alergicos = :alergicos")
+    , @NamedQuery(name = "Paciente.findByAlcohol", query = "SELECT p FROM Paciente p WHERE p.alcohol = :alcohol")
+    , @NamedQuery(name = "Paciente.findByTabaquismo", query = "SELECT p FROM Paciente p WHERE p.tabaquismo = :tabaquismo")
+    , @NamedQuery(name = "Paciente.findByDrogas", query = "SELECT p FROM Paciente p WHERE p.drogas = :drogas")
+    , @NamedQuery(name = "Paciente.findByPsicologicos", query = "SELECT p FROM Paciente p WHERE p.psicologicos = :psicologicos")
+    , @NamedQuery(name = "Paciente.findByFechaRegistro", query = "SELECT p FROM Paciente p WHERE p.fechaRegistro = :fechaRegistro")
+    , @NamedQuery(name = "Paciente.findByFechaModificacion", query = "SELECT p FROM Paciente p WHERE p.fechaModificacion = :fechaModificacion")
+    , @NamedQuery(name = "Paciente.findByEstado", query = "SELECT p FROM Paciente p WHERE p.estado = :estado")})
 public class Paciente implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

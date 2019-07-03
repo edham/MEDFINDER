@@ -24,43 +24,40 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Edham
+ * @author hp
  */
 @Entity
 @Table(name = "pregunta_paciente")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "PreguntaPaciente.findAll", query = "SELECT p FROM PreguntaPaciente p"),
-    @NamedQuery(name = "PreguntaPaciente.findByPKId", query = "SELECT p FROM PreguntaPaciente p WHERE p.pKId = :pKId"),
-    @NamedQuery(name = "PreguntaPaciente.findByAsunto", query = "SELECT p FROM PreguntaPaciente p WHERE p.asunto = :asunto"),
-    @NamedQuery(name = "PreguntaPaciente.findByDetalle", query = "SELECT p FROM PreguntaPaciente p WHERE p.detalle = :detalle"),
-    @NamedQuery(name = "PreguntaPaciente.findByEstado", query = "SELECT p FROM PreguntaPaciente p WHERE p.estado = :estado"),
-    @NamedQuery(name = "PreguntaPaciente.findByFechaInicio", query = "SELECT p FROM PreguntaPaciente p WHERE p.fechaInicio = :fechaInicio"),
-    @NamedQuery(name = "PreguntaPaciente.findByFechaFin", query = "SELECT p FROM PreguntaPaciente p WHERE p.fechaFin = :fechaFin")})
+    @NamedQuery(name = "PreguntaPaciente.findAll", query = "SELECT p FROM PreguntaPaciente p")
+    , @NamedQuery(name = "PreguntaPaciente.findByPKId", query = "SELECT p FROM PreguntaPaciente p WHERE p.pKId = :pKId")
+    , @NamedQuery(name = "PreguntaPaciente.findByAsunto", query = "SELECT p FROM PreguntaPaciente p WHERE p.asunto = :asunto")
+    , @NamedQuery(name = "PreguntaPaciente.findByDetalle", query = "SELECT p FROM PreguntaPaciente p WHERE p.detalle = :detalle")
+    , @NamedQuery(name = "PreguntaPaciente.findByEstado", query = "SELECT p FROM PreguntaPaciente p WHERE p.estado = :estado")
+    , @NamedQuery(name = "PreguntaPaciente.findByFechaInicio", query = "SELECT p FROM PreguntaPaciente p WHERE p.fechaInicio = :fechaInicio")
+    , @NamedQuery(name = "PreguntaPaciente.findByFechaFin", query = "SELECT p FROM PreguntaPaciente p WHERE p.fechaFin = :fechaFin")
+    , @NamedQuery(name = "PreguntaPaciente.findByTipo", query = "SELECT p FROM PreguntaPaciente p WHERE p.tipo = :tipo")})
 public class PreguntaPaciente implements Serializable {
-    @Lob
-    @Column(name = "Imagen")
-    private byte[] imagen;
-    @Column(name = "Tipo")
-    private Integer tipo;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "PK_Id")
     private Integer pKId;
-    @Size(max = 45)
     @Column(name = "Asunto")
     private String asunto;
-    @Size(max = 200)
     @Column(name = "Detalle")
     private String detalle;
+    @Lob
+    @Column(name = "Imagen")
+    private byte[] imagen;
     @Column(name = "Estado")
     private Integer estado;
     @Column(name = "FechaInicio")
@@ -69,6 +66,8 @@ public class PreguntaPaciente implements Serializable {
     @Column(name = "FechaFin")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaFin;
+    @Column(name = "Tipo")
+    private Integer tipo;
     @OneToMany(mappedBy = "preguntaPaciente", fetch = FetchType.LAZY)
     private List<RespuestaPreguntaPaciente> respuestaPreguntaPacienteList;
     @JoinColumn(name = "FK_Especialidad", referencedColumnName = "PK_Id")
@@ -109,6 +108,13 @@ public class PreguntaPaciente implements Serializable {
         this.detalle = detalle;
     }
 
+    public byte[] getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(byte[] imagen) {
+        this.imagen = imagen;
+    }
 
     public Integer getEstado() {
         return estado;
@@ -132,6 +138,14 @@ public class PreguntaPaciente implements Serializable {
 
     public void setFechaFin(Date fechaFin) {
         this.fechaFin = fechaFin;
+    }
+
+    public Integer getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(Integer tipo) {
+        this.tipo = tipo;
     }
 
     @XmlTransient
@@ -182,23 +196,6 @@ public class PreguntaPaciente implements Serializable {
     @Override
     public String toString() {
         return "modelo.PreguntaPaciente[ pKId=" + pKId + " ]";
-    }
-
-
-    public Integer getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(Integer tipo) {
-        this.tipo = tipo;
-    }
-
-    public byte[] getImagen() {
-        return imagen;
-    }
-
-    public void setImagen(byte[] imagen) {
-        this.imagen = imagen;
     }
     
 }

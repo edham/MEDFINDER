@@ -21,36 +21,34 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Edham
+ * @author hp
  */
 @Entity
 @Table(name = "roles")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Roles.findAll", query = "SELECT r FROM Roles r"),
-    @NamedQuery(name = "Roles.findByPkId", query = "SELECT r FROM Roles r WHERE r.pkId = :pkId"),
-    @NamedQuery(name = "Roles.findByNombre", query = "SELECT r FROM Roles r WHERE r.nombre = :nombre"),
-    @NamedQuery(name = "Roles.findByDescripcion", query = "SELECT r FROM Roles r WHERE r.descripcion = :descripcion"),
-    @NamedQuery(name = "Roles.findByFechaModificacion", query = "SELECT r FROM Roles r WHERE r.fechaModificacion = :fechaModificacion"),
-    @NamedQuery(name = "Roles.findByFechaRegistro", query = "SELECT r FROM Roles r WHERE r.fechaRegistro = :fechaRegistro"),
-    @NamedQuery(name = "Roles.findByEstado", query = "SELECT r FROM Roles r WHERE r.estado = :estado")})
+    @NamedQuery(name = "Roles.findAll", query = "SELECT r FROM Roles r")
+    , @NamedQuery(name = "Roles.findByPkId", query = "SELECT r FROM Roles r WHERE r.pkId = :pkId")
+    , @NamedQuery(name = "Roles.findByNombre", query = "SELECT r FROM Roles r WHERE r.nombre = :nombre")
+    , @NamedQuery(name = "Roles.findByDescripcion", query = "SELECT r FROM Roles r WHERE r.descripcion = :descripcion")
+    , @NamedQuery(name = "Roles.findByFechaModificacion", query = "SELECT r FROM Roles r WHERE r.fechaModificacion = :fechaModificacion")
+    , @NamedQuery(name = "Roles.findByFechaRegistro", query = "SELECT r FROM Roles r WHERE r.fechaRegistro = :fechaRegistro")
+    , @NamedQuery(name = "Roles.findByEstado", query = "SELECT r FROM Roles r WHERE r.estado = :estado")})
 public class Roles implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "Pk_Id")
     private Integer pkId;
-    @Size(max = 100)
     @Column(name = "Nombre")
     private String nombre;
-    @Size(max = 500)
     @Column(name = "Descripcion")
     private String descripcion;
     @Column(name = "FechaModificacion")

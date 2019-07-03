@@ -25,18 +25,19 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Edham
+ * @author hp
  */
 @Entity
 @Table(name = "caso_salud_puntaje")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "CasoSaludPuntaje.findAll", query = "SELECT c FROM CasoSaludPuntaje c"),
-    @NamedQuery(name = "CasoSaludPuntaje.findByPKId", query = "SELECT c FROM CasoSaludPuntaje c WHERE c.pKId = :pKId"),
-    @NamedQuery(name = "CasoSaludPuntaje.findByPuntajeTotal", query = "SELECT c FROM CasoSaludPuntaje c WHERE c.puntajeTotal = :puntajeTotal"),
-    @NamedQuery(name = "CasoSaludPuntaje.findByFechaRegistro", query = "SELECT c FROM CasoSaludPuntaje c WHERE c.fechaRegistro = :fechaRegistro"),
-    @NamedQuery(name = "CasoSaludPuntaje.findByEstado", query = "SELECT c FROM CasoSaludPuntaje c WHERE c.estado = :estado")})
+    @NamedQuery(name = "CasoSaludPuntaje.findAll", query = "SELECT c FROM CasoSaludPuntaje c")
+    , @NamedQuery(name = "CasoSaludPuntaje.findByPKId", query = "SELECT c FROM CasoSaludPuntaje c WHERE c.pKId = :pKId")
+    , @NamedQuery(name = "CasoSaludPuntaje.findByPuntajeTotal", query = "SELECT c FROM CasoSaludPuntaje c WHERE c.puntajeTotal = :puntajeTotal")
+    , @NamedQuery(name = "CasoSaludPuntaje.findByFechaRegistro", query = "SELECT c FROM CasoSaludPuntaje c WHERE c.fechaRegistro = :fechaRegistro")
+    , @NamedQuery(name = "CasoSaludPuntaje.findByEstado", query = "SELECT c FROM CasoSaludPuntaje c WHERE c.estado = :estado")})
 public class CasoSaludPuntaje implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

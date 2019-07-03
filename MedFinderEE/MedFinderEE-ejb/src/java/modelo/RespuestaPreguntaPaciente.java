@@ -21,32 +21,31 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Edham
+ * @author hp
  */
 @Entity
 @Table(name = "respuesta_pregunta_paciente")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "RespuestaPreguntaPaciente.findAll", query = "SELECT r FROM RespuestaPreguntaPaciente r"),
-    @NamedQuery(name = "RespuestaPreguntaPaciente.findByPKId", query = "SELECT r FROM RespuestaPreguntaPaciente r WHERE r.pKId = :pKId"),
-    @NamedQuery(name = "RespuestaPreguntaPaciente.findByDetalle", query = "SELECT r FROM RespuestaPreguntaPaciente r WHERE r.detalle = :detalle"),
-    @NamedQuery(name = "RespuestaPreguntaPaciente.findByPuntaje", query = "SELECT r FROM RespuestaPreguntaPaciente r WHERE r.puntaje = :puntaje"),
-    @NamedQuery(name = "RespuestaPreguntaPaciente.findByFechaRegistro", query = "SELECT r FROM RespuestaPreguntaPaciente r WHERE r.fechaRegistro = :fechaRegistro"),
-    @NamedQuery(name = "RespuestaPreguntaPaciente.findByFechaModificacion", query = "SELECT r FROM RespuestaPreguntaPaciente r WHERE r.fechaModificacion = :fechaModificacion"),
-    @NamedQuery(name = "RespuestaPreguntaPaciente.findByEstado", query = "SELECT r FROM RespuestaPreguntaPaciente r WHERE r.estado = :estado")})
+    @NamedQuery(name = "RespuestaPreguntaPaciente.findAll", query = "SELECT r FROM RespuestaPreguntaPaciente r")
+    , @NamedQuery(name = "RespuestaPreguntaPaciente.findByPKId", query = "SELECT r FROM RespuestaPreguntaPaciente r WHERE r.pKId = :pKId")
+    , @NamedQuery(name = "RespuestaPreguntaPaciente.findByDetalle", query = "SELECT r FROM RespuestaPreguntaPaciente r WHERE r.detalle = :detalle")
+    , @NamedQuery(name = "RespuestaPreguntaPaciente.findByPuntaje", query = "SELECT r FROM RespuestaPreguntaPaciente r WHERE r.puntaje = :puntaje")
+    , @NamedQuery(name = "RespuestaPreguntaPaciente.findByFechaRegistro", query = "SELECT r FROM RespuestaPreguntaPaciente r WHERE r.fechaRegistro = :fechaRegistro")
+    , @NamedQuery(name = "RespuestaPreguntaPaciente.findByFechaModificacion", query = "SELECT r FROM RespuestaPreguntaPaciente r WHERE r.fechaModificacion = :fechaModificacion")
+    , @NamedQuery(name = "RespuestaPreguntaPaciente.findByEstado", query = "SELECT r FROM RespuestaPreguntaPaciente r WHERE r.estado = :estado")})
 public class RespuestaPreguntaPaciente implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "PK_Id")
     private Integer pKId;
-    @Size(max = 200)
     @Column(name = "Detalle")
     private String detalle;
     @Column(name = "Puntaje")

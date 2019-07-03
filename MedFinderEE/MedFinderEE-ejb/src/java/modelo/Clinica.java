@@ -24,53 +24,46 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Edham
+ * @author hp
  */
 @Entity
 @Table(name = "clinica")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Clinica.findAll", query = "SELECT c FROM Clinica c"),
-    @NamedQuery(name = "Clinica.findByPKId", query = "SELECT c FROM Clinica c WHERE c.pKId = :pKId"),
-    @NamedQuery(name = "Clinica.findByNombre", query = "SELECT c FROM Clinica c WHERE c.nombre = :nombre"),
-    @NamedQuery(name = "Clinica.findBySlogan", query = "SELECT c FROM Clinica c WHERE c.slogan = :slogan"),
-    @NamedQuery(name = "Clinica.findByDireccion", query = "SELECT c FROM Clinica c WHERE c.direccion = :direccion"),
-    @NamedQuery(name = "Clinica.findByDescripcion", query = "SELECT c FROM Clinica c WHERE c.descripcion = :descripcion"),
-    @NamedQuery(name = "Clinica.findByHorarioInicio", query = "SELECT c FROM Clinica c WHERE c.horarioInicio = :horarioInicio"),
-    @NamedQuery(name = "Clinica.findByHorarioFin", query = "SELECT c FROM Clinica c WHERE c.horarioFin = :horarioFin"),
-    @NamedQuery(name = "Clinica.findByDetalleAtencion", query = "SELECT c FROM Clinica c WHERE c.detalleAtencion = :detalleAtencion"),
-    @NamedQuery(name = "Clinica.findByTelefono", query = "SELECT c FROM Clinica c WHERE c.telefono = :telefono"),
-    @NamedQuery(name = "Clinica.findByLongitud", query = "SELECT c FROM Clinica c WHERE c.longitud = :longitud"),
-    @NamedQuery(name = "Clinica.findByLatitud", query = "SELECT c FROM Clinica c WHERE c.latitud = :latitud"),
-    @NamedQuery(name = "Clinica.findByFechaRegistro", query = "SELECT c FROM Clinica c WHERE c.fechaRegistro = :fechaRegistro"),
-    @NamedQuery(name = "Clinica.findByFechaModificacion", query = "SELECT c FROM Clinica c WHERE c.fechaModificacion = :fechaModificacion"),
-    @NamedQuery(name = "Clinica.findByEstado", query = "SELECT c FROM Clinica c WHERE c.estado = :estado")})
+    @NamedQuery(name = "Clinica.findAll", query = "SELECT c FROM Clinica c")
+    , @NamedQuery(name = "Clinica.findByPKId", query = "SELECT c FROM Clinica c WHERE c.pKId = :pKId")
+    , @NamedQuery(name = "Clinica.findByNombre", query = "SELECT c FROM Clinica c WHERE c.nombre = :nombre")
+    , @NamedQuery(name = "Clinica.findBySlogan", query = "SELECT c FROM Clinica c WHERE c.slogan = :slogan")
+    , @NamedQuery(name = "Clinica.findByDireccion", query = "SELECT c FROM Clinica c WHERE c.direccion = :direccion")
+    , @NamedQuery(name = "Clinica.findByDescripcion", query = "SELECT c FROM Clinica c WHERE c.descripcion = :descripcion")
+    , @NamedQuery(name = "Clinica.findByHorarioInicio", query = "SELECT c FROM Clinica c WHERE c.horarioInicio = :horarioInicio")
+    , @NamedQuery(name = "Clinica.findByHorarioFin", query = "SELECT c FROM Clinica c WHERE c.horarioFin = :horarioFin")
+    , @NamedQuery(name = "Clinica.findByDetalleAtencion", query = "SELECT c FROM Clinica c WHERE c.detalleAtencion = :detalleAtencion")
+    , @NamedQuery(name = "Clinica.findByTelefono", query = "SELECT c FROM Clinica c WHERE c.telefono = :telefono")
+    , @NamedQuery(name = "Clinica.findByLongitud", query = "SELECT c FROM Clinica c WHERE c.longitud = :longitud")
+    , @NamedQuery(name = "Clinica.findByLatitud", query = "SELECT c FROM Clinica c WHERE c.latitud = :latitud")
+    , @NamedQuery(name = "Clinica.findByFechaRegistro", query = "SELECT c FROM Clinica c WHERE c.fechaRegistro = :fechaRegistro")
+    , @NamedQuery(name = "Clinica.findByFechaModificacion", query = "SELECT c FROM Clinica c WHERE c.fechaModificacion = :fechaModificacion")
+    , @NamedQuery(name = "Clinica.findByEstado", query = "SELECT c FROM Clinica c WHERE c.estado = :estado")})
 public class Clinica implements Serializable {
-    @Lob
-    @Column(name = "Logo")
-    private byte[] logo;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "PK_Id")
     private Integer pKId;
-    @Size(max = 45)
     @Column(name = "Nombre")
     private String nombre;
-    @Size(max = 100)
     @Column(name = "Slogan")
     private String slogan;
-    @Size(max = 100)
     @Column(name = "Direccion")
     private String direccion;
-    @Size(max = 200)
     @Column(name = "Descripcion")
     private String descripcion;
     @Column(name = "HorarioInicio")
@@ -79,10 +72,11 @@ public class Clinica implements Serializable {
     @Column(name = "HorarioFin")
     @Temporal(TemporalType.TIME)
     private Date horarioFin;
-    @Size(max = 45)
     @Column(name = "DetalleAtencion")
     private String detalleAtencion;
-    @Size(max = 20)
+    @Lob
+    @Column(name = "Logo")
+    private byte[] logo;
     @Column(name = "Telefono")
     private String telefono;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -177,6 +171,13 @@ public class Clinica implements Serializable {
         this.detalleAtencion = detalleAtencion;
     }
 
+    public byte[] getLogo() {
+        return logo;
+    }
+
+    public void setLogo(byte[] logo) {
+        this.logo = logo;
+    }
 
     public String getTelefono() {
         return telefono;
@@ -275,14 +276,6 @@ public class Clinica implements Serializable {
     @Override
     public String toString() {
         return "modelo.Clinica[ pKId=" + pKId + " ]";
-    }
-
-    public byte[] getLogo() {
-        return logo;
-    }
-
-    public void setLogo(byte[] logo) {
-        this.logo = logo;
     }
     
 }

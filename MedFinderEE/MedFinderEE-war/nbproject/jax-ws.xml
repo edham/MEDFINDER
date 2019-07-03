@@ -3,9 +3,9 @@
   <services/>
   <clients>
     <client name="medico">
-      <wsdl-url>http://localhost:8080/MedSevis/medico?wsdl</wsdl-url>
-      <local-wsdl-file>localhost_8080/MedSevis/medico.wsdl</local-wsdl-file>
-      <package-name forceReplace="true">servicio</package-name>
+      <wsdl-url>http://localhost/MedServis/medico?wsdl</wsdl-url>
+      <local-wsdl-file>localhost/MedServis/medico.wsdl</local-wsdl-file>
+      <package-name forceReplace="true">wsdl</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>
@@ -22,7 +22,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>http://localhost:8080/MedSevis/medico?wsdl</wsimport-option-value>
+          <wsimport-option-value>http://localhost/MedServis/medico?wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>
@@ -34,7 +34,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>package</wsimport-option-name>
-          <wsimport-option-value>servicio</wsimport-option-value>
+          <wsimport-option-value>wsdl</wsimport-option-value>
         </wsimport-option>
       </wsimport-options>
     </client>

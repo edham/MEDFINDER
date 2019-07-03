@@ -21,33 +21,30 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Edham
+ * @author hp
  */
 @Entity
 @Table(name = "provincia")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Provincia.findAll", query = "SELECT p FROM Provincia p"),
-    @NamedQuery(name = "Provincia.findByPKId", query = "SELECT p FROM Provincia p WHERE p.pKId = :pKId"),
-    @NamedQuery(name = "Provincia.findByNombre", query = "SELECT p FROM Provincia p WHERE p.nombre = :nombre"),
-    @NamedQuery(name = "Provincia.findByFechaRegistro", query = "SELECT p FROM Provincia p WHERE p.fechaRegistro = :fechaRegistro"),
-    @NamedQuery(name = "Provincia.findByFechaModificacion", query = "SELECT p FROM Provincia p WHERE p.fechaModificacion = :fechaModificacion"),
-    @NamedQuery(name = "Provincia.findByEstado", query = "SELECT p FROM Provincia p WHERE p.estado = :estado")})
+    @NamedQuery(name = "Provincia.findAll", query = "SELECT p FROM Provincia p")
+    , @NamedQuery(name = "Provincia.findByPKId", query = "SELECT p FROM Provincia p WHERE p.pKId = :pKId")
+    , @NamedQuery(name = "Provincia.findByNombre", query = "SELECT p FROM Provincia p WHERE p.nombre = :nombre")
+    , @NamedQuery(name = "Provincia.findByFechaRegistro", query = "SELECT p FROM Provincia p WHERE p.fechaRegistro = :fechaRegistro")
+    , @NamedQuery(name = "Provincia.findByFechaModificacion", query = "SELECT p FROM Provincia p WHERE p.fechaModificacion = :fechaModificacion")
+    , @NamedQuery(name = "Provincia.findByEstado", query = "SELECT p FROM Provincia p WHERE p.estado = :estado")})
 public class Provincia implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @NotNull
     @Column(name = "PK_Id")
     private Integer pKId;
-    @Size(max = 45)
     @Column(name = "Nombre")
     private String nombre;
     @Column(name = "FechaRegistro")

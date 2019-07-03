@@ -21,36 +21,34 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Edham
+ * @author hp
  */
 @Entity
 @Table(name = "especialidad")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Especialidad.findAll", query = "SELECT e FROM Especialidad e"),
-    @NamedQuery(name = "Especialidad.findByPKId", query = "SELECT e FROM Especialidad e WHERE e.pKId = :pKId"),
-    @NamedQuery(name = "Especialidad.findByNombre", query = "SELECT e FROM Especialidad e WHERE e.nombre = :nombre"),
-    @NamedQuery(name = "Especialidad.findByDescripcion", query = "SELECT e FROM Especialidad e WHERE e.descripcion = :descripcion"),
-    @NamedQuery(name = "Especialidad.findByFechaRegistro", query = "SELECT e FROM Especialidad e WHERE e.fechaRegistro = :fechaRegistro"),
-    @NamedQuery(name = "Especialidad.findByFechaModificacion", query = "SELECT e FROM Especialidad e WHERE e.fechaModificacion = :fechaModificacion"),
-    @NamedQuery(name = "Especialidad.findByEstado", query = "SELECT e FROM Especialidad e WHERE e.estado = :estado")})
+    @NamedQuery(name = "Especialidad.findAll", query = "SELECT e FROM Especialidad e")
+    , @NamedQuery(name = "Especialidad.findByPKId", query = "SELECT e FROM Especialidad e WHERE e.pKId = :pKId")
+    , @NamedQuery(name = "Especialidad.findByNombre", query = "SELECT e FROM Especialidad e WHERE e.nombre = :nombre")
+    , @NamedQuery(name = "Especialidad.findByDescripcion", query = "SELECT e FROM Especialidad e WHERE e.descripcion = :descripcion")
+    , @NamedQuery(name = "Especialidad.findByFechaRegistro", query = "SELECT e FROM Especialidad e WHERE e.fechaRegistro = :fechaRegistro")
+    , @NamedQuery(name = "Especialidad.findByFechaModificacion", query = "SELECT e FROM Especialidad e WHERE e.fechaModificacion = :fechaModificacion")
+    , @NamedQuery(name = "Especialidad.findByEstado", query = "SELECT e FROM Especialidad e WHERE e.estado = :estado")})
 public class Especialidad implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "PK_Id")
     private Integer pKId;
-    @Size(max = 45)
     @Column(name = "Nombre")
     private String nombre;
-    @Size(max = 256)
     @Column(name = "Descripcion")
     private String descripcion;
     @Column(name = "FechaRegistro")

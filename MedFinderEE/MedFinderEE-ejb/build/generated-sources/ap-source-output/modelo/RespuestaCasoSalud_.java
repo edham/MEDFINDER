@@ -9,7 +9,7 @@ import modelo.CasoSaludPuntaje;
 import modelo.CasosSalud;
 import modelo.Doctor;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2019-04-14T20:08:31")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2019-07-03T00:46:05")
 @StaticMetamodel(RespuestaCasoSalud.class)
 public class RespuestaCasoSalud_ { 
 
@@ -19,8 +19,8 @@ public class RespuestaCasoSalud_ {
     public static volatile SingularAttribute<RespuestaCasoSalud, Integer> pKId;
     public static volatile SingularAttribute<RespuestaCasoSalud, Integer> estado;
     public static volatile SingularAttribute<RespuestaCasoSalud, Date> fechaModificacion;
-    public static volatile SingularAttribute<RespuestaCasoSalud, Integer> totalCalificaciones;
     public static volatile SingularAttribute<RespuestaCasoSalud, Date> fechaRegistro;
+    public static volatile SingularAttribute<RespuestaCasoSalud, Integer> totalCalificaciones;
     public static volatile SingularAttribute<RespuestaCasoSalud, CasosSalud> casosSalud;
     public static volatile ListAttribute<RespuestaCasoSalud, CasoSaludPuntaje> casoSaludPuntajeList;
 

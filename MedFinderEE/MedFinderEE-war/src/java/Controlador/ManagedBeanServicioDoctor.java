@@ -12,9 +12,9 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.primefaces.event.SelectEvent;
-import servicio.WsDetalle;
-import servicio.WsDoctor;
-import servicio.WsEspecialidad;
+import wsdl.WsDetalle;
+import wsdl.WsDoctor;
+import wsdl.WsEspecialidad;
 
 /**
  *

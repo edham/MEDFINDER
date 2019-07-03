@@ -25,18 +25,19 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Edham
+ * @author hp
  */
 @Entity
 @Table(name = "favoritos")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Favoritos.findAll", query = "SELECT f FROM Favoritos f"),
-    @NamedQuery(name = "Favoritos.findByPKId", query = "SELECT f FROM Favoritos f WHERE f.pKId = :pKId"),
-    @NamedQuery(name = "Favoritos.findByFechaModificacion", query = "SELECT f FROM Favoritos f WHERE f.fechaModificacion = :fechaModificacion"),
-    @NamedQuery(name = "Favoritos.findByFechaRegistro", query = "SELECT f FROM Favoritos f WHERE f.fechaRegistro = :fechaRegistro"),
-    @NamedQuery(name = "Favoritos.findByEstado", query = "SELECT f FROM Favoritos f WHERE f.estado = :estado")})
+    @NamedQuery(name = "Favoritos.findAll", query = "SELECT f FROM Favoritos f")
+    , @NamedQuery(name = "Favoritos.findByPKId", query = "SELECT f FROM Favoritos f WHERE f.pKId = :pKId")
+    , @NamedQuery(name = "Favoritos.findByFechaModificacion", query = "SELECT f FROM Favoritos f WHERE f.fechaModificacion = :fechaModificacion")
+    , @NamedQuery(name = "Favoritos.findByFechaRegistro", query = "SELECT f FROM Favoritos f WHERE f.fechaRegistro = :fechaRegistro")
+    , @NamedQuery(name = "Favoritos.findByEstado", query = "SELECT f FROM Favoritos f WHERE f.estado = :estado")})
 public class Favoritos implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

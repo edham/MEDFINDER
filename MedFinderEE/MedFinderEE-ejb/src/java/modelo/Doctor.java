@@ -23,48 +23,44 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Edham
+ * @author hp
  */
 @Entity
 @Table(name = "doctor")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Doctor.findAll", query = "SELECT d FROM Doctor d"),
-    @NamedQuery(name = "Doctor.findByPKId", query = "SELECT d FROM Doctor d WHERE d.pKId = :pKId"),
-    @NamedQuery(name = "Doctor.findByCodigoColegiatura", query = "SELECT d FROM Doctor d WHERE d.codigoColegiatura = :codigoColegiatura"),
-    @NamedQuery(name = "Doctor.findByDireccion", query = "SELECT d FROM Doctor d WHERE d.direccion = :direccion"),
-    @NamedQuery(name = "Doctor.findByDireccionDetalle", query = "SELECT d FROM Doctor d WHERE d.direccionDetalle = :direccionDetalle"),
-    @NamedQuery(name = "Doctor.findByTelefono", query = "SELECT d FROM Doctor d WHERE d.telefono = :telefono"),
-    @NamedQuery(name = "Doctor.findByLongitud", query = "SELECT d FROM Doctor d WHERE d.longitud = :longitud"),
-    @NamedQuery(name = "Doctor.findByLatitud", query = "SELECT d FROM Doctor d WHERE d.latitud = :latitud"),
-    @NamedQuery(name = "Doctor.findByPuntaje", query = "SELECT d FROM Doctor d WHERE d.puntaje = :puntaje"),
-    @NamedQuery(name = "Doctor.findByFechaRegistro", query = "SELECT d FROM Doctor d WHERE d.fechaRegistro = :fechaRegistro"),
-    @NamedQuery(name = "Doctor.findByFechaModificacion", query = "SELECT d FROM Doctor d WHERE d.fechaModificacion = :fechaModificacion"),
-    @NamedQuery(name = "Doctor.findByFechaUltimoAcceso", query = "SELECT d FROM Doctor d WHERE d.fechaUltimoAcceso = :fechaUltimoAcceso"),
-    @NamedQuery(name = "Doctor.findByEstado", query = "SELECT d FROM Doctor d WHERE d.estado = :estado")})
+    @NamedQuery(name = "Doctor.findAll", query = "SELECT d FROM Doctor d")
+    , @NamedQuery(name = "Doctor.findByPKId", query = "SELECT d FROM Doctor d WHERE d.pKId = :pKId")
+    , @NamedQuery(name = "Doctor.findByCodigoColegiatura", query = "SELECT d FROM Doctor d WHERE d.codigoColegiatura = :codigoColegiatura")
+    , @NamedQuery(name = "Doctor.findByDireccion", query = "SELECT d FROM Doctor d WHERE d.direccion = :direccion")
+    , @NamedQuery(name = "Doctor.findByDireccionDetalle", query = "SELECT d FROM Doctor d WHERE d.direccionDetalle = :direccionDetalle")
+    , @NamedQuery(name = "Doctor.findByTelefono", query = "SELECT d FROM Doctor d WHERE d.telefono = :telefono")
+    , @NamedQuery(name = "Doctor.findByLongitud", query = "SELECT d FROM Doctor d WHERE d.longitud = :longitud")
+    , @NamedQuery(name = "Doctor.findByLatitud", query = "SELECT d FROM Doctor d WHERE d.latitud = :latitud")
+    , @NamedQuery(name = "Doctor.findByPuntaje", query = "SELECT d FROM Doctor d WHERE d.puntaje = :puntaje")
+    , @NamedQuery(name = "Doctor.findByFechaRegistro", query = "SELECT d FROM Doctor d WHERE d.fechaRegistro = :fechaRegistro")
+    , @NamedQuery(name = "Doctor.findByFechaModificacion", query = "SELECT d FROM Doctor d WHERE d.fechaModificacion = :fechaModificacion")
+    , @NamedQuery(name = "Doctor.findByFechaUltimoAcceso", query = "SELECT d FROM Doctor d WHERE d.fechaUltimoAcceso = :fechaUltimoAcceso")
+    , @NamedQuery(name = "Doctor.findByEstado", query = "SELECT d FROM Doctor d WHERE d.estado = :estado")})
 public class Doctor implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "PK_Id")
     private Integer pKId;
-    @Size(max = 45)
     @Column(name = "CodigoColegiatura")
     private String codigoColegiatura;
-    @Size(max = 100)
     @Column(name = "Direccion")
     private String direccion;
-    @Size(max = 100)
     @Column(name = "DireccionDetalle")
     private String direccionDetalle;
-    @Size(max = 9)
     @Column(name = "Telefono")
     private String telefono;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation

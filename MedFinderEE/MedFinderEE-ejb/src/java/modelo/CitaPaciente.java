@@ -21,37 +21,33 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Edham
+ * @author hp
  */
 @Entity
 @Table(name = "cita_paciente")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "CitaPaciente.findAll", query = "SELECT c FROM CitaPaciente c"),
-    @NamedQuery(name = "CitaPaciente.findByPKId", query = "SELECT c FROM CitaPaciente c WHERE c.pKId = :pKId"),
-    @NamedQuery(name = "CitaPaciente.findByDetalle", query = "SELECT c FROM CitaPaciente c WHERE c.detalle = :detalle"),
-    @NamedQuery(name = "CitaPaciente.findByAtencion", query = "SELECT c FROM CitaPaciente c WHERE c.atencion = :atencion"),
-    @NamedQuery(name = "CitaPaciente.findByFechaRegistro", query = "SELECT c FROM CitaPaciente c WHERE c.fechaRegistro = :fechaRegistro"),
-    @NamedQuery(name = "CitaPaciente.findByFechaModificacion", query = "SELECT c FROM CitaPaciente c WHERE c.fechaModificacion = :fechaModificacion"),
-    @NamedQuery(name = "CitaPaciente.findByEstado", query = "SELECT c FROM CitaPaciente c WHERE c.estado = :estado")})
+    @NamedQuery(name = "CitaPaciente.findAll", query = "SELECT c FROM CitaPaciente c")
+    , @NamedQuery(name = "CitaPaciente.findByPKId", query = "SELECT c FROM CitaPaciente c WHERE c.pKId = :pKId")
+    , @NamedQuery(name = "CitaPaciente.findByDetalle", query = "SELECT c FROM CitaPaciente c WHERE c.detalle = :detalle")
+    , @NamedQuery(name = "CitaPaciente.findByAtencion", query = "SELECT c FROM CitaPaciente c WHERE c.atencion = :atencion")
+    , @NamedQuery(name = "CitaPaciente.findByFechaRegistro", query = "SELECT c FROM CitaPaciente c WHERE c.fechaRegistro = :fechaRegistro")
+    , @NamedQuery(name = "CitaPaciente.findByFechaModificacion", query = "SELECT c FROM CitaPaciente c WHERE c.fechaModificacion = :fechaModificacion")
+    , @NamedQuery(name = "CitaPaciente.findByEstado", query = "SELECT c FROM CitaPaciente c WHERE c.estado = :estado")
+    , @NamedQuery(name = "CitaPaciente.findByTipo", query = "SELECT c FROM CitaPaciente c WHERE c.tipo = :tipo")
+    , @NamedQuery(name = "CitaPaciente.findByRespuestaDoctor", query = "SELECT c FROM CitaPaciente c WHERE c.respuestaDoctor = :respuestaDoctor")})
 public class CitaPaciente implements Serializable {
-    @Column(name = "Tipo")
-    private Integer tipo;
-    @Size(max = 200)
-    @Column(name = "respuesta_doctor")
-    private String respuestaDoctor;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "PK_Id")
     private Integer pKId;
-    @Size(max = 200)
     @Column(name = "Detalle")
     private String detalle;
     @Column(name = "Atencion")
@@ -65,6 +61,10 @@ public class CitaPaciente implements Serializable {
     private Date fechaModificacion;
     @Column(name = "Estado")
     private Integer estado;
+    @Column(name = "Tipo")
+    private Integer tipo;
+    @Column(name = "respuesta_doctor")
+    private String respuestaDoctor;
     @JoinColumn(name = "FK_Doctor", referencedColumnName = "PK_Id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Doctor doctor;
@@ -127,6 +127,22 @@ public class CitaPaciente implements Serializable {
         this.estado = estado;
     }
 
+    public Integer getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(Integer tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getRespuestaDoctor() {
+        return respuestaDoctor;
+    }
+
+    public void setRespuestaDoctor(String respuestaDoctor) {
+        this.respuestaDoctor = respuestaDoctor;
+    }
+
     public Doctor getDoctor() {
         return doctor;
     }
@@ -166,22 +182,6 @@ public class CitaPaciente implements Serializable {
     @Override
     public String toString() {
         return "modelo.CitaPaciente[ pKId=" + pKId + " ]";
-    }
-
-    public Integer getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(Integer tipo) {
-        this.tipo = tipo;
-    }
-
-    public String getRespuestaDoctor() {
-        return respuestaDoctor;
-    }
-
-    public void setRespuestaDoctor(String respuestaDoctor) {
-        this.respuestaDoctor = respuestaDoctor;
     }
     
 }

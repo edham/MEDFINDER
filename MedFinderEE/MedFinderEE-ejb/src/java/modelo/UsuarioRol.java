@@ -25,18 +25,19 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Edham
+ * @author hp
  */
 @Entity
 @Table(name = "usuario_rol")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "UsuarioRol.findAll", query = "SELECT u FROM UsuarioRol u"),
-    @NamedQuery(name = "UsuarioRol.findByPkId", query = "SELECT u FROM UsuarioRol u WHERE u.pkId = :pkId"),
-    @NamedQuery(name = "UsuarioRol.findByFechaRegistro", query = "SELECT u FROM UsuarioRol u WHERE u.fechaRegistro = :fechaRegistro"),
-    @NamedQuery(name = "UsuarioRol.findByFechaModificacion", query = "SELECT u FROM UsuarioRol u WHERE u.fechaModificacion = :fechaModificacion"),
-    @NamedQuery(name = "UsuarioRol.findByEstado", query = "SELECT u FROM UsuarioRol u WHERE u.estado = :estado")})
+    @NamedQuery(name = "UsuarioRol.findAll", query = "SELECT u FROM UsuarioRol u")
+    , @NamedQuery(name = "UsuarioRol.findByPkId", query = "SELECT u FROM UsuarioRol u WHERE u.pkId = :pkId")
+    , @NamedQuery(name = "UsuarioRol.findByFechaRegistro", query = "SELECT u FROM UsuarioRol u WHERE u.fechaRegistro = :fechaRegistro")
+    , @NamedQuery(name = "UsuarioRol.findByFechaModificacion", query = "SELECT u FROM UsuarioRol u WHERE u.fechaModificacion = :fechaModificacion")
+    , @NamedQuery(name = "UsuarioRol.findByEstado", query = "SELECT u FROM UsuarioRol u WHERE u.estado = :estado")})
 public class UsuarioRol implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -21,33 +21,30 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Edham
+ * @author hp
  */
 @Entity
 @Table(name = "distrito")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Distrito.findAll", query = "SELECT d FROM Distrito d"),
-    @NamedQuery(name = "Distrito.findByPKId", query = "SELECT d FROM Distrito d WHERE d.pKId = :pKId"),
-    @NamedQuery(name = "Distrito.findByNombre", query = "SELECT d FROM Distrito d WHERE d.nombre = :nombre"),
-    @NamedQuery(name = "Distrito.findByFechaRegistro", query = "SELECT d FROM Distrito d WHERE d.fechaRegistro = :fechaRegistro"),
-    @NamedQuery(name = "Distrito.findByFechaModificacion", query = "SELECT d FROM Distrito d WHERE d.fechaModificacion = :fechaModificacion"),
-    @NamedQuery(name = "Distrito.findByEstado", query = "SELECT d FROM Distrito d WHERE d.estado = :estado")})
+    @NamedQuery(name = "Distrito.findAll", query = "SELECT d FROM Distrito d")
+    , @NamedQuery(name = "Distrito.findByPKId", query = "SELECT d FROM Distrito d WHERE d.pKId = :pKId")
+    , @NamedQuery(name = "Distrito.findByNombre", query = "SELECT d FROM Distrito d WHERE d.nombre = :nombre")
+    , @NamedQuery(name = "Distrito.findByFechaRegistro", query = "SELECT d FROM Distrito d WHERE d.fechaRegistro = :fechaRegistro")
+    , @NamedQuery(name = "Distrito.findByFechaModificacion", query = "SELECT d FROM Distrito d WHERE d.fechaModificacion = :fechaModificacion")
+    , @NamedQuery(name = "Distrito.findByEstado", query = "SELECT d FROM Distrito d WHERE d.estado = :estado")})
 public class Distrito implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @NotNull
     @Column(name = "PK_Id")
     private Integer pKId;
-    @Size(max = 45)
     @Column(name = "Nombre")
     private String nombre;
     @Column(name = "FechaRegistro")
