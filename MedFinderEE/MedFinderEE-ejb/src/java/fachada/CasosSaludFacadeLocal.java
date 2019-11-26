@@ -27,7 +27,11 @@ public interface CasosSaludFacadeLocal {
     List<CasosSalud> findAll();
 
     List<CasosSalud> findRange(int[] range);
+
     List<CasosSalud> lista_activos();
-    int count();
     
+    List<CasosSalud> lista_estado(String ordenParametro, boolean orden, boolean todos);
+
+    int count();
+
 }
