@@ -9,6 +9,7 @@ import Utilidades.Utilidades;
 import fachada.UsuarioFacadeLocal;
 import modelo.Usuario;
 import java.io.IOException;
+import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -22,7 +23,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @ManagedBean
 @SessionScoped
-public class ManagedBeanLogin {
+public class ManagedBeanLogin implements Serializable{
     @EJB
     private UsuarioFacadeLocal usuarioFacade;
     private Usuario objUsuario;
