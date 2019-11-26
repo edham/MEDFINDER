@@ -82,6 +82,25 @@ public abstract class AbstractFacade<T> {
         return q.getResultList();
     }
 
+    public List<T> lista_estado(String ordenParametro, boolean orden, boolean todos) {
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery cq = cb.createQuery();
+        Root<Class<T>> registro = cq.from(entityClass);
+        if (orden) {
+            cq.orderBy(cb.asc(registro.get(ordenParametro)));
+        } else {
+            cq.orderBy(cb.desc(registro.get(ordenParametro)));
+        }
+        if (!todos) {
+            cq.where(
+                    cb.and(
+                            cb.equal(registro.get("estado"), 1)
+                    ));
+        }
+        javax.persistence.Query q = getEntityManager().createQuery(cq);
+        return q.getResultList();
+    }
+
     public T buscarXString(String dato, String columna) {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaQuery cq = cb.createQuery();
@@ -117,7 +136,7 @@ public abstract class AbstractFacade<T> {
     }
 
     public List<T> listarXObjeto(String atributo, Object obejto, boolean orden, String atributoOrden, boolean todos) {
-        
+
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaQuery cq = cb.createQuery();
         Root<Class<T>> registro = cq.from(entityClass);
@@ -144,7 +163,7 @@ public abstract class AbstractFacade<T> {
         return q.getResultList();
     }
 
-     public List<T> obtenerObjetosPorParametros(ParametroNodo parametros, boolean orden, String atributoOrden, boolean todos, boolean operador) {
+    public List<T> obtenerObjetosPorParametros(ParametroNodo parametros, boolean orden, String atributoOrden, boolean todos, boolean operador) {
         javax.persistence.criteria.CriteriaQuery<T> cb = getEntityManager().getCriteriaBuilder().createQuery(entityClass);
         CriteriaBuilder criteriaBuilder = getEntityManager().getCriteriaBuilder();
         List<Predicate> predicados = new ArrayList<Predicate>();
@@ -173,13 +192,14 @@ public abstract class AbstractFacade<T> {
         return getEntityManager().createQuery(cb).getResultList();
     }
 
-    public T buscar_XPorParametros(ParametroNodo parametros, boolean todos, boolean operador,boolean pkId) {
+    public T buscar_XPorParametros(ParametroNodo parametros, boolean todos, boolean operador, boolean pkId) {
         javax.persistence.criteria.CriteriaQuery<T> cb = getEntityManager().getCriteriaBuilder().createQuery(entityClass);
         CriteriaBuilder criteriaBuilder = getEntityManager().getCriteriaBuilder();
         List<Predicate> predicados = new ArrayList<Predicate>();
         Root<T> entitie = cb.from(entityClass);
-        if(pkId)
-              cb.orderBy(criteriaBuilder.desc(entitie.get("pkId")));
+        if (pkId) {
+            cb.orderBy(criteriaBuilder.desc(entitie.get("pkId")));
+        }
         for (ParametroNodo.parametro entidad : parametros.getParametros()) {
             predicados.add(criteriaBuilder.equal(entitie.get(entidad.getCampo()), entidad.getValor()));
         }
@@ -195,12 +215,12 @@ public abstract class AbstractFacade<T> {
             cb.select(entitie).where(
                     getEntityManager().getCriteriaBuilder().or(predicados.toArray(new Predicate[]{})));
         }
-        
+
         try {
             javax.persistence.Query q = getEntityManager().createQuery(cb);
             return (T) q.setMaxResults(1).getSingleResult();
         } catch (PersistenceException e) {
             return null;
         }
-    }   
+    }
 }
