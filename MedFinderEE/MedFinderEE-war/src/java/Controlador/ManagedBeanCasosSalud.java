@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -22,25 +23,32 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean
 @SessionScoped
 public class ManagedBeanCasosSalud implements Serializable {
+
     @EJB
     private CasosSaludFacadeLocal casosSaludFacade;
-    
-    private List<CasosSalud> listaObjeto;    
+
+    private List<CasosSalud> listaObjeto;
     private CasosSalud objeto;
     private String nuevoTitulo;
+
     public ManagedBeanCasosSalud() {
-       
-      instanciar();
+
     }
 
     public CasosSaludFacadeLocal getCasosSaludFacade() {
         return casosSaludFacade;
     }
-    
-    public void instanciar()    
-    {
-        nuevoTitulo="NUEVO";
-        objeto=new CasosSalud();
+
+    @PostConstruct
+    public void init() {
+        nuevoTitulo = "NUEVO";
+        objeto = new CasosSalud();
+        listaObjeto = casosSaludFacade.lista_estado("pKId", true, false);
+    }
+
+    public void instanciar() {
+        nuevoTitulo = "NUEVO";
+        objeto = new CasosSalud();
         listaObjeto = new ArrayList<CasosSalud>();
     }
 
@@ -68,47 +76,42 @@ public class ManagedBeanCasosSalud implements Serializable {
         this.nuevoTitulo = nuevoTitulo;
     }
 
- 
-
     public List<CasosSalud> lista(boolean todos) {
         List<CasosSalud> lista = new ArrayList<CasosSalud>();
-        try
-        {  
-            if(todos)
-                lista=casosSaludFacade.findAll();
-            else
-                lista=casosSaludFacade.lista_activos();
+        try {
+            if (todos) {
+                lista = casosSaludFacade.findAll();
+            } else {
+                lista = casosSaludFacade.lista_activos();
+            }
+        } catch (Exception e) {
         }
-        catch (Exception e) {
-        }
-         
+
         return lista;
     }
-    
-     public void crear()
-    {
-        System.out.println("crear objeto.getPKId() "+objeto.getPKId());
-        try
-        {
-           objeto.setFechaModificacion(new Date());
-           if(objeto.getPKId()==null)
+
+    public void crear() {
+        System.out.println("crear objeto.getPKId() " + objeto.getPKId());
+        try {
+            objeto.setFechaModificacion(new Date());
+            if (objeto.getPKId() == null) {
                 casosSaludFacade.create(objeto);
-           else
+            } else {
                 casosSaludFacade.edit(objeto);
+            }
             instanciar();
+        } catch (Exception e) {
         }
-         catch (Exception e) {
-        }
-       
+
     }
-     public void actualizar(CasosSalud obejto)
-    {
-        this.nuevoTitulo="EDITAR ID : "+obejto.getPKId();        
-        this.objeto=obejto;
-    
+
+    public void actualizar(CasosSalud obejto) {
+        this.nuevoTitulo = "EDITAR ID : " + obejto.getPKId();
+        this.objeto = obejto;
+
     }
-     
-      public CasosSalud traerObjeto(String id) {
+
+    public CasosSalud traerObjeto(String id) {
         CasosSalud objBuscar = casosSaludFacade.find(Integer.parseInt(id));
         return objBuscar;
     }
