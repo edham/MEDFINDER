@@ -36,7 +36,7 @@ public class LoginHTTP extends AsyncTask<Object, Integer, String>
         client = new DefaultHttpClient();
         HttpPost httppost = new HttpPost(Utilidades.url);
        // httppost.setHeader("Content-Type", "text/plain; charset=UTF-8");
-
+        Log.e("----------",Utilidades.url);
         try {
             List<NameValuePair> Value = new ArrayList<NameValuePair>();
             Value.add(new BasicNameValuePair("IdServicio","3"));

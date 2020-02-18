@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 import com.med.finder.cliente.R;
 
 
-public class CustomFontTextView extends android.support.v7.widget.AppCompatTextView {
+public class CustomFontTextView extends androidx.appcompat.widget.AppCompatTextView {
 
     public static final String ANDROID_SCHEMA = "http://schemas.android.com/apk/res/android";
 

@@ -50,6 +50,8 @@ public class bdSQLite extends SQLiteOpenHelper {
             + "int_id_persona integer,"
             + "id_usuario integer)";
 
+
+
     private static final String CREATE_ESPECIALIDAD = "CREATE TABLE ESPECIALIDAD ("
             + "int_id_especialidad integer PRIMARY KEY,"
             + "str_nombre text,"
@@ -119,7 +121,8 @@ public class bdSQLite extends SQLiteOpenHelper {
                 db.execSQL(CREATE_RESPUESTA_PREGUNTA_PACIENTE);
                 db.execSQL(CREATE_CITA_PACIENTE);
                 db.execSQL(CREATE_RESPUESTA_CASOS_SALUD);
-                
+
+
         }   
          
 	@Override

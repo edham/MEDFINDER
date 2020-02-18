@@ -24,9 +24,9 @@
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimary"
                 android:gravity="center"
-                android:paddingLeft="@dimen/line_2"
-                android:paddingTop="@dimen/line_2"
-                android:paddingRight="@dimen/line_2"
+                android:paddingLeft="@dimen/line_0"
+                android:paddingTop="@dimen/line_0"
+                android:paddingRight="@dimen/line_0"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimary"
                 android:gravity="center"
-                android:padding="@dimen/line_2"
+                android:padding="@dimen/line_0"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -81,7 +81,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:minHeight="@dimen/dimen_3"
-                    android:layout_marginLeft="@dimen/line_2"
+                    android:layout_marginLeft="@dimen/line_0"
                     android:layout_weight="1"
                     android:background="@color/theme_window_background"
                     android:gravity="center"

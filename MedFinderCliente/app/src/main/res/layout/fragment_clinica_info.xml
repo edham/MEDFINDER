@@ -16,8 +16,8 @@
             <LinearLayout android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_1"
-                android:layout_marginLeft="@dimen/margin_2"
-                android:layout_marginRight="@dimen/margin_2"
+                android:layout_marginLeft="@dimen/dimen_0"
+                android:layout_marginRight="@dimen/dimen_0"
                 android:background="@drawable/border"
                 android:orientation="horizontal">
                 <com.med.finder.cliente.utilidades.CustomFontTextView
@@ -427,22 +427,23 @@
                 <LinearLayout android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_1"
-                    android:layout_marginLeft="@dimen/margin_2"
-                    android:layout_marginRight="@dimen/margin_2"
+                    android:layout_marginLeft="@dimen/dimen_0"
+                    android:layout_marginRight="@dimen/dimen_0"
                     android:background="@drawable/border"
                     android:orientation="horizontal">
+
                     <com.med.finder.cliente.utilidades.CustomFontTextView
                         android:id="@+id/lblEspecialidades"
                         android:layout_width="fill_parent"
                         android:layout_height="@dimen/dimen_4"
-                        android:gravity="center|left"
-                        android:textSize="@dimen/text_2"
-                        android:layout_marginRight="@dimen/margin_1"
                         android:layout_marginLeft="@dimen/margin_1"
-                        android:paddingLeft="@dimen/margin_1"
+                        android:layout_marginRight="@dimen/margin_1"
                         android:drawableRight="@drawable/ic_open"
+                        android:gravity="center|left"
+                        android:paddingLeft="@dimen/margin_1"
                         android:text="@string/str_especialidades"
                         android:textColor="@color/theme_window_background"
+                        android:textSize="@dimen/text_2"
                         android:textStyle="bold"
                         app:fontAttr="@string/font_myraid_bold" />
 
@@ -481,8 +482,8 @@
                 <LinearLayout android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_1"
-                    android:layout_marginLeft="@dimen/margin_2"
-                    android:layout_marginRight="@dimen/margin_2"
+                    android:layout_marginLeft="@dimen/dimen_0"
+                    android:layout_marginRight="@dimen/dimen_0"
                     android:background="@drawable/border"
                     android:orientation="horizontal">
                     <com.med.finder.cliente.utilidades.CustomFontTextView
@@ -528,8 +529,8 @@
             <LinearLayout android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_1"
-                android:layout_marginLeft="@dimen/margin_2"
-                android:layout_marginRight="@dimen/margin_2"
+                android:layout_marginLeft="@dimen/dimen_0"
+                android:layout_marginRight="@dimen/dimen_0"
                 android:background="@drawable/border"
                 android:orientation="horizontal">
                 <com.med.finder.cliente.utilidades.CustomFontTextView

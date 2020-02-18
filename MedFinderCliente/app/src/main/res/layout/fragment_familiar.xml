@@ -30,6 +30,7 @@
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_weight="5"
+        android:layout_margin="@dimen/dimen_0"
         android:layout_height="wrap_content" >
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -41,272 +42,216 @@
             android:descendantFocusability="beforeDescendants"
             android:focusableInTouchMode="true" >
 
-
-
-            <LinearLayout android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/border_blanco_negro"
-                android:layout_marginTop="@dimen/margin_1"
-                android:padding="@dimen/margin_1"
+                android:minHeight="@dimen/dimen_5"                
+                android:gravity="center"
+                android:background="@drawable/border_blanco"
+                android:layout_marginBottom="@dimen/dimen_0"
                 android:orientation="vertical">
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/line_3"
-                    android:background="@color/colorPrimary"
-                    android:gravity="center"
-                    android:padding="@dimen/line_2"
-                    android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:layout_width="fill_parent"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/txtNombres"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:minHeight="@dimen/dimen_5"
-                        android:background="@color/theme_window_background"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                        android:layout_centerInParent="true"
+                        android:ellipsize="start"
+                        android:ems="10"
+                        android:gravity="center_horizontal"
+                        android:hint="@string/str_ingrese_nombres"
+                        android:textSize="@dimen/text_1" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                        <android.support.design.widget.TextInputLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-                            <EditText
-                                android:id="@+id/txtNombres"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:ellipsize="start"
-                                android:ems="10"
-                                android:gravity="center_horizontal"
-                                android:hint="@string/str_ingrese_nombres"
-                                android:textSize="@dimen/text_1" />
-                        </android.support.design.widget.TextInputLayout>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorPrimary"
-                    android:gravity="center"
-                    android:layout_marginTop="@dimen/line_3"
-                    android:padding="@dimen/line_2"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:minHeight="@dimen/dimen_5"
-                        android:background="@color/theme_window_background"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <android.support.design.widget.TextInputLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-                            <EditText
-                                android:id="@+id/txtApellidoPaterno"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:ellipsize="start"
-                                android:ems="10"
-                                android:gravity="center_horizontal"
-                                android:hint="@string/str_ingrese_paterno"
-                                android:textSize="@dimen/text_1" />
-                        </android.support.design.widget.TextInputLayout>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorPrimary"
-                    android:gravity="center"
-                    android:layout_marginTop="@dimen/line_3"
-                    android:padding="@dimen/line_2"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:minHeight="@dimen/dimen_5"
-                        android:background="@color/theme_window_background"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <android.support.design.widget.TextInputLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-                            <EditText
-                                android:id="@+id/txtApellidoMaterno"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:ellipsize="start"
-                                android:ems="10"
-                                android:gravity="center_horizontal"
-                                android:hint="@string/str_ingrese_materno"
-                                android:textSize="@dimen/text_1" />
-                        </android.support.design.widget.TextInputLayout>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="@dimen/dimen_5"
-                    android:layout_marginTop="@dimen/line_3"
-                    android:background="@color/colorPrimary"
-                    android:gravity="center"
-                    android:padding="@dimen/line_2"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:minHeight="@dimen/dimen_3"
-                        android:layout_weight="1"
-                        android:background="@color/theme_window_background"
-                        android:gravity="center"
-                        android:orientation="vertical">
-                        <CheckBox
-                            android:id="@+id/chbHombre"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:textSize="@dimen/text_0"
-                            android:textColor="@color/colorPrimary"
-                            android:text="@string/str_hombre"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:minHeight="@dimen/dimen_3"
-                        android:layout_marginLeft="@dimen/line_2"
-                        android:layout_weight="1"
-                        android:background="@color/theme_window_background"
-                        android:gravity="center"
-                        android:orientation="vertical">
-                        <CheckBox
-                            android:id="@+id/chbMujer"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:textSize="@dimen/text_0"
-                            android:textColor="@color/colorPrimary"
-                            android:text="@string/str_mujer"/>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="@dimen/dimen_5"
-                    android:background="@color/colorPrimary"
-                    android:layout_marginTop="@dimen/line_3"
-                    android:gravity="center"
-                    android:padding="@dimen/line_2"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:minHeight="@dimen/dimen_3"
-                        android:background="@color/theme_window_background"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <com.med.finder.cliente.utilidades.CustomFontTextView
-                            android:id="@+id/lblFecNac"
-                            android:layout_width="fill_parent"
-                            android:layout_height="@dimen/dimen_5"
-                            android:layout_marginLeft="@dimen/dimen_1"
-                            android:layout_marginRight="@dimen/dimen_1"
-                            android:drawableRight="@drawable/ic_calendar"
-                            android:drawableLeft="@drawable/ic_right"
-                            android:gravity="center"
-                            android:text="@string/str_ingrese_fecnac"
-                            android:textSize="@dimen/text_1"
-                            app:fontAttr="@string/font_myraid_bold" />
-                    </LinearLayout>
-
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorPrimary"
-                    android:layout_marginTop="@dimen/line_3"
-                    android:gravity="center"
-                    android:padding="@dimen/line_2"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:minHeight="@dimen/dimen_5"
-                        android:background="@color/theme_window_background"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <android.support.design.widget.TextInputLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-                            <EditText
-                                android:id="@+id/txtDNI"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:ellipsize="start"
-                                android:ems="10"
-                                android:gravity="center_horizontal"
-                                android:hint="@string/str_ingrese_dni"
-                                android:textSize="@dimen/text_1" />
-                        </android.support.design.widget.TextInputLayout>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/line_3"
-                    android:background="@color/colorPrimary"
-                    android:gravity="center"
-                    android:padding="@dimen/line_2"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:minHeight="@dimen/dimen_5"
-                        android:background="@color/theme_window_background"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <android.support.design.widget.TextInputLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-                            <EditText
-                                android:id="@+id/txtEstatura"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:ellipsize="start"
-                                android:ems="10"
-                                android:gravity="center_horizontal"
-                                android:hint="@string/str_ingrese_estatura"
-                                android:textSize="@dimen/text_1" />
-                        </android.support.design.widget.TextInputLayout>
-
-                    </LinearLayout>
-
-                </LinearLayout>
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/dimen_5"
+                android:background="@drawable/border_blanco"
+                android:layout_marginBottom="@dimen/dimen_0"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/txtApellidoPaterno"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:ellipsize="start"
+                        android:ems="10"
+                        android:gravity="center_horizontal"
+                        android:hint="@string/str_ingrese_paterno"
+                        android:textSize="@dimen/text_1" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/dimen_5"
+                android:background="@drawable/border_blanco"
+                android:layout_marginBottom="@dimen/dimen_0"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/txtApellidoMaterno"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:ellipsize="start"
+                        android:ems="10"
+                        android:gravity="center_horizontal"
+                        android:hint="@string/str_ingrese_materno"
+                        android:textSize="@dimen/text_1" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/dimen_5"
+                android:layout_marginTop="@dimen/line_3"
+
+                android:layout_marginBottom="@dimen/dimen_0"
+                android:gravity="center"
+                android:padding="@dimen/line_0"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:minHeight="@dimen/dimen_3"
+                    android:background="@drawable/border_blanco"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+                    <CheckBox
+                        android:id="@+id/chbHombre"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:textSize="@dimen/text_0"
+                        android:textColor="@color/colorPrimary"
+                        android:text="@string/str_hombre"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:minHeight="@dimen/dimen_3"
+                    android:layout_marginLeft="@dimen/line_4"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_blanco"
+                    android:gravity="center"
+                    android:orientation="vertical">
+                    <CheckBox
+                        android:id="@+id/chbMujer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:textSize="@dimen/text_0"
+                        android:textColor="@color/colorPrimary"
+                        android:text="@string/str_mujer"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/border_blanco"
+                android:layout_marginBottom="@dimen/dimen_0"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.med.finder.cliente.utilidades.CustomFontTextView
+                    android:id="@+id/lblFecNac"
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/dimen_5"
+                    android:layout_marginLeft="@dimen/dimen_1"
+                    android:layout_marginRight="@dimen/dimen_1"
+                    android:drawableRight="@drawable/ic_calendar"
+                    android:drawableLeft="@drawable/ic_right"
+                    android:gravity="center"
+                    android:text="@string/str_ingrese_fecnac"
+                    android:textSize="@dimen/text_1"
+                    app:fontAttr="@string/font_myraid_bold" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/dimen_5"
+                android:background="@drawable/border_blanco"
+                android:layout_marginBottom="@dimen/dimen_0"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/txtDNI"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:ellipsize="start"
+                        android:ems="10"
+                        android:gravity="center_horizontal"
+                        android:hint="@string/str_ingrese_dni"
+                        android:textSize="@dimen/text_1" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/dimen_5"
+                android:background="@drawable/border_blanco"
+                android:layout_marginBottom="@dimen/dimen_0"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/txtEstatura"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:ellipsize="start"
+                        android:ems="10"
+                        android:gravity="center_horizontal"
+                        android:hint="@string/str_ingrese_estatura"
+                        android:textSize="@dimen/text_1" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+
 
 
             <LinearLayout android:layout_width="match_parent"
@@ -330,7 +275,6 @@
 
             <LinearLayout android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/border_blanco_negro"
                 android:layout_marginTop="@dimen/margin_1"
                 android:padding="@dimen/margin_1"
                 android:orientation="vertical">
@@ -339,9 +283,9 @@
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimary"
                     android:gravity="center"
-                    android:paddingLeft="@dimen/line_2"
-                    android:paddingTop="@dimen/line_2"
-                    android:paddingRight="@dimen/line_2"
+                    android:paddingLeft="@dimen/line_0"
+                    android:paddingTop="@dimen/line_0"
+                    android:paddingRight="@dimen/line_0"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -368,7 +312,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:minHeight="@dimen/dimen_3"
-                        android:layout_marginLeft="@dimen/line_2"
+                        android:layout_marginLeft="@dimen/line_0"
                         android:layout_weight="1"
                         android:textColor="@color/colorAccent"
                         android:gravity="center"
@@ -393,9 +337,9 @@
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimary"
                     android:gravity="center"
-                    android:paddingLeft="@dimen/line_2"
-                    android:paddingTop="@dimen/line_2"
-                    android:paddingRight="@dimen/line_2"
+                    android:paddingLeft="@dimen/line_0"
+                    android:paddingTop="@dimen/line_0"
+                    android:paddingRight="@dimen/line_0"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -421,7 +365,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:minHeight="@dimen/dimen_3"
-                        android:layout_marginLeft="@dimen/line_2"
+                        android:layout_marginLeft="@dimen/line_0"
                         android:layout_weight="1"
                         android:background="@color/theme_window_background"
                         android:gravity="center"
@@ -445,9 +389,9 @@
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimary"
                     android:gravity="center"
-                    android:paddingLeft="@dimen/line_2"
-                    android:paddingTop="@dimen/line_2"
-                    android:paddingRight="@dimen/line_2"
+                    android:paddingLeft="@dimen/line_0"
+                    android:paddingTop="@dimen/line_0"
+                    android:paddingRight="@dimen/line_0"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -473,7 +417,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:minHeight="@dimen/dimen_3"
-                        android:layout_marginLeft="@dimen/line_2"
+                        android:layout_marginLeft="@dimen/line_0"
                         android:layout_weight="1"
                         android:background="@color/theme_window_background"
                         android:gravity="center"
@@ -496,9 +440,9 @@
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimary"
                     android:gravity="center"
-                    android:paddingLeft="@dimen/line_2"
-                    android:paddingTop="@dimen/line_2"
-                    android:paddingRight="@dimen/line_2"
+                    android:paddingLeft="@dimen/line_0"
+                    android:paddingTop="@dimen/line_0"
+                    android:paddingRight="@dimen/line_0"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -524,7 +468,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:minHeight="@dimen/dimen_3"
-                        android:layout_marginLeft="@dimen/line_2"
+                        android:layout_marginLeft="@dimen/line_0"
                         android:layout_weight="1"
                         android:background="@color/theme_window_background"
                         android:gravity="center"
@@ -547,7 +491,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimary"
                     android:gravity="center"
-                    android:padding="@dimen/line_2"
+                    android:padding="@dimen/line_0"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -573,7 +517,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:minHeight="@dimen/dimen_3"
-                        android:layout_marginLeft="@dimen/line_2"
+                        android:layout_marginLeft="@dimen/line_0"
                         android:layout_weight="1"
                         android:background="@color/theme_window_background"
                         android:gravity="center"

@@ -2,26 +2,32 @@ package com.med.finder.cliente.activity;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+import android.os.Handler;
+import android.os.Message;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import com.google.android.material.navigation.NavigationView;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import com.med.finder.cliente.R;
+import com.med.finder.cliente.conexion.InsertarEncuestaHTTP;
 import com.med.finder.cliente.dao.clsUsuarioDAO;
 import com.med.finder.cliente.entidades.clsUsuario;
 import com.med.finder.cliente.fragment.CasosSaludFragment;
@@ -36,7 +42,11 @@ import com.med.finder.cliente.utilidades.CustomFontTextView;
 import com.med.finder.cliente.utilidades.ImagenArchivo;
 import com.med.finder.cliente.utilidades.Utilidades;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -46,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public int posFragmnet=0;
     public int posConsulta=0;
     private FloatingActionButton btnConsulta;
+    public ProgressDialog pd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -222,6 +233,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction() .replace(R.id.main_content, fragment).commit();
+
+        dialogoEncuesta();
     }
 
     @SuppressLint("RestrictedApi")
@@ -330,4 +343,149 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         }
     }
+
+    public void dialogoEncuesta()
+    {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.dialog_encuesta_uno);
+        final CustomFontTextView lblP1 = (CustomFontTextView)dialog.findViewById(R.id.lblP1);
+        final CustomFontTextView lblP2 = (CustomFontTextView)dialog.findViewById(R.id.lblP2);
+        final CustomFontTextView lblP3 = (CustomFontTextView)dialog.findViewById(R.id.lblP3);
+
+        if(inicio) {
+            lblP1.setText("Cuál consideras que es tu nivel de acceso a consultas médicas sin el uso de una aplicación móvil?");
+            lblP2.setText("¿Cuál consideras que es tu nivel de acceso a reserva de citas médicas sin el uso de una aplicación móvil?");
+            lblP3.setText("¿Cuál consideras que es tu nivel de acceso a recomendaciones médicas sin el uso de una aplicación móvil?");
+        }else
+        {
+            lblP1.setText("¿Cuál consideras que es tu nivel de acceso a consultas médicas con el uso de la aplicación móvil?");
+            lblP2.setText("¿Cuál consideras que es tu nivel de acceso a reserva de citas médicas con el uso de la aplicación móvil?");
+            lblP3.setText("¿Cuál consideras que es tu nivel de acceso a recomendaciones médicas con el uso de la aplicación móvil?");
+        }
+
+        final RadioGroup rdgGrupo1 = (RadioGroup)dialog.findViewById(R.id.rdgGrupo1);
+        final RadioGroup rdgGrupo2 = (RadioGroup)dialog.findViewById(R.id.rdgGrupo2);
+        final RadioGroup rdgGrupo3 = (RadioGroup)dialog.findViewById(R.id.rdgGrupo3);
+
+        FloatingActionButton btnAceptar = (FloatingActionButton) dialog.findViewById(R.id.btnAceptar);
+        btnAceptar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int p1=0;
+                int checkedId1 = rdgGrupo1.getCheckedRadioButtonId();
+                if (checkedId1 == R.id.rdb11){
+                    p1=1;
+                }else if (checkedId1 == R.id.rdb12){
+                    p1=2;
+                }else if (checkedId1 == R.id.rdb13){
+                    p1=3;
+                }else if (checkedId1 == R.id.rdb14){
+                    p1=4;
+                }else if (checkedId1 == R.id.rdb15){
+                    p1=5;
+                }
+
+                int p2=0;
+                int checkedId2 = rdgGrupo2.getCheckedRadioButtonId();
+                if (checkedId2 == R.id.rdb21){
+                    p2=1;
+                }else if (checkedId2 == R.id.rdb22){
+                    p2=2;
+                }else if (checkedId2 == R.id.rdb23){
+                    p2=3;
+                }else if (checkedId2 == R.id.rdb24){
+                    p2=4;
+                }else if (checkedId2 == R.id.rdb25){
+                    p2=5;
+                }
+
+                int p3=0;
+                int checkedId3 = rdgGrupo3.getCheckedRadioButtonId();
+                if (checkedId3 == R.id.rdb31){
+                    p3=1;
+                }else if (checkedId3 == R.id.rdb32){
+                    p3=2;
+                }else if (checkedId3 == R.id.rdb33){
+                    p3=3;
+                }else if (checkedId3 == R.id.rdb34){
+                    p3=4;
+                }else if (checkedId3 == R.id.rdb35){
+                    p3=5;
+                }
+                dialog.dismiss();
+                btnAceptar((inicio)?1:4,(inicio)?2:5,(inicio)?3:6,p1,p2,p3);
+            }
+        });
+        FloatingActionButton btnCancelar = (FloatingActionButton) dialog.findViewById(R.id.btnCancelar);
+        btnCancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+    public void btnAceptar(final int p1,final int p2,final int p3,final int t1,final int t2,final int t3) {
+
+        if ( Utilidades.checkPermissions(this) && Utilidades.addListaBlanca(this))
+        {
+                pd = new ProgressDialog(this);
+                pd.setTitle("Cargando Datos");
+                pd.setMessage("Espere un momento");
+                pd.setCancelable(false);
+                pd.show();
+                new Thread() {
+                    public void run() {
+                        Message message = handlerCargar.obtainMessage();
+                        Bundle bundle = new Bundle();
+                        try {
+                            InsertarEncuestaHTTP login = new InsertarEncuestaHTTP();
+
+                            login.execute(objUsuario.getInt_id_persona(),p1,t1,p2,t2,p3,t3);
+                            String result = login.get();
+                            if(!result.equals(""))
+                            {
+                                bundle.putString("json", result);
+                                message.setData(bundle);
+                                handlerCargar.sendMessage(message);
+
+                            }else
+                                pd.dismiss();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        } catch (ExecutionException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }.start();
+        }
+    }
+
+
+    final Handler handlerCargar=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            pd.dismiss();
+            Bundle bundle = msg.getData();
+            try {
+                JSONObject objeto = new JSONObject(bundle.getString("json"));
+                Log.e("--------------",objeto.toString());
+                if(!objeto.isNull("rpta") && objeto.getInt("rpta")==1 )
+                {
+
+                }else
+                {
+
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    };
+
 }

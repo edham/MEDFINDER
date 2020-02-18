@@ -51,6 +51,10 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Persona.findByEstado", query = "SELECT p FROM Persona p WHERE p.estado = :estado")})
 public class Persona implements Serializable {
 
+    @Lob
+    @Column(name = "Foto")
+    private byte[] foto;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -65,9 +69,6 @@ public class Persona implements Serializable {
     private String apellidoMaterno;
     @Column(name = "DNI")
     private String dni;
-    @Lob
-    @Column(name = "Foto")
-    private byte[] foto;
     @Column(name = "Sexo")
     private Boolean sexo;
     @Column(name = "FechaNacimiento")
@@ -96,6 +97,8 @@ public class Persona implements Serializable {
     private List<Paciente> pacienteList;
     @OneToMany(mappedBy = "persona", fetch = FetchType.LAZY)
     private List<Usuario> usuarioList;
+    @OneToMany(mappedBy = "persona", fetch = FetchType.LAZY)
+    private List<EncuestaDetallePersona> encuestaDetallePersonaList;
 
     public Persona() {
     }
@@ -144,13 +147,6 @@ public class Persona implements Serializable {
         this.dni = dni;
     }
 
-    public byte[] getFoto() {
-        return foto;
-    }
-
-    public void setFoto(byte[] foto) {
-        this.foto = foto;
-    }
 
     public Boolean getSexo() {
         return sexo;
@@ -251,6 +247,15 @@ public class Persona implements Serializable {
         this.usuarioList = usuarioList;
     }
 
+    @XmlTransient
+    public List<EncuestaDetallePersona> getEncuestaDetallePersonaList() {
+        return encuestaDetallePersonaList;
+    }
+
+    public void setEncuestaDetallePersonaList(List<EncuestaDetallePersona> encuestaDetallePersonaList) {
+        this.encuestaDetallePersonaList = encuestaDetallePersonaList;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -274,6 +279,14 @@ public class Persona implements Serializable {
     @Override
     public String toString() {
         return "modelo.Persona[ pKId=" + pKId + " ]";
+    }
+
+    public byte[] getFoto() {
+        return foto;
+    }
+
+    public void setFoto(byte[] foto) {
+        this.foto = foto;
     }
     
 }

@@ -42,5 +42,21 @@
         <delete dir="${build.generated.sources.dir}/jax-ws/wsdl"/>
         <delete dir="${build.generated.dir}/jax-wsCache/medico"/>
     </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-medico"/>
+    <target name="wsimport-client-reniec" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/reniec"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/reniec" destdir="${build.generated.dir}/jax-wsCache/reniec" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/reniec/wsdl/200.4.219.69_8080/servicios/reniec.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://200.4.219.69:8080/servicios/reniec?wsdl" xnocompile="true" xendorsed="true" package="reniec">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/reniec/wsdl/200.4.219.69_8080/servicios/reniec.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/reniec"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/reniec">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-reniec" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/reniec"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/reniec"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-medico, wsimport-client-reniec"/>
 </project>

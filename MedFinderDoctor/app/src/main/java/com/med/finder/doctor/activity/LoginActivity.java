@@ -4,11 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
-import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -109,8 +108,10 @@ public class LoginActivity extends AppCompatActivity {
                                                            if (!clsRespuestaPreguntaPacienteDAO.AgregarLogin(LoginActivity.this, entidadJSON.optString("listRespuestaPreguntaPacienteJSON"), true))
                                                                validador = false;
                                                            if (validador) {
-                                                               if (!clsEspecialidadDAO.AgregarLogin(LoginActivity.this, entidadJSON.optString("listEspecialidadJSON"), true))
+                                                               if (!clsEspecialidadDAO.AgregarLogin(LoginActivity.this, entidadJSON.optString("listEspecialidadJSON"), true)) {
                                                                    validador = false;
+
+                                                               }
                                                            }
                                                        }
                                                    }

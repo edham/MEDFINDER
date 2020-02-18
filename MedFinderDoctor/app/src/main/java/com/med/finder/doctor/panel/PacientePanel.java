@@ -1,20 +1,16 @@
 package com.med.finder.doctor.panel;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.TextView;
+
 import com.med.finder.doctor.R;
 import com.med.finder.doctor.dao.clsPacienteDAO;
 import com.med.finder.doctor.entidades.clsPaciente;
 import com.med.finder.doctor.utilidades.CustomFontTextView;
 import com.med.finder.doctor.utilidades.Utilidades;
-import java.util.Date;
 
 public class PacientePanel extends Fragment {
 

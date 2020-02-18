@@ -6,27 +6,12 @@
     android:orientation="vertical">
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/border_blanco_negro"
-        android:layout_marginBottom="@dimen/dimen_0"
-        android:gravity="center"
-        android:orientation="vertical">
 
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_margin="@dimen/dimen_0"
-            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="@dimen/dimen_3"
-                android:background="@drawable/border"
+                android:background="@drawable/border_blanco_negro"
                 android:gravity="center"
                 android:minHeight="@dimen/dimen_0"
                 android:orientation="vertical">
@@ -36,7 +21,8 @@
                     android:layout_height="@dimen/dimen_3"
                     android:minHeight="@dimen/dimen_3"
                     android:gravity="center"
-                    android:textColor="@color/theme_window_background"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/text_2"
                     app:fontAttr="@string/font_myraid_bold" />
             </LinearLayout>
@@ -45,7 +31,6 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/line_2"
-                android:layout_marginBottom="@dimen/line_2"
                 android:background="@color/theme_window_background"
                 android:gravity="center"
                 android:minHeight="@dimen/dimen_1"
@@ -141,8 +126,8 @@
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/line_2"
-                android:layout_marginBottom="@dimen/line_2"
+                android:layout_marginTop="@dimen/line_1"
+                android:layout_marginBottom="@dimen/dimen_0"
                 android:background="@color/theme_window_background"
                 android:gravity="center"
                 android:minHeight="@dimen/dimen_1"
@@ -235,8 +220,6 @@
                         app:fontAttr="@string/font_myraid_roman" />
                 </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
 
 
 </LinearLayout>

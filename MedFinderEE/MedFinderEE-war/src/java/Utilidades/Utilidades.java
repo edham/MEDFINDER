@@ -17,8 +17,6 @@ import modelo.Seguro;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
-import java.awt.image.WritableRaster;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -33,6 +31,7 @@ import javax.faces.context.FacesContext;
 import javax.imageio.ImageIO;
 import modelo.Especialidad;
 import modelo.Paciente;
+import reniec.ReniecServicio;
 import wsdl.Medico;
 import wsdl.Medico_Service;
 import wsdl.WsDetalle;
@@ -215,6 +214,15 @@ public class Utilidades {
         Medico port = service.getMedicoPort();
         return port.consultaDoctor(cmp, paterno, materno, nombres);
     }
+
+    private static ReniecServicio dni( java.lang.String dni) {
+        reniec.Reniec_Service service = new reniec.Reniec_Service();
+        reniec.Reniec port = service.getReniecPort();
+        return port.dni("42562113", "123456", dni);
+    }
    
    
+    
+    
+    
 }

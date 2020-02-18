@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center|top"
+    android:background="@drawable/border"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_blanco_negro"
+        android:layout_margin="@dimen/dimen_1"
+        android:gravity="center|left"
+        android:orientation="vertical">
+
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_0"
+                android:gravity="center"
+                android:minHeight="@dimen/dimen_2"
+                android:orientation="vertical">
+
+                <com.med.finder.cliente.utilidades.CustomFontTextView
+                    android:layout_marginTop="@dimen/dimen_0"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="INSTRUCIONES"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/text_3"
+                    app:fontAttr="@string/font_myraid_bold"
+                    app:textAllCaps="true" />
+
+                <com.med.finder.cliente.utilidades.CustomFontTextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dimen_0"
+                    android:gravity="center"
+                    android:text="Responda las siguientes preguntas seleccionando la respuesta que considere adecuada."
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/text_1"
+                    app:fontAttr="@string/font_myraid_roman" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_margin="@dimen/dimen_0"
+                    android:background="@drawable/border_blanco_negro"
+                    android:orientation="vertical">
+                    <com.med.finder.cliente.utilidades.CustomFontTextView
+                        android:id="@+id/lblP1"
+                        android:layout_margin="@dimen/dimen_0"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorPrimary"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:gravity="center"
+                        android:textSize="@dimen/text_1"
+                        app:fontAttr="@string/font_myraid_roman" />
+                    <RadioGroup
+                        android:id="@+id/rdgGrupo1"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginBottom="@dimen/dimen_1">
+                        <RadioButton
+                            android:id="@+id/rdb11"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/dimen_1"
+                            android:text="Muy \n bajo"/>
+                        <RadioButton
+                            android:id="@+id/rdb12"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/dimen_1"
+                            android:text="Bajo"/>
+                        <RadioButton
+                            android:id="@+id/rdb13"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/dimen_1"
+                            android:text="Regular "/>
+                        <RadioButton
+                            android:id="@+id/rdb14"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/dimen_1"
+                            android:text="Alto"/>
+                        <RadioButton
+                            android:id="@+id/rdb15"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/dimen_1"
+                            android:text="Muy\nAlto"/>
+                    </RadioGroup>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_margin="@dimen/dimen_0"
+                    android:background="@drawable/border_blanco_negro"
+                    android:orientation="vertical">
+                    <com.med.finder.cliente.utilidades.CustomFontTextView
+                        android:id="@+id/lblP2"
+                        android:layout_margin="@dimen/dimen_0"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorPrimary"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:gravity="center"
+                        android:textSize="@dimen/text_1"
+                        app:fontAttr="@string/font_myraid_roman" />
+                    <RadioGroup
+                        android:id="@+id/rdgGrupo2"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginBottom="@dimen/dimen_1">
+                        <RadioButton
+                            android:id="@+id/rdb21"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/dimen_1"
+                            android:text="Muy \n bajo"/>
+                        <RadioButton
+                            android:id="@+id/rdb22"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/dimen_1"
+                            android:text="Bajo"/>
+                        <RadioButton
+                            android:id="@+id/rdb23"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/dimen_1"
+                            android:text="Regular "/>
+                        <RadioButton
+                            android:id="@+id/rdb24"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/dimen_1"
+                            android:text="Alto"/>
+                        <RadioButton
+                            android:id="@+id/rdb25"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/dimen_1"
+                            android:text="Muy\nAlto"/>
+                    </RadioGroup>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_margin="@dimen/dimen_0"
+                    android:background="@drawable/border_blanco_negro"
+                    android:orientation="vertical">
+                    <com.med.finder.cliente.utilidades.CustomFontTextView
+                        android:id="@+id/lblP3"
+                        android:layout_margin="@dimen/dimen_0"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorPrimary"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:gravity="center"
+                        android:textSize="@dimen/text_1"
+                        app:fontAttr="@string/font_myraid_roman" />
+                    <RadioGroup
+                        android:id="@+id/rdgGrupo3"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginBottom="@dimen/dimen_1">
+                        <RadioButton
+                            android:id="@+id/rdb31"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/dimen_1"
+                            android:text="Muy \n bajo"/>
+                        <RadioButton
+                            android:id="@+id/rdb32"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/dimen_1"
+                            android:text="Bajo"/>
+                        <RadioButton
+                            android:id="@+id/rdb33"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/dimen_1"
+                            android:text="Regular "/>
+                        <RadioButton
+                            android:id="@+id/rdb34"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/dimen_1"
+                            android:text="Alto"/>
+                        <RadioButton
+                            android:id="@+id/rdb35"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/dimen_1"
+                            android:text="Muy\nAlto"/>
+                    </RadioGroup>
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_2"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:layout_margin="@dimen/dimen_0"
+            android:orientation="vertical"/>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/line_2"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:layout_marginLeft="@dimen/dimen_4"
+                android:layout_marginRight="@dimen/dimen_4"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_marginRight="@dimen/dimen_1"
+                    android:orientation="horizontal">
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/btnCancelar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|end"
+                        android:layout_margin="@dimen/fab_margin"
+                        app:backgroundTint="@android:color/black"
+                        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dimen_1"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/btnAceptar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|end"
+                        android:layout_margin="@dimen/fab_margin"
+                        app:srcCompat="@android:drawable/checkbox_on_background"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

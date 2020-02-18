@@ -6,21 +6,12 @@
     android:orientation="vertical">
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/border_blanco_negro"
-        android:layout_marginBottom="@dimen/dimen_0"
-        android:gravity="center"
-        android:orientation="vertical">
-
-
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_margin="@dimen/dimen_0"
+            android:layout_marginBottom="@dimen/dimen_0"
             android:orientation="vertical">
 
             <LinearLayout
@@ -36,7 +27,8 @@
                     android:layout_height="@dimen/dimen_3"
                     android:minHeight="@dimen/dimen_3"
                     android:gravity="center"
-                    android:textColor="@color/theme_window_background"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/text_2"
                     app:fontAttr="@string/font_myraid_bold" />
             </LinearLayout>
@@ -236,8 +228,6 @@
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-
 
 </LinearLayout>
 

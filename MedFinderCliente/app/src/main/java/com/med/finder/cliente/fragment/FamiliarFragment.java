@@ -4,24 +4,19 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.med.finder.cliente.R;
 import com.med.finder.cliente.activity.MainActivity;
 import com.med.finder.cliente.conexion.ActualizarPacienteHTTP;
 import com.med.finder.cliente.conexion.InsertPacienteHTTP;
-import com.med.finder.cliente.conexion.http;
 import com.med.finder.cliente.dao.clsPacienteDAO;
 import com.med.finder.cliente.dao.clsUsuarioDAO;
 import com.med.finder.cliente.entidades.clsPaciente;
@@ -31,10 +26,7 @@ import com.med.finder.cliente.utilidades.Utilidades;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class FamiliarFragment extends Fragment {

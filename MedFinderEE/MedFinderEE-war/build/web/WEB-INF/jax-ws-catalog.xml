@@ -2,4 +2,6 @@
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
     <system systemId="http://localhost/MedServis/medico?wsdl" uri="wsdl/localhost/MedServis/medico.wsdl"/>
     <system systemId="http://localhost:80/MedServis/medico?xsd=1" uri="wsdl/localhost_80/MedServis/medico.xsd_1.xsd"/>
+    <system systemId="http://200.4.219.69:8080/servicios/reniec?wsdl" uri="wsdl/200.4.219.69_8080/servicios/reniec.wsdl"/>
+    <system systemId="http://200.4.219.69:8080/servicios/reniec?xsd=1" uri="wsdl/200.4.219.69_8080/servicios/reniec.xsd_1.xsd"/>
 </catalog>

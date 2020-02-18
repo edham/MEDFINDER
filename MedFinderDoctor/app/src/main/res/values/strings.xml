@@ -7,7 +7,7 @@
 
     <string name="nav_inicio">INICIO</string>
     <string name="nav_citas">CITAS</string>
-    <string name="nav_casos">CASOS DE SALUD</string>
+    <string name="nav_casos">RECOMENDACIONES DE SALUD</string>
     <string name="nav_favoritos">FAVORITOS</string>
     <string name="nav_especialidades">ESPECIALIDADES</string>
     <string name="nav_familiares">FAMILIARES</string>

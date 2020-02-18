@@ -9,7 +9,7 @@ import modelo.Especialidad;
 import modelo.Paciente;
 import modelo.RespuestaPreguntaPaciente;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2019-07-03T00:46:05")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2020-02-09T20:56:28")
 @StaticMetamodel(PreguntaPaciente.class)
 public class PreguntaPaciente_ { 
 

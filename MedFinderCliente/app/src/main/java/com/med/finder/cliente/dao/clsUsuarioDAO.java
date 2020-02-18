@@ -40,7 +40,7 @@ public class clsUsuarioDAO {
             registro.put("str_telefono",entidad.getStr_telefono());
             registro.put("str_direccion",entidad.getStr_direccion());
             registro.put("int_id_persona",entidad.getInt_id_persona());
-            
+            registro.put("int_encuesta",0);
             if(entidad.getByte_foto()!=null)
             registro.put("byte_foto",entidad.getByte_foto());
 
@@ -63,7 +63,7 @@ public class clsUsuarioDAO {
          {
             String query="select int_id_usuario,str_nombres,str_apellido_paterno,str_apellido_materno,"
                     + "str_usuario,str_clave,str_email,str_dni,str_telefono,str_direccion,"
-                    + "bol_sexo,byte_foto,int_id_persona from "+NOMBRE_TABLA;
+                    + "bol_sexo,byte_foto,int_id_persona,int_encuesta from "+NOMBRE_TABLA;
 
             Cursor fila=bd.rawQuery(query,null);
 
@@ -87,6 +87,7 @@ public class clsUsuarioDAO {
                       
                 entidad.setByte_foto(fila.getBlob(11));
                 entidad.setInt_id_persona(fila.getInt(12));
+                entidad.setInt_encuesta(fila.getInt(13));
                 
 
             }

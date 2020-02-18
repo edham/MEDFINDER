@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.location.Location;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -16,8 +15,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.PowerManager;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
@@ -51,11 +50,9 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -72,8 +69,8 @@ public class Utilidades {
 
     //public static String url = "http://192.168.1.7:8080/edsoft-war/";
 
-
-    public static String url="http://192.168.1.61:8080/MedFinderEE-war/servicio_doctor";
+    //public static String url="http://edsoftperu.com/MedFinderEE-war/servicio_doctor";
+    public static String url="http://192.168.1.61/medfinder/servicio_doctor";
     public static SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
     public static SimpleDateFormat datehourFormatter = new SimpleDateFormat("dd/MM/yyyy hh:mm a");
     public static SimpleDateFormat hourFormatter = new SimpleDateFormat("hh:mm a");

@@ -1,25 +1,21 @@
 package com.med.finder.doctor.servicio;
 
-import android.Manifest;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.location.Location;
 import android.os.Build;
 import android.provider.Settings;
-import android.support.v4.app.NotificationCompat;
+import androidx.core.app.NotificationCompat;
 import android.util.Log;
 
 import com.firebase.jobdispatcher.JobParameters;
 import com.firebase.jobdispatcher.JobService;
 import com.med.finder.doctor.R;
-import com.med.finder.doctor.activity.LoginActivity;
 import com.med.finder.doctor.activity.MainActivity;
 import com.med.finder.doctor.conexion.ActualizarHTTP;
-import com.med.finder.doctor.conexion.LoginHTTP;
 import com.med.finder.doctor.dao.clsCasosSaludDAO;
 import com.med.finder.doctor.dao.clsCitaPacienteDAO;
 import com.med.finder.doctor.dao.clsDoctorDAO;

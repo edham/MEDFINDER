@@ -28,6 +28,7 @@
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
+        android:layout_margin="@dimen/dimen_0"
         android:layout_height="wrap_content" >
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -43,9 +44,6 @@
 
             <LinearLayout android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/border_blanco_negro"
-                android:layout_marginTop="@dimen/margin_1"
-                android:padding="@dimen/margin_1"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -53,8 +51,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimary"
                     android:gravity="center"
-                    android:layout_marginTop="@dimen/dimen_1"
-                    android:padding="@dimen/line_2"
+                    android:padding="@dimen/line_0"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -158,7 +155,7 @@
                     android:layout_marginTop="@dimen/line_3"
                     android:background="@color/colorPrimary"
                     android:gravity="center"
-                    android:padding="@dimen/line_2"
+                    android:padding="@dimen/line_0"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -169,7 +166,7 @@
                         android:gravity="center"
                         android:orientation="vertical">
 
-                        <android.support.design.widget.TextInputLayout
+                        <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                             <EditText
@@ -182,7 +179,7 @@
                                 android:gravity="center_horizontal"
                                 android:hint="@string/str_ingrese_nombres"
                                 android:textSize="@dimen/text_1" />
-                        </android.support.design.widget.TextInputLayout>
+                        </com.google.android.material.textfield.TextInputLayout>
 
                     </LinearLayout>
 
@@ -194,7 +191,7 @@
                     android:background="@color/colorPrimary"
                     android:gravity="center"
                     android:layout_marginTop="@dimen/line_3"
-                    android:padding="@dimen/line_2"
+                    android:padding="@dimen/line_0"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -205,7 +202,7 @@
                         android:gravity="center"
                         android:orientation="vertical">
 
-                        <android.support.design.widget.TextInputLayout
+                        <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                             <EditText
@@ -218,7 +215,7 @@
                                 android:gravity="center_horizontal"
                                 android:hint="@string/str_ingrese_paterno"
                                 android:textSize="@dimen/text_1" />
-                        </android.support.design.widget.TextInputLayout>
+                        </com.google.android.material.textfield.TextInputLayout>
 
                     </LinearLayout>
 
@@ -229,7 +226,7 @@
                     android:background="@color/colorPrimary"
                     android:gravity="center"
                     android:layout_marginTop="@dimen/line_3"
-                    android:padding="@dimen/line_2"
+                    android:padding="@dimen/line_0"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -240,7 +237,7 @@
                         android:gravity="center"
                         android:orientation="vertical">
 
-                        <android.support.design.widget.TextInputLayout
+                        <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                             <EditText
@@ -253,7 +250,7 @@
                                 android:gravity="center_horizontal"
                                 android:hint="@string/str_ingrese_materno"
                                 android:textSize="@dimen/text_1" />
-                        </android.support.design.widget.TextInputLayout>
+                        </com.google.android.material.textfield.TextInputLayout>
 
                     </LinearLayout>
 
@@ -264,7 +261,7 @@
                     android:layout_marginTop="@dimen/line_3"
                     android:background="@color/colorPrimary"
                     android:gravity="center"
-                    android:padding="@dimen/line_2"
+                    android:padding="@dimen/line_0"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -290,7 +287,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:minHeight="@dimen/dimen_3"
-                        android:layout_marginLeft="@dimen/line_2"
+                        android:layout_marginLeft="@dimen/line_0"
                         android:layout_weight="1"
                         android:background="@color/theme_window_background"
                         android:gravity="center"
@@ -314,7 +311,7 @@
                     android:background="@color/colorPrimary"
                     android:layout_marginTop="@dimen/line_3"
                     android:gravity="center"
-                    android:padding="@dimen/line_2"
+                    android:padding="@dimen/line_0"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -346,7 +343,7 @@
                     android:background="@color/colorPrimary"
                     android:layout_marginTop="@dimen/line_3"
                     android:gravity="center"
-                    android:padding="@dimen/line_2"
+                    android:padding="@dimen/line_0"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -357,7 +354,7 @@
                         android:gravity="center"
                         android:orientation="vertical">
 
-                        <android.support.design.widget.TextInputLayout
+                        <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                             <EditText
@@ -371,7 +368,7 @@
                                 android:gravity="center_horizontal"
                                 android:hint="@string/str_ingrese_dni"
                                 android:textSize="@dimen/text_1" />
-                        </android.support.design.widget.TextInputLayout>
+                        </com.google.android.material.textfield.TextInputLayout>
 
                     </LinearLayout>
 
@@ -382,7 +379,7 @@
                     android:layout_marginTop="@dimen/line_3"
                     android:background="@color/colorPrimary"
                     android:gravity="center"
-                    android:padding="@dimen/line_2"
+                    android:padding="@dimen/line_0"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -393,7 +390,7 @@
                         android:gravity="center"
                         android:orientation="vertical">
 
-                        <android.support.design.widget.TextInputLayout
+                        <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
@@ -409,7 +406,7 @@
                                 android:hint="@string/str_ingrese_estatura"
                                 android:inputType="number"
                                 android:textSize="@dimen/text_1" />
-                        </android.support.design.widget.TextInputLayout>
+                        </com.google.android.material.textfield.TextInputLayout>
 
                     </LinearLayout>
 
@@ -420,7 +417,7 @@
                     android:background="@color/colorPrimary"
                     android:layout_marginTop="@dimen/line_3"
                     android:gravity="center"
-                    android:padding="@dimen/line_2"
+                    android:padding="@dimen/line_0"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -431,7 +428,7 @@
                         android:gravity="center"
                         android:orientation="vertical">
 
-                        <android.support.design.widget.TextInputLayout
+                        <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                             <EditText
@@ -445,7 +442,7 @@
                                 android:gravity="center_horizontal"
                                 android:hint="@string/str_ingrese_telefono"
                                 android:textSize="@dimen/text_1" />
-                        </android.support.design.widget.TextInputLayout>
+                        </com.google.android.material.textfield.TextInputLayout>
 
                     </LinearLayout>
 
@@ -456,7 +453,7 @@
                     android:background="@color/colorPrimary"
                     android:layout_marginTop="@dimen/line_3"
                     android:gravity="center"
-                    android:padding="@dimen/line_2"
+                    android:padding="@dimen/line_0"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -467,7 +464,7 @@
                         android:gravity="center"
                         android:orientation="vertical">
 
-                        <android.support.design.widget.TextInputLayout
+                        <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                             <EditText
@@ -480,7 +477,7 @@
                                 android:gravity="center_horizontal"
                                 android:hint="@string/str_ingrese_email"
                                 android:textSize="@dimen/text_1" />
-                        </android.support.design.widget.TextInputLayout>
+                        </com.google.android.material.textfield.TextInputLayout>
 
                     </LinearLayout>
 
@@ -490,8 +487,6 @@
                 <Spinner
                     android:id="@+id/comboDepartamento"
                     android:background="@drawable/border_blanco_negro"
-                    android:layout_marginRight="@dimen/line_3"
-                    android:layout_marginLeft="@dimen/line_3"
                     android:layout_marginTop="@dimen/line_3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
@@ -499,8 +494,6 @@
                 <Spinner
                     android:id="@+id/comboProvincia"
                     android:background="@drawable/border_blanco_negro"
-                    android:layout_marginRight="@dimen/line_3"
-                    android:layout_marginLeft="@dimen/line_3"
                     android:layout_marginTop="@dimen/line_3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
@@ -508,8 +501,6 @@
                 <Spinner
                     android:id="@+id/comboDistrito"
                     android:background="@drawable/border_blanco_negro"
-                    android:layout_marginRight="@dimen/line_3"
-                    android:layout_marginLeft="@dimen/line_3"
                     android:layout_marginTop="@dimen/line_3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
@@ -521,7 +512,7 @@
                     android:background="@color/colorPrimary"
                     android:layout_marginTop="@dimen/line_3"
                     android:gravity="center"
-                    android:padding="@dimen/line_2"
+                    android:padding="@dimen/line_0"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -532,7 +523,7 @@
                         android:gravity="center"
                         android:orientation="vertical">
 
-                        <android.support.design.widget.TextInputLayout
+                        <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                             <EditText
@@ -546,7 +537,7 @@
                                 android:hint="@string/str_ingrese_direccion"
                                 android:maxLength="500"
                                 android:textSize="@dimen/text_2" />
-                        </android.support.design.widget.TextInputLayout>
+                        </com.google.android.material.textfield.TextInputLayout>
 
                     </LinearLayout>
 
@@ -575,18 +566,16 @@
 
             <LinearLayout android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/border_blanco_negro"
                 android:layout_marginTop="@dimen/margin_1"
-                android:padding="@dimen/margin_1"
                 android:orientation="vertical">
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimary"
                     android:gravity="center"
-                    android:paddingLeft="@dimen/line_2"
-                    android:paddingTop="@dimen/line_2"
-                    android:paddingRight="@dimen/line_2"
+                    android:paddingLeft="@dimen/line_0"
+                    android:paddingTop="@dimen/line_0"
+                    android:paddingRight="@dimen/line_0"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -613,7 +602,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:minHeight="@dimen/dimen_3"
-                        android:layout_marginLeft="@dimen/line_2"
+                        android:layout_marginLeft="@dimen/line_0"
                         android:layout_weight="1"
                         android:textColor="@color/colorAccent"
                         android:gravity="center"
@@ -638,9 +627,9 @@
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimary"
                     android:gravity="center"
-                    android:paddingLeft="@dimen/line_2"
-                    android:paddingTop="@dimen/line_2"
-                    android:paddingRight="@dimen/line_2"
+                    android:paddingLeft="@dimen/line_0"
+                    android:paddingTop="@dimen/line_0"
+                    android:paddingRight="@dimen/line_0"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -666,7 +655,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:minHeight="@dimen/dimen_3"
-                        android:layout_marginLeft="@dimen/line_2"
+                        android:layout_marginLeft="@dimen/line_0"
                         android:layout_weight="1"
                         android:background="@color/theme_window_background"
                         android:gravity="center"
@@ -690,9 +679,9 @@
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimary"
                     android:gravity="center"
-                    android:paddingLeft="@dimen/line_2"
-                    android:paddingTop="@dimen/line_2"
-                    android:paddingRight="@dimen/line_2"
+                    android:paddingLeft="@dimen/line_0"
+                    android:paddingTop="@dimen/line_0"
+                    android:paddingRight="@dimen/line_0"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -718,7 +707,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:minHeight="@dimen/dimen_3"
-                        android:layout_marginLeft="@dimen/line_2"
+                        android:layout_marginLeft="@dimen/line_0"
                         android:layout_weight="1"
                         android:background="@color/theme_window_background"
                         android:gravity="center"
@@ -741,9 +730,9 @@
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimary"
                     android:gravity="center"
-                    android:paddingLeft="@dimen/line_2"
-                    android:paddingTop="@dimen/line_2"
-                    android:paddingRight="@dimen/line_2"
+                    android:paddingLeft="@dimen/line_0"
+                    android:paddingTop="@dimen/line_0"
+                    android:paddingRight="@dimen/line_0"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -769,7 +758,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:minHeight="@dimen/dimen_3"
-                        android:layout_marginLeft="@dimen/line_2"
+                        android:layout_marginLeft="@dimen/line_0"
                         android:layout_weight="1"
                         android:background="@color/theme_window_background"
                         android:gravity="center"
@@ -792,7 +781,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimary"
                     android:gravity="center"
-                    android:padding="@dimen/line_2"
+                    android:padding="@dimen/line_0"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -818,7 +807,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:minHeight="@dimen/dimen_3"
-                        android:layout_marginLeft="@dimen/line_2"
+                        android:layout_marginLeft="@dimen/line_0"
                         android:layout_weight="1"
                         android:background="@color/theme_window_background"
                         android:gravity="center"
@@ -859,9 +848,7 @@
 
         <LinearLayout android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/border_blanco_negro"
             android:layout_marginTop="@dimen/margin_1"
-            android:padding="@dimen/margin_1"
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -869,7 +856,7 @@
                 android:layout_marginTop="@dimen/line_3"
                 android:background="@color/colorPrimary"
                 android:gravity="center"
-                android:padding="@dimen/line_2"
+                android:padding="@dimen/line_0"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -880,7 +867,7 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <android.support.design.widget.TextInputLayout
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
@@ -895,7 +882,7 @@
                             android:hint="@string/str_ingrese_contrasenna"
                             android:inputType="textPassword"
                             android:textSize="@dimen/text_1" />
-                    </android.support.design.widget.TextInputLayout>
+                    </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>
 
@@ -906,7 +893,7 @@
                 android:background="@color/colorPrimary"
                 android:gravity="center"
                 android:layout_marginTop="@dimen/line_3"
-                android:padding="@dimen/line_2"
+                android:padding="@dimen/line_0"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -917,7 +904,7 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <android.support.design.widget.TextInputLayout
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <EditText
@@ -931,7 +918,7 @@
                             android:gravity="center_horizontal"
                             android:hint="@string/str_repita_contrasenna"
                             android:textSize="@dimen/text_1" />
-                    </android.support.design.widget.TextInputLayout>
+                    </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>
 
@@ -945,7 +932,6 @@
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/dimen_3"
                 android:layout_marginTop="@dimen/dimen_0"
-                android:background="@drawable/border_blanco_negro"
                 android:gravity="center"
                 android:orientation="horizontal">
 

@@ -22,6 +22,7 @@ public class clsUsuario {
     private String str_dni;    
     private String str_telefono;
     private String str_direccion;
+    private int int_encuesta;
     private boolean bol_sexo;
     private int int_id_persona;   
     private byte[] byte_foto;
@@ -122,7 +123,14 @@ public class clsUsuario {
         this.bol_sexo = bol_sexo;
     }
 
- 
+    public int getInt_encuesta() {
+        return int_encuesta;
+    }
+
+    public void setInt_encuesta(int int_encuesta) {
+        this.int_encuesta = int_encuesta;
+    }
+
     public byte[] getByte_foto() {
         return byte_foto;
     }

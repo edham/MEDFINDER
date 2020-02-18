@@ -24,6 +24,7 @@ public class bdSQLite extends SQLiteOpenHelper {
                                 + "str_direccion text,"
                                 + "bol_sexo integer,"
                                 + "int_id_persona integer,"
+                                + "int_encuesta integer,"
                                 + "byte_foto blob)";
         
         private static final String CREATE_PACIENTE = "CREATE TABLE PACIENTE ("
@@ -151,6 +152,11 @@ public class bdSQLite extends SQLiteOpenHelper {
                                 + "int_puntaje integer,"
                                 + "dat_fecha numeric)";
 
+    private static final String CREATE_ENCUESTA= "CREATE TABLE ENCUESTA ("
+            + "int_id_encuesta integer PRIMARY KEY,"
+            + "str_pregunta text,"
+            + "int_orden integer)";
+
 
     @Override
     public void onConfigure(SQLiteDatabase db) {
@@ -180,6 +186,7 @@ public class bdSQLite extends SQLiteOpenHelper {
                 db.execSQL(CREATE_CITA_PACIENTE);
                 db.execSQL(CREATE_PREGUNTA_PACIENTE);
                 db.execSQL(CREATE_RESPUESTA_PREGUNTA_PACIENTE);
+                db.execSQL(CREATE_ENCUESTA);
                 
         }   
          
@@ -212,6 +219,8 @@ public class bdSQLite extends SQLiteOpenHelper {
                 db.execSQL(CREATE_PREGUNTA_PACIENTE);
                 db.execSQL("drop table if exists RESPUESTA_PREGUNTA_PACIENTE");
                 db.execSQL(CREATE_RESPUESTA_PREGUNTA_PACIENTE);
+                db.execSQL("drop table if exists ENCUESTA");
+                db.execSQL(CREATE_ENCUESTA);
 	}	
         
 }

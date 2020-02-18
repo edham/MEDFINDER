@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
@@ -151,6 +151,10 @@ public class LoginActivity extends AppCompatActivity {
                                                                                            if (validador) {
                                                                                                if (!clsRespuestaPreguntaPacienteDAO.AgregarLogin(LoginActivity.this, actualizarJSON.optString("listRespuestaPreguntaPacienteJSON"), true))
                                                                                                    validador = false;
+                                                                                                   if (validador) {
+                                                                                                       if (!clsEncuenstaDAO.AgregarLogin(LoginActivity.this, entidadJSON.optString("listEncuestaJSON"), true))
+                                                                                                           validador = false;///
+                                                                                                   }
                                                                                            }
                                                                                        }
                                                                                    }
