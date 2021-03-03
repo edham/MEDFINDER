@@ -52,9 +52,48 @@ public class clsUsuarioDAO {
         }
         bd.close();  
         return id;
-    }   
-   
-     public static clsUsuario Buscar(Context context)
+    }
+
+    public  static boolean Actualizar(Context context,clsUsuario entidad)
+    {
+        int cant=0;
+        bdSQLite admin=new bdSQLite(context,null);
+        SQLiteDatabase bd=admin.getWritableDatabase();
+        if(bd!=null)
+        {
+        ContentValues registro=new ContentValues();
+
+        registro.put("str_nombres",entidad.getStr_nombres());
+        registro.put("str_apellido_paterno",entidad.getStr_apellido_paterno());
+        registro.put("str_apellido_materno",entidad.getStr_apellido_materno());
+        registro.put("str_usuario",entidad.getStr_usuario());
+        registro.put("str_clave",entidad.getStr_clave());
+        registro.put("str_email",entidad.getStr_email());
+        registro.put("str_dni",entidad.getStr_dni());
+        registro.put("str_telefono",entidad.getStr_telefono());
+        registro.put("str_direccion",entidad.getStr_direccion());
+        registro.put("int_id_persona",entidad.getInt_id_persona());
+        registro.put("int_encuesta",0);
+        if(entidad.getByte_foto()!=null)
+            registro.put("byte_foto",entidad.getByte_foto());
+
+        if(entidad.isBol_sexo())
+            registro.put("bol_sexo",1);
+        else
+            registro.put("bol_sexo",0);
+
+        cant = bd.update(NOMBRE_TABLA, registro, "int_id_usuario="+entidad.getInt_id_usuario(), null);
+        bd.close();
+        }
+        if(cant==1)
+            return true;
+        else
+            return false;
+
+    }
+
+
+    public static clsUsuario Buscar(Context context)
      {
         clsUsuario entidad=null;
         bdSQLite admin=new bdSQLite(context,null);

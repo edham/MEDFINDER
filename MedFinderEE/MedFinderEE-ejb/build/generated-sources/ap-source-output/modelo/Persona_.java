@@ -11,7 +11,7 @@ import modelo.EncuestaDetallePersona;
 import modelo.Paciente;
 import modelo.Usuario;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2020-02-09T20:56:29")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2020-03-10T01:57:44")
 @StaticMetamodel(Persona.class)
 public class Persona_ { 
 

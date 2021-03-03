@@ -1,6 +1,7 @@
 package com.med.finder.cliente.activity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -14,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import com.google.android.material.navigation.NavigationView;
 import androidx.core.view.GravityCompat;
@@ -23,12 +25,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import com.med.finder.cliente.R;
 import com.med.finder.cliente.conexion.InsertarEncuestaHTTP;
+import com.med.finder.cliente.dao.clsEncuestaDAO;
 import com.med.finder.cliente.dao.clsUsuarioDAO;
+import com.med.finder.cliente.entidades.clsEncuesta;
 import com.med.finder.cliente.entidades.clsUsuario;
 import com.med.finder.cliente.fragment.CasosSaludFragment;
 import com.med.finder.cliente.fragment.CitasFragment;
@@ -42,6 +49,7 @@ import com.med.finder.cliente.utilidades.CustomFontTextView;
 import com.med.finder.cliente.utilidades.ImagenArchivo;
 import com.med.finder.cliente.utilidades.Utilidades;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -57,6 +65,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public int posConsulta=0;
     private FloatingActionButton btnConsulta;
     public ProgressDialog pd;
+    private ListView listEncuesta;
+    private List<clsEncuesta> listaEncuesta;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -346,79 +357,42 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void dialogoEncuesta()
     {
-        final Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        dialog.setCancelable(false);
-        dialog.setContentView(R.layout.dialog_encuesta_uno);
-        final CustomFontTextView lblP1 = (CustomFontTextView)dialog.findViewById(R.id.lblP1);
-        final CustomFontTextView lblP2 = (CustomFontTextView)dialog.findViewById(R.id.lblP2);
-        final CustomFontTextView lblP3 = (CustomFontTextView)dialog.findViewById(R.id.lblP3);
-
-        if(inicio) {
-            lblP1.setText("Cuál consideras que es tu nivel de acceso a consultas médicas sin el uso de una aplicación móvil?");
-            lblP2.setText("¿Cuál consideras que es tu nivel de acceso a reserva de citas médicas sin el uso de una aplicación móvil?");
-            lblP3.setText("¿Cuál consideras que es tu nivel de acceso a recomendaciones médicas sin el uso de una aplicación móvil?");
-        }else
+        if(objUsuario.getInt_encuesta()==0)
         {
-            lblP1.setText("¿Cuál consideras que es tu nivel de acceso a consultas médicas con el uso de la aplicación móvil?");
-            lblP2.setText("¿Cuál consideras que es tu nivel de acceso a reserva de citas médicas con el uso de la aplicación móvil?");
-            lblP3.setText("¿Cuál consideras que es tu nivel de acceso a recomendaciones médicas con el uso de la aplicación móvil?");
-        }
+            final Dialog dialog = new Dialog(this);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+            dialog.setCancelable(false);
+            dialog.setContentView(R.layout.dialog_encuesta);
 
-        final RadioGroup rdgGrupo1 = (RadioGroup)dialog.findViewById(R.id.rdgGrupo1);
-        final RadioGroup rdgGrupo2 = (RadioGroup)dialog.findViewById(R.id.rdgGrupo2);
-        final RadioGroup rdgGrupo3 = (RadioGroup)dialog.findViewById(R.id.rdgGrupo3);
+            listEncuesta = (ListView) dialog.findViewById(R.id.listEncuesta);
+            listaEncuesta = clsEncuestaDAO.Listar(this);
+            Adaptador adaptador = new Adaptador(this);
+            listEncuesta.setAdapter(adaptador);
+            Utilidades.setListViewHeightBasedOnChildren(listEncuesta);
 
-        FloatingActionButton btnAceptar = (FloatingActionButton) dialog.findViewById(R.id.btnAceptar);
-        btnAceptar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int p1=0;
-                int checkedId1 = rdgGrupo1.getCheckedRadioButtonId();
-                if (checkedId1 == R.id.rdb11){
-                    p1=1;
-                }else if (checkedId1 == R.id.rdb12){
-                    p1=2;
-                }else if (checkedId1 == R.id.rdb13){
-                    p1=3;
-                }else if (checkedId1 == R.id.rdb14){
-                    p1=4;
-                }else if (checkedId1 == R.id.rdb15){
-                    p1=5;
+            FloatingActionButton btnAceptar = (FloatingActionButton) dialog.findViewById(R.id.btnAceptar);
+            btnAceptar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int c = 0;
+                    for (clsEncuesta encuesta : listaEncuesta) {
+                        if (encuesta.getInt_valor() == 0)
+                            c++;
+                    }
+                    if (c == 0) {
+                        btnAceptar();
+                        dialog.dismiss();
+
+                    } else {
+                        Utilidades.alert(MainActivity.this, getString(R.string.str_selecciones_todo));
+
+                    }
+
                 }
+            });
 
-                int p2=0;
-                int checkedId2 = rdgGrupo2.getCheckedRadioButtonId();
-                if (checkedId2 == R.id.rdb21){
-                    p2=1;
-                }else if (checkedId2 == R.id.rdb22){
-                    p2=2;
-                }else if (checkedId2 == R.id.rdb23){
-                    p2=3;
-                }else if (checkedId2 == R.id.rdb24){
-                    p2=4;
-                }else if (checkedId2 == R.id.rdb25){
-                    p2=5;
-                }
-
-                int p3=0;
-                int checkedId3 = rdgGrupo3.getCheckedRadioButtonId();
-                if (checkedId3 == R.id.rdb31){
-                    p3=1;
-                }else if (checkedId3 == R.id.rdb32){
-                    p3=2;
-                }else if (checkedId3 == R.id.rdb33){
-                    p3=3;
-                }else if (checkedId3 == R.id.rdb34){
-                    p3=4;
-                }else if (checkedId3 == R.id.rdb35){
-                    p3=5;
-                }
-                dialog.dismiss();
-                btnAceptar((inicio)?1:4,(inicio)?2:5,(inicio)?3:6,p1,p2,p3);
-            }
-        });
+/*
         FloatingActionButton btnCancelar = (FloatingActionButton) dialog.findViewById(R.id.btnCancelar);
         btnCancelar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -426,13 +400,62 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 dialog.dismiss();
             }
         });
-        dialog.show();
+        */
+            dialog.show();
+        }
     }
 
-    public void btnAceptar(final int p1,final int p2,final int p3,final int t1,final int t2,final int t3) {
+
+    class Adaptador extends ArrayAdapter {
+
+        Activity context;
+
+        Adaptador(Activity context) {
+            super(context, R.layout.list_encuestas,listaEncuesta);
+            this.context = context;
+        }
+
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            LayoutInflater inflater = context.getLayoutInflater();
+            View item = inflater.inflate(R.layout.list_encuestas, null);
+
+            CustomFontTextView lblPregunta = (CustomFontTextView)item.findViewById(R.id.lblPregunta);
+            lblPregunta.setText(listaEncuesta.get(position).getStr_pregunta());
+
+            final RadioGroup rdgGrupo = (RadioGroup)item.findViewById(R.id.rdgGrupo);
+
+            rdgGrupo.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                public void onCheckedChanged(RadioGroup group, int checkedId) {
+                    switch (checkedId) {
+                        case  R.id.rdb1:
+                            listaEncuesta.get(position).setInt_valor(1);
+                            break;
+                        case  R.id.rdb2:
+                            listaEncuesta.get(position).setInt_valor(2);
+                            break;
+                        case  R.id.rdb3:
+                            listaEncuesta.get(position).setInt_valor(3);
+                            break;
+                        case  R.id.rdb4:
+                            listaEncuesta.get(position).setInt_valor(4);
+                            break;
+                        case  R.id.rdb5:
+                            listaEncuesta.get(position).setInt_valor(5);
+                            break;
+                    }
+                }
+
+            });
+            return item;
+        }
+    }
+
+
+    public void btnAceptar() {
 
         if ( Utilidades.checkPermissions(this) && Utilidades.addListaBlanca(this))
         {
+
                 pd = new ProgressDialog(this);
                 pd.setTitle("Cargando Datos");
                 pd.setMessage("Espere un momento");
@@ -444,8 +467,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         Bundle bundle = new Bundle();
                         try {
                             InsertarEncuestaHTTP login = new InsertarEncuestaHTTP();
+                            JSONArray listJson = new JSONArray();
+                            for (clsEncuesta encuesta : listaEncuesta) {
+                                JSONObject entidadJSON = new JSONObject();
+                                entidadJSON.put("id", encuesta.getInt_id_encuesta());
+                                entidadJSON.put("puntaje", encuesta.getInt_valor());
+                                listJson.put(entidadJSON);
+                            }
 
-                            login.execute(objUsuario.getInt_id_persona(),p1,t1,p2,t2,p3,t3);
+                            login.execute(objUsuario.getInt_id_persona(),listJson.toString());
                             String result = login.get();
                             if(!result.equals(""))
                             {
@@ -458,6 +488,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         } catch (ExecutionException e) {
+                            e.printStackTrace();
+                        } catch (JSONException e) {
                             e.printStackTrace();
                         }
 
@@ -477,10 +509,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Log.e("--------------",objeto.toString());
                 if(!objeto.isNull("rpta") && objeto.getInt("rpta")==1 )
                 {
-
-                }else
-                {
-
+                    objUsuario.setInt_encuesta(1);
+                    clsUsuarioDAO.Actualizar(MainActivity.this,objUsuario);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

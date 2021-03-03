@@ -13,9 +13,11 @@ package com.med.finder.cliente.entidades;
 public class clsEncuesta {
     private int int_id_encuesta;
     private String str_pregunta;
+    private int int_valor;
     private int int_orden;
 
     public clsEncuesta() {
+        this.int_valor=0;
     }
 
     public int getInt_id_encuesta() {
@@ -40,6 +42,14 @@ public class clsEncuesta {
 
     public void setInt_orden(int int_orden) {
         this.int_orden = int_orden;
+    }
+
+    public int getInt_valor() {
+        return int_valor;
+    }
+
+    public void setInt_valor(int int_valor) {
+        this.int_valor = int_valor;
     }
 
     @Override

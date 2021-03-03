@@ -8,7 +8,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 import modelo.Departamento;
 import modelo.Distrito;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2020-02-09T20:56:28")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2020-03-10T01:57:44")
 @StaticMetamodel(Provincia.class)
 public class Provincia_ { 
 

@@ -56,7 +56,7 @@ public class ClinicasFragment extends Fragment implements LocationListener,Googl
     private int idEspecialidad=0;
 
     private  int distancia=0;
-    MapView mapView;
+    private MapView mapView;
     private GoogleMap googleMap;
     private LatLng puntosGPS;
     // flag for GPS status

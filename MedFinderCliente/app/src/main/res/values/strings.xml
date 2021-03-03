@@ -125,6 +125,9 @@
 
     <string name="str_ingrese_telefono">INGRESE N° TELEFONICO</string>
 
+
+    <string name="str_selecciones_todo">POR FAVOR SELECCIONES TODAS LAS OPCIONES</string>
+
     <string name="str_seleccionar_departamento">SELECCIONAR DEPARTAMENTO</string>
     <string name="str_seleccionar_provincia">SELECCIONAR PROVINCIA</string>
     <string name="str_seleccionar_distrito">SELECCIONAR DISTRITO</string>

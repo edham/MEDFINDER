@@ -152,7 +152,7 @@ public class LoginActivity extends AppCompatActivity {
                                                                                                if (!clsRespuestaPreguntaPacienteDAO.AgregarLogin(LoginActivity.this, actualizarJSON.optString("listRespuestaPreguntaPacienteJSON"), true))
                                                                                                    validador = false;
                                                                                                    if (validador) {
-                                                                                                       if (!clsEncuenstaDAO.AgregarLogin(LoginActivity.this, entidadJSON.optString("listEncuestaJSON"), true))
+                                                                                                       if (!clsEncuestaDAO.AgregarLogin(LoginActivity.this, entidadJSON.optString("listEncuestaJSON"), true))
                                                                                                            validador = false;///
                                                                                                    }
                                                                                            }

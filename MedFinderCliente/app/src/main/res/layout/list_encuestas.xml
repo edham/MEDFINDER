@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/dimen_10"
+        android:gravity="center"
+        android:layout_margin="@dimen/dimen_0"
+        android:background="@drawable/border_blanco_negro"
+        android:orientation="vertical">
+        <com.med.finder.cliente.utilidades.CustomFontTextView
+            android:id="@+id/lblPregunta"
+            android:layout_margin="@dimen/dimen_0"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:gravity="center"
+            android:textSize="@dimen/text_1"
+            app:fontAttr="@string/font_myraid_roman" />
+        <RadioGroup
+            android:id="@+id/rdgGrupo"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginBottom="@dimen/dimen_1">
+            <RadioButton
+                android:id="@+id/rdb1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/dimen_1"
+                android:text="Muy \n bajo"/>
+            <RadioButton
+                android:id="@+id/rdb2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/dimen_1"
+                android:text="Bajo"/>
+            <RadioButton
+                android:id="@+id/rdb3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/dimen_1"
+                android:text="Regular "/>
+            <RadioButton
+                android:id="@+id/rdb4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/dimen_1"
+                android:text="Alto"/>
+            <RadioButton
+                android:id="@+id/rdb5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/dimen_1"
+                android:text="Muy\nAlto"/>
+        </RadioGroup>
+    </LinearLayout>
+
+</LinearLayout>
+
+

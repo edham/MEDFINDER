@@ -698,7 +698,7 @@ public class servicio_usuario extends HttpServlet {
                 } // <editor-fold defaultstate="collapsed" desc="encuesta">
                 else if (idServicio == 11 && request.getParameter("idPersona") != null && request.getParameter("idPersona") != ""
                         && request.getParameter("encuesta") != null && request.getParameter("encuesta") != "") {
-
+                            System.out.println("encuesta "+request.getParameter("encuesta"));
                     JSONArray listEmpresaJSON = new JSONArray(request.getParameter("encuesta"));
                     for (int i = 0; i < listEmpresaJSON.length(); i++) {
                         JSONObject json_data = listEmpresaJSON.getJSONObject(i);
